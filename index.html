@@ -21,7 +21,7 @@
       <img src="assets/escudo-blanco.png" alt="Escudo del Sporting de Maderasa" class="crest" />
       <div class="brand-text">
         <span class="brand-eyebrow">Liga Local de Aranjuez · 1ª Aficionados F-11</span>
-        <h1>Sporting de Maderasa <span class="brand-sub">— Bar Juanjo</span></h1>
+        <h1>Sporting de Maderasa <span class="brand-sub">&mdash;&nbsp;Bar Juanjo</span></h1>
       </div>
     </div>
     <div class="position-badge" id="position-badge">
@@ -49,8 +49,22 @@
   <!-- CLASIFICACIÓN -->
   <section class="section" id="clasificacion">
     <div class="wrap">
-      <h2 class="section-title">Clasificación</h2>
-      <p class="section-sub" id="competition-title">—</p>
+      <div class="section-header-row">
+        <div>
+          <h2 class="section-title">Clasificación</h2>
+          <p class="section-sub" id="competition-title">—</p>
+        </div>
+        <div class="selectors-group">
+          <label class="round-select-wrap">
+            <span>Temporada:</span>
+            <select id="season-select"></select>
+          </label>
+          <label class="round-select-wrap">
+            <span>Ver jornada:</span>
+            <select id="round-select"></select>
+          </label>
+        </div>
+      </div>
       <p class="section-sub standings-note" id="standings-note" style="display:none;"></p>
 
       <div class="table-scroll">
@@ -84,20 +98,8 @@
   <!-- RESULTADOS -->
   <section class="section" id="resultados">
     <div class="wrap">
-      <div class="section-header-row">
-        <div>
-          <h2 class="section-title">Resultados de la jornada</h2>
-          <p class="section-sub" id="round-label-2">—</p>
-        </div>
-        <label class="round-select-wrap">
-          <span>Temporada:</span>
-          <select id="season-select"></select>
-        </label>
-        <label class="round-select-wrap">
-          <span>Ver jornada:</span>
-          <select id="round-select"></select>
-        </label>
-      </div>
+      <h2 class="section-title">Resultados de la jornada</h2>
+      <p class="section-sub" id="round-label-2">—</p>
       <div class="results-grid" id="results-grid">
         <!-- generado por JS -->
       </div>

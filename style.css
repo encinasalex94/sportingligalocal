@@ -80,6 +80,7 @@ a { color: inherit; }
   display: flex;
   align-items: center;
   gap: 18px;
+  min-width: 0;
 }
 
 .crest {
@@ -98,6 +99,10 @@ a { color: inherit; }
   margin-bottom: 4px;
 }
 
+.brand-text {
+  min-width: 0;
+}
+
 .brand-text h1 {
   margin: 0;
   font-family: var(--font-display);
@@ -111,7 +116,6 @@ a { color: inherit; }
 .brand-sub {
   color: var(--slate-light);
   font-weight: 400;
-  white-space: nowrap;
 }
 
 .position-badge {
@@ -522,6 +526,13 @@ table.standings tbody tr.own-row td.cell-team::before {
   margin-bottom: 0;
 }
 
+.selectors-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
 .round-select-wrap {
   display: flex;
   align-items: center;
@@ -891,6 +902,11 @@ button:focus-visible {
 
   .section-header-row {
     align-items: flex-start;
+  }
+
+  .selectors-group {
+    width: 100%;
+    align-items: stretch;
   }
 
   .round-select-wrap {

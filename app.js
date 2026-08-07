@@ -163,7 +163,7 @@ function renderStandings(standings, options = {}) {
   const note = document.getElementById('standings-note');
   note.textContent = options.computed
     ? `Clasificación calculada a fecha de la jornada ${options.round} (puede variar levemente de la oficial en desempates especiales).`
-    : 'Clasificación oficial tras la última jornada disputada. Usa el selector de "Ver jornada" más abajo para ver la clasificación en otro momento de la temporada.';
+    : 'Clasificación oficial tras la última jornada disputada. Usa el selector de "Ver jornada" de arriba para verla en otro momento de la temporada.';
   note.style.display = '';
 }
 
@@ -245,13 +245,48 @@ function renderRoundSelector(data) {
   });
 }
 
+// Temporadas que ofrece el desplegable de la propia web de FFMadrid. De
+// momento solo tenemos datos cargados de la temporada actual; el resto se
+// irán añadiendo cuando descarguemos su histórico (ver README).
+const AVAILABLE_SEASONS = [
+  { value: '21', label: '2025-2026' },
+  { value: '20', label: '2024-2025' },
+  { value: '19', label: '2023-2024' },
+  { value: '18', label: '2022-2023' },
+  { value: '17', label: '2021-2022' },
+  { value: '15', label: '2019-2020' },
+  { value: '14', label: '2018-2019' },
+];
+
 function renderSeasonSelector(data) {
   const select = document.getElementById('season-select');
   if (!select) return;
-  const season = data.season || '2025-2026';
-  select.innerHTML = `<option value="${season}">${season}</option>`;
-  select.disabled = true;
-  select.title = 'De momento solo tenemos datos de la temporada actual. Cuando el club juegue más temporadas con esta web, aparecerán aquí.';
+  const currentSeason = data.season || '2025-2026';
+
+  select.innerHTML = AVAILABLE_SEASONS
+    .map((s) => `<option value="${s.value}" ${s.label === currentSeason ? 'selected' : ''}>${s.label}</option>`)
+    .join('');
+
+  select.addEventListener('change', () => {
+    const chosen = AVAILABLE_SEASONS.find((s) => s.value === select.value);
+    if (chosen && chosen.label === currentSeason) {
+      // Volvemos a la temporada con datos: repintamos todo con normalidad.
+      renderRoundSelector(DATA);
+    } else {
+      showSeasonUnavailable(chosen ? chosen.label : select.value);
+    }
+  });
+}
+
+function showSeasonUnavailable(seasonLabel) {
+  document.getElementById('round-select').innerHTML = '<option>—</option>';
+  document.getElementById('round-label-2').textContent = '';
+  document.getElementById('results-grid').innerHTML =
+    `<p class="results-empty">Todavía no tenemos datos cargados de la temporada ${seasonLabel}. Se irán añadiendo según el club vaya jugando (o se importe su histórico).</p>`;
+  document.getElementById('standings-note').style.display = '';
+  document.getElementById('standings-note').textContent =
+    `Sin datos de la temporada ${seasonLabel} todavía.`;
+  document.getElementById('standings-body').innerHTML = '';
 }
 
 function copaResultBadge(m) {
