@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sporting de Maderasa - Bar Juanjo | Liga Local de Aranjuez</title>
+<meta name="description" content="Clasificación, resultados y goleadores del Sporting de Maderasa - Bar Juanjo en la Liga Local de Fútbol Aficionado de Aranjuez." />
+<link rel="icon" href="assets/escudo-blanco.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="pitch-lines" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <div class="brand">
+      <img src="assets/escudo-blanco.png" alt="Escudo del Sporting de Maderasa" class="crest" />
+      <div class="brand-text">
+        <span class="brand-eyebrow">Liga Local de Aranjuez · 1ª Aficionados F-11</span>
+        <h1>Sporting de Maderasa <span class="brand-sub">— Bar Juanjo</span></h1>
+      </div>
+    </div>
+    <div class="position-badge" id="position-badge">
+      <span class="position-number" id="position-number">—</span>
+      <span class="position-label">posición</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO: marcador del último partido -->
+  <section class="scoreboard-hero">
+    <div class="wrap">
+      <p class="section-eyebrow" id="round-label">Última jornada</p>
+      <div class="scoreboard" id="hero-scoreboard">
+        <!-- generado por JS -->
+      </div>
+      <div class="hero-meta-wrap" id="hero-meta"></div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- CLASIFICACIÓN -->
+  <section class="section" id="clasificacion">
+    <div class="wrap">
+      <h2 class="section-title">Clasificación</h2>
+      <p class="section-sub" id="competition-title">—</p>
+      <p class="section-sub standings-note" id="standings-note" style="display:none;"></p>
+
+      <div class="table-scroll">
+        <table class="standings">
+          <thead>
+            <tr>
+              <th class="col-pos">#</th>
+              <th class="col-team">Equipo</th>
+              <th>Pts</th>
+              <th>PJ</th>
+              <th>G</th>
+              <th>E</th>
+              <th>P</th>
+              <th>GF</th>
+              <th>GC</th>
+              <th>DG</th>
+              <th class="col-form">Racha</th>
+            </tr>
+          </thead>
+          <tbody id="standings-body">
+            <!-- generado por JS -->
+          </tbody>
+        </table>
+      </div>
+      <p class="scroll-hint">desliza para ver más columnas →</p>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- RESULTADOS -->
+  <section class="section" id="resultados">
+    <div class="wrap">
+      <div class="section-header-row">
+        <div>
+          <h2 class="section-title">Resultados de la jornada</h2>
+          <p class="section-sub" id="round-label-2">—</p>
+        </div>
+        <label class="round-select-wrap">
+          <span>Temporada:</span>
+          <select id="season-select"></select>
+        </label>
+        <label class="round-select-wrap">
+          <span>Ver jornada:</span>
+          <select id="round-select"></select>
+        </label>
+      </div>
+      <div class="results-grid" id="results-grid">
+        <!-- generado por JS -->
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- CALENDARIO / HISTORIAL DE LA TEMPORADA -->
+  <section class="section" id="calendario">
+    <div class="wrap">
+      <h2 class="section-title">Calendario del Sporting</h2>
+      <p class="section-sub" id="calendar-summary">—</p>
+      <div class="calendar-list" id="calendar-list">
+        <!-- generado por JS -->
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- COPA -->
+  <section class="section" id="copa">
+    <div class="wrap">
+      <h2 class="section-title">Copa</h2>
+      <p class="section-sub">El recorrido del Sporting en la Copa Aficionados F-11, formato de grupos + eliminatorias</p>
+      <div class="copa-stages" id="copa-stages">
+        <!-- generado por JS -->
+      </div>
+      <div class="copa-group-standings" id="copa-group-standings-wrap"></div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- GOLEADORES -->
+  <section class="section" id="goleadores">
+    <div class="wrap two-col">
+      <div>
+        <h2 class="section-title">Goleadores del Sporting</h2>
+        <ol class="scorer-list" id="own-scorers">
+          <!-- generado por JS -->
+        </ol>
+      </div>
+      <div>
+        <h2 class="section-title">Máximos goleadores del grupo</h2>
+        <ol class="scorer-list" id="top-scorers">
+          <!-- generado por JS -->
+        </ol>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <img src="assets/escudo-blanco.png" alt="" class="crest-small" />
+    <p>Datos oficiales de la Real Federación de Fútbol de Madrid (FFMadrid · NFG), actualizados automáticamente.
+      <span id="updated-at"></span>
+    </p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

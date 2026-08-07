@@ -1,0 +1,2139 @@
+{
+  "generatedAt": "2026-05-18T00:00:00.000Z",
+  "team": {
+    "id": "1000030",
+    "name": "SPORTING DE MADERASA - BAR JUANJO"
+  },
+  "competition": {
+    "title": "LIGA AFICIONADOS F-11, 1ª AFICIONADOS F-11",
+    "season": "Temporada 2025-2026",
+    "round": "Jornada 22 (17-05-2026)"
+  },
+  "standings": [
+    {
+      "position": 1,
+      "teamId": "1000033",
+      "teamName": "FYSOL-POSTAS",
+      "points": 59,
+      "played": 22,
+      "won": 19,
+      "drawn": 2,
+      "lost": 1,
+      "goalsFor": 81,
+      "goalsAgainst": 19,
+      "goalDifference": 62,
+      "form": [
+        "E",
+        "G",
+        "G",
+        "G",
+        "G"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 2,
+      "teamId": "1000012",
+      "teamName": "RIMATEC-PUB TENESSE",
+      "points": 49,
+      "played": 22,
+      "won": 15,
+      "drawn": 4,
+      "lost": 3,
+      "goalsFor": 65,
+      "goalsAgainst": 29,
+      "goalDifference": 36,
+      "form": [
+        "E",
+        "G",
+        "G",
+        "G",
+        "P"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 3,
+      "teamId": "1000026",
+      "teamName": "NEWTEAM- SMT",
+      "points": 38,
+      "played": 22,
+      "won": 12,
+      "drawn": 2,
+      "lost": 8,
+      "goalsFor": 53,
+      "goalsAgainst": 38,
+      "goalDifference": 15,
+      "form": [
+        "E",
+        "P",
+        "P",
+        "P",
+        "G"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 4,
+      "teamId": "1000027",
+      "teamName": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+      "points": 37,
+      "played": 22,
+      "won": 12,
+      "drawn": 1,
+      "lost": 9,
+      "goalsFor": 58,
+      "goalsAgainst": 43,
+      "goalDifference": 15,
+      "form": [
+        "P",
+        "P",
+        "G",
+        "G",
+        "G"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 5,
+      "teamId": "1000030",
+      "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+      "points": 33,
+      "played": 22,
+      "won": 9,
+      "drawn": 6,
+      "lost": 7,
+      "goalsFor": 43,
+      "goalsAgainst": 40,
+      "goalDifference": 3,
+      "form": [
+        "E",
+        "G",
+        "G",
+        "E",
+        "P"
+      ],
+      "isOwnTeam": true
+    },
+    {
+      "position": 6,
+      "teamId": "1007402",
+      "teamName": "RUMANIA CF",
+      "points": 30,
+      "played": 22,
+      "won": 9,
+      "drawn": 3,
+      "lost": 10,
+      "goalsFor": 56,
+      "goalsAgainst": 58,
+      "goalDifference": -2,
+      "form": [
+        "E",
+        "P",
+        "G",
+        "G",
+        "G"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 7,
+      "teamId": "1000049",
+      "teamName": "DELAPIO-40 BAR DE VINOS",
+      "points": 29,
+      "played": 22,
+      "won": 9,
+      "drawn": 2,
+      "lost": 11,
+      "goalsFor": 51,
+      "goalsAgainst": 58,
+      "goalDifference": -7,
+      "form": [
+        "G",
+        "P",
+        "P",
+        "P",
+        "P"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 8,
+      "teamId": "1000007",
+      "teamName": "TORINO - VENTACONS - BAR JUANI",
+      "points": 25,
+      "played": 22,
+      "won": 7,
+      "drawn": 4,
+      "lost": 11,
+      "goalsFor": 37,
+      "goalsAgainst": 52,
+      "goalDifference": -15,
+      "form": [
+        "P",
+        "E",
+        "P",
+        "P",
+        "G"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 9,
+      "teamId": "1000034",
+      "teamName": "J.C.R. - ATLETICO JERINGA",
+      "points": 24,
+      "played": 22,
+      "won": 8,
+      "drawn": 0,
+      "lost": 14,
+      "goalsFor": 42,
+      "goalsAgainst": 65,
+      "goalDifference": -23,
+      "form": [
+        "G",
+        "G",
+        "P",
+        "P",
+        "P"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 10,
+      "teamId": "1005397",
+      "teamName": "NEWCASTLE PUB F.C.",
+      "points": 21,
+      "played": 21,
+      "won": 6,
+      "drawn": 3,
+      "lost": 12,
+      "goalsFor": 27,
+      "goalsAgainst": 49,
+      "goalDifference": -22,
+      "form": [
+        "P",
+        "G",
+        "P",
+        "G",
+        "G"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 11,
+      "teamId": "1000059",
+      "teamName": "INTER DE SÉK",
+      "points": 19,
+      "played": 22,
+      "won": 5,
+      "drawn": 4,
+      "lost": 13,
+      "goalsFor": 31,
+      "goalsAgainst": 54,
+      "goalDifference": -23,
+      "form": [
+        "G",
+        "P",
+        "P",
+        "E",
+        "P"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 12,
+      "teamId": "1000056",
+      "teamName": "MAGREB UNITED",
+      "points": 12,
+      "played": 21,
+      "won": 3,
+      "drawn": 3,
+      "lost": 15,
+      "goalsFor": 32,
+      "goalsAgainst": 71,
+      "goalDifference": -39,
+      "form": [
+        "P",
+        "E",
+        "G",
+        "P",
+        "P"
+      ],
+      "isOwnTeam": false
+    }
+  ],
+  "lastRoundResults": [
+    {
+      "homeTeam": "FYSOL-POSTAS",
+      "homeTeamId": "1000033",
+      "awayTeam": "RIMATEC-PUB TENESSE",
+      "awayTeamId": "1000012",
+      "homeGoals": 8,
+      "awayGoals": 1,
+      "time": "09:00",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+    },
+    {
+      "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+      "homeTeamId": "1000030",
+      "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+      "awayTeamId": "1000007",
+      "homeGoals": 3,
+      "awayGoals": 7,
+      "time": "10:30",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+    },
+    {
+      "homeTeam": "NEWCASTLE PUB F.C.",
+      "homeTeamId": "1005397",
+      "awayTeam": "INTER DE SÉK",
+      "awayTeamId": "1000059",
+      "homeGoals": 1,
+      "awayGoals": 0,
+      "time": "12:00",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+    },
+    {
+      "homeTeam": "J.C.R. - ATLETICO JERINGA",
+      "homeTeamId": "1000034",
+      "awayTeam": "NEWTEAM- SMT",
+      "awayTeamId": "1000026",
+      "homeGoals": 1,
+      "awayGoals": 3,
+      "time": "10:30",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+    },
+    {
+      "homeTeam": "DELAPIO-40 BAR DE VINOS",
+      "homeTeamId": "1000049",
+      "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+      "awayTeamId": "1000027",
+      "homeGoals": 2,
+      "awayGoals": 6,
+      "time": "09:00",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+    },
+    {
+      "homeTeam": "MAGREB UNITED",
+      "homeTeamId": "1000056",
+      "awayTeam": "RUMANIA CF",
+      "awayTeamId": "1007402",
+      "homeGoals": 3,
+      "awayGoals": 6,
+      "time": "13:40",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+    }
+  ],
+  "topScorers": [
+    {
+      "player": "RUSZ, VIOREL MARIAN",
+      "team": "RUMANIA CF",
+      "played": 19,
+      "goals": 24,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "FABRA GORREA, RAFAEL",
+      "team": "FYSOL-POSTAS",
+      "played": 20,
+      "goals": 17,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "TIZON CASILLAS, FRANCISCO JAVIER",
+      "team": "FYSOL-POSTAS",
+      "played": 14,
+      "goals": 15,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "MONZON RUIZ, FERNANDO",
+      "team": "DELAPIO-40 BAR DE VINOS",
+      "played": 15,
+      "goals": 14,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "GOMEZ TORRES, PABLO",
+      "team": "NEWCASTLE PUB F.C.",
+      "played": 16,
+      "goals": 12,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "BLANCAS MARTIN, MARIO RAFAEL",
+      "team": "DELAPIO-40 BAR DE VINOS",
+      "played": 19,
+      "goals": 12,
+      "penalties": 3,
+      "isOwnTeam": false
+    },
+    {
+      "player": "MATIN VALLEJO, TOMAS",
+      "team": "J.C.R. - ATLETICO JERINGA",
+      "played": 16,
+      "goals": 11,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "GONZALEZ LANZAS, JULIO",
+      "team": "RIMATEC-PUB TENESSE",
+      "played": 19,
+      "goals": 10,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "SANSEGUNDO LOPEZ, JAVIER",
+      "team": "INTER DE SÉK",
+      "played": 20,
+      "goals": 10,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "RODRIGUEZ OSORIO GARCIA, GONZALO",
+      "team": "TORINO - VENTACONS - BAR JUANI",
+      "played": 11,
+      "goals": 9,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "ZORITA DEL NUEVO, RUBEN",
+      "team": "NEWTEAM- SMT",
+      "played": 13,
+      "goals": 9,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "MARTINEZ BONMATI, GONZALO",
+      "team": "RIMATEC-PUB TENESSE",
+      "played": 16,
+      "goals": 9,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "HIJOSA VASALLO, DANIEL",
+      "team": "J.C.R. - ATLETICO JERINGA",
+      "played": 18,
+      "goals": 9,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "SANCHEZ ALFONSO, JUAN MANUEL",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 20,
+      "goals": 9,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "DOMINGUEZ DIAZ, CARLOS",
+      "team": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+      "played": 20,
+      "goals": 9,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "GUZMAN CABRERA, JEAN PAUL",
+      "team": "RUMANIA CF",
+      "played": 17,
+      "goals": 8,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "CRACIUN, VLAD ANDREI",
+      "team": "J.C.R. - ATLETICO JERINGA",
+      "played": 20,
+      "goals": 8,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "COSMA, IONUT DANIEL",
+      "team": "RUMANIA CF",
+      "played": 21,
+      "goals": 8,
+      "penalties": 2,
+      "isOwnTeam": false
+    },
+    {
+      "player": "TEI SORGBODJOR, RICHARD",
+      "team": "TORINO - VENTACONS - BAR JUANI",
+      "played": 13,
+      "goals": 7,
+      "penalties": 0,
+      "isOwnTeam": false
+    },
+    {
+      "player": "RECUERO AREVALO, JESUS",
+      "team": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+      "played": 16,
+      "goals": 7,
+      "penalties": 0,
+      "isOwnTeam": false
+    }
+  ],
+  "ownTeamCalendar": [
+    {
+      "round": 1,
+      "roundLabel": null,
+      "date": "20-09-2025",
+      "isHome": true,
+      "opponent": "RIMATEC-PUB TENESSE",
+      "goalsFor": 1,
+      "goalsAgainst": 5,
+      "played": true,
+      "result": "P",
+      "penalties": null
+    },
+    {
+      "round": 2,
+      "roundLabel": null,
+      "date": "28-09-2025",
+      "isHome": false,
+      "opponent": "FYSOL-POSTAS",
+      "goalsFor": 1,
+      "goalsAgainst": 2,
+      "played": true,
+      "result": "P",
+      "penalties": null
+    },
+    {
+      "round": 3,
+      "roundLabel": null,
+      "date": "04-10-2025",
+      "isHome": false,
+      "opponent": "MAGREB UNITED",
+      "goalsFor": 3,
+      "goalsAgainst": 0,
+      "played": true,
+      "result": "G",
+      "penalties": null
+    },
+    {
+      "round": 4,
+      "roundLabel": null,
+      "date": "12-10-2025",
+      "isHome": true,
+      "opponent": "NEWCASTLE PUB F.C.",
+      "goalsFor": 2,
+      "goalsAgainst": 2,
+      "played": true,
+      "result": "E",
+      "penalties": null
+    },
+    {
+      "round": 5,
+      "roundLabel": null,
+      "date": "18-10-2025",
+      "isHome": false,
+      "opponent": "J.C.R. - ATLETICO JERINGA",
+      "goalsFor": 4,
+      "goalsAgainst": 1,
+      "played": true,
+      "result": "G",
+      "penalties": null
+    },
+    {
+      "round": 6,
+      "roundLabel": null,
+      "date": "26-10-2025",
+      "isHome": true,
+      "opponent": "DELAPIO-40 BAR DE VINOS",
+      "goalsFor": 0,
+      "goalsAgainst": 3,
+      "played": true,
+      "result": "P",
+      "penalties": null
+    },
+    {
+      "round": 7,
+      "roundLabel": null,
+      "date": "08-11-2025",
+      "isHome": false,
+      "opponent": "RUMANIA CF",
+      "goalsFor": 3,
+      "goalsAgainst": 3,
+      "played": true,
+      "result": "E",
+      "penalties": null
+    },
+    {
+      "round": 8,
+      "roundLabel": null,
+      "date": "16-11-2025",
+      "isHome": true,
+      "opponent": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+      "goalsFor": 0,
+      "goalsAgainst": 0,
+      "played": true,
+      "result": "E",
+      "penalties": null
+    },
+    {
+      "round": 9,
+      "roundLabel": null,
+      "date": "29-11-2025",
+      "isHome": false,
+      "opponent": "NEWTEAM- SMT",
+      "goalsFor": 2,
+      "goalsAgainst": 0,
+      "played": true,
+      "result": "G",
+      "penalties": null
+    },
+    {
+      "round": 10,
+      "roundLabel": null,
+      "date": "14-12-2025",
+      "isHome": true,
+      "opponent": "INTER DE SÉK",
+      "goalsFor": 3,
+      "goalsAgainst": 1,
+      "played": true,
+      "result": "G",
+      "penalties": null
+    },
+    {
+      "round": 11,
+      "roundLabel": null,
+      "date": "10-01-2026",
+      "isHome": false,
+      "opponent": "TORINO - VENTACONS - BAR JUANI",
+      "goalsFor": 0,
+      "goalsAgainst": 1,
+      "played": true,
+      "result": "P",
+      "penalties": null
+    },
+    {
+      "round": 12,
+      "roundLabel": null,
+      "date": "25-01-2026",
+      "isHome": false,
+      "opponent": "RIMATEC-PUB TENESSE",
+      "goalsFor": 2,
+      "goalsAgainst": 1,
+      "played": true,
+      "result": "G",
+      "penalties": null
+    },
+    {
+      "round": 13,
+      "roundLabel": null,
+      "date": "31-01-2026",
+      "isHome": true,
+      "opponent": "FYSOL-POSTAS",
+      "goalsFor": 0,
+      "goalsAgainst": 3,
+      "played": true,
+      "result": "P",
+      "penalties": null
+    },
+    {
+      "round": 14,
+      "roundLabel": null,
+      "date": "15-02-2026",
+      "isHome": true,
+      "opponent": "MAGREB UNITED",
+      "goalsFor": 3,
+      "goalsAgainst": 2,
+      "played": true,
+      "result": "G",
+      "penalties": null
+    },
+    {
+      "round": 15,
+      "roundLabel": null,
+      "date": "21-02-2026",
+      "isHome": false,
+      "opponent": "NEWCASTLE PUB F.C.",
+      "goalsFor": 1,
+      "goalsAgainst": 1,
+      "played": true,
+      "result": "E",
+      "penalties": null
+    },
+    {
+      "round": 16,
+      "roundLabel": null,
+      "date": "01-03-2026",
+      "isHome": true,
+      "opponent": "J.C.R. - ATLETICO JERINGA",
+      "goalsFor": 6,
+      "goalsAgainst": 0,
+      "played": true,
+      "result": "G",
+      "penalties": null
+    },
+    {
+      "round": 17,
+      "roundLabel": null,
+      "date": "14-03-2026",
+      "isHome": false,
+      "opponent": "DELAPIO-40 BAR DE VINOS",
+      "goalsFor": 0,
+      "goalsAgainst": 2,
+      "played": true,
+      "result": "P",
+      "penalties": null
+    },
+    {
+      "round": 18,
+      "roundLabel": null,
+      "date": "22-03-2026",
+      "isHome": true,
+      "opponent": "RUMANIA CF",
+      "goalsFor": 1,
+      "goalsAgainst": 1,
+      "played": true,
+      "result": "E",
+      "penalties": null
+    },
+    {
+      "round": 19,
+      "roundLabel": null,
+      "date": "11-04-2026",
+      "isHome": false,
+      "opponent": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+      "goalsFor": 3,
+      "goalsAgainst": 2,
+      "played": true,
+      "result": "G",
+      "penalties": null
+    },
+    {
+      "round": 20,
+      "roundLabel": null,
+      "date": "19-04-2026",
+      "isHome": true,
+      "opponent": "NEWTEAM- SMT",
+      "goalsFor": 4,
+      "goalsAgainst": 2,
+      "played": true,
+      "result": "G",
+      "penalties": null
+    },
+    {
+      "round": 21,
+      "roundLabel": null,
+      "date": "09-05-2026",
+      "isHome": false,
+      "opponent": "INTER DE SÉK",
+      "goalsFor": 1,
+      "goalsAgainst": 1,
+      "played": true,
+      "result": "E",
+      "penalties": null
+    },
+    {
+      "round": 22,
+      "roundLabel": null,
+      "date": "17-05-2026",
+      "isHome": true,
+      "opponent": "TORINO - VENTACONS - BAR JUANI",
+      "goalsFor": 3,
+      "goalsAgainst": 7,
+      "played": true,
+      "result": "P",
+      "penalties": null,
+      "time": "10:30",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+    }
+  ],
+  "ownTeamScorers": [
+    {
+      "player": "SANCHEZ ALFONSO, JUAN MANUEL",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 20,
+      "goals": 9,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "BELLOT VALENZUELA, DANIEL",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 19,
+      "goals": 7,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "ESTEFANIA PADILLA, DANIEL",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 14,
+      "goals": 6,
+      "penalties": 4,
+      "isOwnTeam": true
+    },
+    {
+      "player": "AVILA DE LOS SANTOS, VICTOR",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 15,
+      "goals": 5,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "MUÑOZ CARPIO, ALBERTO",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 11,
+      "goals": 3,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "TORRES HERRERO, SERGIO",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 19,
+      "goals": 3,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "VALENCIA SOTO, DANIEL",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 17,
+      "goals": 2,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "MARTINEZ DELGADO, IGNACIO",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 21,
+      "goals": 2,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "RODRIGUEZ JIMENO, JONATAN",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 3,
+      "goals": 1,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "GALLEGO PLAZA, ALEJANDRO",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 11,
+      "goals": 1,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "PEREZ AYLLON, ALEJANDRO",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 11,
+      "goals": 1,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "SANCHEZ SANTERO, JAVIER",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 16,
+      "goals": 1,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "DE LA FUENTE GARCIA, SAMUEL",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 16,
+      "goals": 1,
+      "penalties": 0,
+      "isOwnTeam": true
+    },
+    {
+      "player": "GUZMAN SALCEDA, ADRIAN",
+      "team": "SPORTING DE MADERASA - BAR JUANJO",
+      "played": 19,
+      "goals": 1,
+      "penalties": 0,
+      "isOwnTeam": true
+    }
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "roundLabel": null,
+      "date": "20-09-2025",
+      "matches": [
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": 4,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": 2,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "INTER DE SÉK",
+          "homeGoals": 3,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeGoals": 1,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": 1,
+          "awayGoals": 5,
+          "played": true
+        },
+        {
+          "homeTeam": "MAGREB UNITED",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": 1,
+          "awayGoals": 4,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "roundLabel": null,
+      "date": "28-09-2025",
+      "matches": [
+        {
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": 7,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": 2,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "INTER DE SÉK",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": 0,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeGoals": 0,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": 3,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": 2,
+          "awayGoals": 0,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "roundLabel": null,
+      "date": "04-10-2025",
+      "matches": [
+        {
+          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": 1,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": 0,
+          "awayGoals": 5,
+          "played": true
+        },
+        {
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "MAGREB UNITED",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "INTER DE SÉK",
+          "homeGoals": 1,
+          "awayGoals": 5,
+          "played": true
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeGoals": 2,
+          "awayGoals": 1,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "roundLabel": null,
+      "date": "12-10-2025",
+      "matches": [
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": 2,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": 1,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "INTER DE SÉK",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeGoals": 5,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": 2,
+          "awayGoals": 4,
+          "played": true
+        },
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": 6,
+          "awayGoals": 1,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 5,
+      "roundLabel": null,
+      "date": "18-10-2025",
+      "matches": [
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "INTER DE SÉK",
+          "homeGoals": 5,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": 2,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": 0,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": 1,
+          "awayGoals": 4,
+          "played": true
+        },
+        {
+          "homeTeam": "MAGREB UNITED",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": 0,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeGoals": 4,
+          "awayGoals": 0,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 6,
+      "roundLabel": null,
+      "date": "26-10-2025",
+      "matches": [
+        {
+          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": 1,
+          "awayGoals": 4,
+          "played": true
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": 0,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": 3,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "INTER DE SÉK",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": 2,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 7,
+      "roundLabel": null,
+      "date": "08-11-2025",
+      "matches": [
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": 3,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "MAGREB UNITED",
+          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeGoals": 2,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": 2,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": 3,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "INTER DE SÉK",
+          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeGoals": 4,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": 1,
+          "awayGoals": 3,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 8,
+      "roundLabel": null,
+      "date": "16-11-2025",
+      "matches": [
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "INTER DE SÉK",
+          "homeGoals": 5,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": 2,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": 2,
+          "awayGoals": 4,
+          "played": true
+        },
+        {
+          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": 1,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": 0,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": 0,
+          "awayGoals": 0,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 9,
+      "roundLabel": null,
+      "date": "29-11-2025",
+      "matches": [
+        {
+          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": 0,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeGoals": 5,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": 0,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "INTER DE SÉK",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": 1,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "MAGREB UNITED",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": 4,
+          "awayGoals": 2,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 10,
+      "roundLabel": null,
+      "date": "14-12-2025",
+      "matches": [
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": 1,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": 5,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "MAGREB UNITED",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": 1,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeGoals": 5,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "INTER DE SÉK",
+          "homeGoals": 3,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": 5,
+          "awayGoals": 1,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 11,
+      "roundLabel": null,
+      "date": "10-01-2026",
+      "matches": [
+        {
+          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": 1,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "INTER DE SÉK",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": 2,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": 0,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": 4,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": 4,
+          "awayGoals": 3,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 12,
+      "roundLabel": null,
+      "date": "25-01-2026",
+      "matches": [
+        {
+          "homeTeam": "INTER DE SÉK",
+          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeGoals": 2,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": 5,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": 2,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": 3,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": 2,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": 1,
+          "awayGoals": 2,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 13,
+      "roundLabel": null,
+      "date": "31-01-2026",
+      "matches": [
+        {
+          "homeTeam": "MAGREB UNITED",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": 2,
+          "awayGoals": 6,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": 0,
+          "awayGoals": 4,
+          "played": true
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "INTER DE SÉK",
+          "homeGoals": 1,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": 1,
+          "awayGoals": 5,
+          "played": true
+        },
+        {
+          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeGoals": 3,
+          "awayGoals": 4,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 14,
+      "roundLabel": null,
+      "date": "15-02-2026",
+      "matches": [
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": 8,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": 3,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": 4,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeGoals": 4,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": 3,
+          "awayGoals": 4,
+          "played": true
+        },
+        {
+          "homeTeam": "INTER DE SÉK",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": 1,
+          "awayGoals": 2,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 15,
+      "roundLabel": null,
+      "date": "21-02-2026",
+      "matches": [
+        {
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "INTER DE SÉK",
+          "homeGoals": 4,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "MAGREB UNITED",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": 1,
+          "awayGoals": 5,
+          "played": true
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeGoals": 2,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": 2,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": 1,
+          "awayGoals": 5,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": 1,
+          "awayGoals": 1,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 16,
+      "roundLabel": null,
+      "date": "01-03-2026",
+      "matches": [
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false
+        },
+        {
+          "homeTeam": "INTER DE SÉK",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": 2,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeGoals": 6,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": 2,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": 2,
+          "awayGoals": 1,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 17,
+      "roundLabel": null,
+      "date": "14-03-2026",
+      "matches": [
+        {
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": 1,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": 2,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "MAGREB UNITED",
+          "awayTeam": "INTER DE SÉK",
+          "homeGoals": 1,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": 2,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": 0,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeGoals": 3,
+          "awayGoals": 0,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 18,
+      "roundLabel": null,
+      "date": "22-03-2026",
+      "matches": [
+        {
+          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": 4,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "INTER DE SÉK",
+          "homeGoals": 1,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": 1,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": 5,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": 2,
+          "awayGoals": 5,
+          "played": true
+        },
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": 3,
+          "awayGoals": 3,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 19,
+      "roundLabel": null,
+      "date": "11-04-2026",
+      "matches": [
+        {
+          "homeTeam": "MAGREB UNITED",
+          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeGoals": 2,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": 0,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": 2,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "INTER DE SÉK",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": 1,
+          "awayGoals": 6,
+          "played": true
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeGoals": 4,
+          "awayGoals": 5,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": 1,
+          "awayGoals": 2,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 20,
+      "roundLabel": null,
+      "date": "19-04-2026",
+      "matches": [
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeGoals": 4,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": 2,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "INTER DE SÉK",
+          "homeGoals": 7,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": 4,
+          "awayGoals": 2,
+          "played": true
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": 1,
+          "awayGoals": 5,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 21,
+      "roundLabel": null,
+      "date": "09-05-2026",
+      "matches": [
+        {
+          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeGoals": 3,
+          "awayGoals": 0,
+          "played": true
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": 7,
+          "awayGoals": 4,
+          "played": true
+        },
+        {
+          "homeTeam": "INTER DE SÉK",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": 1,
+          "awayGoals": 1,
+          "played": true
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": 1,
+          "awayGoals": 3,
+          "played": true
+        },
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": 7,
+          "awayGoals": 0,
+          "played": true
+        }
+      ]
+    },
+    {
+      "round": 22,
+      "roundLabel": null,
+      "date": "17-05-2026",
+      "matches": [
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": 8,
+          "awayGoals": 1,
+          "played": true,
+          "time": "09:00",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": 2,
+          "awayGoals": 6,
+          "played": true,
+          "time": "09:00",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeGoals": 3,
+          "awayGoals": 7,
+          "played": true,
+          "time": "10:30",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+        },
+        {
+          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": 1,
+          "awayGoals": 3,
+          "played": true,
+          "time": "10:30",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "INTER DE SÉK",
+          "homeGoals": 1,
+          "awayGoals": 0,
+          "played": true,
+          "time": "12:00",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+        },
+        {
+          "homeTeam": "MAGREB UNITED",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": 3,
+          "awayGoals": 6,
+          "played": true,
+          "time": "13:40",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+        }
+      ]
+    }
+  ],
+  "copa": {
+    "stages": [
+      {
+        "key": "grupos",
+        "label": "Fase de grupos",
+        "knockout": false,
+        "matches": [
+          {
+            "round": 3,
+            "roundLabel": null,
+            "date": "18-01-2026",
+            "isHome": false,
+            "opponent": "CAFETERIA LA TACITA",
+            "goalsFor": 2,
+            "goalsAgainst": 1,
+            "played": true,
+            "result": "G",
+            "penalties": null
+          }
+        ]
+      },
+      {
+        "key": "ronda4",
+        "label": "4º partido (grupos)",
+        "knockout": false,
+        "matches": [
+          {
+            "round": 1,
+            "roundLabel": null,
+            "date": "07-02-2026",
+            "isHome": false,
+            "opponent": "NEWTEAM- SMT",
+            "goalsFor": 1,
+            "goalsAgainst": 1,
+            "played": true,
+            "result": "E",
+            "penalties": null
+          }
+        ]
+      },
+      {
+        "key": "ronda5",
+        "label": "5º partido (grupos)",
+        "knockout": false,
+        "matches": [
+          {
+            "round": 1,
+            "roundLabel": null,
+            "date": "08-03-2026",
+            "isHome": false,
+            "opponent": "RAIMON",
+            "goalsFor": 1,
+            "goalsAgainst": 0,
+            "played": true,
+            "result": "G",
+            "penalties": null
+          }
+        ]
+      },
+      {
+        "key": "final",
+        "label": "Fase final",
+        "knockout": true,
+        "matches": [
+          {
+            "round": 1,
+            "roundLabel": "28-03-2026  (8º)",
+            "date": "28-03-2026",
+            "isHome": true,
+            "opponent": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+            "goalsFor": 4,
+            "goalsAgainst": 1,
+            "played": true,
+            "result": "G",
+            "qualified": true,
+            "penalties": null,
+            "time": "18:30",
+            "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          },
+          {
+            "round": 2,
+            "roundLabel": "25-04-2026  (4º)",
+            "date": "25-04-2026",
+            "isHome": null,
+            "opponent": null,
+            "goalsFor": null,
+            "goalsAgainst": null,
+            "played": false,
+            "result": null,
+            "penalties": null
+          },
+          {
+            "round": 3,
+            "roundLabel": "23-05-2026  (Semifinales)",
+            "date": "23-05-2026",
+            "isHome": null,
+            "opponent": null,
+            "goalsFor": null,
+            "goalsAgainst": null,
+            "played": false,
+            "result": null,
+            "penalties": null
+          },
+          {
+            "round": 4,
+            "roundLabel": "06-06-2026  (Final)",
+            "date": "06-06-2026",
+            "isHome": null,
+            "opponent": null,
+            "goalsFor": null,
+            "goalsAgainst": null,
+            "played": false,
+            "result": null,
+            "penalties": null
+          }
+        ]
+      }
+    ],
+    "groupStandings": [
+      {
+        "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+        "played": 3,
+        "won": 2,
+        "drawn": 1,
+        "lost": 0,
+        "goalsFor": 4,
+        "goalsAgainst": 2,
+        "points": 7,
+        "isOwnTeam": true,
+        "goalDifference": 2,
+        "position": 1
+      },
+      {
+        "teamName": "NEWTEAM- SMT",
+        "played": 1,
+        "won": 0,
+        "drawn": 1,
+        "lost": 0,
+        "goalsFor": 1,
+        "goalsAgainst": 1,
+        "points": 1,
+        "isOwnTeam": false,
+        "goalDifference": 0,
+        "position": 2
+      },
+      {
+        "teamName": "CAFETERIA LA TACITA",
+        "played": 1,
+        "won": 0,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 1,
+        "goalsAgainst": 2,
+        "points": 0,
+        "isOwnTeam": false,
+        "goalDifference": -1,
+        "position": 3
+      },
+      {
+        "teamName": "RAIMON",
+        "played": 1,
+        "won": 0,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 0,
+        "goalsAgainst": 1,
+        "points": 0,
+        "isOwnTeam": false,
+        "goalDifference": -1,
+        "position": 4
+      }
+    ],
+    "groupStandingsNote": "Clasificación calculada por nosotros combinando los partidos de grupo conocidos (fase de grupos + 4º y 5º partido). Es parcial hasta que el scraper recoja el resto de partidos de cada grupo."
+  },
+  "season": "2025-2026"
+}
