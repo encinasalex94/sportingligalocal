@@ -1,4 +1,7 @@
 const OWN_TEAM_ID = '1000030';
+const OWN_TEAM_NAME = 'SPORTING DE MADERASA - BAR JUANJO';
+
+let DATA = null;
 
 async function loadData() {
   const res = await fetch('data/data.json', { cache: 'no-store' });
@@ -7,15 +10,17 @@ async function loadData() {
 }
 
 function shortName(name) {
-  // Recorta nombres largos de equipo tipo "SPORTING DE MADERASA - BAR JUANJO"
-  // a algo más legible en tarjetas pequeñas, conservando el nombre completo en title=.
-  return name.trim();
+  return (name || '').trim();
+}
+
+function isOwn(name) {
+  return (name || '').toUpperCase().includes(OWN_TEAM_NAME);
 }
 
 function renderScoreboard(data) {
   const el = document.getElementById('hero-scoreboard');
   const own = data.lastRoundResults.find(
-    (m) => m.homeTeamId === OWN_TEAM_ID || m.awayTeamId === OWN_TEAM_ID
+    (m) => m.homeTeamId === OWN_TEAM_ID || m.awayTeamId === OWN_TEAM_ID || isOwn(m.homeTeam) || isOwn(m.awayTeam)
   );
 
   if (!own) {
@@ -23,7 +28,7 @@ function renderScoreboard(data) {
     return;
   }
 
-  const isHome = own.homeTeamId === OWN_TEAM_ID;
+  const isHome = own.homeTeamId === OWN_TEAM_ID || isOwn(own.homeTeam);
   const result =
     own.homeGoals === own.awayGoals
       ? 'EMPATE'
@@ -79,16 +84,113 @@ function renderStandings(data) {
     .join('');
 }
 
-function renderResults(data) {
+function renderMatchCard(m) {
+  const isOwnMatch = isOwn(m.homeTeam) || isOwn(m.awayTeam);
+  const pending = !m.played;
+  const score = pending ? 'vs' : `${m.homeGoals} : ${m.awayGoals}`;
+  return `
+    <div class="match-card ${isOwnMatch ? 'is-own' : ''} ${pending ? 'is-pending' : ''}">
+      <span class="match-team home ${isOwn(m.homeTeam) ? 'home-own' : ''}">${shortName(m.homeTeam)}</span>
+      <span class="match-score ${pending ? 'is-pending' : ''}">${score}</span>
+      <span class="match-team away ${isOwn(m.awayTeam) ? 'away-own' : ''}">${shortName(m.awayTeam)}</span>
+    </div>
+  `;
+}
+
+function renderRound(roundNumber) {
+  const round = DATA.rounds.find((r) => r.round === roundNumber);
   const grid = document.getElementById('results-grid');
-  grid.innerHTML = data.lastRoundResults
-    .map((m) => {
-      const isOwn = m.homeTeamId === OWN_TEAM_ID || m.awayTeamId === OWN_TEAM_ID;
+  const label = document.getElementById('round-label-2');
+
+  if (!round) {
+    grid.innerHTML = '<p class="results-empty">No hay datos para esta jornada.</p>';
+    label.textContent = '';
+    return;
+  }
+
+  label.textContent = `Jornada ${round.round}${round.date ? ` (${round.date})` : ''}`;
+
+  if (!round.matches || round.matches.length === 0) {
+    grid.innerHTML = '<p class="results-empty">Todavía no se ha publicado el calendario de esta jornada.</p>';
+    return;
+  }
+
+  grid.innerHTML = round.matches.map(renderMatchCard).join('');
+}
+
+function renderRoundSelector(data) {
+  const select = document.getElementById('round-select');
+  const rounds = data.rounds || [];
+
+  select.innerHTML = rounds
+    .map((r) => {
+      const hasResults = r.matches && r.matches.some((m) => m.played);
+      const statusTag = hasResults ? '' : ' · pendiente';
+      return `<option value="${r.round}">Jornada ${r.round} (${r.date || 's/f'})${statusTag}</option>`;
+    })
+    .join('');
+
+  // Seleccionar por defecto la última jornada con resultados, o la primera si ninguna se ha jugado.
+  const playedRounds = rounds.filter((r) => r.matches && r.matches.some((m) => m.played));
+  const defaultRound = playedRounds.length ? playedRounds[playedRounds.length - 1].round : rounds[0]?.round;
+
+  if (defaultRound) {
+    select.value = String(defaultRound);
+    renderRound(defaultRound);
+  }
+
+  select.addEventListener('change', () => {
+    renderRound(Number(select.value));
+  });
+}
+
+function copaResultBadge(m) {
+  if (!m.played) return '';
+  if (m.result === 'G') return '<span class="copa-badge win">Victoria</span>';
+  if (m.result === 'E') return '<span class="copa-badge draw">Empate</span>';
+  if (m.result === 'P') return '<span class="copa-badge loss">Derrota</span>';
+  return '';
+}
+
+function renderCopa(data) {
+  const container = document.getElementById('copa-stages');
+  const stages = (data.copa && data.copa.stages) || [];
+
+  if (stages.length === 0) {
+    container.innerHTML = '<p class="results-empty">Sin datos de Copa todavía.</p>';
+    return;
+  }
+
+  container.innerHTML = stages
+    .map((stage, idx) => {
+      const rows = stage.matches
+        .map((m) => {
+          const pending = !m.played;
+          const opponent = m.opponent || 'Rival por determinar';
+          const teamsHtml = m.isHome === false
+            ? `${shortName(opponent)} <span style="color:var(--slate-light)">vs</span> <span class="own">${OWN_TEAM_NAME}</span>`
+            : `<span class="own">${OWN_TEAM_NAME}</span> <span style="color:var(--slate-light)">vs</span> ${shortName(opponent)}`;
+          const score = pending ? '—' : `${m.goalsFor} : ${m.goalsAgainst}`;
+          const roundTag = stage.knockout ? (m.roundLabel || `Ronda ${m.round}`) : (m.date || `Jornada ${m.round}`);
+          const qualifiedBadge = m.qualified ? '<span class="copa-badge qualified">Clasificado</span>' : '';
+          const penaltiesTag = m.penalties ? ` <span style="color:var(--slate-light);font-family:var(--font-mono);font-size:10px;">(pen. ${m.penalties})</span>` : '';
+
+          return `
+            <div class="copa-match-row">
+              <span class="copa-round-tag">${roundTag}</span>
+              <span class="copa-teams">${teamsHtml}</span>
+              <span class="copa-score ${pending ? 'is-pending' : ''}">${score}${penaltiesTag}</span>
+              ${pending ? '<span class="copa-badge" style="background:var(--ice);color:var(--slate);">Pendiente</span>' : copaResultBadge(m)}
+              ${qualifiedBadge}
+            </div>
+          `;
+        })
+        .join('');
+
       return `
-        <div class="match-card ${isOwn ? 'is-own' : ''}">
-          <span class="match-team home ${m.homeTeamId === OWN_TEAM_ID ? 'home-own' : ''}">${shortName(m.homeTeam)}</span>
-          <span class="match-score">${m.homeGoals ?? '-'} : ${m.awayGoals ?? '-'}</span>
-          <span class="match-team away ${m.awayTeamId === OWN_TEAM_ID ? 'away-own' : ''}">${shortName(m.awayTeam)}</span>
+        <div class="copa-stage">
+          <h3 class="copa-stage-title"><span class="stage-index">${idx + 1}</span> ${stage.label}</h3>
+          ${rows || '<p class="results-empty">Sin partidos registrados en esta ronda todavía.</p>'}
         </div>
       `;
     })
@@ -116,9 +218,44 @@ function renderScorerList(elId, scorers, emptyMsg) {
     .join('');
 }
 
+function renderCalendar(data) {
+  const list = document.getElementById('calendar-list');
+  const calendar = data.ownTeamCalendar || [];
+
+  if (calendar.length === 0) {
+    list.innerHTML = '<p class="sb-empty">Todavía no hay partidos registrados.</p>';
+    document.getElementById('calendar-summary').textContent = '';
+    return;
+  }
+
+  const played = calendar.filter((m) => m.played);
+  const wins = played.filter((m) => m.result === 'G').length;
+  const draws = played.filter((m) => m.result === 'E').length;
+  const losses = played.filter((m) => m.result === 'P').length;
+  document.getElementById('calendar-summary').textContent =
+    `${calendar.length} jornadas · ${wins}G ${draws}E ${losses}P`;
+
+  list.innerHTML = calendar
+    .map((m) => {
+      const cls = m.result === 'G' ? 'win' : m.result === 'E' ? 'draw' : m.result === 'P' ? 'loss' : '';
+      const score = m.played ? `${m.goalsFor} - ${m.goalsAgainst}` : 'Pendiente';
+      return `
+        <div class="calendar-item ${cls}">
+          <div class="calendar-round">
+            <span>J${m.round}</span>
+            <span class="calendar-venue">${m.isHome ? 'Casa' : 'Fuera'}</span>
+          </div>
+          <span class="calendar-opponent" title="${m.opponent}">${shortName(m.opponent)}</span>
+          <span class="calendar-score">${score}</span>
+          <span class="calendar-date">${m.date || ''}</span>
+        </div>
+      `;
+    })
+    .join('');
+}
+
 function renderMeta(data) {
   document.getElementById('round-label').textContent = data.competition.round || 'Última jornada';
-  document.getElementById('round-label-2').textContent = data.competition.round || '';
   document.getElementById('competition-title').textContent =
     `${data.competition.title || ''} · ${data.competition.season || ''}`.trim();
 
@@ -136,10 +273,13 @@ function renderMeta(data) {
 async function init() {
   try {
     const data = await loadData();
+    DATA = data;
     renderMeta(data);
     renderScoreboard(data);
     renderStandings(data);
-    renderResults(data);
+    renderRoundSelector(data);
+    renderCopa(data);
+    renderCalendar(data);
     renderScorerList('own-scorers', data.ownTeamScorers, 'Todavía no hay goleadores registrados.');
     renderScorerList('top-scorers', data.topScorers, 'Todavía no hay goleadores registrados.');
   } catch (err) {
