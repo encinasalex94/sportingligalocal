@@ -260,7 +260,7 @@ function renderMeta(data) {
     `${data.competition.title || ''} · ${data.competition.season || ''}`.trim();
 
   const ownStanding = data.standings.find((s) => s.isOwnTeam);
-  document.getElementById('position-number').textContent = ownStanding ? ownStanding.position : '—';
+  document.getElementById('position-number').textContent = ownStanding ? ownStanding.position + "ª" : '—';
 
   if (data.generatedAt) {
     const d = new Date(data.generatedAt);
