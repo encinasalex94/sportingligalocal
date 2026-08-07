@@ -275,7 +275,7 @@ async function init() {
     const data = await loadData();
     DATA = data;
     renderMeta(data);
-    renderScoreboard(data);
+    //renderScoreboard(data);
     renderStandings(data);
     renderRoundSelector(data);
     renderCopa(data);
