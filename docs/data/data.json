@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-05-18T00:00:00.000Z",
+  "team": {
+    "id": "1000030",
+    "name": "SPORTING DE MADERASA - BAR JUANJO"
+  },
+  "competition": {
+    "title": "LIGA AFICIONADOS F-11, 1ª AFICIONADOS F-11",
+    "season": "Temporada 2025-2026",
+    "round": "Jornada 22 (17-05-2026)"
+  },
+  "standings": [
+    { "position": 1, "teamId": "1000033", "teamName": "FYSOL-POSTAS", "points": 59, "played": 22, "won": 19, "drawn": 2, "lost": 1, "goalsFor": 81, "goalsAgainst": 19, "goalDifference": 62, "form": ["E","G","G","G","G"], "isOwnTeam": false },
+    { "position": 2, "teamId": "1000012", "teamName": "RIMATEC-PUB TENESSE", "points": 49, "played": 22, "won": 15, "drawn": 4, "lost": 3, "goalsFor": 65, "goalsAgainst": 29, "goalDifference": 36, "form": ["E","G","G","G","P"], "isOwnTeam": false },
+    { "position": 3, "teamId": "1000026", "teamName": "NEWTEAM- SMT", "points": 38, "played": 22, "won": 12, "drawn": 2, "lost": 8, "goalsFor": 53, "goalsAgainst": 38, "goalDifference": 15, "form": ["E","P","P","P","G"], "isOwnTeam": false },
+    { "position": 4, "teamId": "1000027", "teamName": "FURTIVO ARANJUEZ-BAR LAS TORKAS", "points": 37, "played": 22, "won": 12, "drawn": 1, "lost": 9, "goalsFor": 58, "goalsAgainst": 43, "goalDifference": 15, "form": ["P","P","G","G","G"], "isOwnTeam": false },
+    { "position": 5, "teamId": "1000030", "teamName": "SPORTING DE MADERASA - BAR JUANJO", "points": 33, "played": 22, "won": 9, "drawn": 6, "lost": 7, "goalsFor": 43, "goalsAgainst": 40, "goalDifference": 3, "form": ["E","G","G","E","P"], "isOwnTeam": true },
+    { "position": 6, "teamId": "1007402", "teamName": "RUMANIA CF", "points": 30, "played": 22, "won": 9, "drawn": 3, "lost": 10, "goalsFor": 56, "goalsAgainst": 58, "goalDifference": -2, "form": ["E","P","G","G","G"], "isOwnTeam": false },
+    { "position": 7, "teamId": "1000049", "teamName": "DELAPIO-40 BAR DE VINOS", "points": 29, "played": 22, "won": 9, "drawn": 2, "lost": 11, "goalsFor": 51, "goalsAgainst": 58, "goalDifference": -7, "form": ["G","P","P","P","P"], "isOwnTeam": false },
+    { "position": 8, "teamId": "1000007", "teamName": "TORINO - VENTACONS - BAR JUANI", "points": 25, "played": 22, "won": 7, "drawn": 4, "lost": 11, "goalsFor": 37, "goalsAgainst": 52, "goalDifference": -15, "form": ["P","E","P","P","G"], "isOwnTeam": false },
+    { "position": 9, "teamId": "1000034", "teamName": "J.C.R. - ATLETICO JERINGA", "points": 24, "played": 22, "won": 8, "drawn": 0, "lost": 14, "goalsFor": 42, "goalsAgainst": 65, "goalDifference": -23, "form": ["G","G","P","P","P"], "isOwnTeam": false },
+    { "position": 10, "teamId": "1005397", "teamName": "NEWCASTLE PUB F.C.", "points": 21, "played": 21, "won": 6, "drawn": 3, "lost": 12, "goalsFor": 27, "goalsAgainst": 49, "goalDifference": -22, "form": ["P","G","P","G","G"], "isOwnTeam": false },
+    { "position": 11, "teamId": "1000059", "teamName": "INTER DE SÉK", "points": 19, "played": 22, "won": 5, "drawn": 4, "lost": 13, "goalsFor": 31, "goalsAgainst": 54, "goalDifference": -23, "form": ["G","P","P","E","P"], "isOwnTeam": false },
+    { "position": 12, "teamId": "1000056", "teamName": "MAGREB UNITED", "points": 12, "played": 21, "won": 3, "drawn": 3, "lost": 15, "goalsFor": 32, "goalsAgainst": 71, "goalDifference": -39, "form": ["P","E","G","P","P"], "isOwnTeam": false }
+  ],
+  "lastRoundResults": [
+    { "homeTeam": "FYSOL-POSTAS", "homeTeamId": "1000033", "awayTeam": "RIMATEC-PUB TENESSE", "awayTeamId": "1000012", "homeGoals": 8, "awayGoals": 1 },
+    { "homeTeam": "SPORTING DE MADERASA - BAR JUANJO", "homeTeamId": "1000030", "awayTeam": "TORINO - VENTACONS - BAR JUANI", "awayTeamId": "1000007", "homeGoals": 3, "awayGoals": 7 },
+    { "homeTeam": "NEWCASTLE PUB F.C.", "homeTeamId": "1005397", "awayTeam": "INTER DE SÉK", "awayTeamId": "1000059", "homeGoals": 1, "awayGoals": 0 },
+    { "homeTeam": "J.C.R. - ATLETICO JERINGA", "homeTeamId": "1000034", "awayTeam": "NEWTEAM- SMT", "awayTeamId": "1000026", "homeGoals": 1, "awayGoals": 3 },
+    { "homeTeam": "DELAPIO-40 BAR DE VINOS", "homeTeamId": "1000049", "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS", "awayTeamId": "1000027", "homeGoals": 2, "awayGoals": 6 },
+    { "homeTeam": "MAGREB UNITED", "homeTeamId": "1000056", "awayTeam": "RUMANIA CF", "awayTeamId": "1007402", "homeGoals": 3, "awayGoals": 6 }
+  ],
+  "topScorers": [
+    { "player": "RUSZ, VIOREL MARIAN", "team": "RUMANIA CF", "played": 19, "goals": 24, "penalties": 0, "isOwnTeam": false },
+    { "player": "FABRA GORREA, RAFAEL", "team": "FYSOL-POSTAS", "played": 20, "goals": 17, "penalties": 0, "isOwnTeam": false },
+    { "player": "TIZON CASILLAS, FRANCISCO JAVIER", "team": "FYSOL-POSTAS", "played": 14, "goals": 15, "penalties": 0, "isOwnTeam": false },
+    { "player": "MONZON RUIZ, FERNANDO", "team": "DELAPIO-40 BAR DE VINOS", "played": 15, "goals": 14, "penalties": 0, "isOwnTeam": false },
+    { "player": "GOMEZ TORRES, PABLO", "team": "NEWCASTLE PUB F.C.", "played": 16, "goals": 12, "penalties": 0, "isOwnTeam": false },
+    { "player": "BLANCAS MARTIN, MARIO RAFAEL", "team": "DELAPIO-40 BAR DE VINOS", "played": 19, "goals": 12, "penalties": 3, "isOwnTeam": false },
+    { "player": "MATIN VALLEJO, TOMAS", "team": "J.C.R. - ATLETICO JERINGA", "played": 16, "goals": 11, "penalties": 0, "isOwnTeam": false },
+    { "player": "GONZALEZ LANZAS, JULIO", "team": "RIMATEC-PUB TENESSE", "played": 19, "goals": 10, "penalties": 0, "isOwnTeam": false },
+    { "player": "SANSEGUNDO LOPEZ, JAVIER", "team": "INTER DE SÉK", "played": 20, "goals": 10, "penalties": 0, "isOwnTeam": false },
+    { "player": "RODRIGUEZ OSORIO GARCIA, GONZALO", "team": "TORINO - VENTACONS - BAR JUANI", "played": 11, "goals": 9, "penalties": 0, "isOwnTeam": false },
+    { "player": "ZORITA DEL NUEVO, RUBEN", "team": "NEWTEAM- SMT", "played": 13, "goals": 9, "penalties": 0, "isOwnTeam": false },
+    { "player": "MARTINEZ BONMATI, GONZALO", "team": "RIMATEC-PUB TENESSE", "played": 16, "goals": 9, "penalties": 0, "isOwnTeam": false },
+    { "player": "HIJOSA VASALLO, DANIEL", "team": "J.C.R. - ATLETICO JERINGA", "played": 18, "goals": 9, "penalties": 0, "isOwnTeam": false },
+    { "player": "SANCHEZ ALFONSO, JUAN MANUEL", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 20, "goals": 9, "penalties": 0, "isOwnTeam": true },
+    { "player": "DOMINGUEZ DIAZ, CARLOS", "team": "FURTIVO ARANJUEZ-BAR LAS TORKAS", "played": 20, "goals": 9, "penalties": 0, "isOwnTeam": false },
+    { "player": "GUZMAN CABRERA, JEAN PAUL", "team": "RUMANIA CF", "played": 17, "goals": 8, "penalties": 0, "isOwnTeam": false },
+    { "player": "CRACIUN, VLAD ANDREI", "team": "J.C.R. - ATLETICO JERINGA", "played": 20, "goals": 8, "penalties": 0, "isOwnTeam": false },
+    { "player": "COSMA, IONUT DANIEL", "team": "RUMANIA CF", "played": 21, "goals": 8, "penalties": 2, "isOwnTeam": false },
+    { "player": "TEI SORGBODJOR, RICHARD", "team": "TORINO - VENTACONS - BAR JUANI", "played": 13, "goals": 7, "penalties": 0, "isOwnTeam": false },
+    { "player": "RECUERO AREVALO, JESUS", "team": "FURTIVO ARANJUEZ-BAR LAS TORKAS", "played": 16, "goals": 7, "penalties": 0, "isOwnTeam": false }
+  ],
+  "ownTeamScorers": [
+    { "player": "SANCHEZ ALFONSO, JUAN MANUEL", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 20, "goals": 9, "penalties": 0, "isOwnTeam": true },
+    { "player": "BELLOT VALENZUELA, DANIEL", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 19, "goals": 7, "penalties": 0, "isOwnTeam": true },
+    { "player": "ESTEFANIA PADILLA, DANIEL", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 14, "goals": 6, "penalties": 4, "isOwnTeam": true },
+    { "player": "AVILA DE LOS SANTOS, VICTOR", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 15, "goals": 5, "penalties": 0, "isOwnTeam": true },
+    { "player": "MUÑOZ CARPIO, ALBERTO", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 11, "goals": 3, "penalties": 0, "isOwnTeam": true },
+    { "player": "TORRES HERRERO, SERGIO", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 19, "goals": 3, "penalties": 0, "isOwnTeam": true },
+    { "player": "VALENCIA SOTO, DANIEL", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 17, "goals": 2, "penalties": 0, "isOwnTeam": true },
+    { "player": "MARTINEZ DELGADO, IGNACIO", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 21, "goals": 2, "penalties": 0, "isOwnTeam": true },
+    { "player": "RODRIGUEZ JIMENO, JONATAN", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 3, "goals": 1, "penalties": 0, "isOwnTeam": true },
+    { "player": "GALLEGO PLAZA, ALEJANDRO", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 11, "goals": 1, "penalties": 0, "isOwnTeam": true },
+    { "player": "PEREZ AYLLON, ALEJANDRO", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 11, "goals": 1, "penalties": 0, "isOwnTeam": true },
+    { "player": "SANCHEZ SANTERO, JAVIER", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 16, "goals": 1, "penalties": 0, "isOwnTeam": true },
+    { "player": "DE LA FUENTE GARCIA, SAMUEL", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 16, "goals": 1, "penalties": 0, "isOwnTeam": true },
+    { "player": "GUZMAN SALCEDA, ADRIAN", "team": "SPORTING DE MADERASA - BAR JUANJO", "played": 19, "goals": 1, "penalties": 0, "isOwnTeam": true }
+  ]
+}
