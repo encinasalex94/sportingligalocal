@@ -1101,3 +1101,136 @@ button:focus-visible {
   font-size: 12.5px;
   font-style: italic;
 }
+
+/* ---------------------------- BOTONES VER ACTA / VOTAR EN FILA ---------------------------- */
+.acta-btn-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.acta-btn-alt {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.acta-btn-alt:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+/* ---------------------------- CONVOCATORIA ---------------------------- */
+.convocatoria-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+}
+
+.convocatoria-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--white);
+  border: 1px solid rgba(11,31,61,0.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.convocatoria-item.is-signed {
+  border-color: var(--blue-bright);
+}
+
+/* ---------------------------- MODAL CLUB (PIN / VOTOS) ---------------------------- */
+.club-modal {
+  max-width: 420px;
+}
+
+.club-modal-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  text-transform: uppercase;
+  margin: 0 0 4px;
+  text-align: center;
+}
+
+.club-modal-sub {
+  font-size: 12.5px;
+  color: var(--slate);
+  text-align: center;
+  margin: 0 0 16px;
+}
+
+.club-select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(11,31,61,0.18);
+  font-family: var(--font-body);
+  font-size: 14px;
+  background: var(--white);
+}
+
+.club-pin-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(11,31,61,0.18);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  letter-spacing: 0.3em;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.club-error {
+  color: var(--loss);
+  font-size: 12px;
+  text-align: center;
+  min-height: 16px;
+  margin-top: 8px;
+}
+
+.club-submit {
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px;
+  justify-content: center;
+}
+
+.vote-list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.vote-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(11,31,61,0.06);
+  font-size: 13px;
+}
+
+.vote-item:last-child { border-bottom: none; }
+
+.vote-input {
+  width: 64px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(11,31,61,0.18);
+  font-family: var(--font-mono);
+  text-align: center;
+  font-size: 14px;
+}
