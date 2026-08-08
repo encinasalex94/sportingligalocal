@@ -27,6 +27,7 @@ const axios = require('axios');
 const { wrapper } = require('axios-cookiejar-support');
 const { CookieJar } = require('tough-cookie');
 const cheerio = require('cheerio');
+const iconv = require('iconv-lite');
 const fs = require('fs');
 const path = require('path');
 
@@ -62,6 +63,7 @@ const client = wrapper(
   axios.create({
     jar,
     withCredentials: true,
+    responseType: 'arraybuffer', // recibimos bytes crudos para decodificarlos nosotros
     headers: {
       'User-Agent':
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
@@ -69,6 +71,20 @@ const client = wrapper(
     timeout: 20000,
   })
 );
+
+// La web de aranjuez.ffmadrid.es está codificada en ISO-8859-15 (lo declara
+// en su <meta charset>), NO en UTF-8. Si dejamos que axios/cheerio traten
+// la respuesta como UTF-8 por defecto, las tildes y símbolos (á, é, í, ó,
+// ú, ñ, ª, º...) se corrompen ("SÉK" se convierte en basura, "1ª" en "1◇",
+// etc). Aquí decodificamos explícitamente cada respuesta con el charset
+// correcto antes de tocarla con cheerio o cualquier regex.
+client.interceptors.response.use((response) => {
+  if (response.data && (Buffer.isBuffer(response.data) || response.data instanceof ArrayBuffer)) {
+    const buf = Buffer.isBuffer(response.data) ? response.data : Buffer.from(response.data);
+    response.data = iconv.decode(buf, 'ISO-8859-15');
+  }
+  return response;
+});
 
 function log(...args) {
   console.log('[scrape]', ...args);
