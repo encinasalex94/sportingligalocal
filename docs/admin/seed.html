@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sembrar plantilla — Sporting de Maderasa (uso único)</title>
+<meta name="robots" content="noindex, nofollow" />
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 40px auto; padding: 0 20px; background:#0B1F3D; color:#fff; }
+  h1 { font-size: 20px; }
+  button { background:#1E4FA8; color:#fff; border:none; border-radius:8px; padding:12px 20px; font-size:15px; cursor:pointer; margin-top:16px; }
+  button:disabled { opacity:0.5; cursor:not-allowed; }
+  #log { margin-top:20px; font-family: monospace; font-size:13px; white-space:pre-wrap; background:rgba(255,255,255,0.06); padding:14px; border-radius:8px; max-height:400px; overflow-y:auto; }
+  .warn { background:rgba(220,80,80,0.15); border:1px solid rgba(220,80,80,0.4); padding:12px 16px; border-radius:8px; margin-bottom:16px; }
+</style>
+</head>
+<body>
+  <h1>⚠️ Sembrar plantilla en Firestore (uso único)</h1>
+  <div class="warn">
+    Esta página escribe los 22 jugadores en Firestore (colecciones <code>roster</code> y <code>players</code>).
+    Solo hace falta ejecutarla <strong>una vez</strong>. Antes de pulsar el botón, asegúrate de que en
+    Firestore → Reglas tienes temporalmente <code>allow write: if true;</code> en <code>roster</code> y <code>players</code>.
+    Después de usarla, vuelve a poner las reglas definitivas (bloqueadas) y borra o deja de compartir esta página.
+  </div>
+  <button id="btn">Sembrar 22 jugadores</button>
+  <div id="log"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCm3juynuzyIh1GhZD-5Wr_PDK5zqzKtvU",
+      authDomain: "sportingaranjuez.firebaseapp.com",
+      projectId: "sportingaranjuez",
+      storageBucket: "sportingaranjuez.firebasestorage.app",
+      messagingSenderId: "686602599169",
+      appId: "1:686602599169:web:6f7140cbb02a32f8ff3900"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const players = [{"id": "perez-dapena-julian", "name": "PEREZ DAPENA, JULIAN", "pinHash": "58c2c8614d54e9e1e700cb61063d83628c5a51474255cab19b998cfaefa29186"}, {"id": "rotari-nicolai", "name": "ROTARI, NICOLAI", "pinHash": "552ac49b3a509e6d66f0a83741781ada4db715bb55f0bffa635d5b97cc28ccf6"}, {"id": "calvo-ortega-daniel", "name": "CALVO ORTEGA, DANIEL", "pinHash": "e3bdfa46159555a6fc3e652adb8696968b418081a072434801983b5c8a5db272"}, {"id": "morcillo-ortega-ivan", "name": "MORCILLO ORTEGA, IVAN", "pinHash": "f8388c5c7649c8f8b6dc467f768903ec45ba4b072a93f2119c9325b727db9f30"}, {"id": "perez-ayllon-alejandro", "name": "PEREZ AYLLON, ALEJANDRO", "pinHash": "7a4f66f68d8feb002e2307e14e91f8e674ccd564539f2fd3a8ae909aa32299b5"}, {"id": "rodriguez-jimeno-jonatan", "name": "RODRIGUEZ JIMENO, JONATAN", "pinHash": "6c70541e1571bedbff0884a7fa79a94a4ee7b85caa569d815ec185ab4ecfc6bc"}, {"id": "perez-jimenez-alejandro", "name": "PEREZ JIMENEZ, ALEJANDRO", "pinHash": "514eb7920477178e6b8ac0213e09e77b1b09c5161b0f6603229193a2ac32a72b"}, {"id": "estefania-padilla-daniel", "name": "ESTEFANIA PADILLA, DANIEL", "pinHash": "eba2fb8190e6cc44cb0e313127e46a040da74bcb864c61f4908c5e772bdb0899"}, {"id": "guzman-salceda-adrian", "name": "GUZMAN SALCEDA, ADRIAN", "pinHash": "54d1d0f6b2419b36288e865665b18f73175bf3cd6d13bf52098e523556d83bc2"}, {"id": "munoz-carpio-alberto", "name": "MUÑOZ CARPIO, ALBERTO", "pinHash": "e924ea9564453e88d236ec5bf07203e97521db5596f80f45a6b40f19df272e96"}, {"id": "valencia-soto-daniel", "name": "VALENCIA SOTO, DANIEL", "pinHash": "298bcf353414d2338c947a1c4652836acdf106fe7405910d9c4d2f6ed114b93e"}, {"id": "sanchez-alfonso-juan-manuel", "name": "SANCHEZ ALFONSO, JUAN MANUEL", "pinHash": "d1b31a491c0f407b30ed6198d9189394887062cfc53a8c27a42b349bd701a7f8"}, {"id": "bellot-valenzuela-daniel", "name": "BELLOT VALENZUELA, DANIEL", "pinHash": "7f726d6e87bfa19a1fb37e9ecc81891e1145b4aa65c531f21ca8805a7206c5a7"}, {"id": "de-la-fuente-garcia-samuel", "name": "DE LA FUENTE GARCIA, SAMUEL", "pinHash": "dbc8a44bda3718a69e400df6a6399de4768aa5302f0a541c53ee8a741c1e6730"}, {"id": "martinez-delgado-ignacio", "name": "MARTINEZ DELGADO, IGNACIO", "pinHash": "34c3e0785f491d493ec7ba4e147fafe4eabd54db47b084a61f15182e5dbba98b"}, {"id": "sanchez-santero-javier", "name": "SANCHEZ SANTERO, JAVIER", "pinHash": "9553f7c8545f557c631988402e207126690df20a11c957ccfe3ffb500ba086dc"}, {"id": "torres-herrero-sergio", "name": "TORRES HERRERO, SERGIO", "pinHash": "aebd3681bf5320443727442f513bcd3f67470ea8800e96b0f2351802320af5a0"}, {"id": "gallego-plaza-alejandro", "name": "GALLEGO PLAZA, ALEJANDRO", "pinHash": "8b8e19034dcfbc8243cc21c5660e1110cbad7c9d8cc173cb499a0006ca5ee09b"}, {"id": "briones-hernando-andres", "name": "BRIONES HERNANDO, ANDRES", "pinHash": "3c8962ee3370ffd0852ded663c7a9e4048858de8fbb9e736e50d26747abe9093"}, {"id": "encinas-humanes-alejandro", "name": "ENCINAS HUMANES, ALEJANDRO", "pinHash": "715742c0c9896de869d5f51e0e64425a1453e3f3194c63631ee0f82a0d7639ad"}, {"id": "avila-de-los-santos-victor", "name": "AVILA DE LOS SANTOS, VICTOR", "pinHash": "3dc84b2ec9602aad14106bb43b9a61ee190ce9bceb751f4797f962fb1da11edf"}, {"id": "avila-de-los-santos-jose-maria", "name": "AVILA DE LOS SANTOS, JOSE MARIA", "pinHash": "e91f4b47bb377a7989ff7b67c326e3ec36bf981d0f0082f6f7cb7737707e6963"}];
+
+    const logEl = document.getElementById('log');
+    function log(msg) {
+      logEl.textContent += msg + '\n';
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    document.getElementById('btn').addEventListener('click', async (e) => {
+      e.target.disabled = true;
+      log(`Sembrando ${players.length} jugadores...`);
+      let ok = 0, fail = 0;
+      for (const p of players) {
+        try {
+          await setDoc(doc(db, 'roster', p.id), { name: p.name });
+          await setDoc(doc(db, 'players', p.id), { pinHash: p.pinHash });
+          log(`✓ ${p.name}`);
+          ok++;
+        } catch (err) {
+          log(`✗ ERROR con ${p.name}: ${err.message}`);
+          fail++;
+        }
+      }
+      log(`\nTerminado. OK: ${ok}, errores: ${fail}.`);
+      log('\nAhora vuelve a Firestore → Reglas y pon las reglas definitivas (bloqueadas de escritura).');
+    });
+  </script>
+</body>
+</html>
