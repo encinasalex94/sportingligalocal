@@ -856,3 +856,248 @@ button:focus-visible {
 
   .footer-inner { align-items: flex-start; }
 }
+
+/* ---------------------------- VER ACTA (botón) ---------------------------- */
+.acta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: var(--white);
+  border: 1px solid var(--blue);
+  border-radius: 999px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.acta-btn:hover {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.acta-btn-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.calendar-item .acta-btn {
+  font-size: 9.5px;
+  padding: 3px 9px;
+  margin-top: 8px;
+}
+
+/* ---------------------------- ACTA MODAL ---------------------------- */
+.acta-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(7,20,39,0.72);
+  z-index: 100;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+
+.acta-overlay.is-open {
+  display: flex;
+}
+
+.acta-modal {
+  position: relative;
+  background: var(--white);
+  border-radius: 14px;
+  max-width: 720px;
+  width: 100%;
+  padding: 32px 28px 28px;
+  margin: auto;
+}
+
+.acta-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: var(--ice);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.acta-close:hover { background: rgba(11,31,61,0.12); }
+
+.acta-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.acta-header-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--slate);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.acta-header-score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.acta-team-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.acta-team-name.home { text-align: right; }
+.acta-team-name.away { text-align: left; }
+.acta-team-name.is-own { color: var(--blue); }
+
+.acta-header-score .score-box {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 24px;
+  background: var(--navy);
+  color: var(--white);
+  border-radius: 8px;
+  padding: 6px 14px;
+  flex-shrink: 0;
+}
+
+.acta-referee {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--slate);
+  margin-top: 10px;
+}
+
+.acta-section-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--navy);
+  margin: 24px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid rgba(11,31,61,0.08);
+}
+
+.acta-goals-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.acta-goals-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 13.5px;
+  border-bottom: 1px solid rgba(11,31,61,0.06);
+}
+
+.acta-goals-list li:last-child { border-bottom: none; }
+
+.acta-goal-score {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--navy);
+  min-width: 42px;
+}
+
+.acta-goal-minute {
+  font-family: var(--font-mono);
+  color: var(--slate-light);
+  font-size: 11.5px;
+  min-width: 32px;
+}
+
+.acta-card-dot {
+  display: inline-block;
+  width: 9px;
+  height: 13px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.acta-card-dot.yellow { background: #E4B429; }
+.acta-card-dot.red { background: var(--loss); }
+
+.acta-card-team {
+  color: var(--slate-light);
+  font-size: 11px;
+}
+
+.acta-lineups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+@media (max-width: 560px) {
+  .acta-lineups { grid-template-columns: 1fr; }
+  .acta-modal { padding: 28px 18px 22px; }
+}
+
+.acta-lineup-team {
+  font-family: var(--font-display);
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.acta-lineup-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--slate-light);
+  margin: 10px 0 4px;
+}
+
+.acta-player-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 12.5px;
+}
+
+.acta-player-list li {
+  display: flex;
+  gap: 8px;
+  padding: 2px 0;
+}
+
+.acta-player-number {
+  font-family: var(--font-mono);
+  color: var(--blue);
+  font-weight: 700;
+  min-width: 20px;
+  text-align: right;
+}
+
+.acta-empty {
+  color: var(--slate-light);
+  font-size: 12.5px;
+  font-style: italic;
+}
