@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-08T10:54:45.479Z",
+  "generatedAt": "2026-08-08T11:13:37.351Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
   },
   "season": "2025-2026",
   "competition": {
-    "title": "LIGA AFICIONADOS F-11, 1� AFICIONADOS F-11",
+    "title": "LIGA AFICIONADOS F-11, 1ª AFICIONADOS F-11",
     "season": "Temporada 2025-2026",
     "round": "Jornada 22 (17-05-2026)"
   },
@@ -224,7 +224,7 @@
     {
       "position": 11,
       "teamId": "1000059",
-      "teamName": "INTER DE S�K",
+      "teamName": "INTER DE SÉK",
       "points": 19,
       "played": 22,
       "won": 5,
@@ -299,7 +299,7 @@
     },
     {
       "homeTeam": "NEWCASTLE PUB F.C.",
-      "awayTeam": "INTER DE S�K",
+      "awayTeam": "INTER DE SÉK",
       "homeGoals": 1,
       "awayGoals": 0,
       "time": "12:00",
@@ -340,7 +340,7 @@
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
-          "awayTeam": "INTER DE S�K",
+          "awayTeam": "INTER DE SÉK",
           "homeGoals": 3,
           "awayGoals": 2,
           "played": true,
@@ -400,7 +400,7 @@
           "venue": "ENRIQUE MORENO - F - Hierba Artificial"
         },
         {
-          "homeTeam": "INTER DE S�K",
+          "homeTeam": "INTER DE SÉK",
           "awayTeam": "DELAPIO-40 BAR DE VINOS",
           "homeGoals": 0,
           "awayGoals": 1,
@@ -480,7 +480,7 @@
         },
         {
           "homeTeam": "RUMANIA CF",
-          "awayTeam": "INTER DE S�K",
+          "awayTeam": "INTER DE SÉK",
           "homeGoals": 1,
           "awayGoals": 5,
           "played": true,
@@ -522,7 +522,7 @@
           "venue": "ENRIQUE MORENO - B - Hierba Artificial"
         },
         {
-          "homeTeam": "INTER DE S�K",
+          "homeTeam": "INTER DE SÉK",
           "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
           "homeGoals": 0,
           "awayGoals": 3,
@@ -566,7 +566,7 @@
       "matches": [
         {
           "homeTeam": "NEWTEAM- SMT",
-          "awayTeam": "INTER DE S�K",
+          "awayTeam": "INTER DE SÉK",
           "homeGoals": 5,
           "awayGoals": 2,
           "played": true,
@@ -662,7 +662,7 @@
           "venue": "ENRIQUE MORENO - F - Hierba Artificial"
         },
         {
-          "homeTeam": "INTER DE S�K",
+          "homeTeam": "INTER DE SÉK",
           "awayTeam": "MAGREB UNITED",
           "homeGoals": 2,
           "awayGoals": 2,
@@ -723,7 +723,7 @@
           "venue": "ENRIQUE MORENO - F - Hierba Artificial"
         },
         {
-          "homeTeam": "INTER DE S�K",
+          "homeTeam": "INTER DE SÉK",
           "awayTeam": "TORINO - VENTACONS - BAR JUANI",
           "homeGoals": 4,
           "awayGoals": 1,
@@ -749,7 +749,7 @@
       "matches": [
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
-          "awayTeam": "INTER DE S�K",
+          "awayTeam": "INTER DE SÉK",
           "homeGoals": 5,
           "awayGoals": 1,
           "played": true,
@@ -845,7 +845,7 @@
           "venue": "ENRIQUE MORENO - F - Hierba Artificial"
         },
         {
-          "homeTeam": "INTER DE S�K",
+          "homeTeam": "INTER DE SÉK",
           "awayTeam": "FYSOL-POSTAS",
           "homeGoals": 1,
           "awayGoals": 2,
@@ -907,7 +907,7 @@
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
-          "awayTeam": "INTER DE S�K",
+          "awayTeam": "INTER DE SÉK",
           "homeGoals": 3,
           "awayGoals": 1,
           "played": true,
@@ -940,7 +940,7 @@
           "venue": "ENRIQUE MORENO - B - Hierba Artificial"
         },
         {
-          "homeTeam": "INTER DE S�K",
+          "homeTeam": "INTER DE SÉK",
           "awayTeam": "NEWCASTLE PUB F.C.",
           "homeGoals": 2,
           "awayGoals": 1,
@@ -992,7 +992,7 @@
       "date": "25-01-2026",
       "matches": [
         {
-          "homeTeam": "INTER DE S�K",
+          "homeTeam": "INTER DE SÉK",
           "awayTeam": "J.C.R. - ATLETICO JERINGA",
           "homeGoals": 2,
           "awayGoals": 0,
@@ -1072,7 +1072,7 @@
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
-          "awayTeam": "INTER DE S�K",
+          "awayTeam": "INTER DE SÉK",
           "homeGoals": 1,
           "awayGoals": 1,
           "played": true,
@@ -1159,7 +1159,7 @@
           "venue": "ENRIQUE MORENO - B - Hierba Artificial"
         },
         {
-          "homeTeam": "INTER DE S�K",
+          "homeTeam": "INTER DE SÉK",
           "awayTeam": "RUMANIA CF",
           "homeGoals": 1,
           "awayGoals": 2,
@@ -1176,7 +1176,7 @@
       "matches": [
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-          "awayTeam": "INTER DE S�K",
+          "awayTeam": "INTER DE SÉK",
           "homeGoals": 4,
           "awayGoals": 0,
           "played": true,
@@ -1245,7 +1245,7 @@
           "venue": "Campo Pendiente de asignar"
         },
         {
-          "homeTeam": "INTER DE S�K",
+          "homeTeam": "INTER DE SÉK",
           "awayTeam": "NEWTEAM- SMT",
           "homeGoals": 0,
           "awayGoals": 3,
@@ -1316,7 +1316,7 @@
         },
         {
           "homeTeam": "MAGREB UNITED",
-          "awayTeam": "INTER DE S�K",
+          "awayTeam": "INTER DE SÉK",
           "homeGoals": 1,
           "awayGoals": 1,
           "played": true,
@@ -1368,7 +1368,7 @@
         },
         {
           "homeTeam": "TORINO - VENTACONS - BAR JUANI",
-          "awayTeam": "INTER DE S�K",
+          "awayTeam": "INTER DE SÉK",
           "homeGoals": 1,
           "awayGoals": 2,
           "played": true,
@@ -1446,7 +1446,7 @@
           "venue": "ENRIQUE MORENO - F - Hierba Artificial"
         },
         {
-          "homeTeam": "INTER DE S�K",
+          "homeTeam": "INTER DE SÉK",
           "awayTeam": "RIMATEC-PUB TENESSE",
           "homeGoals": 1,
           "awayGoals": 6,
@@ -1499,7 +1499,7 @@
         },
         {
           "homeTeam": "FYSOL-POSTAS",
-          "awayTeam": "INTER DE S�K",
+          "awayTeam": "INTER DE SÉK",
           "homeGoals": 7,
           "awayGoals": 2,
           "played": true,
@@ -1568,7 +1568,7 @@
           "venue": "ENRIQUE MORENO - F - Hierba Artificial"
         },
         {
-          "homeTeam": "INTER DE S�K",
+          "homeTeam": "INTER DE SÉK",
           "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
           "homeGoals": 1,
           "awayGoals": 1,
@@ -1639,7 +1639,7 @@
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
-          "awayTeam": "INTER DE S�K",
+          "awayTeam": "INTER DE SÉK",
           "homeGoals": 1,
           "awayGoals": 0,
           "played": true,
@@ -1792,7 +1792,7 @@
       "time": "12:00",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
       "isHome": true,
-      "opponent": "INTER DE S�K",
+      "opponent": "INTER DE SÉK",
       "goalsFor": 3,
       "goalsAgainst": 1,
       "played": true,
@@ -1946,7 +1946,7 @@
       "time": "18:30",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
       "isHome": false,
-      "opponent": "INTER DE S�K",
+      "opponent": "INTER DE SÉK",
       "goalsFor": 1,
       "goalsAgainst": 1,
       "played": true,
@@ -2035,7 +2035,7 @@
     },
     {
       "player": "SANSEGUNDO LOPEZ, JAVIER",
-      "team": "INTER DE S�K",
+      "team": "INTER DE SÉK",
       "played": 20,
       "goals": 10,
       "penalties": 0,
@@ -2164,7 +2164,7 @@
       "isOwnTeam": true
     },
     {
-      "player": "MU�OZ CARPIO, ALBERTO",
+      "player": "MUÑOZ CARPIO, ALBERTO",
       "team": "SPORTING DE MADERASA - BAR JUANJO",
       "played": 11,
       "goals": 3,
