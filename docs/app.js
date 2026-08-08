@@ -33,6 +33,22 @@ function titleCase(str) {
     .replace(/(^|\s)([a-záéíóúñ])/g, (m, sp, c) => sp + c.toUpperCase());
 }
 
+const ICON_CLOCK =
+  '<svg class="meta-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+const ICON_PIN =
+  '<svg class="meta-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s7-6.1 7-11.5a7 7 0 1 0-14 0C5 14.9 12 21 12 21Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.3" stroke="currentColor" stroke-width="1.8"/></svg>';
+
+// Genera la fila de "chips" de hora y campo, reutilizada en el marcador
+// destacado, las tarjetas de resultados y el calendario.
+function renderMetaRow(time, venue, extraClass = '') {
+  const chips = [];
+  if (time) chips.push(`<span class="meta-chip">${ICON_CLOCK}${time}</span>`);
+  if (venue) chips.push(`<span class="meta-chip">${ICON_PIN}${formatVenue(venue)}</span>`);
+  if (!chips.length) return '';
+  return `<div class="meta-row ${extraClass}">${chips.join('')}</div>`;
+}
+
 function renderScoreboard(data) {
   const el = document.getElementById('hero-scoreboard');
   const own = data.lastRoundResults.find(
@@ -54,10 +70,7 @@ function renderScoreboard(data) {
       ? 'VICTORIA'
       : 'DERROTA';
 
-  const metaBits = [];
-  if (own.time) metaBits.push(own.time);
-  if (own.venue) metaBits.push(formatVenue(own.venue));
-  const metaHtml = metaBits.length ? `<div class="sb-meta">${metaBits.join(' · ')}</div>` : '';
+  const metaHtml = renderMetaRow(own.time, own.venue, 'meta-row-center');
 
   el.innerHTML = `
     <div class="sb-team ${isHome ? 'is-own' : ''}">
@@ -168,10 +181,7 @@ function renderMatchCard(m) {
   const isOwnMatch = isOwn(m.homeTeam) || isOwn(m.awayTeam);
   const pending = !m.played;
   const score = pending ? 'vs' : `${m.homeGoals} : ${m.awayGoals}`;
-  const metaBits = [];
-  if (m.time) metaBits.push(m.time);
-  if (m.venue) metaBits.push(formatVenue(m.venue));
-  const metaHtml = metaBits.length ? `<span class="match-meta">${metaBits.join(' · ')}</span>` : '';
+  const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-center');
   return `
     <div class="match-card ${isOwnMatch ? 'is-own' : ''} ${pending ? 'is-pending' : ''}">
       <div class="match-card-row">
@@ -328,9 +338,7 @@ function renderCalendar(data) {
     .map((m) => {
       const cls = m.result === 'G' ? 'win' : m.result === 'E' ? 'draw' : m.result === 'P' ? 'loss' : '';
       const score = m.played ? `${m.goalsFor} - ${m.goalsAgainst}` : 'Pendiente';
-      const metaBits = [];
-      if (m.time) metaBits.push(m.time);
-      if (m.venue) metaBits.push(formatVenue(m.venue));
+      const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-compact');
       return `
         <div class="calendar-item ${cls}">
           <div class="calendar-round">
@@ -339,7 +347,8 @@ function renderCalendar(data) {
           </div>
           <span class="calendar-opponent" title="${m.opponent}">${shortName(m.opponent)}</span>
           <span class="calendar-score">${score}</span>
-          <span class="calendar-date">${m.date || ''}${metaBits.length ? ` · ${metaBits.join(' · ')}` : ''}</span>
+          <span class="calendar-date">${m.date || ''}</span>
+          ${metaHtml}
         </div>
       `;
     })
