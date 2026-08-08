@@ -73,18 +73,27 @@ const client = wrapper(
 );
 
 // La web de aranjuez.ffmadrid.es está codificada en ISO-8859-15 (lo declara
-// en su <meta charset>), NO en UTF-8. Si dejamos que axios/cheerio traten
-// la respuesta como UTF-8 por defecto, las tildes y símbolos (á, é, í, ó,
-// ú, ñ, ª, º...) se corrompen ("SÉK" se convierte en basura, "1ª" en "1◇",
-// etc). Aquí decodificamos explícitamente cada respuesta con el charset
-// correcto antes de tocarla con cheerio o cualquier regex.
-client.interceptors.response.use((response) => {
-  if (response.data && (Buffer.isBuffer(response.data) || response.data instanceof ArrayBuffer)) {
-    const buf = Buffer.isBuffer(response.data) ? response.data : Buffer.from(response.data);
-    response.data = iconv.decode(buf, 'ISO-8859-15');
-  }
-  return response;
-});
+// en su <meta charset>), NO en UTF-8. Si dejamos que axios/cheerio traten la
+// respuesta como UTF-8 por defecto, las tildes y símbolos (á, é, í, ó, ú, ñ,
+// ª, º...) se corrompen ("SÉK" se convierte en basura, "1ª" en "1◇", etc).
+// Decodificamos explícitamente cada respuesta con el charset correcto en el
+// propio punto de la petición (nada de interceptores globales, que en algún
+// entorno no llegaban a aplicarse de forma fiable).
+function decodeBody(data) {
+  if (data == null) return '';
+  const buf = Buffer.isBuffer(data) ? data : Buffer.from(data);
+  return iconv.decode(buf, 'ISO-8859-15');
+}
+
+async function httpGet(url, config = {}) {
+  const resp = await client.get(url, { ...config, responseType: 'arraybuffer' });
+  return { status: resp.status, data: decodeBody(resp.data) };
+}
+
+async function httpPost(url, body, config = {}) {
+  const resp = await client.post(url, body, { ...config, responseType: 'arraybuffer' });
+  return { status: resp.status, data: decodeBody(resp.data) };
+}
 
 function log(...args) {
   console.log('[scrape]', ...args);
@@ -108,10 +117,10 @@ async function login() {
     );
   }
 
-  await client.get(`${CONFIG.baseUrl}/nfg/`);
+  await httpGet(`${CONFIG.baseUrl}/nfg/`);
 
   const body = new URLSearchParams({ NUser: user, NPass: pass, LoginAjax: '1' });
-  const loginResp = await client.post(`${CONFIG.baseUrl}/nfg/NLogin`, body.toString(), {
+  const loginResp = await httpPost(`${CONFIG.baseUrl}/nfg/NLogin`, body.toString(), {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   });
 
@@ -133,7 +142,7 @@ async function login() {
 // ---- Clasificación oficial (Liga) ------------------------------------------
 async function fetchClasificacion() {
   const url = `${CONFIG.baseUrl}/nfg/NPcd/NFG_VisClasificacion`;
-  const resp = await client.get(url, {
+  const resp = await httpGet(url, {
     params: {
       cod_primaria: CONFIG.codPrimaria,
       codgrupo: CONFIG.liga.codGrupo,
@@ -189,7 +198,7 @@ async function fetchClasificacion() {
 // ---- Goleadores (Liga) ------------------------------------------------
 async function fetchGoleadores() {
   const url = `${CONFIG.baseUrl}/nfg/NPcd/NFG_CMP_Goleadores`;
-  const resp = await client.get(url, {
+  const resp = await httpGet(url, {
     params: {
       cod_primaria: CONFIG.codPrimaria,
       codcompeticion: CONFIG.liga.codCompeticion,
@@ -238,7 +247,7 @@ async function fetchGoleadores() {
 // y (c) construir tablas de grupo propias en la Copa.
 async function fetchCalendario(codCompeticion, codGrupo, opts = {}) {
   const url = `${CONFIG.baseUrl}/nfg/NPcd/NFG_VisCalendario_Vis`;
-  const resp = await client.get(url, {
+  const resp = await httpGet(url, {
     params: {
       cod_primaria: CONFIG.codPrimaria,
       codtemporada: CONFIG.codTemporada,
@@ -318,7 +327,7 @@ async function fetchCalendario(codCompeticion, codGrupo, opts = {}) {
 // 22 de golpe en cada ejecución, para no message excesivo al servidor).
 async function fetchRoundDetail(codCompeticion, codGrupo, codTemporada, jornadaNum) {
   const url = `${CONFIG.baseUrl}/nfg/NPcd/NFG_CmpJornada`;
-  const resp = await client.get(url, {
+  const resp = await httpGet(url, {
     params: {
       cod_primaria: CONFIG.codPrimaria,
       CodCompeticion: codCompeticion,
