@@ -108,6 +108,19 @@
 
   <div class="divider" aria-hidden="true"></div>
 
+  <!-- CONVOCATORIA -->
+  <section class="section" id="convocatoria">
+    <div class="wrap">
+      <h2 class="section-title">Convocatoria</h2>
+      <p class="section-sub" id="convocatoria-sub">—</p>
+      <div id="convocatoria-content">
+        <!-- generado por JS -->
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
   <!-- CALENDARIO / HISTORIAL DE LA TEMPORADA -->
   <section class="section" id="calendario">
     <div class="wrap">
@@ -138,6 +151,18 @@
       </div>
     </div>
   </section>
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- VALORACIONES -->
+  <section class="section" id="valoraciones">
+    <div class="wrap">
+      <h2 class="section-title">Valoraciones del vestuario</h2>
+      <p class="section-sub">Nota media puesta por los propios compañeros tras cada partido</p>
+      <ol class="scorer-list" id="valoraciones-list">
+        <!-- generado por JS -->
+      </ol>
+    </div>
+  </section>
 
 </main>
 
@@ -160,6 +185,17 @@
   </div>
 </div>
 
+<!-- MODAL: identificarse (nombre + PIN) para apuntarse o votar -->
+<div class="acta-overlay" id="club-overlay">
+  <div class="acta-modal club-modal" role="dialog" aria-modal="true">
+    <button class="acta-close" id="club-close" aria-label="Cerrar">&times;</button>
+    <div id="club-content">
+      <!-- generado por JS -->
+    </div>
+  </div>
+</div>
+
 <script src="app.js"></script>
+<script type="module" src="club-ui.js"></script>
 </body>
 </html>
