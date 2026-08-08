@@ -5,9 +5,13 @@
  * credenciales del club y descarga:
  *   - Clasificación y calendario completo de la Liga (todas las jornadas,
  *     todos los partidos, incluidas las jornadas aún no disputadas)
+ *   - Hora y campo de los partidos recientes/próximos (Liga) y de todos los
+ *     partidos de Copa
  *   - Tabla de goleadores del grupo de Liga
  *   - Recorrido completo en la Copa: fase de grupos, rondas extra de grupos
- *     y fase final eliminatoria (octavos, cuartos, semifinal, final)
+ *     y fase final eliminatoria (octavos, cuartos, semifinal, final), más una
+ *     clasificación de grupos calculada por nosotros combinando las 3 tandas
+ *     de partidos de grupo (la propia FFMadrid no ofrece esa tabla combinada)
  *
  * Guarda todo en docs/data/data.json, que luego lee la web estática (docs/).
  *
@@ -27,41 +31,31 @@ const fs = require('fs');
 const path = require('path');
 
 // ---- Configuración del club / competiciones --------------------------------
-// Estos códigos son específicos de la temporada 2025-2026 en la Liga Local de
-// Aranjuez. Cada temporada nueva hay que revisarlos navegando la web de FFMadrid
-// con las credenciales del club (los parámetros salen en la URL de cada página
-// de "Clasificación" / "Calendario").
 const CONFIG = {
   baseUrl: 'https://aranjuez.ffmadrid.es',
   codPrimaria: '1000128',
   codTemporada: '21', // 2025-2026
-  codEquipoPropio: '1000030', // SPORTING DE MADERASA - BAR JUANJO
+  temporadaTexto: '2025-2026',
+  codEquipoPropio: '1000030',
   nombreEquipoPropio: 'SPORTING DE MADERASA - BAR JUANJO',
 
   liga: {
-    codCompeticion: '1009587', // LIGA AFICIONADOS F-11
-    codGrupo: '1009591', // 1ª AFICIONADOS F-11
+    codCompeticion: '1009587',
+    codGrupo: '1009591',
   },
 
-  // La Copa en NFG está repartida en varias "competiciones" distintas porque
-  // así lo modela su software (cada tanda de partidos de grupos tiene su
-  // propio código, y la fase final es otra competición aparte). Cada entrada
-  // aquí es una etapa del camino del equipo en la Copa.
-  copaStages: [
-    { key: 'grupos', label: 'Fase de grupos', codCompeticion: '1009598', codGrupo: '1010292' },
-    { key: 'ronda4', label: '4º partido (grupos)', codCompeticion: '1009607', codGrupo: '1009635' },
-    { key: 'ronda5', label: '5º partido (grupos)', codCompeticion: '1010502', codGrupo: '1010515' },
-    {
-      key: 'final',
-      label: 'Fase final',
-      codCompeticion: '1010540',
-      codGrupo: '1010542',
-      knockout: true,
-    },
-  ],
+  // Nota: esta temporada el club también jugó la Copa Aficionados F-11, pero
+  // como no está garantizado que se dispute todos los años, la web no la
+  // descarga ni la muestra. Si en el futuro quieres reactivarla, aquí van
+  // los códigos de aquella edición como referencia:
+  //   Fase de grupos: codCompeticion 1009598, codGrupo 1010292
+  //   4º partido (grupos): codCompeticion 1009607, codGrupo 1009635
+  //   5º partido (grupos): codCompeticion 1010502, codGrupo 1010515
+  //   Fase final (octavos a final, un único documento): codCompeticion 1010540, codGrupo 1010542
 };
 
 const OUTPUT_PATH = path.join(__dirname, '..', 'docs', 'data', 'data.json');
+const REQUEST_DELAY_MS = 400; // para no saturar el servidor de FFMadrid
 
 const jar = new CookieJar();
 const client = wrapper(
@@ -80,6 +74,10 @@ function log(...args) {
   console.log('[scrape]', ...args);
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function isOwnTeamName(name) {
   return (name || '').toUpperCase().includes(CONFIG.nombreEquipoPropio);
 }
@@ -96,16 +94,9 @@ async function login() {
 
   await client.get(`${CONFIG.baseUrl}/nfg/`);
 
-  const body = new URLSearchParams({
-    NUser: user,
-    NPass: pass,
-    LoginAjax: '1',
-  });
-
+  const body = new URLSearchParams({ NUser: user, NPass: pass, LoginAjax: '1' });
   const loginResp = await client.post(`${CONFIG.baseUrl}/nfg/NLogin`, body.toString(), {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   });
 
   const okLogin =
@@ -123,7 +114,7 @@ async function login() {
   log('Login OK');
 }
 
-// ---- Clasificación (Liga) --------------------------------------------------
+// ---- Clasificación oficial (Liga) ------------------------------------------
 async function fetchClasificacion() {
   const url = `${CONFIG.baseUrl}/nfg/NPcd/NFG_VisClasificacion`;
   const resp = await client.get(url, {
@@ -135,14 +126,7 @@ async function fetchClasificacion() {
   });
 
   const $ = cheerio.load(resp.data);
-
   const tituloCompeticion = $('td.titulocaja').first().text().trim();
-  const temporadaTexto = $('.titulocaja')
-    .filter((_, el) => /Temporada/i.test($(el).text()))
-    .first()
-    .text()
-    .trim();
-  const jornadaTexto = $('.title_categoría').first().text().trim();
 
   const standings = [];
   $('#CL_Resumen')
@@ -176,25 +160,14 @@ async function fetchClasificacion() {
         });
 
       standings.push({
-        position,
-        teamId,
-        teamName,
-        points,
-        played,
-        won,
-        drawn,
-        lost,
-        goalsFor,
-        goalsAgainst,
-        goalDifference: goalsFor - goalsAgainst,
-        form,
+        position, teamId, teamName, points, played, won, drawn, lost,
+        goalsFor, goalsAgainst, goalDifference: goalsFor - goalsAgainst, form,
         isOwnTeam: teamId === CONFIG.codEquipoPropio,
       });
     });
 
   standings.sort((a, b) => a.position - b.position);
-
-  return { tituloCompeticion, temporadaTexto, jornadaTexto, standings };
+  return { tituloCompeticion, standings };
 }
 
 // ---- Goleadores (Liga) ------------------------------------------------
@@ -230,8 +203,7 @@ async function fetchGoleadores() {
       if (!player) return;
 
       scorers.push({
-        player,
-        team,
+        player, team,
         played: Number.isFinite(played) ? played : null,
         goals,
         penalties: penaltiesMatch ? Number(penaltiesMatch[1]) : 0,
@@ -243,11 +215,11 @@ async function fetchGoleadores() {
   return scorers;
 }
 
-// ---- Calendario completo (genérico: sirve para Liga y para cada etapa de Copa) --
-// Devuelve, por jornada: número, fecha (y etiqueta de ronda para eliminatorias),
-// y TODOS los partidos de esa jornada (no solo los del propio equipo). Así el
-// selector de jornada de la web puede mostrar cualquier jornada, incluidas las
-// que aún no se han jugado.
+// ---- Calendario completo (genérico) ----------------------------------------
+// Todos los partidos de todas las jornadas de una competición/grupo (no solo
+// los del propio equipo), para poder: (a) mostrar cualquier jornada en el
+// selector, (b) recalcular la clasificación a fecha de una jornada concreta,
+// y (c) construir tablas de grupo propias en la Copa.
 async function fetchCalendario(codCompeticion, codGrupo, opts = {}) {
   const url = `${CONFIG.baseUrl}/nfg/NPcd/NFG_VisCalendario_Vis`;
   const resp = await client.get(url, {
@@ -261,9 +233,6 @@ async function fetchCalendario(codCompeticion, codGrupo, opts = {}) {
 
   const $ = cheerio.load(resp.data);
 
-  // Si es una fase eliminatoria, el desplegable de jornada tiene etiquetas
-  // como "28-03-2026  (8º)" en vez de solo un número. Las recogemos para
-  // poder etiquetar cada ronda con su nombre real (octavos, semifinal...).
   const roundLabels = {};
   if (opts.knockout) {
     $('select#jornada option').each((_, opt) => {
@@ -305,38 +274,90 @@ async function fetchCalendario(codCompeticion, codGrupo, opts = {}) {
       const played =
         homeGoals !== null && awayGoals !== null && !Number.isNaN(homeGoals) && !Number.isNaN(awayGoals);
 
-      // En la fase eliminatoria aparece "(Clasificado)" junto al equipo que pasa ronda.
       const homeQualified = /Clasificado/i.test(homeCell.parent().text());
       const awayQualified = /Clasificado/i.test(awayCell.parent().text());
       const penaltiesMatch = $row.text().match(/Penaltis:\s*(\d+)\s*-\s*(\d+)/i);
 
       matches.push({
-        homeTeam,
-        awayTeam,
-        homeGoals,
-        awayGoals,
-        played,
+        homeTeam, awayTeam, homeGoals, awayGoals, played,
         homeQualified: opts.knockout ? homeQualified || undefined : undefined,
         awayQualified: opts.knockout ? awayQualified || undefined : undefined,
         penalties: penaltiesMatch ? `${penaltiesMatch[1]}-${penaltiesMatch[2]}` : undefined,
+        time: null,
+        venue: null,
       });
     });
 
-    rounds.push({
-      round: roundNum,
-      roundLabel: roundLabels[String(roundNum)] || null,
-      date: dateText || null,
-      matches,
-    });
+    rounds.push({ round: roundNum, roundLabel: roundLabels[String(roundNum)] || null, date: dateText || null, matches });
   });
 
   rounds.sort((a, b) => a.round - b.round);
   return rounds;
 }
 
-// A partir del calendario completo (todos los equipos), nos quedamos solo con
-// los partidos del propio equipo para construir su "trayectoria" en una
-// competición dada.
+// ---- Detalle de una jornada (hora + campo) vía NFG_CmpJornada ---------------
+// El calendario (NFG_VisCalendario_Vis) no trae hora ni campo; solo la página
+// de resultados de una jornada concreta (NFG_CmpJornada) los tiene. Por eso
+// esto va aparte y solo se llama para las jornadas que nos interesan (no las
+// 22 de golpe en cada ejecución, para no message excesivo al servidor).
+async function fetchRoundDetail(codCompeticion, codGrupo, codTemporada, jornadaNum) {
+  const url = `${CONFIG.baseUrl}/nfg/NPcd/NFG_CmpJornada`;
+  const resp = await client.get(url, {
+    params: {
+      cod_primaria: CONFIG.codPrimaria,
+      CodCompeticion: codCompeticion,
+      CodGrupo: codGrupo,
+      CodTemporada: codTemporada,
+      CodJornada: jornadaNum,
+    },
+  });
+
+  const $ = cheerio.load(resp.data);
+  const details = [];
+
+  $('.portlet-body.body_fed').each((_, block) => {
+    const $block = $(block);
+    const teamLinks = $block.find('a[href*="Codigo_Equipo"]');
+    if (teamLinks.length < 2) return;
+
+    const homeTeam = $(teamLinks[0]).text().replace(/\s+/g, ' ').trim();
+    const awayTeam = $(teamLinks[1]).text().replace(/\s+/g, ' ').trim();
+
+    // Fecha + hora: dos <span class="esconder"> dentro del bloque de fecha.
+    const esconderSpans = $block.find('h5 span.esconder');
+    const time = esconderSpans.length >= 2 ? $(esconderSpans[1]).text().replace(/\s+/g, ' ').trim() : null;
+
+    // Campo: texto tras la etiqueta "Campo:"
+    let venue = null;
+    const campoLabel = $block.find('span.textocolor b').filter((__, el) => /Campo/i.test($(el).text()));
+    if (campoLabel.length) {
+      const parentText = campoLabel.first().parent().parent().text().replace(/\s+/g, ' ').trim();
+      venue = parentText.replace(/^Campo:\s*/i, '').trim() || null;
+    }
+
+    if (homeTeam && awayTeam) {
+      details.push({ homeTeam, awayTeam, time: time || null, venue: venue || null });
+    }
+  });
+
+  return details;
+}
+
+// Añade hora/campo a un round ya descargado, buscando coincidencia por nombre de equipos.
+function mergeRoundDetail(round, details) {
+  if (!details || !details.length) return round;
+  for (const m of round.matches) {
+    const found = details.find((d) => d.homeTeam === m.homeTeam && d.awayTeam === m.awayTeam);
+    if (found) {
+      m.time = found.time;
+      m.venue = found.venue;
+    }
+  }
+  return round;
+}
+
+// A partir del calendario completo (todos los equipos), extrae solo los
+// partidos del propio equipo.
 function extractOwnMatches(rounds) {
   const own = [];
   for (const r of rounds) {
@@ -353,15 +374,11 @@ function extractOwnMatches(rounds) {
       }
 
       own.push({
-        round: r.round,
-        roundLabel: r.roundLabel,
-        date: r.date,
-        isHome: isOwnHome,
-        opponent: isOwnHome ? m.awayTeam : m.homeTeam,
+        round: r.round, roundLabel: r.roundLabel, date: r.date, time: m.time || null, venue: m.venue || null,
+        isHome: isOwnHome, opponent: isOwnHome ? m.awayTeam : m.homeTeam,
         goalsFor: m.played ? (isOwnHome ? m.homeGoals : m.awayGoals) : null,
         goalsAgainst: m.played ? (isOwnHome ? m.awayGoals : m.homeGoals) : null,
-        played: m.played,
-        result,
+        played: m.played, result,
         qualified: isOwnHome ? m.homeQualified : m.awayQualified,
         penalties: m.penalties || null,
       });
@@ -371,6 +388,49 @@ function extractOwnMatches(rounds) {
   return own;
 }
 
+// Calcula una tabla de clasificación a partir de un conjunto de rondas
+// (usada para: clasificación de grupos de Copa, ya que la federación no la
+// ofrece combinada). 3 puntos por victoria, 1 por empate, igual que la Liga.
+function computeStandingsFromRounds(roundsList) {
+  const teams = new Map();
+
+  function ensure(name) {
+    if (!teams.has(name)) {
+      teams.set(name, {
+        teamName: name, played: 0, won: 0, drawn: 0, lost: 0,
+        goalsFor: 0, goalsAgainst: 0, points: 0, isOwnTeam: isOwnTeamName(name),
+      });
+    }
+    return teams.get(name);
+  }
+
+  for (const rounds of roundsList) {
+    for (const r of rounds) {
+      for (const m of r.matches) {
+        if (!m.played) continue;
+        const home = ensure(m.homeTeam);
+        const away = ensure(m.awayTeam);
+        home.played++; away.played++;
+        home.goalsFor += m.homeGoals; home.goalsAgainst += m.awayGoals;
+        away.goalsFor += m.awayGoals; away.goalsAgainst += m.homeGoals;
+        if (m.homeGoals > m.awayGoals) { home.won++; away.lost++; home.points += 3; }
+        else if (m.homeGoals < m.awayGoals) { away.won++; home.lost++; away.points += 3; }
+        else { home.drawn++; away.drawn++; home.points += 1; away.points += 1; }
+      }
+    }
+  }
+
+  const table = Array.from(teams.values()).map((t) => ({
+    ...t,
+    goalDifference: t.goalsFor - t.goalsAgainst,
+  }));
+
+  table.sort((a, b) => b.points - a.points || b.goalDifference - a.goalDifference || b.goalsFor - a.goalsFor);
+  table.forEach((t, i) => { t.position = i + 1; });
+
+  return table;
+}
+
 async function main() {
   log('Iniciando sesión en NFG...');
   await login();
@@ -378,68 +438,65 @@ async function main() {
   log('Descargando clasificación de Liga...');
   const clasificacion = await fetchClasificacion();
   log(`  -> ${clasificacion.standings.length} equipos`);
+  await sleep(REQUEST_DELAY_MS);
 
   log('Descargando calendario completo de Liga (todas las jornadas)...');
   const ligaRounds = await fetchCalendario(CONFIG.liga.codCompeticion, CONFIG.liga.codGrupo);
   log(`  -> ${ligaRounds.length} jornadas`);
+  await sleep(REQUEST_DELAY_MS);
+
+  // Hora y campo: solo para las jornadas recientes/próximas (últimas 2 con
+  // resultado + siguientes 2), para no multiplicar las peticiones por 22 en
+  // cada ejecución (esto corre cada 15 min los findes).
+  const playedRoundNums = ligaRounds.filter((r) => r.matches.some((m) => m.played)).map((r) => r.round);
+  const lastPlayed = playedRoundNums[playedRoundNums.length - 1] || 0;
+  const roundsToDetail = ligaRounds
+    .map((r) => r.round)
+    .filter((n) => n >= lastPlayed - 1 && n <= lastPlayed + 2);
+
+  log(`Descargando hora/campo de jornadas ${roundsToDetail.join(', ')}...`);
+  for (const roundNum of roundsToDetail) {
+    try {
+      const details = await fetchRoundDetail(CONFIG.liga.codCompeticion, CONFIG.liga.codGrupo, CONFIG.codTemporada, roundNum);
+      const round = ligaRounds.find((r) => r.round === roundNum);
+      if (round) mergeRoundDetail(round, details);
+      await sleep(REQUEST_DELAY_MS);
+    } catch (err) {
+      log(`  -> jornada ${roundNum}: no se pudo obtener hora/campo (${err.message})`);
+    }
+  }
+
   const ownTeamCalendar = extractOwnMatches(ligaRounds);
 
   log('Descargando goleadores de Liga...');
   const scorers = await fetchGoleadores();
   log(`  -> ${scorers.length} jugadores con gol`);
+  await sleep(REQUEST_DELAY_MS);
 
-  log('Descargando recorrido en la Copa...');
-  const copa = { stages: [] };
-  for (const stage of CONFIG.copaStages) {
-    try {
-      const rounds = await fetchCalendario(stage.codCompeticion, stage.codGrupo, {
-        knockout: !!stage.knockout,
-      });
-      const ownMatches = extractOwnMatches(rounds);
-      copa.stages.push({
-        key: stage.key,
-        label: stage.label,
-        knockout: !!stage.knockout,
-        matches: ownMatches,
-      });
-      log(`  -> ${stage.label}: ${ownMatches.length} partidos del equipo`);
-    } catch (err) {
-      log(`  -> ${stage.label}: no se pudo descargar (${err.message}), se omite esta vez`);
-    }
-  }
-
-  // Encontrar la última jornada de Liga con resultados (para el marcador destacado)
   const playedRounds = ligaRounds.filter((r) => r.matches.some((m) => m.played));
   const lastPlayedRound = playedRounds[playedRounds.length - 1] || null;
   const lastRoundResults = lastPlayedRound
     ? lastPlayedRound.matches.map((m) => ({
-        homeTeam: m.homeTeam,
-        awayTeam: m.awayTeam,
-        homeGoals: m.homeGoals,
-        awayGoals: m.awayGoals,
+        homeTeam: m.homeTeam, awayTeam: m.awayTeam, homeGoals: m.homeGoals, awayGoals: m.awayGoals,
+        time: m.time, venue: m.venue,
       }))
     : [];
 
   const data = {
     generatedAt: new Date().toISOString(),
-    team: {
-      id: CONFIG.codEquipoPropio,
-      name: CONFIG.nombreEquipoPropio,
-    },
+    team: { id: CONFIG.codEquipoPropio, name: CONFIG.nombreEquipoPropio },
+    season: CONFIG.temporadaTexto,
     competition: {
       title: clasificacion.tituloCompeticion,
-      season: clasificacion.temporadaTexto,
-      round: lastPlayedRound
-        ? `Jornada ${lastPlayedRound.round} (${lastPlayedRound.date})`
-        : clasificacion.jornadaTexto,
+      season: `Temporada ${CONFIG.temporadaTexto}`,
+      round: lastPlayedRound ? `Jornada ${lastPlayedRound.round} (${lastPlayedRound.date})` : null,
     },
     standings: clasificacion.standings,
     lastRoundResults,
-    rounds: ligaRounds, // calendario completo, todas las jornadas y partidos, para el selector
+    rounds: ligaRounds,
     ownTeamCalendar,
     topScorers: scorers.slice(0, 20),
     ownTeamScorers: scorers.filter((s) => s.isOwnTeam),
-    copa,
   };
 
   fs.mkdirSync(path.dirname(OUTPUT_PATH), { recursive: true });
