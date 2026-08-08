@@ -182,10 +182,9 @@ function renderMatchCard(m) {
   const pending = !m.played;
   const score = pending ? 'vs' : `${m.homeGoals} : ${m.awayGoals}`;
   const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-center');
-  const actaBtn =
-    isOwnMatch && m.codActa
-      ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">Ver acta</button></div>`
-      : '';
+  const actaBtn = m.codActa
+    ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">Ver acta</button></div>`
+    : '';
   return `
     <div class="match-card ${isOwnMatch ? 'is-own' : ''} ${pending ? 'is-pending' : ''}">
       <div class="match-card-row">
@@ -400,38 +399,42 @@ function teamActaHtml(team) {
   `;
 }
 
-function findActaByCodActa(codActa) {
-  if (!DATA || !DATA.ownTeamCalendar) return null;
-  const entry = DATA.ownTeamCalendar.find((m) => String(m.codActa) === String(codActa));
-  return entry || null;
+function findMatchByCodActa(codActa) {
+  if (!DATA || !DATA.rounds) return null;
+  for (const r of DATA.rounds) {
+    const match = (r.matches || []).find((m) => String(m.codActa) === String(codActa));
+    if (match) return { round: r.round, match };
+  }
+  return null;
 }
 
 function openActa(codActa) {
-  const entry = findActaByCodActa(codActa);
+  const found = findMatchByCodActa(codActa);
   const overlay = document.getElementById('acta-overlay');
   const content = document.getElementById('acta-content');
 
-  if (!entry || !entry.acta) {
+  if (!found || !found.match.acta) {
     content.innerHTML = '<p class="acta-empty" style="text-align:center;padding:20px 0;">Ficha no disponible todavía para este partido.</p>';
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
     return;
   }
 
-  const acta = entry.acta;
-  const homeTeamName = entry.isHome ? OWN_TEAM_NAME : entry.opponent;
-  const awayTeamName = entry.isHome ? entry.opponent : OWN_TEAM_NAME;
-  const homeIsOwn = entry.isHome;
-  const awayIsOwn = !entry.isHome;
+  const { round, match } = found;
+  const acta = match.acta;
+  const homeTeamName = match.homeTeam;
+  const awayTeamName = match.awayTeam;
+  const homeIsOwn = isOwn(homeTeamName);
+  const awayIsOwn = isOwn(awayTeamName);
 
   const finalScore = acta.goals && acta.goals.length
     ? acta.goals[acta.goals.length - 1]
-    : { homeScore: entry.isHome ? entry.goalsFor : entry.goalsAgainst, awayScore: entry.isHome ? entry.goalsAgainst : entry.goalsFor };
+    : { homeScore: match.homeGoals, awayScore: match.awayGoals };
 
   const metaBits = [];
   if (acta.date) metaBits.push(acta.date);
   if (acta.time) metaBits.push(`${acta.time} h`);
-  metaBits.push(`Jornada ${entry.round}`);
+  metaBits.push(`Jornada ${round}`);
 
   const goalsHtml = acta.goals && acta.goals.length
     ? `<ul class="acta-goals-list">${acta.goals
