@@ -162,11 +162,6 @@ function computeStandingsAsOf(rounds, roundNumber) {
 function renderStandings(standings, options = {}) {
   const tbody = document.getElementById('standings-body');
   tbody.innerHTML = standingsRowsHtml(standings);
-  const note = document.getElementById('standings-note');
-  note.textContent = options.computed
-    ? `Clasificación calculada a fecha de la jornada ${options.round} (puede variar levemente de la oficial en desempates especiales).`
-    : 'Clasificación oficial tras la última jornada disputada. Usa el selector de "Ver jornada" de arriba para verla en otro momento de la temporada.';
-  note.style.display = '';
 }
 
 function renderMatchCard(m) {
@@ -287,10 +282,7 @@ function showSeasonUnavailable(seasonLabel) {
   document.getElementById('round-select').innerHTML = '<option>—</option>';
   document.getElementById('round-label-2').textContent = '';
   document.getElementById('results-grid').innerHTML =
-    `<p class="results-empty">Todavía no tenemos datos cargados de la temporada ${seasonLabel}. Se irán añadiendo según el club vaya jugando (o se importe su histórico).</p>`;
-  document.getElementById('standings-note').style.display = '';
-  document.getElementById('standings-note').textContent =
-    `Sin datos de la temporada ${seasonLabel} todavía.`;
+    `<p class="results-empty">Sin datos de la temporada ${seasonLabel}.</p>`;
   document.getElementById('standings-body').innerHTML = '';
 }
 
