@@ -182,6 +182,10 @@ function renderMatchCard(m) {
   const pending = !m.played;
   const score = pending ? 'vs' : `${m.homeGoals} : ${m.awayGoals}`;
   const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-center');
+  const actaBtn =
+    isOwnMatch && m.codActa
+      ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">Ver acta</button></div>`
+      : '';
   return `
     <div class="match-card ${isOwnMatch ? 'is-own' : ''} ${pending ? 'is-pending' : ''}">
       <div class="match-card-row">
@@ -190,6 +194,7 @@ function renderMatchCard(m) {
         <span class="match-team away ${isOwn(m.awayTeam) ? 'away-own' : ''}">${shortName(m.awayTeam)}</span>
       </div>
       ${metaHtml}
+      ${actaBtn}
     </div>
   `;
 }
@@ -339,6 +344,9 @@ function renderCalendar(data) {
       const cls = m.result === 'G' ? 'win' : m.result === 'E' ? 'draw' : m.result === 'P' ? 'loss' : '';
       const score = m.played ? `${m.goalsFor} - ${m.goalsAgainst}` : 'Pendiente';
       const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-compact');
+      const actaBtn = m.codActa
+        ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">Ver acta</button></div>`
+        : '';
       return `
         <div class="calendar-item ${cls}">
           <div class="calendar-round">
@@ -349,6 +357,7 @@ function renderCalendar(data) {
           <span class="calendar-score">${score}</span>
           <span class="calendar-date">${m.date || ''}</span>
           ${metaHtml}
+          ${actaBtn}
         </div>
       `;
     })
@@ -361,7 +370,7 @@ function renderMeta(data) {
     `${data.competition.title || ''} · ${data.competition.season || ''}`.trim();
 
   const ownStanding = data.standings.find((s) => s.isOwnTeam);
-  document.getElementById('position-number').textContent = ownStanding ? ownStanding.position : '—';
+  document.getElementById('position-number').textContent = ownStanding ? `${ownStanding.position}ª` : '—';
 
   if (data.generatedAt) {
     const d = new Date(data.generatedAt);
@@ -370,6 +379,136 @@ function renderMeta(data) {
       d.toLocaleString('es-ES', { dateStyle: 'long', timeStyle: 'short' });
   }
 }
+
+// ---- Modal: ficha del partido (acta) ---------------------------------
+function playerListHtml(players) {
+  if (!players || !players.length) return '<p class="acta-empty">Sin datos</p>';
+  return `<ul class="acta-player-list">${players
+    .map((p) => `<li><span class="acta-player-number">${p.number || ''}</span><span>${p.name}</span></li>`)
+    .join('')}</ul>`;
+}
+
+function teamActaHtml(team) {
+  if (!team) return '<p class="acta-empty">Sin datos de este equipo</p>';
+  return `
+    <div class="acta-lineup-team">${team.teamName}</div>
+    <div class="acta-lineup-label">Titulares</div>
+    ${playerListHtml(team.titulares)}
+    ${team.suplentes && team.suplentes.length ? `<div class="acta-lineup-label">Suplentes</div>${playerListHtml(team.suplentes)}` : ''}
+    ${team.entrenador && !/no presenta/i.test(team.entrenador) ? `<div class="acta-lineup-label">Entrenador</div><p style="font-size:12.5px;margin:0;">${team.entrenador}</p>` : ''}
+    ${team.substitutions && team.substitutions.length ? `<div class="acta-lineup-label">Cambios</div><ul class="acta-player-list">${team.substitutions.map((s) => `<li>${s}</li>`).join('')}</ul>` : ''}
+  `;
+}
+
+function findActaByCodActa(codActa) {
+  if (!DATA || !DATA.ownTeamCalendar) return null;
+  const entry = DATA.ownTeamCalendar.find((m) => String(m.codActa) === String(codActa));
+  return entry || null;
+}
+
+function openActa(codActa) {
+  const entry = findActaByCodActa(codActa);
+  const overlay = document.getElementById('acta-overlay');
+  const content = document.getElementById('acta-content');
+
+  if (!entry || !entry.acta) {
+    content.innerHTML = '<p class="acta-empty" style="text-align:center;padding:20px 0;">Ficha no disponible todavía para este partido.</p>';
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    return;
+  }
+
+  const acta = entry.acta;
+  const homeTeamName = entry.isHome ? OWN_TEAM_NAME : entry.opponent;
+  const awayTeamName = entry.isHome ? entry.opponent : OWN_TEAM_NAME;
+  const homeIsOwn = entry.isHome;
+  const awayIsOwn = !entry.isHome;
+
+  const finalScore = acta.goals && acta.goals.length
+    ? acta.goals[acta.goals.length - 1]
+    : { homeScore: entry.isHome ? entry.goalsFor : entry.goalsAgainst, awayScore: entry.isHome ? entry.goalsAgainst : entry.goalsFor };
+
+  const metaBits = [];
+  if (acta.date) metaBits.push(acta.date);
+  if (acta.time) metaBits.push(`${acta.time} h`);
+  metaBits.push(`Jornada ${entry.round}`);
+
+  const goalsHtml = acta.goals && acta.goals.length
+    ? `<ul class="acta-goals-list">${acta.goals
+        .map(
+          (g) => `
+        <li>
+          <span class="acta-goal-score">${g.homeScore}-${g.awayScore}</span>
+          <span class="acta-goal-minute">${g.minute != null ? `${g.minute}'` : ''}</span>
+          <span>${g.scorer}${g.penalty ? ' (penalti)' : ''}${g.ownGoal ? ' (propia puerta)' : ''}</span>
+        </li>`
+        )
+        .join('')}</ul>`
+    : '<p class="acta-empty">Sin goles registrados</p>';
+
+  const allCards = [
+    ...((acta.home && acta.home.cards) || []).map((c) => ({ ...c, team: acta.home.teamName })),
+    ...((acta.away && acta.away.cards) || []).map((c) => ({ ...c, team: acta.away.teamName })),
+  ];
+
+  const cardsHtml = allCards.length
+    ? `<ul class="acta-goals-list">${allCards
+        .map(
+          (c) => `
+        <li>
+          <span class="acta-card-dot ${c.color === 'roja' ? 'red' : 'yellow'}"></span>
+          <span class="acta-goal-minute">${c.final ? 'Final' : c.minute != null ? `${c.minute}'` : ''}</span>
+          <span>${c.player} <span class="acta-card-team">(${shortName(c.team)})</span></span>
+        </li>`
+        )
+        .join('')}</ul>`
+    : '';
+
+  content.innerHTML = `
+    <div class="acta-header">
+      <div class="acta-header-meta">${metaBits.join(' · ')}</div>
+      <div class="acta-header-score">
+        <span class="acta-team-name home ${homeIsOwn ? 'is-own' : ''}">${shortName(homeTeamName)}</span>
+        <span class="score-box">${finalScore.homeScore} : ${finalScore.awayScore}</span>
+        <span class="acta-team-name away ${awayIsOwn ? 'is-own' : ''}">${shortName(awayTeamName)}</span>
+      </div>
+      ${acta.referees && acta.referees.length ? `<div class="acta-referee">Árbitro: ${acta.referees.join(', ')}</div>` : ''}
+    </div>
+
+    <div class="acta-section-title">Goles</div>
+    ${goalsHtml}
+
+    ${cardsHtml ? `<div class="acta-section-title">Tarjetas</div>${cardsHtml}` : ''}
+
+    <div class="acta-section-title">Alineaciones</div>
+    <div class="acta-lineups">
+      <div>${teamActaHtml(acta.home)}</div>
+      <div>${teamActaHtml(acta.away)}</div>
+    </div>
+  `;
+
+  overlay.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeActa() {
+  document.getElementById('acta-overlay').classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const overlay = document.getElementById('acta-overlay');
+  const closeBtn = document.getElementById('acta-close');
+  if (closeBtn) closeBtn.addEventListener('click', closeActa);
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeActa();
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeActa();
+  });
+});
 
 async function init() {
   try {
