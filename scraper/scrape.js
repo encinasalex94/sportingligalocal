@@ -600,6 +600,27 @@ async function main() {
   log('Iniciando sesión en NFG...');
   await login();
 
+  // Cargamos el data.json de la ejecución anterior (si existe) una sola vez.
+  // Nos sirve para dos cosas: saltarnos jornadas cuya hora/campo ya
+  // conocíamos, y reutilizar actas ya descargadas. Si la jornada ya está
+  // jugada y no le falta nada, no tiene sentido volver a pedirla — la
+  // temporada no cambia con el tiempo una vez terminada.
+  let previousData = null;
+  const previousActaCache = new Map();
+  const previousRoundsByNumber = new Map();
+  try {
+    previousData = JSON.parse(fs.readFileSync(OUTPUT_PATH, 'utf-8'));
+    for (const r of previousData.rounds || []) {
+      previousRoundsByNumber.set(r.round, r);
+      for (const m of r.matches || []) {
+        if (m.codActa && m.acta) previousActaCache.set(String(m.codActa), m.acta);
+      }
+    }
+    log(`Datos previos cargados: ${previousData.rounds?.length || 0} jornadas, ${previousActaCache.size} actas.`);
+  } catch (err) {
+    log('No hay data.json previo (primera ejecución); se descargará todo desde cero.');
+  }
+
   log('Descargando clasificación de Liga...');
   const clasificacion = await fetchClasificacion();
   log(`  -> ${clasificacion.standings.length} equipos`);
@@ -610,14 +631,27 @@ async function main() {
   log(`  -> ${ligaRounds.length} jornadas`);
   await sleep(REQUEST_DELAY_MS);
 
-  // Hora y campo: para todas las jornadas (jugadas y por jugar). Como la
-  // Liga Local solo tiene una veintena de jornadas por temporada, esto son
-  // ~22 peticiones extra por ejecución, asumible con el ritmo de scraping
-  // actual (cada 15 min solo sábado tarde/domingo/lunes, 1 vez al día el
-  // resto de la semana).
-  const roundsToDetail = ligaRounds.map((r) => r.round);
+  // Hora y campo: nos saltamos las jornadas que ya tenían todos sus
+  // partidos jugados con hora/campo/acta conocidos en la ejecución
+  // anterior. Solo se piden de nuevo las jornadas nuevas, incompletas, o
+  // con algún partido pendiente de jugarse (para poder saber su hora en
+  // cuanto se programe).
+  function roundNeedsDetail(round) {
+    const prev = previousRoundsByNumber.get(round.round);
+    if (!prev) return true; // jornada que no teníamos antes
+    for (const m of round.matches) {
+      const prevMatch = (prev.matches || []).find((pm) => pm.homeTeam === m.homeTeam && pm.awayTeam === m.awayTeam);
+      if (!prevMatch) return true;
+      if (m.played && (!prevMatch.time || !prevMatch.venue || !prevMatch.codActa)) return true;
+      if (!m.played) return true; // partido aún no jugado: puede cambiar de hora
+    }
+    return false;
+  }
 
-  log(`Descargando hora/campo de ${roundsToDetail.length} jornadas...`);
+  const roundsToDetail = ligaRounds.filter(roundNeedsDetail).map((r) => r.round);
+  const roundsSkipped = ligaRounds.length - roundsToDetail.length;
+
+  log(`Descargando hora/campo de ${roundsToDetail.length} jornadas (${roundsSkipped} ya estaban completas y se omiten)...`);
   for (const roundNum of roundsToDetail) {
     try {
       const details = await fetchRoundDetail(CONFIG.liga.codCompeticion, CONFIG.liga.codGrupo, CONFIG.codTemporada, roundNum);
@@ -628,22 +662,20 @@ async function main() {
       log(`  -> jornada ${roundNum}: no se pudo obtener hora/campo (${err.message})`);
     }
   }
-
-  // Caché de actas ya descargadas en ejecuciones anteriores: como una vez
-  // jugado un partido su acta ya no cambia, no tiene sentido volver a
-  // pedirla cada vez que corre el scraper. Leemos el data.json actual (si
-  // existe) y reutilizamos lo que ya tengamos.
-  const previousActaCache = new Map();
-  try {
-    const prevData = JSON.parse(fs.readFileSync(OUTPUT_PATH, 'utf-8'));
-    for (const r of prevData.rounds || []) {
-      for (const m of r.matches || []) {
-        if (m.codActa && m.acta) previousActaCache.set(String(m.codActa), m.acta);
+  // Para las jornadas que nos saltamos, copiamos directamente el
+  // time/venue/codActa que ya teníamos guardado.
+  for (const round of ligaRounds) {
+    if (roundsToDetail.includes(round.round)) continue;
+    const prev = previousRoundsByNumber.get(round.round);
+    if (!prev) continue;
+    for (const m of round.matches) {
+      const prevMatch = (prev.matches || []).find((pm) => pm.homeTeam === m.homeTeam && pm.awayTeam === m.awayTeam);
+      if (prevMatch) {
+        m.time = prevMatch.time || null;
+        m.venue = prevMatch.venue || null;
+        m.codActa = prevMatch.codActa || null;
       }
     }
-    log(`Actas ya conocidas de la ejecución anterior: ${previousActaCache.size}`);
-  } catch (err) {
-    log('No hay data.json previo (o no se pudo leer); se descargarán todas las actas necesarias.');
   }
 
   // Ficha completa (alineaciones, goles, tarjetas, árbitro) de TODOS los
