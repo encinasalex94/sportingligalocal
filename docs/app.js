@@ -41,6 +41,8 @@ function renderScoreboard(data) {
 
   if (!own) {
     el.innerHTML = `<p class="sb-empty">Aún no hay resultados disponibles para esta jornada.</p>`;
+    document.getElementById('hero-result-badge').innerHTML = '';
+    document.getElementById('hero-meta').innerHTML = '';
     return;
   }
 
@@ -68,9 +70,9 @@ function renderScoreboard(data) {
     </div>
     <div class="sb-team ${!isHome ? 'is-own' : ''}">
       <span class="sb-team-name">${shortName(own.awayTeam)}</span>
-      <span class="sb-badge">${result}</span>
     </div>
   `;
+  document.getElementById('hero-result-badge').innerHTML = `<span class="sb-badge">${result}</span>`;
   document.getElementById('hero-meta').innerHTML = metaHtml;
 }
 
