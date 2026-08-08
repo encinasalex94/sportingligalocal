@@ -360,8 +360,16 @@ async function fetchRoundDetail(codCompeticion, codGrupo, codTemporada, jornadaN
       venue = parentText.replace(/^Campo:\s*/i, '').trim() || null;
     }
 
+    // CodActa: del enlace "Ver ficha del Partido" (icono de portapapeles)
+    let codActa = null;
+    const actaLink = $block.find('a[href*="NFG_CmpPartido"]');
+    if (actaLink.length) {
+      const match = (actaLink.attr('href') || '').match(/CodActa=(\d+)/);
+      if (match) codActa = match[1];
+    }
+
     if (homeTeam && awayTeam) {
-      details.push({ homeTeam, awayTeam, time: time || null, venue: venue || null });
+      details.push({ homeTeam, awayTeam, time: time || null, venue: venue || null, codActa });
     }
   });
 
@@ -376,6 +384,7 @@ function mergeRoundDetail(round, details) {
     if (found) {
       m.time = found.time;
       m.venue = found.venue;
+      m.codActa = found.codActa || null;
     }
   }
   return round;
@@ -406,11 +415,142 @@ function extractOwnMatches(rounds) {
         played: m.played, result,
         qualified: isOwnHome ? m.homeQualified : m.awayQualified,
         penalties: m.penalties || null,
+        codActa: m.codActa || null,
       });
     }
   }
   own.sort((a, b) => a.round - b.round);
   return own;
+}
+
+// ---- Ficha de partido (acta): alineaciones, goles, tarjetas, árbitro ------
+async function fetchActa(codActa) {
+  const url = `${CONFIG.baseUrl}/nfg/NPcd/NFG_CmpPartido`;
+  const resp = await httpGet(url, {
+    params: { cod_primaria: CONFIG.codPrimaria, CodActa: codActa, cod_acta: codActa },
+  });
+  const $ = cheerio.load(resp.data);
+
+  const cabeceraText = $('.tabla_rdg').first().text();
+  const fechaMatch = cabeceraText.match(/Fecha:\s*([\d-]+)/);
+  const horaMatch = cabeceraText.match(/Hora:\s*([\d:]+)\s*h/);
+
+  // Los dos paneles de equipo (local y visitante), cada uno con su
+  // <span class="tituloprograma"> como cabecera. Tarjetas, sustituciones y
+  // cuerpo técnico van DENTRO de cada columna, así quedan bien atribuidas
+  // a su equipo (antes se buscaban globalmente y se mezclaban).
+  const teamPanels = [];
+  $('span.tituloprograma').each((_, el) => {
+    const $el = $(el);
+    const teamName = $el.text().replace(/\s+/g, ' ').trim();
+    const $td = $el.closest('td');
+    const titulares = [];
+    const suplentes = [];
+    const cards = [];
+    const substitutions = [];
+
+    $td.find('span.title').each((__, titleSpan) => {
+      const label = $(titleSpan).text().trim();
+      const isTitulares = /^Titulares/i.test(label);
+      const isSuplentes = /^Suplentes/i.test(label);
+      const isTarjetas = /^TARJETAS/i.test(label);
+      const isSustituciones = /^SUSTITUCIONES/i.test(label);
+
+      if (isTitulares || isSuplentes) {
+        const $table = $(titleSpan).nextAll('table').first();
+        $table.find('tr').each((___, tr) => {
+          const tds = $(tr).find('td');
+          if (tds.length < 2) return;
+          const number = $(tds[0]).text().replace(/\s+/g, '').trim();
+          const name = $(tds[tds.length - 1]).text().replace(/\s+/g, ' ').trim();
+          if (!name) return;
+          if (isTitulares) titulares.push({ number, name });
+          else suplentes.push({ number, name });
+        });
+      } else if (isTarjetas) {
+        // Las TARJETAS están dentro de un <center>, la tabla es la siguiente.
+        const $table = $(titleSpan).closest('center').nextAll('table').first();
+        $table.find('tr').each((___, tr) => {
+          const $tr = $(tr);
+          const img = $tr.find('img').attr('src') || '';
+          const text = $tr.find('td').last().text().replace(/\s+/g, ' ').trim();
+          if (!text) return;
+          const minuteMatch = text.match(/\((\d+)'|\(Final\)/i);
+          cards.push({
+            color: /roja/i.test(img) ? 'roja' : 'amarilla',
+            player: text.replace(/\s*\([^)]*\)\s*$/, '').trim(),
+            minute: minuteMatch && minuteMatch[1] ? Number(minuteMatch[1]) : null,
+            final: /\(Final\)/i.test(text),
+          });
+        });
+      } else if (isSustituciones) {
+        const $table = $(titleSpan).closest('center').nextAll('table').first();
+        $table.find('tr').each((___, tr) => {
+          const text = $(tr).text().replace(/\s+/g, ' ').trim();
+          if (text) substitutions.push(text);
+        });
+      }
+    });
+
+    let entrenador = null;
+    $td.find('td b').each((__, b) => {
+      if (!/ENTRENADOR/i.test($(b).text())) return;
+      const $nextTr = $(b).closest('tr').next('tr');
+      const val = $nextTr.text().replace(/\s+/g, ' ').trim();
+      entrenador = val || null;
+    });
+
+    teamPanels.push({ teamName, titulares, suplentes, entrenador, cards, substitutions });
+  });
+
+  // Árbitro(s)
+  const referees = [];
+  $('td.title, span.title')
+    .filter((_, el) => /ÁRBITROS|ARBITROS/i.test($(el).text().trim()))
+    .each((_, el) => {
+      const $table = $(el).closest('table');
+      $table.find('td.textosm').each((__, td) => {
+        const name = $(td).text().replace(/\s+/g, ' ').trim();
+        if (name) referees.push(name);
+      });
+    });
+
+  // Goles: marcador progresivo + autor + minuto
+  const goals = [];
+  $('span.title')
+    .filter((_, el) => /^GOLES$/i.test($(el).text().trim()))
+    .each((_, el) => {
+      const $table = $(el).closest('center').nextAll('table').first();
+      $table.find('tr').each((__, tr) => {
+        const $tr = $(tr);
+        const cells = $tr.find('td');
+        if (cells.length < 2) return;
+        const scoreText = $(cells[0]).text().replace(/\s+/g, ' ').trim();
+        const scoreMatch = scoreText.match(/(\d+)\s*-\s*(\d+)/);
+        const scorerCellText = $(cells[1]).text().replace(/\s+/g, ' ').trim();
+        const minuteMatch = scorerCellText.match(/\((\d+)'\)/);
+        const scorer = scorerCellText.replace(/\(\d+'\)/, '').trim();
+        if (!scoreMatch || !scorer) return;
+        goals.push({
+          homeScore: Number(scoreMatch[1]),
+          awayScore: Number(scoreMatch[2]),
+          scorer,
+          minute: minuteMatch ? Number(minuteMatch[1]) : null,
+          penalty: /penalti/i.test($tr.text()),
+          ownGoal: /propia puerta|en propia/i.test($tr.text()),
+        });
+      });
+    });
+
+  return {
+    codActa,
+    date: fechaMatch ? fechaMatch[1] : null,
+    time: horaMatch ? horaMatch[1] : null,
+    home: teamPanels[0] || null,
+    away: teamPanels[1] || null,
+    referees,
+    goals,
+  };
 }
 
 // Calcula una tabla de clasificación a partir de un conjunto de rondas
@@ -491,6 +631,21 @@ async function main() {
 
   const ownTeamCalendar = extractOwnMatches(ligaRounds);
 
+  // Ficha completa (alineaciones, goles, tarjetas, árbitro) solo para los
+  // partidos ya disputados del propio equipo. Si lo hiciéramos para los 6
+  // partidos de las 22 jornadas serían más de 130 peticiones extra en cada
+  // ejecución; limitado a "nuestros" partidos son ~22 como mucho.
+  log('Descargando fichas de partido (actas) del Sporting...');
+  for (const m of ownTeamCalendar) {
+    if (!m.played || !m.codActa) continue;
+    try {
+      m.acta = await fetchActa(m.codActa);
+      await sleep(REQUEST_DELAY_MS);
+    } catch (err) {
+      log(`  -> jornada ${m.round}: no se pudo obtener el acta (${err.message})`);
+    }
+  }
+
   log('Descargando goleadores de Liga...');
   const scorers = await fetchGoleadores();
   log(`  -> ${scorers.length} jugadores con gol`);
@@ -501,7 +656,7 @@ async function main() {
   const lastRoundResults = lastPlayedRound
     ? lastPlayedRound.matches.map((m) => ({
         homeTeam: m.homeTeam, awayTeam: m.awayTeam, homeGoals: m.homeGoals, awayGoals: m.awayGoals,
-        time: m.time, venue: m.venue,
+        time: m.time, venue: m.venue, codActa: m.codActa || null,
       }))
     : [];
 
