@@ -250,14 +250,17 @@ function renderRoundSelector(data) {
 // Temporadas que ofrece el desplegable de la propia web de FFMadrid. De
 // momento solo tenemos datos cargados de la temporada actual; el resto se
 // irán añadiendo cuando descarguemos su histórico (ver README).
+// De momento solo mostramos la temporada actual. Cuando arranque 2026-2027
+// (o se cargue el histórico de años anteriores), añádelas aquí:
+//   { value: '22', label: '2026-2027' },
+//   { value: '20', label: '2024-2025' },
+//   { value: '19', label: '2023-2024' },
+//   { value: '18', label: '2022-2023' },
+//   { value: '17', label: '2021-2022' },
+//   { value: '15', label: '2019-2020' },
+//   { value: '14', label: '2018-2019' },
 const AVAILABLE_SEASONS = [
   { value: '21', label: '2025-2026' },
-  { value: '20', label: '2024-2025' },
-  { value: '19', label: '2023-2024' },
-  { value: '18', label: '2022-2023' },
-  { value: '17', label: '2021-2022' },
-  { value: '15', label: '2019-2020' },
-  { value: '14', label: '2018-2019' },
 ];
 
 function renderSeasonSelector(data) {
