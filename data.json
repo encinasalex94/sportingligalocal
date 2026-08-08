@@ -1969,9 +1969,41 @@
         "knockout": false,
         "matches": [
           {
+            "round": 1,
+            "roundLabel": null,
+            "date": null,
+            "time": null,
+            "venue": null,
+            "isHome": null,
+            "opponent": "?? (pendiente)",
+            "goalsFor": null,
+            "goalsAgainst": null,
+            "played": false,
+            "result": null,
+            "penalties": null,
+            "note": "Datos pendientes — pasa el HTML de la jornada 1 para completar"
+          },
+          {
+            "round": 2,
+            "roundLabel": null,
+            "date": null,
+            "time": null,
+            "venue": null,
+            "isHome": null,
+            "opponent": "?? (pendiente)",
+            "goalsFor": null,
+            "goalsAgainst": null,
+            "played": false,
+            "result": null,
+            "penalties": null,
+            "note": "Datos pendientes — pasa el HTML de la jornada 2 para completar"
+          },
+          {
             "round": 3,
             "roundLabel": null,
             "date": "18-01-2026",
+            "time": "09:00",
+            "venue": "ENRIQUE MORENO - F - Hierba Artificial",
             "isHome": false,
             "opponent": "CAFETERIA LA TACITA",
             "goalsFor": 2,
@@ -1991,6 +2023,8 @@
             "round": 1,
             "roundLabel": null,
             "date": "07-02-2026",
+            "time": null,
+            "venue": null,
             "isHome": false,
             "opponent": "NEWTEAM- SMT",
             "goalsFor": 1,
@@ -2010,6 +2044,8 @@
             "round": 1,
             "roundLabel": null,
             "date": "08-03-2026",
+            "time": null,
+            "venue": null,
             "isHome": false,
             "opponent": "RAIMON",
             "goalsFor": 1,
@@ -2027,8 +2063,10 @@
         "matches": [
           {
             "round": 1,
-            "roundLabel": "28-03-2026  (8º)",
+            "roundLabel": "28-03-2026 (8º de final)",
             "date": "28-03-2026",
+            "time": "18:30",
+            "venue": "ENRIQUE MORENO - B - Hierba Artificial",
             "isHome": true,
             "opponent": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
             "goalsFor": 4,
@@ -2036,45 +2074,38 @@
             "played": true,
             "result": "G",
             "qualified": true,
-            "penalties": null,
-            "time": "18:30",
-            "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+            "penalties": null
           },
           {
             "round": 2,
-            "roundLabel": "25-04-2026  (4º)",
+            "roundLabel": "25-04-2026 (Cuartos de final)",
             "date": "25-04-2026",
+            "time": null,
+            "venue": null,
             "isHome": null,
-            "opponent": null,
+            "opponent": "?? (pendiente)",
             "goalsFor": null,
             "goalsAgainst": null,
             "played": false,
             "result": null,
-            "penalties": null
+            "penalties": null,
+            "note": "Datos pendientes — rival y marcador de cuartos"
           },
           {
             "round": 3,
-            "roundLabel": "23-05-2026  (Semifinales)",
+            "roundLabel": "23-05-2026 (Semifinales)",
             "date": "23-05-2026",
+            "time": null,
+            "venue": null,
             "isHome": null,
-            "opponent": null,
+            "opponent": "?? (pendiente)",
             "goalsFor": null,
             "goalsAgainst": null,
             "played": false,
             "result": null,
-            "penalties": null
-          },
-          {
-            "round": 4,
-            "roundLabel": "06-06-2026  (Final)",
-            "date": "06-06-2026",
-            "isHome": null,
-            "opponent": null,
-            "goalsFor": null,
-            "goalsAgainst": null,
-            "played": false,
-            "result": null,
-            "penalties": null
+            "qualified": false,
+            "penalties": null,
+            "note": "Datos pendientes — rival y marcador de semis (aquí caímos eliminados)"
           }
         ]
       }
@@ -2133,7 +2164,7 @@
         "position": 4
       }
     ],
-    "groupStandingsNote": "Clasificación calculada por nosotros combinando los partidos de grupo conocidos (fase de grupos + 4º y 5º partido). Es parcial hasta que el scraper recoja el resto de partidos de cada grupo."
+    "groupStandingsNote": "Clasificación elaborada por nosotros combinando los 5 partidos de grupo (jornadas 1-3 + 4º y 5º partido). Las jornadas 1 y 2 de la fase de grupos están pendientes de completar."
   },
   "season": "2025-2026"
 }

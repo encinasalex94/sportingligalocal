@@ -308,6 +308,17 @@ function renderCopa(data) {
       .map((stage, idx) => {
         const rows = stage.matches
           .map((m) => {
+            // Partido sin datos (nos faltan los resultados reales)
+            if (m.note) {
+              return `
+                <div class="copa-match-row copa-pending-data">
+                  <span class="copa-round-tag">${m.date ? m.date : (stage.knockout ? `Ronda ${m.round}` : `Jornada ${m.round}`)}</span>
+                  <span class="copa-teams" style="color:var(--slate);">— Datos pendientes de añadir —</span>
+                  <span class="copa-badge" style="background:var(--ice);color:var(--slate);">Sin datos</span>
+                </div>
+              `;
+            }
+
             const pending = !m.played;
             const opponent = m.opponent || 'Rival por determinar';
             const teamsHtml = m.isHome === false
