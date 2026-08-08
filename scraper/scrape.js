@@ -445,16 +445,14 @@ async function main() {
   log(`  -> ${ligaRounds.length} jornadas`);
   await sleep(REQUEST_DELAY_MS);
 
-  // Hora y campo: solo para las jornadas recientes/próximas (últimas 2 con
-  // resultado + siguientes 2), para no multiplicar las peticiones por 22 en
-  // cada ejecución (esto corre cada 15 min los findes).
-  const playedRoundNums = ligaRounds.filter((r) => r.matches.some((m) => m.played)).map((r) => r.round);
-  const lastPlayed = playedRoundNums[playedRoundNums.length - 1] || 0;
-  const roundsToDetail = ligaRounds
-    .map((r) => r.round)
-    .filter((n) => n >= lastPlayed - 1 && n <= lastPlayed + 2);
+  // Hora y campo: para todas las jornadas (jugadas y por jugar). Como la
+  // Liga Local solo tiene una veintena de jornadas por temporada, esto son
+  // ~22 peticiones extra por ejecución, asumible con el ritmo de scraping
+  // actual (cada 15 min solo sábado tarde/domingo/lunes, 1 vez al día el
+  // resto de la semana).
+  const roundsToDetail = ligaRounds.map((r) => r.round);
 
-  log(`Descargando hora/campo de jornadas ${roundsToDetail.join(', ')}...`);
+  log(`Descargando hora/campo de ${roundsToDetail.length} jornadas...`);
   for (const roundNum of roundsToDetail) {
     try {
       const details = await fetchRoundDetail(CONFIG.liga.codCompeticion, CONFIG.liga.codGrupo, CONFIG.codTemporada, roundNum);
