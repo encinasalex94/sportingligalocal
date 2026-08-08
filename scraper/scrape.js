@@ -629,22 +629,51 @@ async function main() {
     }
   }
 
-  const ownTeamCalendar = extractOwnMatches(ligaRounds);
+  // Caché de actas ya descargadas en ejecuciones anteriores: como una vez
+  // jugado un partido su acta ya no cambia, no tiene sentido volver a
+  // pedirla cada vez que corre el scraper. Leemos el data.json actual (si
+  // existe) y reutilizamos lo que ya tengamos.
+  const previousActaCache = new Map();
+  try {
+    const prevData = JSON.parse(fs.readFileSync(OUTPUT_PATH, 'utf-8'));
+    for (const r of prevData.rounds || []) {
+      for (const m of r.matches || []) {
+        if (m.codActa && m.acta) previousActaCache.set(String(m.codActa), m.acta);
+      }
+    }
+    log(`Actas ya conocidas de la ejecución anterior: ${previousActaCache.size}`);
+  } catch (err) {
+    log('No hay data.json previo (o no se pudo leer); se descargarán todas las actas necesarias.');
+  }
 
-  // Ficha completa (alineaciones, goles, tarjetas, árbitro) solo para los
-  // partidos ya disputados del propio equipo. Si lo hiciéramos para los 6
-  // partidos de las 22 jornadas serían más de 130 peticiones extra en cada
-  // ejecución; limitado a "nuestros" partidos son ~22 como mucho.
-  log('Descargando fichas de partido (actas) del Sporting...');
-  for (const m of ownTeamCalendar) {
-    if (!m.played || !m.codActa) continue;
-    try {
-      m.acta = await fetchActa(m.codActa);
-      await sleep(REQUEST_DELAY_MS);
-    } catch (err) {
-      log(`  -> jornada ${m.round}: no se pudo obtener el acta (${err.message})`);
+  // Ficha completa (alineaciones, goles, tarjetas, árbitro) de TODOS los
+  // partidos ya disputados de la jornada, no solo los del Sporting. Gracias
+  // a la caché de arriba, en ejecuciones posteriores solo se piden las
+  // actas nuevas (partidos que no teníamos todavía).
+  log('Descargando fichas de partido (actas) de todos los partidos jugados...');
+  let actasNuevas = 0;
+  let actasReutilizadas = 0;
+  for (const r of ligaRounds) {
+    for (const m of r.matches) {
+      if (!m.played || !m.codActa) continue;
+      const cached = previousActaCache.get(String(m.codActa));
+      if (cached) {
+        m.acta = cached;
+        actasReutilizadas++;
+        continue;
+      }
+      try {
+        m.acta = await fetchActa(m.codActa);
+        actasNuevas++;
+        await sleep(REQUEST_DELAY_MS);
+      } catch (err) {
+        log(`  -> acta ${m.codActa} (jornada ${r.round}): no se pudo descargar (${err.message})`);
+      }
     }
   }
+  log(`  -> ${actasNuevas} actas nuevas descargadas, ${actasReutilizadas} reutilizadas de antes`);
+
+  const ownTeamCalendar = extractOwnMatches(ligaRounds);
 
   log('Descargando goleadores de Liga...');
   const scorers = await fetchGoleadores();
