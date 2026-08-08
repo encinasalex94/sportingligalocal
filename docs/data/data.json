@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-08T17:14:45.788Z",
+  "generatedAt": "2026-08-08T17:27:19.384Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -271,7 +271,8 @@
       "homeGoals": 8,
       "awayGoals": 1,
       "time": "09:00",
-      "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+      "codActa": "11215"
     },
     {
       "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -279,7 +280,8 @@
       "homeGoals": 2,
       "awayGoals": 6,
       "time": "09:00",
-      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": "11219"
     },
     {
       "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -287,7 +289,8 @@
       "homeGoals": 3,
       "awayGoals": 7,
       "time": "10:30",
-      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": "11216"
     },
     {
       "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -295,7 +298,8 @@
       "homeGoals": 1,
       "awayGoals": 3,
       "time": "10:30",
-      "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+      "codActa": "11218"
     },
     {
       "homeTeam": "NEWCASTLE PUB F.C.",
@@ -303,7 +307,8 @@
       "homeGoals": 1,
       "awayGoals": 0,
       "time": "12:00",
-      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": "11217"
     },
     {
       "homeTeam": "MAGREB UNITED",
@@ -311,7 +316,8 @@
       "homeGoals": 3,
       "awayGoals": 6,
       "time": "13:40",
-      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": "11220"
     }
   ],
   "rounds": [
@@ -327,7 +333,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -336,7 +343,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11090"
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -345,7 +353,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11091"
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -354,7 +363,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11092"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -363,7 +373,8 @@
           "awayGoals": 5,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11093"
         },
         {
           "homeTeam": "MAGREB UNITED",
@@ -372,7 +383,8 @@
           "awayGoals": 4,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11094"
         }
       ]
     },
@@ -388,7 +400,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11095"
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -397,7 +410,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11100"
         },
         {
           "homeTeam": "INTER DE SÉK",
@@ -406,7 +420,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11097"
         },
         {
           "homeTeam": "TORINO - VENTACONS - BAR JUANI",
@@ -415,7 +430,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11098"
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -424,7 +440,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11096"
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
@@ -433,7 +450,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11099"
         }
       ]
     },
@@ -449,7 +467,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11104"
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -458,7 +477,8 @@
           "awayGoals": 5,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11105"
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
@@ -467,7 +487,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11101"
         },
         {
           "homeTeam": "MAGREB UNITED",
@@ -476,7 +497,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11106"
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -485,7 +507,8 @@
           "awayGoals": 5,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11102"
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -494,7 +517,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11103"
         }
       ]
     },
@@ -510,7 +534,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11112"
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -519,7 +544,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "10:35",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11107"
         },
         {
           "homeTeam": "INTER DE SÉK",
@@ -528,7 +554,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11108"
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -537,7 +564,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11111"
         },
         {
           "homeTeam": "TORINO - VENTACONS - BAR JUANI",
@@ -546,7 +574,8 @@
           "awayGoals": 4,
           "played": true,
           "time": "13:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11109"
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
@@ -555,7 +584,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "13:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11110"
         }
       ]
     },
@@ -571,7 +601,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11113"
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -580,7 +611,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11116"
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -589,7 +621,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "17:10",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11115"
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -598,7 +631,8 @@
           "awayGoals": 4,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11117"
         },
         {
           "homeTeam": "MAGREB UNITED",
@@ -607,7 +641,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11118"
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
@@ -616,7 +651,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "20:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11114"
         }
       ]
     },
@@ -632,7 +668,8 @@
           "awayGoals": 4,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11120"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -641,7 +678,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11123"
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
@@ -650,7 +688,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11121"
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -659,7 +698,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11122"
         },
         {
           "homeTeam": "INTER DE SÉK",
@@ -668,7 +708,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "13:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11119"
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -677,7 +718,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "13:45",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11124"
         }
       ]
     },
@@ -693,7 +735,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11128"
         },
         {
           "homeTeam": "MAGREB UNITED",
@@ -702,7 +745,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11130"
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
@@ -711,7 +755,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11127"
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -720,7 +765,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11129"
         },
         {
           "homeTeam": "INTER DE SÉK",
@@ -729,7 +775,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "20:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11125"
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -738,7 +785,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "20:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11126"
         }
       ]
     },
@@ -754,7 +802,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11132"
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -763,7 +812,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11135"
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -772,7 +822,8 @@
           "awayGoals": 4,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11136"
         },
         {
           "homeTeam": "TORINO - VENTACONS - BAR JUANI",
@@ -781,7 +832,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "12:15",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11131"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -790,7 +842,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "13:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11134"
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -799,7 +852,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "13:50",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11133"
         }
       ]
     },
@@ -815,7 +869,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11137"
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -824,7 +879,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11141"
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -833,7 +889,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11139"
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
@@ -842,7 +899,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11140"
         },
         {
           "homeTeam": "INTER DE SÉK",
@@ -851,7 +909,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "20:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11138"
         },
         {
           "homeTeam": "MAGREB UNITED",
@@ -860,7 +919,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "20:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11142"
         }
       ]
     },
@@ -876,7 +936,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11146"
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -885,7 +946,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11148"
         },
         {
           "homeTeam": "MAGREB UNITED",
@@ -894,7 +956,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11143"
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -903,7 +966,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11144"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -912,7 +976,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11145"
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -921,7 +986,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "13:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11147"
         }
       ]
     },
@@ -937,7 +1003,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11150"
         },
         {
           "homeTeam": "INTER DE SÉK",
@@ -946,7 +1013,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11151"
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
@@ -955,7 +1023,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11149"
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
@@ -964,7 +1033,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11153"
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -973,7 +1043,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11152"
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -982,7 +1053,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "20:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11154"
         }
       ]
     },
@@ -998,7 +1070,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11157"
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -1007,7 +1080,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11160"
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -1016,7 +1090,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11156"
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
@@ -1025,7 +1100,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11155"
         },
         {
           "homeTeam": "TORINO - VENTACONS - BAR JUANI",
@@ -1034,7 +1110,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "13:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11158"
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
@@ -1043,7 +1120,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "13:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11159"
         }
       ]
     },
@@ -1059,7 +1137,8 @@
           "awayGoals": 6,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11161"
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -1068,7 +1147,8 @@
           "awayGoals": 4,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11165"
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1077,7 +1157,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11163"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -1086,7 +1167,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11166"
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -1095,7 +1177,8 @@
           "awayGoals": 5,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11162"
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -1104,7 +1187,8 @@
           "awayGoals": 4,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11164"
         }
       ]
     },
@@ -1120,7 +1204,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11171"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -1129,7 +1214,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11172"
         },
         {
           "homeTeam": "TORINO - VENTACONS - BAR JUANI",
@@ -1138,7 +1224,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11169"
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
@@ -1147,7 +1234,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "12:10",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11170"
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -1156,7 +1244,8 @@
           "awayGoals": 4,
           "played": true,
           "time": "13:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11167"
         },
         {
           "homeTeam": "INTER DE SÉK",
@@ -1165,7 +1254,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "13:45",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11168"
         }
       ]
     },
@@ -1181,7 +1271,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11174"
         },
         {
           "homeTeam": "MAGREB UNITED",
@@ -1190,7 +1281,8 @@
           "awayGoals": 5,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11173"
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -1199,7 +1291,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11175"
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1208,7 +1301,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11176"
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -1217,7 +1311,8 @@
           "awayGoals": 5,
           "played": true,
           "time": "20:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11177"
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -1226,7 +1321,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "20:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11178"
         }
       ]
     },
@@ -1242,7 +1338,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar"
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "INTER DE SÉK",
@@ -1251,7 +1348,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11179"
         },
         {
           "homeTeam": "TORINO - VENTACONS - BAR JUANI",
@@ -1260,7 +1358,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11180"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -1269,7 +1368,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11183"
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
@@ -1278,7 +1378,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11181"
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -1287,7 +1388,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "13:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11182"
         }
       ]
     },
@@ -1303,7 +1405,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11187"
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1312,7 +1415,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11189"
         },
         {
           "homeTeam": "MAGREB UNITED",
@@ -1321,7 +1425,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11185"
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -1330,7 +1435,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11188"
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -1339,7 +1445,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "20:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11190"
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -1348,7 +1455,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "19:00",
-          "venue": "LAS OLIVAS - Hierba Artificial"
+          "venue": "LAS OLIVAS - Hierba Artificial",
+          "codActa": null
         }
       ]
     },
@@ -1364,7 +1472,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11196"
         },
         {
           "homeTeam": "TORINO - VENTACONS - BAR JUANI",
@@ -1373,7 +1482,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11191"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -1382,7 +1492,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11194"
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -1391,7 +1502,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11193"
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -1400,7 +1512,8 @@
           "awayGoals": 5,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11195"
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
@@ -1409,7 +1522,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "13:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11192"
         }
       ]
     },
@@ -1425,7 +1539,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11197"
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -1434,7 +1549,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11201"
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
@@ -1443,7 +1559,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11200"
         },
         {
           "homeTeam": "INTER DE SÉK",
@@ -1452,7 +1569,8 @@
           "awayGoals": 6,
           "played": true,
           "time": "18:40",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11198"
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1461,7 +1579,8 @@
           "awayGoals": 5,
           "played": true,
           "time": "20:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11202"
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -1470,7 +1589,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "20:15",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11199"
         }
       ]
     },
@@ -1486,7 +1606,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11203"
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -1495,7 +1616,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11206"
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -1504,7 +1626,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11204"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -1513,7 +1636,8 @@
           "awayGoals": 2,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11205"
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1522,7 +1646,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11208"
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -1531,7 +1656,8 @@
           "awayGoals": 5,
           "played": true,
           "time": "13:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11207"
         }
       ]
     },
@@ -1547,7 +1673,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "15:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11210"
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
@@ -1556,7 +1683,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11213"
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -1565,7 +1693,8 @@
           "awayGoals": 4,
           "played": true,
           "time": "17:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11214"
         },
         {
           "homeTeam": "INTER DE SÉK",
@@ -1574,7 +1703,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11211"
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -1583,7 +1713,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "18:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11212"
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
@@ -1592,7 +1723,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "20:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11209"
         }
       ]
     },
@@ -1608,7 +1740,8 @@
           "awayGoals": 1,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11215"
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1617,7 +1750,8 @@
           "awayGoals": 6,
           "played": true,
           "time": "09:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11219"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -1626,7 +1760,8 @@
           "awayGoals": 7,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11216"
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -1635,7 +1770,8 @@
           "awayGoals": 3,
           "played": true,
           "time": "10:30",
-          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": "11218"
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -1644,7 +1780,8 @@
           "awayGoals": 0,
           "played": true,
           "time": "12:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11217"
         },
         {
           "homeTeam": "MAGREB UNITED",
@@ -1653,7 +1790,8 @@
           "awayGoals": 6,
           "played": true,
           "time": "13:40",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "11220"
         }
       ]
     }
@@ -1671,7 +1809,214 @@
       "goalsAgainst": 5,
       "played": true,
       "result": "P",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11093",
+      "acta": {
+        "codActa": "11093",
+        "date": "20-09-2025",
+        "time": "18:30",
+        "home": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "24",
+              "name": "ROTARI, NICOLAI"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "6",
+              "name": "MUÑOZ CARPIO, ALBERTO"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "16",
+              "name": "GALLEGO PLAZA, ALEJANDRO"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "RIMATEC-PUB TENESSE",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "ARAQUE GARCIA, ANGEL SANTIAGO"
+            },
+            {
+              "number": "3",
+              "name": "PALACIOS MARTINEZ, GUILLERMO"
+            },
+            {
+              "number": "4",
+              "name": "SANCHEZ PUERTAS, JULIO"
+            },
+            {
+              "number": "9",
+              "name": "OLMOS DE LA ORDEN, MIGUEL ANGEL"
+            },
+            {
+              "number": "11",
+              "name": "DE PAULA OLIVEIRA, KEVEN"
+            },
+            {
+              "number": "12",
+              "name": "FERNANDEZ FERNANDEZ, SERGIO"
+            },
+            {
+              "number": "16",
+              "name": "MARTINEZ BONMATI, GONZALO"
+            },
+            {
+              "number": "18",
+              "name": "URSULA PEREZ, RUBEN"
+            },
+            {
+              "number": "19",
+              "name": "GALAN YEPES, ADRIAN"
+            },
+            {
+              "number": "22",
+              "name": "HERNANDEZ LOPEZ, ANIBAL"
+            },
+            {
+              "number": "23",
+              "name": "GIL AMORES, ROBERTO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "5",
+              "name": "FRANCO VERGARA, JAVIER"
+            },
+            {
+              "number": "7",
+              "name": "RODRIGO ALONSO, RUBEN"
+            },
+            {
+              "number": "14",
+              "name": "VALDIVIA ANTON, SAMUEL"
+            },
+            {
+              "number": "24",
+              "name": "GONZALEZ LANZAS, JULIO"
+            },
+            {
+              "number": "25",
+              "name": "DAVILA MAQUEDA, JOSE LUIS"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [],
+          "substitutions": []
+        },
+        "referees": [
+          "BETANCORT GONZALEZ, MIGUEL ANGEL"
+        ],
+        "goals": [
+          {
+            "homeScore": 1,
+            "awayScore": 0,
+            "scorer": "SANCHEZ ALFONSO, JUAN MANUEL",
+            "minute": 10,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 1,
+            "scorer": "URSULA PEREZ, RUBEN",
+            "minute": 37,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 2,
+            "scorer": "MARTINEZ BONMATI, GONZALO",
+            "minute": 39,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 3,
+            "scorer": "DE PAULA OLIVEIRA, KEVEN",
+            "minute": 70,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 4,
+            "scorer": "MARTINEZ BONMATI, GONZALO",
+            "minute": 74,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 5,
+            "scorer": "DE PAULA OLIVEIRA, KEVEN",
+            "minute": 78,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 2,
@@ -1685,7 +2030,258 @@
       "goalsAgainst": 2,
       "played": true,
       "result": "P",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11100",
+      "acta": {
+        "codActa": "11100",
+        "date": "28-09-2025",
+        "time": "09:00",
+        "home": {
+          "teamName": "FYSOL-POSTAS",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "RUIZ GARCIA, TOMAS"
+            },
+            {
+              "number": "2",
+              "name": "CABERO PORTILLO, FRANCISCO JOSE"
+            },
+            {
+              "number": "5",
+              "name": "CARTAS VALHERMOSO, RAUL"
+            },
+            {
+              "number": "6",
+              "name": "VILLEGAS SANCHEZ, DIEGO LUIS"
+            },
+            {
+              "number": "8",
+              "name": "FERNANDEZ SANCHEZ RIOS, DANIEL"
+            },
+            {
+              "number": "9",
+              "name": "TIZON CASILLAS, FRANCISCO JAVIER"
+            },
+            {
+              "number": "11",
+              "name": "FABRA GORREA, RAFAEL"
+            },
+            {
+              "number": "12",
+              "name": "MARTIN MERINO, ALEX"
+            },
+            {
+              "number": "17",
+              "name": "MARTINEZ FLORES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "LABORDA BARTOLOME, RAFAEL ALFONSO"
+            },
+            {
+              "number": "29",
+              "name": "GIL MARTINEZ, JOSE"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "3",
+              "name": "MARTINEZ FLORES, EDUARDO"
+            },
+            {
+              "number": "7",
+              "name": "MARTINEZ VERA, MIGUEL ANGEL"
+            },
+            {
+              "number": "10",
+              "name": "RUIZ RODRIGUEZ, HECTOR"
+            },
+            {
+              "number": "14",
+              "name": "SANTOS MUÑOZ, MIGUEL ANGEL"
+            },
+            {
+              "number": "16",
+              "name": "PINAZO GUTIERREZ, TOBIAS"
+            },
+            {
+              "number": "21",
+              "name": "MIGUEL SANCHEZ BEATO, ROBERTO"
+            },
+            {
+              "number": "23",
+              "name": "ORREGO BENEGAS, RUBEN ANTONIO"
+            },
+            {
+              "number": "99",
+              "name": "SERENA JIMENEZ, DANIEL"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "GIL MARTINEZ, JOSE",
+              "minute": 27,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "MARTIN MERINO, ALEX",
+              "minute": 31,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "SERENA JIMENEZ, DANIEL",
+              "minute": 39,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "CABERO PORTILLO, FRANCISCO JOSE",
+              "minute": 51,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "24",
+              "name": "ROTARI, NICOLAI"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "6",
+              "name": "MUÑOZ CARPIO, ALBERTO"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "19",
+              "name": "PEREZ AYLLON, ALEJANDRO"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "3",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "MUÑOZ CARPIO, ALBERTO",
+              "minute": 26,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "GUZMAN SALCEDA, ADRIAN",
+              "minute": 45,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "SANCHEZ SANTERO, JAVIER",
+              "minute": 55,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "BRIONES HERNANDO, ANDRES",
+              "minute": 61,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "VALENCIA SOTO, DANIEL",
+              "minute": 63,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "PEREZ MAROTO, MANUEL"
+        ],
+        "goals": [
+          {
+            "homeScore": 1,
+            "awayScore": 0,
+            "scorer": "TIZON CASILLAS, FRANCISCO JAVIER",
+            "minute": 31,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 1,
+            "scorer": "ESTEFANIA PADILLA, DANIEL",
+            "minute": 51,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 1,
+            "scorer": "TIZON CASILLAS, FRANCISCO JAVIER",
+            "minute": 79,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 3,
@@ -1699,7 +2295,236 @@
       "goalsAgainst": 0,
       "played": true,
       "result": "G",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11106",
+      "acta": {
+        "codActa": "11106",
+        "date": "04-10-2025",
+        "time": "17:00",
+        "home": {
+          "teamName": "MAGREB UNITED",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "EL KHELIGH, TARIK"
+            },
+            {
+              "number": "4",
+              "name": "BOUSSETA, ADAM"
+            },
+            {
+              "number": "6",
+              "name": "ACHALMI BOUQLATA, MOHAMMED"
+            },
+            {
+              "number": "7",
+              "name": "BARA MOUHAQNDIZ, SALMAN"
+            },
+            {
+              "number": "11",
+              "name": "ESSALEE, MOHAMED"
+            },
+            {
+              "number": "12",
+              "name": "EL GHAMMAR, MOHAMMED"
+            },
+            {
+              "number": "13",
+              "name": "EL BAKKALI, MOHAMMED"
+            },
+            {
+              "number": "14",
+              "name": "BELALI BABA, MOHAMED"
+            },
+            {
+              "number": "16",
+              "name": "EL MANJAL MOUMNI, ZAKARIA"
+            },
+            {
+              "number": "20",
+              "name": "EL MYTMARY, ELYASS"
+            },
+            {
+              "number": "24",
+              "name": "EL MOUSSAOUI EL ALLOUCHI, HANZA"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "2",
+              "name": "TABIT, MOHAMED"
+            },
+            {
+              "number": "8",
+              "name": "KALIOU, MOHAMED"
+            },
+            {
+              "number": "17",
+              "name": "KARROUMI, MOUHCINE"
+            },
+            {
+              "number": "18",
+              "name": "SERROUKH HALHOUL, OSAMA"
+            },
+            {
+              "number": "19",
+              "name": "HOUKA BOUCHATEB, KHALID"
+            },
+            {
+              "number": "21",
+              "name": "OULAD ALI EL ALLOUCHI, YOUSSEF"
+            },
+            {
+              "number": "22",
+              "name": "SANCHEZ LINARES, RENE"
+            },
+            {
+              "number": "23",
+              "name": "HADDAOUI, MOHAMED"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "ESSALEE, MOHAMED",
+              "minute": 9,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "KARROUMI, MOUHCINE",
+              "minute": 31,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "TABIT, MOHAMED",
+              "minute": 61,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "SANCHEZ LINARES, RENE",
+              "minute": 69,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "ROTARI, NICOLAI"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "3",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "6",
+              "name": "MUÑOZ CARPIO, ALBERTO"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "DE LA FUENTE GARCIA, SAMUEL",
+              "minute": 9,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "AVILA DE LOS SANTOS, VICTOR",
+              "minute": 44,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "ANDRADES FENOL, JUAN FRANCISCO"
+        ],
+        "goals": [
+          {
+            "homeScore": 0,
+            "awayScore": 1,
+            "scorer": "ESTEFANIA PADILLA, DANIEL",
+            "minute": 12,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 0,
+            "awayScore": 2,
+            "scorer": "ESTEFANIA PADILLA, DANIEL",
+            "minute": 61,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 0,
+            "awayScore": 3,
+            "scorer": "BELLOT VALENZUELA, DANIEL",
+            "minute": 73,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 4,
@@ -1713,7 +2538,242 @@
       "goalsAgainst": 2,
       "played": true,
       "result": "E",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11112",
+      "acta": {
+        "codActa": "11112",
+        "date": "12-10-2025",
+        "time": "10:30",
+        "home": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "3",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "6",
+              "name": "MUÑOZ CARPIO, ALBERTO"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "19",
+              "name": "PEREZ AYLLON, ALEJANDRO"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            },
+            {
+              "number": "24",
+              "name": "ROTARI, NICOLAI"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "ESTEFANIA PADILLA, DANIEL",
+              "minute": 42,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "SANCHEZ SANTERO, JAVIER",
+              "minute": 77,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "NEWCASTLE PUB F.C.",
+          "titulares": [
+            {
+              "number": "76",
+              "name": "TUREL LOPEZ, FELIX"
+            },
+            {
+              "number": "4",
+              "name": "FERNANDEZ SANCHEZ-PASCUAL, IGNACIO"
+            },
+            {
+              "number": "5",
+              "name": "MORENO GARCIA BALLESTEROS, DANIEL"
+            },
+            {
+              "number": "6",
+              "name": "BAQUERO MATEO, IVAN"
+            },
+            {
+              "number": "7",
+              "name": "GOMEZ TORRES, PABLO"
+            },
+            {
+              "number": "8",
+              "name": "LEGIDO DIAZ, IKER"
+            },
+            {
+              "number": "9",
+              "name": "ASSI ABOH, WILISMELVIN"
+            },
+            {
+              "number": "10",
+              "name": "ARRIBAS SANTIAGO, SANTIAGO"
+            },
+            {
+              "number": "12",
+              "name": "CONTRERAS SAIZ, ALVARO"
+            },
+            {
+              "number": "22",
+              "name": "MENDEZ CASTRO, DAVID ALEJANDRO"
+            },
+            {
+              "number": "80",
+              "name": "MONZON RAMIREZ, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "2",
+              "name": "TRIVIÑO DIAZ, ALVARO"
+            },
+            {
+              "number": "3",
+              "name": "ONOTAFE MARTIN, OKE MARCO"
+            },
+            {
+              "number": "15",
+              "name": "RUIZ MARTINEZ, JESUS"
+            },
+            {
+              "number": "17",
+              "name": "NIETO DE LA HERA, JAVIER"
+            },
+            {
+              "number": "18",
+              "name": "SANCHEZ FERNANDEZ AVILA, JAIME"
+            },
+            {
+              "number": "24",
+              "name": "SANTANA BERCAYES, TOMAS"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "ARRIBAS SANTIAGO, SANTIAGO",
+              "minute": 45,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "GOMEZ TORRES, PABLO",
+              "minute": 78,
+              "final": false
+            },
+            {
+              "color": "roja",
+              "player": "RUIZ MARTINEZ, JESUS",
+              "minute": 79,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "CHAHCHOUH, MOUAD"
+        ],
+        "goals": [
+          {
+            "homeScore": 0,
+            "awayScore": 1,
+            "scorer": "RUIZ MARTINEZ, JESUS",
+            "minute": 12,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 1,
+            "scorer": "TORRES HERRERO, SERGIO",
+            "minute": 50,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 1,
+            "scorer": "SANCHEZ ALFONSO, JUAN MANUEL",
+            "minute": 63,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 2,
+            "scorer": "MENDEZ CASTRO, DAVID ALEJANDRO",
+            "minute": 66,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 5,
@@ -1727,7 +2787,210 @@
       "goalsAgainst": 1,
       "played": true,
       "result": "G",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11117",
+      "acta": {
+        "codActa": "11117",
+        "date": "18-10-2025",
+        "time": "18:30",
+        "home": {
+          "teamName": "J.C.R. - ATLETICO JERINGA",
+          "titulares": [
+            {
+              "number": "13",
+              "name": "FERNANDEZ SAEZ, ISAAC"
+            },
+            {
+              "number": "5",
+              "name": "PIÑERO MATELLANO, LUIS ALBERTO"
+            },
+            {
+              "number": "8",
+              "name": "CUESTA VALHERMOSO, SERGIO"
+            },
+            {
+              "number": "10",
+              "name": "BAHRI BOUJADDAR, MOHAMMED"
+            },
+            {
+              "number": "12",
+              "name": "MATIN VALLEJO, TOMAS"
+            },
+            {
+              "number": "15",
+              "name": "MATEO RUIZ, JUAN ANTONIO"
+            },
+            {
+              "number": "16",
+              "name": "GARCIA ALBACETE, ALVARO"
+            },
+            {
+              "number": "17",
+              "name": "RUEDA DE LA FUENTE, GONZALO"
+            },
+            {
+              "number": "24",
+              "name": "MARQUEZ LOPEZ, PABLO"
+            },
+            {
+              "number": "80",
+              "name": "MARTIN ROMAN, PABLO"
+            },
+            {
+              "number": "95",
+              "name": "CRACIUN, VLAD ANDREI"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "2",
+              "name": "ZAMORA MEDINA, ANDRES"
+            },
+            {
+              "number": "7",
+              "name": "SANCHEZ ALONSO, ROBERTO"
+            },
+            {
+              "number": "11",
+              "name": "NAVARRO LINDO, DIEGO"
+            },
+            {
+              "number": "38",
+              "name": "BLANCO GONJAR, JESUS"
+            },
+            {
+              "number": "52",
+              "name": "CUCHILLO AMORES, JUAN"
+            },
+            {
+              "number": "99",
+              "name": "BAHRI BOUJADDAR, YASSINE"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "6",
+              "name": "MUÑOZ CARPIO, ALBERTO"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "3",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "24",
+              "name": "ROTARI, NICOLAI"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [],
+          "substitutions": []
+        },
+        "referees": [
+          "BRAVO LOAYZA, JOSE ALEXIS"
+        ],
+        "goals": [
+          {
+            "homeScore": 1,
+            "awayScore": 0,
+            "scorer": "BAHRI BOUJADDAR, YASSINE",
+            "minute": 10,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 1,
+            "scorer": "MUÑOZ CARPIO, ALBERTO",
+            "minute": 15,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 2,
+            "scorer": "VALENCIA SOTO, DANIEL",
+            "minute": 22,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 3,
+            "scorer": "BELLOT VALENZUELA, DANIEL",
+            "minute": 35,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 4,
+            "scorer": "ESTEFANIA PADILLA, DANIEL",
+            "minute": 69,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 6,
@@ -1741,7 +3004,236 @@
       "goalsAgainst": 3,
       "played": true,
       "result": "P",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11123",
+      "acta": {
+        "codActa": "11123",
+        "date": "26-10-2025",
+        "time": "09:00",
+        "home": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "6",
+              "name": "MUÑOZ CARPIO, ALBERTO"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "19",
+              "name": "PEREZ AYLLON, ALEJANDRO"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "24",
+              "name": "ROTARI, NICOLAI"
+            },
+            {
+              "number": "3",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "ESTEFANIA PADILLA, DANIEL",
+              "minute": 55,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "PEREZ AYLLON, ALEJANDRO",
+              "minute": 59,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "MARTINEZ DELGADO, IGNACIO",
+              "minute": 61,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "DELAPIO-40 BAR DE VINOS",
+          "titulares": [
+            {
+              "number": "30",
+              "name": "DE JULIAN SORIANO, IKER"
+            },
+            {
+              "number": "2",
+              "name": "MORALES FRNANDEZ DAVILA, PABLO"
+            },
+            {
+              "number": "7",
+              "name": "BARCENA POVEDA, IVAN"
+            },
+            {
+              "number": "9",
+              "name": "FERNANDEZ REDONDO, ALEJANDRO"
+            },
+            {
+              "number": "12",
+              "name": "AVENDAÑO SERRANO, JESUS"
+            },
+            {
+              "number": "14",
+              "name": "MONFORTE LANCHO, JAVIER"
+            },
+            {
+              "number": "15",
+              "name": "BLANCAS MARTIN, MARIO RAFAEL"
+            },
+            {
+              "number": "17",
+              "name": "MARTINEZ FIGUEROA, JAIME"
+            },
+            {
+              "number": "20",
+              "name": "NAVIDADES PEDRAZA, GONZALO"
+            },
+            {
+              "number": "21",
+              "name": "MONZON RUIZ, FERNANDO"
+            },
+            {
+              "number": "28",
+              "name": "BETANCORT DE LA TORRE, JAVIER"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "3",
+              "name": "TIZON SANCHEZ, DAVID"
+            },
+            {
+              "number": "4",
+              "name": "VALENTIN ALONSO, ALBERTO"
+            },
+            {
+              "number": "8",
+              "name": "SERENA CARRERO, CARLOS"
+            },
+            {
+              "number": "10",
+              "name": "SEPULVEDA MARTIN, ANGEL"
+            },
+            {
+              "number": "11",
+              "name": "SANZ GALLARDO, JORGE"
+            },
+            {
+              "number": "18",
+              "name": "SOTOCA LOPEZ, IGNACIO"
+            },
+            {
+              "number": "19",
+              "name": "ROMERO BURGOS, MARIO"
+            },
+            {
+              "number": "22",
+              "name": "PINTILIE, FLORIAN"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "SOTOCA LOPEZ, IGNACIO",
+              "minute": 79,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "PEREZ LARA, JUAN PEDRO"
+        ],
+        "goals": [
+          {
+            "homeScore": 0,
+            "awayScore": 1,
+            "scorer": "MONZON RUIZ, FERNANDO",
+            "minute": 13,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 0,
+            "awayScore": 2,
+            "scorer": "MONZON RUIZ, FERNANDO",
+            "minute": 30,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 0,
+            "awayScore": 3,
+            "scorer": "SERENA CARRERO, CARLOS",
+            "minute": 79,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 7,
@@ -1755,7 +3247,248 @@
       "goalsAgainst": 3,
       "played": true,
       "result": "E",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11128",
+      "acta": {
+        "codActa": "11128",
+        "date": "08-11-2025",
+        "time": "15:30",
+        "home": {
+          "teamName": "RUMANIA CF",
+          "titulares": [
+            {
+              "number": "12",
+              "name": "RADU, ANDREI ADRIAN"
+            },
+            {
+              "number": "3",
+              "name": "RADU, NICOLAE EUGEN"
+            },
+            {
+              "number": "5",
+              "name": "SOLANCE BOHOPO, LUIS PABLO"
+            },
+            {
+              "number": "7",
+              "name": "CAMARA, SAYON"
+            },
+            {
+              "number": "8",
+              "name": "ROBERT ANDREI, BOGHEAN"
+            },
+            {
+              "number": "9",
+              "name": "RUSZ, VIOREL MARIAN"
+            },
+            {
+              "number": "10",
+              "name": "COSMA, IONUT DANIEL"
+            },
+            {
+              "number": "17",
+              "name": "OPREA, MARCOS"
+            },
+            {
+              "number": "19",
+              "name": "CAILA, PAUL"
+            },
+            {
+              "number": "20",
+              "name": "RESTREPO VARGAS, DEYVI DANIEL"
+            },
+            {
+              "number": "22",
+              "name": "PALACIOS POSADA, SANTIAGO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "4",
+              "name": "BALAN SANCHEZ, ANDRES ANTONIO"
+            },
+            {
+              "number": "6",
+              "name": "BOGHEN, MARINEL TOADER"
+            },
+            {
+              "number": "13",
+              "name": "VALDERRAMA CALDERON, JAVIR ALEXANDER"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "CAILA, PAUL",
+              "minute": 11,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "PALACIOS POSADA, SANTIAGO",
+              "minute": 48,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "COSMA, IONUT DANIEL",
+              "minute": 69,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "VALDERRAMA CALDERON, JAVIR ALEXANDER",
+              "minute": 80,
+              "final": false
+            },
+            {
+              "color": "roja",
+              "player": "OPREA, MARCOS",
+              "minute": 82,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "14",
+              "name": "RODRIGUEZ JIMENO, JONATAN"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "6",
+              "name": "MUÑOZ CARPIO, ALBERTO"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "16",
+              "name": "GALLEGO PLAZA, ALEJANDRO"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "VALENCIA SOTO, DANIEL",
+              "minute": 33,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "ANDRADES FENOL, JUAN FRANCISCO"
+        ],
+        "goals": [
+          {
+            "homeScore": 0,
+            "awayScore": 1,
+            "scorer": "MUÑOZ CARPIO, ALBERTO",
+            "minute": 28,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 0,
+            "awayScore": 2,
+            "scorer": "BELLOT VALENZUELA, DANIEL",
+            "minute": 39,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 2,
+            "scorer": "ENCINAS HUMANES, ALEJANDRO",
+            "minute": 46,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 3,
+            "scorer": "MARTINEZ DELGADO, IGNACIO",
+            "minute": 70,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 3,
+            "scorer": "COSMA, IONUT DANIEL",
+            "minute": 73,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 3,
+            "awayScore": 3,
+            "scorer": "RUSZ, VIOREL MARIAN",
+            "minute": 76,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 8,
@@ -1769,7 +3502,154 @@
       "goalsAgainst": 0,
       "played": true,
       "result": "E",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11134",
+      "acta": {
+        "codActa": "11134",
+        "date": "16-11-2025",
+        "time": "13:30",
+        "home": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "24",
+              "name": "ROTARI, NICOLAI"
+            },
+            {
+              "number": "3",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "16",
+              "name": "GALLEGO PLAZA, ALEJANDRO"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "37",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "MARTINEZ DELGADO, IGNACIO",
+              "minute": 8,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "ENCINAS HUMANES, ALEJANDRO",
+              "minute": 28,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "titulares": [
+            {
+              "number": "25",
+              "name": "CORTADO TORIBIO, JESUS FRANCISCO"
+            },
+            {
+              "number": "3",
+              "name": "BALLESTEROS ALONSO, FERNANDO"
+            },
+            {
+              "number": "7",
+              "name": "RECUERO AREVALO, JESUS"
+            },
+            {
+              "number": "8",
+              "name": "RODRIGUEZ MARTINEZ, IVAN"
+            },
+            {
+              "number": "9",
+              "name": "DOMINGUEZ DIAZ, CARLOS"
+            },
+            {
+              "number": "14",
+              "name": "LOZANO PLAZA, ALVARO"
+            },
+            {
+              "number": "15",
+              "name": "TORO CARRERO, ALEJANDRO"
+            },
+            {
+              "number": "17",
+              "name": "PIÑUEL BLAZQUEZ, PABLO"
+            },
+            {
+              "number": "23",
+              "name": "SETIEN GONZALEZ, ISMAEL"
+            },
+            {
+              "number": "32",
+              "name": "GARCIA ARAQUE, DAVID"
+            },
+            {
+              "number": "79",
+              "name": "PIIÑUEL BLAZQUEZ, CARLOS"
+            }
+          ],
+          "suplentes": [],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "RODRIGUEZ MARTINEZ, IVAN",
+              "minute": 10,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "LOZANO PLAZA, ALVARO",
+              "minute": 41,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "DE LA FUENTE BAUTISTA, JOSE MARIA"
+        ],
+        "goals": []
+      }
     },
     {
       "round": 9,
@@ -1783,7 +3663,224 @@
       "goalsAgainst": 0,
       "played": true,
       "result": "G",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11139",
+      "acta": {
+        "codActa": "11139",
+        "date": "29-11-2025",
+        "time": "17:00",
+        "home": {
+          "teamName": "NEWTEAM- SMT",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "MORENO MANCHEÑO, JOSE ANTONIO"
+            },
+            {
+              "number": "3",
+              "name": "GARCIA RUESCAS CAZORLA, FERNANDO"
+            },
+            {
+              "number": "5",
+              "name": "MARTINEZ PERONA, JORGE"
+            },
+            {
+              "number": "7",
+              "name": "LOPEZ ASENSIO, DANIEL"
+            },
+            {
+              "number": "9",
+              "name": "MARQUES GUERRA, JUAN IGNACIO"
+            },
+            {
+              "number": "10",
+              "name": "MORCILLO ORTEGA, ALBERTO"
+            },
+            {
+              "number": "14",
+              "name": "HERNANDEZ RICO, JAVIER"
+            },
+            {
+              "number": "15",
+              "name": "MAQUEDA RICO, JOSE ANGEL"
+            },
+            {
+              "number": "19",
+              "name": "DIAZ GONZABAY, MICHAEL ISAAC"
+            },
+            {
+              "number": "20",
+              "name": "MARTIN DE LA FUENTE, JAVIER"
+            },
+            {
+              "number": "30",
+              "name": "DE LA FUENTE CAMPOS, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "28",
+              "name": "CASARRUBIOS CARRETERO, YERAY"
+            },
+            {
+              "number": "16",
+              "name": "SORIA CESPEDES, MARIO"
+            },
+            {
+              "number": "18",
+              "name": "DE CASTRO ROMERO, PABLO"
+            },
+            {
+              "number": "22",
+              "name": "PACHECO GARCIA, MARIO"
+            },
+            {
+              "number": "24",
+              "name": "LINARES MANZANO, ALEJANDRO"
+            },
+            {
+              "number": "27",
+              "name": "MARQUES CARRILLO, JORGE"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "MAQUEDA RICO, JOSE ANGEL",
+              "minute": 28,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "MORCILLO ORTEGA, ALBERTO",
+              "minute": 29,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "GARCIA RUESCAS CAZORLA, FERNANDO",
+              "minute": 63,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "HERNANDEZ RICO, JAVIER",
+              "minute": 75,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "18",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "24",
+              "name": "ROTARI, NICOLAI"
+            },
+            {
+              "number": "6",
+              "name": "MUÑOZ CARPIO, ALBERTO"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "16",
+              "name": "GALLEGO PLAZA, ALEJANDRO"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "MARTINEZ DELGADO, IGNACIO",
+              "minute": 31,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "GALLEGO PLAZA, ALEJANDRO",
+              "minute": 58,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "RECIO FREIRE, JOSE ANTONIO"
+        ],
+        "goals": [
+          {
+            "homeScore": 0,
+            "awayScore": 1,
+            "scorer": "MUÑOZ CARPIO, ALBERTO",
+            "minute": 63,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 0,
+            "awayScore": 2,
+            "scorer": "SANCHEZ ALFONSO, JUAN MANUEL",
+            "minute": 78,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 10,
@@ -1797,7 +3894,216 @@
       "goalsAgainst": 1,
       "played": true,
       "result": "G",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11145",
+      "acta": {
+        "codActa": "11145",
+        "date": "14-12-2025",
+        "time": "12:00",
+        "home": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "3",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "6",
+              "name": "MUÑOZ CARPIO, ALBERTO"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "16",
+              "name": "GALLEGO PLAZA, ALEJANDRO"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "19",
+              "name": "PEREZ AYLLON, ALEJANDRO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "BELLOT VALENZUELA, DANIEL",
+              "minute": 27,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "MARTINEZ DELGADO, IGNACIO",
+              "minute": 63,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "INTER DE SÉK",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "CRESPO CERRATO, DANIEL"
+            },
+            {
+              "number": "3",
+              "name": "GONZALEZ DIAZ, ISMAEL"
+            },
+            {
+              "number": "5",
+              "name": "CENDAN LOPEZ, ALBERTO"
+            },
+            {
+              "number": "6",
+              "name": "MARTINEZ PLATERO, JAVIER"
+            },
+            {
+              "number": "9",
+              "name": "MONZON RUIZ, LUCAS"
+            },
+            {
+              "number": "15",
+              "name": "REVUELTA VILLARREAL, ADRIAN"
+            },
+            {
+              "number": "16",
+              "name": "CARRALERO CASTELLANOS, CHRISTIAN"
+            },
+            {
+              "number": "17",
+              "name": "RUANO RODRIGUEZ, DIEGO"
+            },
+            {
+              "number": "19",
+              "name": "LAREDO CARVAJAL, RUBEN"
+            },
+            {
+              "number": "20",
+              "name": "MILLAN MARTINEZ, AGUSTIN"
+            },
+            {
+              "number": "77",
+              "name": "FERNANDEZ FERNANDEZ, DIEGO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "4",
+              "name": "RODRIGUEZ MADRID, JAVIER"
+            },
+            {
+              "number": "7",
+              "name": "SILOS VILLANUEVA, JOSHUA"
+            },
+            {
+              "number": "11",
+              "name": "NOVALEZ PELEATO, LUCAS FRANCISCO"
+            },
+            {
+              "number": "21",
+              "name": "SANSEGUNDO LOPEZ, JAVIER"
+            },
+            {
+              "number": "27",
+              "name": "GARCIA LOPEZ, ALEJANDRO"
+            },
+            {
+              "number": "28",
+              "name": "SANCHEZ VELA, VICTOR ADRIAN"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "CARRALERO CASTELLANOS, CHRISTIAN",
+              "minute": 22,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "CENDAN LOPEZ, ALBERTO",
+              "minute": 25,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "RECIO FREIRE, JOSE ANTONIO"
+        ],
+        "goals": [
+          {
+            "homeScore": 1,
+            "awayScore": 0,
+            "scorer": "VALENCIA SOTO, DANIEL",
+            "minute": 30,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 0,
+            "scorer": "SANCHEZ ALFONSO, JUAN MANUEL",
+            "minute": 53,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 1,
+            "scorer": "SANSEGUNDO LOPEZ, JAVIER",
+            "minute": 61,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 3,
+            "awayScore": 1,
+            "scorer": "GALLEGO PLAZA, ALEJANDRO",
+            "minute": 67,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 11,
@@ -1811,7 +4117,212 @@
       "goalsAgainst": 1,
       "played": true,
       "result": "P",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11150",
+      "acta": {
+        "codActa": "11150",
+        "date": "10-01-2026",
+        "time": "15:30",
+        "home": {
+          "teamName": "TORINO - VENTACONS - BAR JUANI",
+          "titulares": [
+            {
+              "number": "16",
+              "name": "DIONISIO GUERRA, HECTOR"
+            },
+            {
+              "number": "3",
+              "name": "ALVAR CUEVAS, RAFAEL"
+            },
+            {
+              "number": "4",
+              "name": "LUNA MONREAL, MANUEL"
+            },
+            {
+              "number": "6",
+              "name": "CAVERO MARIN, RUBEN"
+            },
+            {
+              "number": "7",
+              "name": "MARTIN FELIX, JOSE LUIS"
+            },
+            {
+              "number": "8",
+              "name": "MARQUEZ ALVAR, JUAN MANUEL"
+            },
+            {
+              "number": "12",
+              "name": "GONZALEZ RODRIGUEZ, AARON"
+            },
+            {
+              "number": "15",
+              "name": "HERNANDEZ GONZALEZ, RUBEN"
+            },
+            {
+              "number": "18",
+              "name": "CASSINA VELARDE, GIOVANNI"
+            },
+            {
+              "number": "19",
+              "name": "CHADLI, NAWFEL"
+            },
+            {
+              "number": "21",
+              "name": "GONZALEZ SANZ, ALEJANDRO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "11",
+              "name": "MECHFOUA, FAICAL"
+            },
+            {
+              "number": "14",
+              "name": "MULUMBA MULUMBA, YANNIS"
+            },
+            {
+              "number": "17",
+              "name": "RODRIGUEZ OSORIO GARCIA, GONZALO"
+            },
+            {
+              "number": "22",
+              "name": "TEJERO TACERO, JOSE LUIS"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "ALVAR CUEVAS, RAFAEL",
+              "minute": 22,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "MULUMBA MULUMBA, YANNIS",
+              "minute": 65,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "RODRIGUEZ OSORIO GARCIA, GONZALO",
+              "minute": 72,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "RODRIGUEZ OSORIO GARCIA, GONZALO",
+              "minute": 75,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "24",
+              "name": "ROTARI, NICOLAI"
+            },
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "16",
+              "name": "GALLEGO PLAZA, ALEJANDRO"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "19",
+              "name": "PEREZ AYLLON, ALEJANDRO"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "25",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "ENCINAS HUMANES, ALEJANDRO",
+              "minute": 52,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "BELLOT VALENZUELA, DANIEL",
+              "minute": null,
+              "final": true
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "PEREZ MAROTO, MANUEL"
+        ],
+        "goals": [
+          {
+            "homeScore": 1,
+            "awayScore": 0,
+            "scorer": "RODRIGUEZ OSORIO GARCIA, GONZALO",
+            "minute": 26,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 12,
@@ -1825,7 +4336,212 @@
       "goalsAgainst": 1,
       "played": true,
       "result": "G",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11159",
+      "acta": {
+        "codActa": "11159",
+        "date": "25-01-2026",
+        "time": "13:30",
+        "home": {
+          "teamName": "RIMATEC-PUB TENESSE",
+          "titulares": [
+            {
+              "number": "13",
+              "name": "ARAQUE GARCIA, ANGEL SANTIAGO"
+            },
+            {
+              "number": "4",
+              "name": "SANCHEZ PUERTAS, JULIO"
+            },
+            {
+              "number": "5",
+              "name": "RODRIGO ALONSO, RUBEN"
+            },
+            {
+              "number": "9",
+              "name": "OLMOS DE LA ORDEN, MIGUEL ANGEL"
+            },
+            {
+              "number": "10",
+              "name": "MORENO GARCIA, JAVIER"
+            },
+            {
+              "number": "11",
+              "name": "DE PAULA OLIVEIRA, KEVEN"
+            },
+            {
+              "number": "12",
+              "name": "FERNANDEZ FERNANDEZ, SERGIO"
+            },
+            {
+              "number": "16",
+              "name": "GONZALEZ LANZAS, JULIO"
+            },
+            {
+              "number": "18",
+              "name": "PALACIOS MARTINEZ, GUILLERMO"
+            },
+            {
+              "number": "20",
+              "name": "SANCHEZ PUERTAS, ROBERTO"
+            },
+            {
+              "number": "24",
+              "name": "LINDO NAVARRO, ENRIQUE JESUS"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "6",
+              "name": "MARTIN RODRIGUEZ, ANTONIO"
+            },
+            {
+              "number": "7",
+              "name": "MARTINEZ BONMATI, GONZALO"
+            },
+            {
+              "number": "8",
+              "name": "FRANCO VERGARA, JAVIER"
+            },
+            {
+              "number": "19",
+              "name": "URSULA PEREZ, RUBEN"
+            },
+            {
+              "number": "23",
+              "name": "GIL AMORES, ROBERTO"
+            },
+            {
+              "number": "28",
+              "name": "GALAN YEPES, ADRIAN"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "MORENO GARCIA, JAVIER",
+              "minute": 62,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "24",
+              "name": "ROTARI, NICOLAI"
+            },
+            {
+              "number": "3",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "19",
+              "name": "PEREZ AYLLON, ALEJANDRO"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "SANCHEZ ALFONSO, JUAN MANUEL",
+              "minute": 22,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "ENCINAS HUMANES, ALEJANDRO",
+              "minute": 48,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "ENCINAS HUMANES, ALEJANDRO",
+              "minute": 67,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "CARRILLO MAMANI, JUAN CARLOS"
+        ],
+        "goals": [
+          {
+            "homeScore": 1,
+            "awayScore": 0,
+            "scorer": "MORENO GARCIA, JAVIER",
+            "minute": 24,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 1,
+            "scorer": "SANCHEZ ALFONSO, JUAN MANUEL",
+            "minute": 27,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 2,
+            "scorer": "SANCHEZ SANTERO, JAVIER",
+            "minute": 43,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 13,
@@ -1839,7 +4555,204 @@
       "goalsAgainst": 3,
       "played": true,
       "result": "P",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11166",
+      "acta": {
+        "codActa": "11166",
+        "date": "31-01-2026",
+        "time": "17:00",
+        "home": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "16",
+              "name": "GALLEGO PLAZA, ALEJANDRO"
+            },
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            },
+            {
+              "number": "24",
+              "name": "ROTARI, NICOLAI"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "6",
+              "name": "MUÑOZ CARPIO, ALBERTO"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "GUZMAN SALCEDA, ADRIAN",
+              "minute": 55,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "FYSOL-POSTAS",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "CORRAL GARCIA, GUILLERMO"
+            },
+            {
+              "number": "2",
+              "name": "CABERO PORTILLO, FRANCISCO JOSE"
+            },
+            {
+              "number": "3",
+              "name": "MARTINEZ FLORES, EDUARDO"
+            },
+            {
+              "number": "4",
+              "name": "GALAN DEL RIO, ROBERTO"
+            },
+            {
+              "number": "7",
+              "name": "MARTINEZ VERA, MIGUEL ANGEL"
+            },
+            {
+              "number": "8",
+              "name": "FERNANDEZ SANCHEZ RIOS, DANIEL"
+            },
+            {
+              "number": "11",
+              "name": "FABRA GORREA, RAFAEL"
+            },
+            {
+              "number": "12",
+              "name": "MARTIN MERINO, ALEX"
+            },
+            {
+              "number": "14",
+              "name": "SANTOS MUÑOZ, MIGUEL ANGEL"
+            },
+            {
+              "number": "21",
+              "name": "MIGUEL SANCHEZ BEATO, ROBERTO"
+            },
+            {
+              "number": "22",
+              "name": "LABORDA BARTOLOME, RAFAEL ALFONSO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "6",
+              "name": "VILLEGAS SANCHEZ, DIEGO LUIS"
+            },
+            {
+              "number": "9",
+              "name": "TIZON CASILLAS, FRANCISCO JAVIER"
+            },
+            {
+              "number": "16",
+              "name": "PINAZO GUTIERREZ, TOBIAS"
+            },
+            {
+              "number": "23",
+              "name": "ORREGO BENEGAS, RUBEN ANTONIO"
+            },
+            {
+              "number": "25",
+              "name": "SERENA JIMENEZ, DANIEL"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "MARTIN MERINO, ALEX",
+              "minute": 43,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "PEREZ MAROTO, MANUEL"
+        ],
+        "goals": [
+          {
+            "homeScore": 0,
+            "awayScore": 1,
+            "scorer": "MARTINEZ VERA, MIGUEL ANGEL",
+            "minute": 45,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 0,
+            "awayScore": 2,
+            "scorer": "TIZON CASILLAS, FRANCISCO JAVIER",
+            "minute": 67,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 0,
+            "awayScore": 3,
+            "scorer": "TIZON CASILLAS, FRANCISCO JAVIER",
+            "minute": 77,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 14,
@@ -1853,7 +4766,222 @@
       "goalsAgainst": 2,
       "played": true,
       "result": "G",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11172",
+      "acta": {
+        "codActa": "11172",
+        "date": "15-02-2026",
+        "time": "10:30",
+        "home": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            },
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "3",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "16",
+              "name": "GALLEGO PLAZA, ALEJANDRO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "GALLEGO PLAZA, ALEJANDRO",
+              "minute": 16,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "MARTINEZ DELGADO, IGNACIO",
+              "minute": 29,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "TORRES HERRERO, SERGIO",
+              "minute": 53,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "MAGREB UNITED",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "ZANANE HMAM, AYMANE"
+            },
+            {
+              "number": "2",
+              "name": "TABIT, MOHAMED"
+            },
+            {
+              "number": "6",
+              "name": "BOUSROU, YASSINE"
+            },
+            {
+              "number": "7",
+              "name": "BARA MOUHAQNDIZ, SALMAN"
+            },
+            {
+              "number": "8",
+              "name": "UDEAGBALA, OKWUDILI"
+            },
+            {
+              "number": "9",
+              "name": "GHANNAMI HAMDAOUI, MAROUANE"
+            },
+            {
+              "number": "10",
+              "name": "KADDOURI, ZACARIA"
+            },
+            {
+              "number": "12",
+              "name": "KALIOU, MOHAMED"
+            },
+            {
+              "number": "15",
+              "name": "EL BAKKALI, MOHAMMED"
+            },
+            {
+              "number": "17",
+              "name": "BOUTOUIL, HAITAM"
+            },
+            {
+              "number": "21",
+              "name": "EL GHAMMAR, MOHAMMED"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "20",
+              "name": "EL MYTMARY, ELYASS"
+            },
+            {
+              "number": "24",
+              "name": "MORENO RAMOS, SANTIAGO"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "BARA MOUHAQNDIZ, SALMAN",
+              "minute": 16,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "KALIOU, MOHAMED",
+              "minute": 32,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "KALIOU, MOHAMED",
+              "minute": 43,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "GHANNAMI HAMDAOUI, MAROUANE",
+              "minute": 58,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "TOBAR NARANJO, JOSE ANGEL"
+        ],
+        "goals": [
+          {
+            "homeScore": 0,
+            "awayScore": 1,
+            "scorer": "BOUTOUIL, HAITAM",
+            "minute": 11,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 1,
+            "scorer": "MARTINEZ DELGADO, IGNACIO",
+            "minute": 34,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 1,
+            "scorer": "TORRES HERRERO, SERGIO",
+            "minute": 51,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 2,
+            "scorer": "GHANNAMI HAMDAOUI, MAROUANE",
+            "minute": 68,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 3,
+            "awayScore": 2,
+            "scorer": "BELLOT VALENZUELA, DANIEL",
+            "minute": 76,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 15,
@@ -1867,7 +4995,154 @@
       "goalsAgainst": 1,
       "played": true,
       "result": "E",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11178",
+      "acta": {
+        "codActa": "11178",
+        "date": "21-02-2026",
+        "time": "20:00",
+        "home": {
+          "teamName": "NEWCASTLE PUB F.C.",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "LEGIDO DIAZ, IKER"
+            },
+            {
+              "number": "2",
+              "name": "JIMENEZ HUERTA, AGUSTIN"
+            },
+            {
+              "number": "3",
+              "name": "GUIJARRO DE LUIS, RUBEN"
+            },
+            {
+              "number": "4",
+              "name": "GOMEZ TORRES, PABLO"
+            },
+            {
+              "number": "5",
+              "name": "FERNANDEZ SANCHEZ-PASCUAL, IGNACIO"
+            },
+            {
+              "number": "6",
+              "name": "CONTRERAS SAIZ, ALVARO"
+            },
+            {
+              "number": "7",
+              "name": "CUELLAR AGUDO, JUAN"
+            },
+            {
+              "number": "9",
+              "name": "CANTOS ROMANO, MARCOS"
+            },
+            {
+              "number": "10",
+              "name": "BAQUERO MATEO, IVAN"
+            },
+            {
+              "number": "12",
+              "name": "ARRIBAS SANTIAGO, SANTIAGO"
+            },
+            {
+              "number": "13",
+              "name": "LEON DIAZ, ROBERTO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "18",
+              "name": "MORENO GARCIA BALLESTEROS, DANIEL"
+            },
+            {
+              "number": "80",
+              "name": "MENDEZ CASTRO, DAVID ALEJANDRO"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "2",
+              "name": "ROTARI, NICOLAI"
+            },
+            {
+              "number": "3",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "6",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "17",
+              "name": "RODRIGUEZ JIMENO, JONATAN"
+            },
+            {
+              "number": "32",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "54",
+              "name": "PEREZ AYLLON, ALEJANDRO"
+            },
+            {
+              "number": "56",
+              "name": "GALLEGO PLAZA, ALEJANDRO"
+            },
+            {
+              "number": "71",
+              "name": "MUÑOZ CARPIO, ALBERTO"
+            },
+            {
+              "number": "90",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "4",
+              "name": "TORRES HERRERO, SERGIO"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [],
+          "substitutions": []
+        },
+        "referees": [
+          "BRAVO LOAYZA, JOSE ALEXIS"
+        ],
+        "goals": [
+          {
+            "homeScore": 1,
+            "awayScore": 0,
+            "scorer": "CUELLAR AGUDO, JUAN",
+            "minute": 25,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 1,
+            "scorer": "RODRIGUEZ JIMENO, JONATAN",
+            "minute": 39,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 16,
@@ -1881,7 +5156,172 @@
       "goalsAgainst": 0,
       "played": true,
       "result": "G",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11183",
+      "acta": {
+        "codActa": "11183",
+        "date": "01-03-2026",
+        "time": "10:30",
+        "home": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "24",
+              "name": "ROTARI, NICOLAI"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "16",
+              "name": "GALLEGO PLAZA, ALEJANDRO"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "19",
+              "name": "PEREZ AYLLON, ALEJANDRO"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [],
+          "entrenador": "No presenta",
+          "cards": [],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "J.C.R. - ATLETICO JERINGA",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "GARCIA MASCARAQUE, VICTOR"
+            },
+            {
+              "number": "6",
+              "name": "NAVARRO LINDO, DIEGO"
+            },
+            {
+              "number": "9",
+              "name": "HIJOSA VASALLO, DANIEL"
+            },
+            {
+              "number": "14",
+              "name": "GONZALEZ GOMEZ, JOSE ANTONIO"
+            },
+            {
+              "number": "15",
+              "name": "MATEO RUIZ, JUAN ANTONIO"
+            },
+            {
+              "number": "16",
+              "name": "GARCIA ALBACETE, ALVARO"
+            },
+            {
+              "number": "21",
+              "name": "CUCHILLO AMORES, JUAN"
+            },
+            {
+              "number": "25",
+              "name": "ORTEGA ESPADA, DIEGO"
+            },
+            {
+              "number": "38",
+              "name": "BLANCO GONJAR, JESUS"
+            },
+            {
+              "number": "80",
+              "name": "MARTIN ROMAN, PABLO"
+            },
+            {
+              "number": "95",
+              "name": "CRACIUN, VLAD ANDREI"
+            }
+          ],
+          "suplentes": [],
+          "entrenador": "No presenta",
+          "cards": [],
+          "substitutions": []
+        },
+        "referees": [
+          "MORENO PARADA, JHONATAN ANTONIO"
+        ],
+        "goals": [
+          {
+            "homeScore": 1,
+            "awayScore": 0,
+            "scorer": "DE LA FUENTE GARCIA, SAMUEL",
+            "minute": 40,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 0,
+            "scorer": "AVILA DE LOS SANTOS, VICTOR",
+            "minute": 52,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 3,
+            "awayScore": 0,
+            "scorer": "BELLOT VALENZUELA, DANIEL",
+            "minute": 59,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 4,
+            "awayScore": 0,
+            "scorer": "BELLOT VALENZUELA, DANIEL",
+            "minute": 66,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 5,
+            "awayScore": 0,
+            "scorer": "PEREZ AYLLON, ALEJANDRO",
+            "minute": 76,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 6,
+            "awayScore": 0,
+            "scorer": "AVILA DE LOS SANTOS, VICTOR",
+            "minute": 80,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 17,
@@ -1895,7 +5335,192 @@
       "goalsAgainst": 2,
       "played": true,
       "result": "P",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11189",
+      "acta": {
+        "codActa": "11189",
+        "date": "14-03-2026",
+        "time": "15:30",
+        "home": {
+          "teamName": "DELAPIO-40 BAR DE VINOS",
+          "titulares": [
+            {
+              "number": "32",
+              "name": "MARTINEZ ESTEBAN, DAVID"
+            },
+            {
+              "number": "5",
+              "name": "MARTIN RUIZ, DIEGO"
+            },
+            {
+              "number": "6",
+              "name": "PORTILLO RUIZ, DANIEL"
+            },
+            {
+              "number": "7",
+              "name": "BARCENA POVEDA, IVAN"
+            },
+            {
+              "number": "9",
+              "name": "FERNANDEZ REDONDO, ALEJANDRO"
+            },
+            {
+              "number": "11",
+              "name": "SANZ GALLARDO, JORGE"
+            },
+            {
+              "number": "12",
+              "name": "AVENDAÑO SERRANO, JESUS"
+            },
+            {
+              "number": "15",
+              "name": "BLANCAS MARTIN, MARIO RAFAEL"
+            },
+            {
+              "number": "21",
+              "name": "MONZON RUIZ, FERNANDO"
+            },
+            {
+              "number": "27",
+              "name": "RODRIGUEZ GIL, RAUL"
+            },
+            {
+              "number": "28",
+              "name": "BETANCORT DE LA TORRE, JAVIER"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "3",
+              "name": "TIZON SANCHEZ, DAVID"
+            },
+            {
+              "number": "8",
+              "name": "SERENA CARRERO, CARLOS"
+            },
+            {
+              "number": "18",
+              "name": "SOTOCA LOPEZ, IGNACIO"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "BETANCORT DE LA TORRE, JAVIER",
+              "minute": 50,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "AVENDAÑO SERRANO, JESUS",
+              "minute": 50,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "SOTOCA LOPEZ, IGNACIO",
+              "minute": 77,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "12",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "24",
+              "name": "ROTARI, NICOLAI"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "GUZMAN SALCEDA, ADRIAN",
+              "minute": 49,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "PEREZ MAROTO, MANUEL"
+        ],
+        "goals": [
+          {
+            "homeScore": 1,
+            "awayScore": 0,
+            "scorer": "MONZON RUIZ, FERNANDO",
+            "minute": 34,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 0,
+            "scorer": "MARTIN RUIZ, DIEGO",
+            "minute": 60,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 18,
@@ -1909,7 +5534,204 @@
       "goalsAgainst": 1,
       "played": true,
       "result": "E",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11194",
+      "acta": {
+        "codActa": "11194",
+        "date": "22-03-2026",
+        "time": "10:30",
+        "home": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "3",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "16",
+              "name": "GALLEGO PLAZA, ALEJANDRO"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "14",
+              "name": "RODRIGUEZ JIMENO, JONATAN"
+            },
+            {
+              "number": "19",
+              "name": "PEREZ AYLLON, ALEJANDRO"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "BELLOT VALENZUELA, DANIEL",
+              "minute": 31,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "MARTINEZ DELGADO, IGNACIO",
+              "minute": 52,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "PEREZ JIMENEZ, ALEJANDRO",
+              "minute": 57,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "RUMANIA CF",
+          "titulares": [
+            {
+              "number": "12",
+              "name": "RADU, ANDREI ADRIAN"
+            },
+            {
+              "number": "4",
+              "name": "BALAN SANCHEZ, ANDRES ANTONIO"
+            },
+            {
+              "number": "9",
+              "name": "RUSZ, VIOREL MARIAN"
+            },
+            {
+              "number": "10",
+              "name": "COSMA, IONUT DANIEL"
+            },
+            {
+              "number": "11",
+              "name": "CAMARA, SAYON"
+            },
+            {
+              "number": "13",
+              "name": "VALDERRAMA CALDERON, JAVIR ALEXANDER"
+            },
+            {
+              "number": "17",
+              "name": "RIVEROS CAÑETE, ARNALDO"
+            },
+            {
+              "number": "18",
+              "name": "NAVAS GONZALEZ, JUNIOR JOSE"
+            },
+            {
+              "number": "19",
+              "name": "CAILA, PAUL"
+            },
+            {
+              "number": "21",
+              "name": "BENJAMIN, JORA PASTOR"
+            },
+            {
+              "number": "22",
+              "name": "PALACIOS POSADA, SANTIAGO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "3",
+              "name": "RADU, NICOLAE EUGEN"
+            },
+            {
+              "number": "8",
+              "name": "ROBERT ANDREI, BOGHEAN"
+            },
+            {
+              "number": "15",
+              "name": "GUZMAN CABRERA, JEAN PAUL"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "BENJAMIN, JORA PASTOR",
+              "minute": 66,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "RUSZ, VIOREL MARIAN",
+              "minute": 77,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "NAVAS GONZALEZ, JUNIOR JOSE",
+              "minute": 78,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "RODRIGUES POIO, VICTOR"
+        ],
+        "goals": [
+          {
+            "homeScore": 0,
+            "awayScore": 1,
+            "scorer": "RUSZ, VIOREL MARIAN",
+            "minute": 17,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 1,
+            "scorer": "BELLOT VALENZUELA, DANIEL",
+            "minute": 77,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 19,
@@ -1923,7 +5745,223 @@
       "goalsAgainst": 2,
       "played": true,
       "result": "G",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11200",
+      "acta": {
+        "codActa": "11200",
+        "date": "11-04-2026",
+        "time": "18:30",
+        "home": {
+          "teamName": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "titulares": [
+            {
+              "number": "26",
+              "name": "CORTADO TORIBIO, JESUS FRANCISCO"
+            },
+            {
+              "number": "2",
+              "name": "CORTADO TORIBIO, JOSE JESUS"
+            },
+            {
+              "number": "4",
+              "name": "GALLARDO ROZALEN, CRISTIAN"
+            },
+            {
+              "number": "5",
+              "name": "DIAZ AMORES, MARIO"
+            },
+            {
+              "number": "9",
+              "name": "DOMINGUEZ DIAZ, CARLOS"
+            },
+            {
+              "number": "14",
+              "name": "LOZANO PLAZA, ALVARO"
+            },
+            {
+              "number": "16",
+              "name": "MENA MOLINA, PEDRO ALONSO"
+            },
+            {
+              "number": "19",
+              "name": "MORATALLA PERONA, JULIAN"
+            },
+            {
+              "number": "21",
+              "name": "GARCIA GONZALEZ, FRANCISCO JAVIER"
+            },
+            {
+              "number": "32",
+              "name": "GARCIA ARAQUE, DAVID"
+            },
+            {
+              "number": "79",
+              "name": "PIIÑUEL BLAZQUEZ, CARLOS"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "7",
+              "name": "RECUERO AREVALO, JESUS"
+            },
+            {
+              "number": "8",
+              "name": "RODRIGUEZ MARTINEZ, IVAN"
+            },
+            {
+              "number": "15",
+              "name": "TORO CARRERO, ALEJANDRO"
+            },
+            {
+              "number": "18",
+              "name": "VIZCAINO EXTREMERA, JOSE LUIS"
+            },
+            {
+              "number": "23",
+              "name": "SETIEN GONZALEZ, ISMAEL"
+            },
+            {
+              "number": "29",
+              "name": "SANCHEZ HERNANDO, ALBERTO"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "25",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "19",
+              "name": "PEREZ AYLLON, ALEJANDRO"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "MARTINEZ DELGADO, IGNACIO",
+              "minute": 20,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "PEREZ AYLLON, ALEJANDRO",
+              "minute": 46,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "VALENCIA SOTO, DANIEL",
+              "minute": 62,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "TORRES HERRERO, SERGIO",
+              "minute": 75,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "GONZALEZ ALONSO, MANUEL"
+        ],
+        "goals": [
+          {
+            "homeScore": 1,
+            "awayScore": 0,
+            "scorer": "PIIÑUEL BLAZQUEZ, CARLOS",
+            "minute": 3,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 1,
+            "scorer": "AVILA DE LOS SANTOS, VICTOR",
+            "minute": 16,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 2,
+            "scorer": "SANCHEZ ALFONSO, JUAN MANUEL",
+            "minute": 36,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 2,
+            "scorer": "TORO CARRERO, ALEJANDRO",
+            "minute": 37,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 3,
+            "scorer": "SANCHEZ ALFONSO, JUAN MANUEL",
+            "minute": 72,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 20,
@@ -1937,7 +5975,229 @@
       "goalsAgainst": 2,
       "played": true,
       "result": "G",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11205",
+      "acta": {
+        "codActa": "11205",
+        "date": "19-04-2026",
+        "time": "12:00",
+        "home": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "3",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "19",
+              "name": "PEREZ AYLLON, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "NEWTEAM- SMT",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "MORENO MANCHEÑO, JOSE ANTONIO"
+            },
+            {
+              "number": "3",
+              "name": "ROCHA ESTEBAN, VICTOR"
+            },
+            {
+              "number": "5",
+              "name": "MARTINEZ PERONA, JORGE"
+            },
+            {
+              "number": "6",
+              "name": "CASTAÑO CHACON, CARLOS"
+            },
+            {
+              "number": "7",
+              "name": "LOPEZ ASENSIO, DANIEL"
+            },
+            {
+              "number": "9",
+              "name": "MARQUES GUERRA, JUAN IGNACIO"
+            },
+            {
+              "number": "10",
+              "name": "MORCILLO ORTEGA, ALBERTO"
+            },
+            {
+              "number": "18",
+              "name": "CALVO ORTEGA, JAVIER"
+            },
+            {
+              "number": "21",
+              "name": "GARCIA PEREZ, JACOBO"
+            },
+            {
+              "number": "26",
+              "name": "PACHECO GARCIA, MARIO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "2",
+              "name": "LOPEZ ASENSIO, CARLOS"
+            },
+            {
+              "number": "14",
+              "name": "HERNANDEZ RICO, JAVIER"
+            },
+            {
+              "number": "15",
+              "name": "MAQUEDA RICO, JOSE ANGEL"
+            },
+            {
+              "number": "16",
+              "name": "CASARRUBIOS CARRETERO, YERAY"
+            },
+            {
+              "number": "17",
+              "name": "MARTINEZ ALVAREZ, JORGE"
+            },
+            {
+              "number": "27",
+              "name": "LINARES MANZANO, ALEJANDRO"
+            },
+            {
+              "number": "29",
+              "name": "MARQUES CARRILLO, JORGE"
+            },
+            {
+              "number": "38",
+              "name": "DE LA FUENTE CAMPOS, DANIEL"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "MORENO MANCHEÑO, JOSE ANTONIO",
+              "minute": 32,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "LOPEZ ASENSIO, DANIEL",
+              "minute": 45,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "DE LA FUENTE CAMPOS, DANIEL",
+              "minute": null,
+              "final": true
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "ANDRADES FENOL, JUAN FRANCISCO"
+        ],
+        "goals": [
+          {
+            "homeScore": 1,
+            "awayScore": 0,
+            "scorer": "ESTEFANIA PADILLA, DANIEL",
+            "minute": 10,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 1,
+            "scorer": "DE LA FUENTE CAMPOS, DANIEL",
+            "minute": 13,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 1,
+            "scorer": "ESTEFANIA PADILLA, DANIEL",
+            "minute": 33,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 3,
+            "awayScore": 1,
+            "scorer": "TORRES HERRERO, SERGIO",
+            "minute": 39,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 4,
+            "awayScore": 1,
+            "scorer": "SANCHEZ ALFONSO, JUAN MANUEL",
+            "minute": 66,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 4,
+            "awayScore": 2,
+            "scorer": "LOPEZ ASENSIO, DANIEL",
+            "minute": 75,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 21,
@@ -1951,7 +6211,177 @@
       "goalsAgainst": 1,
       "played": true,
       "result": "E",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11211",
+      "acta": {
+        "codActa": "11211",
+        "date": "09-05-2026",
+        "time": "18:30",
+        "home": {
+          "teamName": "INTER DE SÉK",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "CRESPO CERRATO, DANIEL"
+            },
+            {
+              "number": "2",
+              "name": "GARCIA TIZON MORA, VICTOR"
+            },
+            {
+              "number": "3",
+              "name": "GONZALEZ DIAZ, ISMAEL"
+            },
+            {
+              "number": "4",
+              "name": "SANSEGUNDO LOPEZ, JAVIER"
+            },
+            {
+              "number": "5",
+              "name": "CENDAN LOPEZ, ALBERTO"
+            },
+            {
+              "number": "6",
+              "name": "RODRIGUEZ DOMINGUEZ, ELIAS ISRAEL"
+            },
+            {
+              "number": "7",
+              "name": "SILOS VILLANUEVA, JOSHUA"
+            },
+            {
+              "number": "16",
+              "name": "CARRALERO CASTELLANOS, CHRISTIAN"
+            },
+            {
+              "number": "22",
+              "name": "GIL GOMEZ, ANGEL"
+            },
+            {
+              "number": "26",
+              "name": "GARCIA LOPEZ, ALEJANDRO"
+            },
+            {
+              "number": "77",
+              "name": "FERNANDEZ FERNANDEZ, DIEGO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "14",
+              "name": "PEÑAFIEL GARCIA, ANTONIO EDUARDO"
+            },
+            {
+              "number": "17",
+              "name": "RUANO RODRIGUEZ, DIEGO"
+            },
+            {
+              "number": "19",
+              "name": "LAREDO CARVAJAL, RUBEN"
+            },
+            {
+              "number": "25",
+              "name": "SANCHEZ VELA, VICTOR ADRIAN"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "GARCIA TIZON MORA, VICTOR",
+              "minute": 39,
+              "final": false
+            },
+            {
+              "color": "amarilla",
+              "player": "CARRALERO CASTELLANOS, CHRISTIAN",
+              "minute": 60,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "3",
+              "name": "PEREZ JIMENEZ, ALEJANDRO"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            },
+            {
+              "number": "22",
+              "name": "CALVO ORTEGA, DANIEL"
+            }
+          ],
+          "suplentes": [],
+          "entrenador": "No presenta",
+          "cards": [
+            {
+              "color": "amarilla",
+              "player": "DE LA FUENTE GARCIA, SAMUEL",
+              "minute": 75,
+              "final": false
+            }
+          ],
+          "substitutions": []
+        },
+        "referees": [
+          "HERRERA GARCIA, CARLOS ALFREDO"
+        ],
+        "goals": [
+          {
+            "homeScore": 1,
+            "awayScore": 0,
+            "scorer": "GIL GOMEZ, ANGEL",
+            "minute": 38,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 1,
+            "scorer": "GUZMAN SALCEDA, ADRIAN",
+            "minute": 52,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     },
     {
       "round": 22,
@@ -1965,7 +6395,234 @@
       "goalsAgainst": 7,
       "played": true,
       "result": "P",
-      "penalties": null
+      "penalties": null,
+      "codActa": "11216",
+      "acta": {
+        "codActa": "11216",
+        "date": "17-05-2026",
+        "time": "10:30",
+        "home": {
+          "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "BRIONES HERNANDO, ANDRES"
+            },
+            {
+              "number": "4",
+              "name": "MARTINEZ DELGADO, IGNACIO"
+            },
+            {
+              "number": "5",
+              "name": "GUZMAN SALCEDA, ADRIAN"
+            },
+            {
+              "number": "7",
+              "name": "DE LA FUENTE GARCIA, SAMUEL"
+            },
+            {
+              "number": "9",
+              "name": "SANCHEZ ALFONSO, JUAN MANUEL"
+            },
+            {
+              "number": "11",
+              "name": "AVILA DE LOS SANTOS, VICTOR"
+            },
+            {
+              "number": "15",
+              "name": "SANCHEZ SANTERO, JAVIER"
+            },
+            {
+              "number": "17",
+              "name": "BELLOT VALENZUELA, DANIEL"
+            },
+            {
+              "number": "18",
+              "name": "ESTEFANIA PADILLA, DANIEL"
+            },
+            {
+              "number": "20",
+              "name": "AVILA DE LOS SANTOS, JOSE MARIA"
+            },
+            {
+              "number": "21",
+              "name": "ENCINAS HUMANES, ALEJANDRO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "2",
+              "name": "PEREZ DAPENA, JULIAN"
+            },
+            {
+              "number": "8",
+              "name": "TORRES HERRERO, SERGIO"
+            },
+            {
+              "number": "12",
+              "name": "VALENCIA SOTO, DANIEL"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [],
+          "substitutions": []
+        },
+        "away": {
+          "teamName": "TORINO - VENTACONS - BAR JUANI",
+          "titulares": [
+            {
+              "number": "1",
+              "name": "SANCHEZ GUILLEN, DAVID"
+            },
+            {
+              "number": "2",
+              "name": "PEREZ HOME, BRAYAN EDUARDO"
+            },
+            {
+              "number": "5",
+              "name": "CORRALES URSULA, ADOLFO"
+            },
+            {
+              "number": "6",
+              "name": "CAVERO MARIN, RUBEN"
+            },
+            {
+              "number": "7",
+              "name": "MARTIN FELIX, JOSE LUIS"
+            },
+            {
+              "number": "11",
+              "name": "MECHFOUA, FAICAL"
+            },
+            {
+              "number": "14",
+              "name": "MARTINEZ RAMIREZ, HAMILTON"
+            },
+            {
+              "number": "15",
+              "name": "HERNANDEZ GONZALEZ, RUBEN"
+            },
+            {
+              "number": "18",
+              "name": "CASSINA VELARDE, GIOVANNI"
+            },
+            {
+              "number": "21",
+              "name": "GONZALEZ SANZ, ALEJANDRO"
+            },
+            {
+              "number": "23",
+              "name": "MOSQUERA ANDRADE, CHRISTIAN RONALDO"
+            }
+          ],
+          "suplentes": [
+            {
+              "number": "13",
+              "name": "TEI SORGBODJOR, RICHARD"
+            },
+            {
+              "number": "17",
+              "name": "HERNANDEZ LOUGEDO, JUAN"
+            },
+            {
+              "number": "22",
+              "name": "TEJERO TACERO, JOSE LUIS"
+            },
+            {
+              "number": "24",
+              "name": "TABERNILLA RUBIO, AARON"
+            }
+          ],
+          "entrenador": "No presenta",
+          "cards": [],
+          "substitutions": []
+        },
+        "referees": [
+          "PEREZ MAROTO, MANUEL"
+        ],
+        "goals": [
+          {
+            "homeScore": 0,
+            "awayScore": 1,
+            "scorer": "GONZALEZ SANZ, ALEJANDRO",
+            "minute": 7,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 0,
+            "awayScore": 2,
+            "scorer": "TEI SORGBODJOR, RICHARD",
+            "minute": 20,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 2,
+            "scorer": "AVILA DE LOS SANTOS, VICTOR",
+            "minute": 27,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 3,
+            "scorer": "TEI SORGBODJOR, RICHARD",
+            "minute": 31,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 1,
+            "awayScore": 4,
+            "scorer": "TEI SORGBODJOR, RICHARD",
+            "minute": 47,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 4,
+            "scorer": "SANCHEZ ALFONSO, JUAN MANUEL",
+            "minute": 61,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 2,
+            "awayScore": 5,
+            "scorer": "TEI SORGBODJOR, RICHARD",
+            "minute": 67,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 3,
+            "awayScore": 5,
+            "scorer": "AVILA DE LOS SANTOS, VICTOR",
+            "minute": 72,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 3,
+            "awayScore": 6,
+            "scorer": "TEI SORGBODJOR, RICHARD",
+            "minute": 76,
+            "penalty": false,
+            "ownGoal": false
+          },
+          {
+            "homeScore": 3,
+            "awayScore": 7,
+            "scorer": "MARTINEZ RAMIREZ, HAMILTON",
+            "minute": 79,
+            "penalty": false,
+            "ownGoal": false
+          }
+        ]
+      }
     }
   ],
   "topScorers": [
