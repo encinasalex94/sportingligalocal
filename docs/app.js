@@ -177,13 +177,16 @@ function renderStandings(standings, options = {}) {
   tbody.innerHTML = standingsRowsHtml(standings);
 }
 
-function renderMatchCard(m) {
+function renderMatchCard(m, roundNumber) {
   const isOwnMatch = isOwn(m.homeTeam) || isOwn(m.awayTeam);
   const pending = !m.played;
   const score = pending ? 'vs' : `${m.homeGoals} : ${m.awayGoals}`;
   const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-center');
   const actaBtn = m.codActa
     ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">Ver acta</button></div>`
+    : '';
+  const votarBtn = isOwnMatch && m.played
+    ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${roundNumber})">Votar</button></div>`
     : '';
   return `
     <div class="match-card ${isOwnMatch ? 'is-own' : ''} ${pending ? 'is-pending' : ''}">
@@ -193,7 +196,7 @@ function renderMatchCard(m) {
         <span class="match-team away ${isOwn(m.awayTeam) ? 'away-own' : ''}">${shortName(m.awayTeam)}</span>
       </div>
       ${metaHtml}
-      ${actaBtn}
+      <div class="acta-btn-row">${actaBtn}${votarBtn}</div>
     </div>
   `;
 }
@@ -215,7 +218,7 @@ function renderRound(roundNumber) {
   if (!round.matches || round.matches.length === 0) {
     grid.innerHTML = '<p class="results-empty">Todavía no se ha publicado el calendario de esta jornada.</p>';
   } else {
-    grid.innerHTML = round.matches.map(renderMatchCard).join('');
+    grid.innerHTML = round.matches.map((m) => renderMatchCard(m, round.round)).join('');
   }
 
   // La clasificación acompaña a la jornada elegida: si es la última jugada,
@@ -346,6 +349,9 @@ function renderCalendar(data) {
       const actaBtn = m.codActa
         ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">Ver acta</button></div>`
         : '';
+      const votarBtn = m.played
+        ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${m.round})">Votar</button></div>`
+        : '';
       return `
         <div class="calendar-item ${cls}">
           <div class="calendar-round">
@@ -356,7 +362,7 @@ function renderCalendar(data) {
           <span class="calendar-score">${score}</span>
           <span class="calendar-date">${m.date || ''}</span>
           ${metaHtml}
-          ${actaBtn}
+          <div class="acta-btn-row">${actaBtn}${votarBtn}</div>
         </div>
       `;
     })
@@ -517,6 +523,7 @@ async function init() {
   try {
     const data = await loadData();
     DATA = data;
+    window.APP_DATA = data;
     renderMeta(data);
     renderScoreboard(data);
     renderSeasonSelector(data);
@@ -524,6 +531,7 @@ async function init() {
     renderCalendar(data);
     renderScorerList('own-scorers', data.ownTeamScorers, 'Todavía no hay goleadores registrados.');
     renderScorerList('top-scorers', data.topScorers, 'Todavía no hay goleadores registrados.');
+    document.dispatchEvent(new CustomEvent('app-data-ready', { detail: data }));
   } catch (err) {
     console.error(err);
     document.querySelector('main').innerHTML =
