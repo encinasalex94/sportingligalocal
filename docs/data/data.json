@@ -270,7 +270,9 @@
       "awayTeam": "RIMATEC-PUB TENESSE",
       "awayTeamId": "1000012",
       "homeGoals": 8,
-      "awayGoals": 1
+      "awayGoals": 1,
+      "time": "09:00",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial"
     },
     {
       "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -278,7 +280,9 @@
       "awayTeam": "TORINO - VENTACONS - BAR JUANI",
       "awayTeamId": "1000007",
       "homeGoals": 3,
-      "awayGoals": 7
+      "awayGoals": 7,
+      "time": "10:30",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
     },
     {
       "homeTeam": "NEWCASTLE PUB F.C.",
@@ -286,7 +290,9 @@
       "awayTeam": "INTER DE SÉK",
       "awayTeamId": "1000059",
       "homeGoals": 1,
-      "awayGoals": 0
+      "awayGoals": 0,
+      "time": "12:00",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
     },
     {
       "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -294,7 +300,9 @@
       "awayTeam": "NEWTEAM- SMT",
       "awayTeamId": "1000026",
       "homeGoals": 1,
-      "awayGoals": 3
+      "awayGoals": 3,
+      "time": "10:30",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial"
     },
     {
       "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -302,7 +310,9 @@
       "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
       "awayTeamId": "1000027",
       "homeGoals": 2,
-      "awayGoals": 6
+      "awayGoals": 6,
+      "time": "09:00",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
     },
     {
       "homeTeam": "MAGREB UNITED",
@@ -310,7 +320,9 @@
       "awayTeam": "RUMANIA CF",
       "awayTeamId": "1007402",
       "homeGoals": 3,
-      "awayGoals": 6
+      "awayGoals": 6,
+      "time": "13:40",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
     }
   ],
   "topScorers": [
@@ -738,7 +750,9 @@
       "goalsAgainst": 7,
       "played": true,
       "result": "P",
-      "penalties": null
+      "penalties": null,
+      "time": "10:30",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial"
     }
   ],
   "ownTeamScorers": [
@@ -1895,161 +1909,57 @@
           "awayTeam": "RIMATEC-PUB TENESSE",
           "homeGoals": 8,
           "awayGoals": 1,
-          "played": true
+          "played": true,
+          "time": "09:00",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
           "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
           "homeGoals": 2,
           "awayGoals": 6,
-          "played": true
+          "played": true,
+          "time": "09:00",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
           "awayTeam": "TORINO - VENTACONS - BAR JUANI",
           "homeGoals": 3,
           "awayGoals": 7,
-          "played": true
+          "played": true,
+          "time": "10:30",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
           "awayTeam": "NEWTEAM- SMT",
           "homeGoals": 1,
           "awayGoals": 3,
-          "played": true
+          "played": true,
+          "time": "10:30",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial"
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
           "awayTeam": "INTER DE SÉK",
           "homeGoals": 1,
           "awayGoals": 0,
-          "played": true
+          "played": true,
+          "time": "12:00",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
         },
         {
           "homeTeam": "MAGREB UNITED",
           "awayTeam": "RUMANIA CF",
           "homeGoals": 3,
           "awayGoals": 6,
-          "played": true
+          "played": true,
+          "time": "13:40",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial"
         }
       ]
     }
   ],
-  "copa": {
-    "stages": [
-      {
-        "key": "grupos",
-        "label": "Fase de grupos",
-        "knockout": false,
-        "matches": [
-          {
-            "round": 3,
-            "roundLabel": null,
-            "date": "18-01-2026",
-            "isHome": false,
-            "opponent": "CAFETERIA LA TACITA",
-            "goalsFor": 2,
-            "goalsAgainst": 1,
-            "played": true,
-            "result": "G",
-            "penalties": null
-          }
-        ]
-      },
-      {
-        "key": "ronda4",
-        "label": "4º partido (grupos)",
-        "knockout": false,
-        "matches": [
-          {
-            "round": 1,
-            "roundLabel": null,
-            "date": "07-02-2026",
-            "isHome": false,
-            "opponent": "NEWTEAM- SMT",
-            "goalsFor": 1,
-            "goalsAgainst": 1,
-            "played": true,
-            "result": "E",
-            "penalties": null
-          }
-        ]
-      },
-      {
-        "key": "ronda5",
-        "label": "5º partido (grupos)",
-        "knockout": false,
-        "matches": [
-          {
-            "round": 1,
-            "roundLabel": null,
-            "date": "08-03-2026",
-            "isHome": false,
-            "opponent": "RAIMON",
-            "goalsFor": 1,
-            "goalsAgainst": 0,
-            "played": true,
-            "result": "G",
-            "penalties": null
-          }
-        ]
-      },
-      {
-        "key": "final",
-        "label": "Fase final",
-        "knockout": true,
-        "matches": [
-          {
-            "round": 1,
-            "roundLabel": "28-03-2026  (8º)",
-            "date": "28-03-2026",
-            "isHome": true,
-            "opponent": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-            "goalsFor": 4,
-            "goalsAgainst": 1,
-            "played": true,
-            "result": "G",
-            "qualified": true,
-            "penalties": null
-          },
-          {
-            "round": 2,
-            "roundLabel": "25-04-2026  (4º)",
-            "date": "25-04-2026",
-            "isHome": null,
-            "opponent": null,
-            "goalsFor": null,
-            "goalsAgainst": null,
-            "played": false,
-            "result": null,
-            "penalties": null
-          },
-          {
-            "round": 3,
-            "roundLabel": "23-05-2026  (Semifinales)",
-            "date": "23-05-2026",
-            "isHome": null,
-            "opponent": null,
-            "goalsFor": null,
-            "goalsAgainst": null,
-            "played": false,
-            "result": null,
-            "penalties": null
-          },
-          {
-            "round": 4,
-            "roundLabel": "06-06-2026  (Final)",
-            "date": "06-06-2026",
-            "isHome": null,
-            "opponent": null,
-            "goalsFor": null,
-            "goalsAgainst": null,
-            "played": false,
-            "result": null,
-            "penalties": null
-          }
-        ]
-      }
-    ]
-  }
+  "season": "2025-2026"
 }
