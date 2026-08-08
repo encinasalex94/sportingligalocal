@@ -779,6 +779,10 @@ button:focus-visible {
 
   .wrap { padding: 0 16px; }
 
+  .header-inner.wrap {
+    padding: 26px 20px;
+  }
+
   .section { padding: 34px 0; }
 
   .scoreboard-hero { padding: 32px 0 38px; }
@@ -805,6 +809,24 @@ button:focus-visible {
   }
 
   .round-select-wrap select { flex: 1; max-width: 220px; }
+
+  .match-card { padding: 12px 12px; }
+
+  .match-card-row {
+    grid-template-columns: 1fr 70px 1fr;
+    gap: 8px;
+  }
+
+  .match-team {
+    font-size: 12.5px;
+    line-height: 1.15;
+    hyphens: none;
+  }
+
+  .match-score {
+    font-size: 17px;
+    padding: 5px 4px;
+  }
 
   .footer-inner { align-items: flex-start; }
 }
