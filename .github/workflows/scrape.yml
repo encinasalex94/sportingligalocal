@@ -1,0 +1,50 @@
+name: Actualizar datos del club
+
+on:
+  schedule:
+    # Los partidos de la Liga Local se juegan el fin de semana y las actas se
+    # suelen cerrar hasta el lunes, así que actualizamos muy a menudo esos
+    # días y solo una vez al día el resto de la semana (para no abusar del
+    # servidor de FFMadrid sin necesidad). Todas las horas en UTC.
+    - cron: '*/15 13-22 * * 6'   # Sábado tarde (aprox. 15:00-00:00 hora de Madrid)
+    - cron: '*/15 * * * 0'       # Domingo, todo el día
+    - cron: '*/15 * * * 1'       # Lunes, todo el día
+    - cron: '0 7 * * 2-5'        # Resto de la semana, una vez al día por la mañana
+  workflow_dispatch: {} # permite lanzarlo a mano desde la pestaña "Actions"
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar el scraper
+        env:
+          NFG_USER: ${{ secrets.NFG_USER }}
+          NFG_PASS: ${{ secrets.NFG_PASS }}
+        run: npm run scrape
+
+      - name: Commitear datos si han cambiado
+        run: |
+          git config user.name "sporting-maderasa-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/data/data.json
+          if git diff --cached --quiet; then
+            echo "Sin cambios en los datos, no hay nada que commitear."
+          else
+            git commit -m "Actualiza datos del club [bot]"
+            git push
+          fi
