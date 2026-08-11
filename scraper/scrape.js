@@ -82,6 +82,32 @@ async function getExistingActaIds() {
   return new Set(snap.map((d) => d.id));
 }
 
+async function writeMatchMetaToFirestore(ownTeamCalendar, season) {
+  const db = initFirebase();
+  if (!db) return { written: 0 };
+  let written = 0;
+  for (const m of ownTeamCalendar) {
+    if (!m.played || !m.date) continue;
+    const [d, mo, y] = m.date.split('-').map(Number);
+    let hh = 0, mm = 0;
+    if (m.time) {
+      const parts = m.time.split(':').map(Number);
+      hh = parts[0] || 0;
+      mm = parts[1] || 0;
+    }
+    const kickoff = new Date(y, mo - 1, d, hh, mm);
+    const matchId = `${season}_J${m.round}`;
+    await db.collection('matchMeta').doc(matchId).set({
+      round: m.round,
+      date: m.date,
+      time: m.time || null,
+      kickoffAt: admin.firestore.Timestamp.fromDate(kickoff),
+    });
+    written++;
+  }
+  return { written };
+}
+
 async function writeActasToFirestore(ligaRounds) {
   const db = initFirebase();
   if (!db) return { written: 0 };
@@ -776,6 +802,10 @@ async function main() {
 
   log('Escribiendo goleadores en Firestore (fuera del data.json público)...');
   await writeScorersToFirestore(scorers.slice(0, 20), scorers.filter((s) => s.isOwnTeam));
+
+  log('Escribiendo hora de inicio de cada partido del Sporting en Firestore...');
+  const { written: metaWritten } = await writeMatchMetaToFirestore(ownTeamCalendar, CONFIG.temporadaTexto);
+  log(`  -> ${metaWritten} partidos con hora registrada`);
 
   // Versión pública del calendario: sin la ficha completa del partido (que
   // contiene alineaciones = nombres de jugadores). Esa vive solo en
