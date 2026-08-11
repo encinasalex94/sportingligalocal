@@ -1121,6 +1121,27 @@ button:focus-visible {
   border-color: var(--navy);
 }
 
+.acta-btn-ghost {
+  background: transparent;
+  color: var(--slate);
+  border-color: rgba(11,31,61,0.18);
+  text-decoration: none;
+}
+
+.acta-btn-ghost:hover {
+  background: var(--ice);
+  color: var(--navy);
+}
+
+#valoraciones:target {
+  animation: valoraciones-highlight 1.6s ease;
+}
+
+@keyframes valoraciones-highlight {
+  0% { background: rgba(30,79,168,0.12); }
+  100% { background: transparent; }
+}
+
 /* ---------------------------- CONVOCATORIA ---------------------------- */
 .convocatoria-list {
   list-style: none;
