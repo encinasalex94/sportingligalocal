@@ -1,5 +1,6 @@
 import {
-  getRoster, getSignups, setSignup, getVotes, submitVote, getRankingValoraciones, verifyVoter,
+  getRoster, getSignups, setSignup, getVotes, submitVote, getRankingValoraciones,
+  getRankingForMatch, verifyVoter,
 } from './firebase-club.js';
 
 const SEASON = '2025-2026';
@@ -263,6 +264,45 @@ async function showVoteForm(round, match, voterId, pin) {
   });
 }
 
+// ---- RANKING DE UN PARTIDO (MVP de la jornada) ---------------------------------------------------
+window.openRanking = async function openRanking(round) {
+  openClubModal('<p class="acta-empty" style="text-align:center;">Cargando…</p>');
+  try {
+    const ranking = await getRankingForMatch(SEASON, round);
+    if (!ranking.length) {
+      openClubModal(`
+        <h3 class="club-modal-title">Jornada ${round}</h3>
+        <p class="acta-empty" style="text-align:center;padding:10px 0;">Todavía no hay valoraciones para este partido.</p>
+        <p style="text-align:center;"><a href="#valoraciones" class="acta-btn acta-btn-ghost" onclick="window.closeClubModalGlobal && window.closeClubModalGlobal()">Ver ranking general de la temporada</a></p>
+      `);
+      return;
+    }
+
+    const mvp = ranking[0];
+    openClubModal(`
+      <h3 class="club-modal-title">MVP de la jornada ${round}</h3>
+      <div class="mvp-highlight">
+        <span class="mvp-name">${mvp.name}</span>
+        <span class="mvp-score">${mvp.average.toFixed(2)}</span>
+      </div>
+      <ul class="vote-list" style="margin-top:18px;">
+        ${ranking.map((r, i) => `
+          <li class="vote-item">
+            <span>${i + 1}. ${r.name}</span>
+            <span class="scorer-goals" style="font-size:14px;">${r.average.toFixed(2)}</span>
+          </li>
+        `).join('')}
+      </ul>
+      <p style="text-align:center;margin-top:16px;"><a href="#valoraciones" class="acta-btn acta-btn-ghost" onclick="window.closeClubModalGlobal && window.closeClubModalGlobal()">Ver ranking general de la temporada</a></p>
+    `);
+  } catch (err) {
+    console.error('Error cargando ranking del partido:', err);
+    openClubModal(`<p class="acta-empty" style="text-align:center;padding:20px 0;">No se pudo cargar el ranking (${err.message || 'error'}).</p>`);
+  }
+};
+
+window.closeClubModalGlobal = closeClubModal;
+
 // ---- RANKING ---------------------------------------------------
 async function renderRanking() {
   const list = document.getElementById('valoraciones-list');
@@ -285,7 +325,8 @@ async function renderRanking() {
       `)
       .join('');
   } catch (err) {
-    list.innerHTML = '<li class="sb-empty" style="padding:14px;">No se pudieron cargar las valoraciones.</li>';
+    console.error('Error cargando ranking:', err);
+    list.innerHTML = `<li class="sb-empty" style="padding:14px;">No se pudieron cargar las valoraciones (${err.message || err.code || 'error desconocido'}).</li>`;
   }
 }
 
