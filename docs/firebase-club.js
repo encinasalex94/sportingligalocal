@@ -211,4 +211,47 @@ export async function getScorers() {
   return snap.exists() ? snap.data() : { topScorers: [], ownTeamScorers: [] };
 }
 
+// ---- partidos de pretemporada / amistosos (solo admin los crea) ------------
+// Viven aparte de la temporada real (que viene de FFMadrid), para poder
+// probar la convocatoria en verano sin mezclarlo con datos oficiales.
+export async function getUpcomingCustomMatches() {
+  const snap = await getDocs(collection(db, 'customMatches'));
+  const list = [];
+  snap.forEach((d) => list.push({ id: d.id, ...d.data() }));
+  list.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+  return list;
+}
+
+export async function addCustomMatch({ opponent, date, time, isHome }) {
+  const myPlayerId = await getMyPlayerId();
+  const admin = await getMyAdminStatus();
+  if (!admin) throw new Error('Solo un delegado puede añadir partidos');
+
+  const [d, mo, y] = date.split('-').map(Number);
+  let hh = 0, mm = 0;
+  if (time) {
+    const parts = time.split(':').map(Number);
+    hh = parts[0] || 0;
+    mm = parts[1] || 0;
+  }
+  const timestamp = new Date(y, mo - 1, d, hh, mm).getTime();
+
+  const season = 'pretemporada';
+  const round = `PT-${timestamp}`;
+  const id = matchIdFor(season, round);
+
+  await setDoc(doc(db, 'customMatches', id), {
+    season, round, opponent, date, time: time || null, isHome: !!isHome,
+    timestamp, createdBy: myPlayerId, createdAt: Date.now(),
+  });
+  return { season, round };
+}
+
+export async function deleteCustomMatch(season, round) {
+  const admin = await getMyAdminStatus();
+  if (!admin) throw new Error('Solo un delegado puede borrar partidos');
+  const id = matchIdFor(season, round);
+  await deleteDoc(doc(db, 'customMatches', id));
+}
+
 export { matchIdFor };
