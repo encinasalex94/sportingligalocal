@@ -292,72 +292,76 @@ function renderRoundSelector(data) {
   });
 }
 
-// Temporadas con datos reales de Liga (por ahora, solo esta — se irán
-// añadiendo aquí cuando tengamos histórico de años anteriores):
-const AVAILABLE_SEASONS = [
-  { value: '21', label: '2025-2026' },
-];
-
-// Tipo de competición a mostrar. "Liga" y "Copa" 2026-2027 todavía no
-// existen (la federación no ha colgado el calendario), así que por defecto
-// se muestra "Pretemporada", que es donde vive lo que sí podemos usar ya:
-// los amistosos que se van añadiendo desde la Convocatoria.
-const COMPETITION_TYPES = [
-  { value: 'pretemporada', label: 'Pretemporada' },
-  { value: 'liga', label: 'Liga' },
-  { value: 'copa', label: 'Copa' },
+// Estructura de dos niveles: la Temporada manda, y el Tipo disponible
+// depende de ella. 2026-2027 todavía no tiene calendario de Liga/Copa
+// publicado por la federación, así que solo ofrece "Pretemporada" (los
+// amistosos que se van añadiendo desde la Convocatoria). 2025-2026 es la
+// temporada real con datos completos de FFMadrid.
+const SEASONS = [
+  {
+    label: '2026-2027',
+    types: [
+      { value: 'pretemporada', label: 'Pretemporada' },
+      // Cuando la federación publique el calendario, añade aquí:
+      // { value: 'liga', label: 'Liga' },
+      // { value: 'copa', label: 'Copa' },
+    ],
+  },
+  {
+    label: '2025-2026',
+    types: [
+      { value: 'liga', label: 'Liga' },
+    ],
+  },
 ];
 
 // Consultadas por club-ui.js para saber qué pintar en el calendario.
-window.CURRENT_COMPETITION_TYPE = 'pretemporada';
+window.CURRENT_SEASON_LABEL = null;
+window.CURRENT_COMPETITION_TYPE = null;
 
-function applyCompetitionView(type, data) {
+function applyView(seasonLabel, type, data) {
+  window.CURRENT_SEASON_LABEL = seasonLabel;
   window.CURRENT_COMPETITION_TYPE = type;
-  const seasonSelect = document.getElementById('season-select');
 
   if (type === 'liga') {
-    if (seasonSelect) seasonSelect.disabled = false;
     renderRoundSelector(data);
+  } else if (type === 'copa') {
+    showSeasonUnavailable('Copa (sin calendario publicado todavía)');
   } else {
-    if (seasonSelect) seasonSelect.disabled = true;
-    showSeasonUnavailable(type === 'copa' ? 'Copa 2026-2027 (sin calendario publicado todavía)' : 'Pretemporada 2026-2027');
+    showSeasonUnavailable(`Pretemporada ${seasonLabel}`);
   }
   renderCalendar(data);
   window.onCompetitionViewChanged && window.onCompetitionViewChanged(type);
 }
 
-function renderCompetitionTypeSelector(data) {
-  const select = document.getElementById('competition-type-select');
-  if (!select) return;
+function renderTypeSelector(seasonLabel, data) {
+  const season = SEASONS.find((s) => s.label === seasonLabel) || SEASONS[0];
+  const typeSelect = document.getElementById('competition-type-select');
+  if (!typeSelect) return;
 
-  select.innerHTML = COMPETITION_TYPES
-    .map((t) => `<option value="${t.value}">${t.label}</option>`)
-    .join('');
-  select.value = 'pretemporada';
+  typeSelect.innerHTML = season.types.map((t) => `<option value="${t.value}">${t.label}</option>`).join('');
+  typeSelect.value = season.types[0].value;
+  typeSelect.disabled = season.types.length <= 1; // nada que elegir todavía
 
-  select.addEventListener('change', () => {
-    applyCompetitionView(select.value, data);
-  });
+  typeSelect.onchange = () => {
+    applyView(seasonLabel, typeSelect.value, data);
+  };
+
+  applyView(seasonLabel, typeSelect.value, data);
 }
 
 function renderSeasonSelector(data) {
   const select = document.getElementById('season-select');
   if (!select) return;
 
-  select.innerHTML = AVAILABLE_SEASONS
-    .map((s) => `<option value="${s.value}">${s.label}</option>`)
-    .join('');
-  select.value = AVAILABLE_SEASONS.find((s) => s.label === data.season)?.value || AVAILABLE_SEASONS[0].value;
-  select.disabled = true; // se habilita solo cuando el Tipo es "Liga"
+  select.innerHTML = SEASONS.map((s) => `<option value="${s.label}">${s.label}</option>`).join('');
+  select.value = SEASONS[0].label; // 2026-2027 por defecto
 
   select.addEventListener('change', () => {
-    // De momento solo hay una temporada de Liga con datos; esto queda listo
-    // para cuando haya más de una entre las que elegir.
-    renderRoundSelector(data);
+    renderTypeSelector(select.value, data);
   });
 
-  // Arrancamos en modo "Pretemporada" (ver renderCompetitionTypeSelector)
-  applyCompetitionView('pretemporada', data);
+  renderTypeSelector(select.value, data);
 }
 
 function showSeasonUnavailable(label) {
@@ -482,7 +486,6 @@ async function init() {
     window.APP_DATA = data;
     renderMeta(data);
     renderScoreboard(data);
-    renderCompetitionTypeSelector(data);
     renderSeasonSelector(data);
     document.dispatchEvent(new CustomEvent('app-data-ready', { detail: data }));
 
