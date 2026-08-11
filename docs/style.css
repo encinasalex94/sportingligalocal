@@ -1319,6 +1319,13 @@ button:focus-visible {
   break-inside: avoid;
 }
 
+.convocatoria-time {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 400;
+  color: var(--slate-light);
+}
+
 .convocatoria-own-row {
   display: flex;
   justify-content: center;
