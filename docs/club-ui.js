@@ -1,6 +1,6 @@
 import {
   signInWithGoogle, signOutUser, onAuthChange, currentUser,
-  getRoster, getMyLink, createLink, getMyAdminStatus,
+  getRoster, getMyPlayerId, getMyAdminStatus, isVotingOpen,
   getSignups, setSignup, getVotes, submitVote,
   getRankingForMatch, getRankingValoraciones,
   getActaById, getScorers,
@@ -187,7 +187,7 @@ function closeClubModal() {
 window.closeClubModalGlobal = closeClubModal;
 
 // ---- Barra de sesión (login con Google) ------------------------------
-let myLinkCache = null;
+let myPlayerIdCache = null;
 
 async function renderAuthWidget() {
   const widget = document.getElementById('auth-widget');
@@ -209,26 +209,28 @@ async function renderAuthWidget() {
     return;
   }
 
-  myLinkCache = await getMyLink();
-  const displayName = myLinkCache ? null : user.displayName;
+  myPlayerIdCache = await getMyPlayerId();
 
   widget.innerHTML = `
     <span class="auth-user">
       ${user.photoURL ? `<img src="${user.photoURL}" class="auth-avatar" alt="" />` : ''}
-      <span class="auth-user-name">${myLinkCache ? await playerNameById(myLinkCache.playerId) : (displayName || user.email)}</span>
+      <span class="auth-user-name">${myPlayerIdCache ? await playerNameById(myPlayerIdCache) : 'Cuenta no autorizada'}</span>
     </span>
     <button class="auth-btn" id="logout-btn">Cerrar sesión</button>
   `;
   document.getElementById('logout-btn').addEventListener('click', () => signOutUser());
 
-  // Solo consideramos "sesión activa" (para mostrar votar/ranking) una vez
-  // que la cuenta ya está vinculada a un jugador de la plantilla.
-  window.CLUB_LOGGED_IN = !!myLinkCache;
+  // Solo consideramos "sesión activa" (para mostrar convocatoria/votar/
+  // ranking/goleadores) si tu email está en la lista autorizada del club.
+  window.CLUB_LOGGED_IN = !!myPlayerIdCache;
   applySectionVisibility();
   window.rerenderClubDependentUI && window.rerenderClubDependentUI();
 
-  if (!myLinkCache) {
-    promptLinkAccount();
+  if (!myPlayerIdCache) {
+    openClubModal(`
+      <h3 class="club-modal-title">Cuenta no autorizada</h3>
+      <p class="club-modal-sub" style="margin-bottom:0;">Tu cuenta de Google (${user.email}) todavía no está en la lista de jugadores del club. Pide a un delegado que la añada.</p>
+    `);
   }
 }
 
@@ -236,34 +238,6 @@ async function playerNameById(playerId) {
   const roster = await getRoster();
   const found = roster.find((p) => p.id === playerId);
   return found ? found.name : playerId;
-}
-
-async function promptLinkAccount() {
-  const roster = await getRoster();
-  const options = roster.map((p) => `<option value="${p.id}">${p.name}</option>`).join('');
-  openClubModal(`
-    <h3 class="club-modal-title">¿Quién eres?</h3>
-    <p class="club-modal-sub">Es la primera vez que entras. Elige tu nombre para vincular tu cuenta (solo se hace una vez).</p>
-    <select id="link-select" class="club-select">
-      <option value="">-- Selecciona tu nombre --</option>
-      ${options}
-    </select>
-    <div id="link-error" class="club-error"></div>
-    <button class="acta-btn acta-btn-alt club-submit" id="link-submit">Confirmar</button>
-  `);
-  document.getElementById('link-submit').addEventListener('click', async () => {
-    const playerId = document.getElementById('link-select').value;
-    const errorEl = document.getElementById('link-error');
-    if (!playerId) { errorEl.textContent = 'Selecciona tu nombre.'; return; }
-    try {
-      await createLink(playerId);
-      closeClubModal();
-      renderAuthWidget();
-    } catch (err) {
-      console.error(err);
-      errorEl.textContent = 'No se pudo vincular tu cuenta. Inténtalo de nuevo.';
-    }
-  });
 }
 
 // ---- CONVOCATORIA ---------------------------------------------------
@@ -302,18 +276,18 @@ async function renderConvocatoria() {
 
   const roster = await getRoster();
   const signups = await getSignups(SEASON, next.round);
-  const link = currentUser() ? await getMyLink() : null;
-  const admin = link ? await getMyAdminStatus() : false;
+  const myPlayerId = currentUser() ? await getMyPlayerId() : null;
+  const admin = myPlayerId ? await getMyAdminStatus() : false;
 
   content.innerHTML = `
     <ul class="convocatoria-list">
       ${roster.map((p) => {
         const signed = !!signups[p.id]?.signedUp;
-        const canToggle = link && (link.playerId === p.id || admin);
+        const canToggle = myPlayerId && (myPlayerId === p.id || admin);
         return `
           <li class="convocatoria-item ${signed ? 'is-signed' : ''}">
             <span>${p.name}</span>
-            <button class="acta-btn ${signed ? 'acta-btn-alt' : ''}" data-player="${p.id}" data-signed="${signed}" ${canToggle ? '' : 'disabled title="Inicia sesión para confirmarte a ti mismo (o pide a un delegado)"'}>
+            <button class="acta-btn ${signed ? 'acta-btn-alt' : ''}" data-player="${p.id}" data-signed="${signed}" ${canToggle ? '' : 'disabled title="Solo el propio jugador (con cuenta autorizada) o un delegado pueden confirmar esto"'}>
               ${signed ? 'Voy ✓' : 'Apuntarme'}
             </button>
           </li>
@@ -352,9 +326,9 @@ window.openVotar = async function openVotar(round) {
     return;
   }
 
-  const link = await getMyLink();
-  if (!link) {
-    openClubModal(`<p class="acta-empty" style="text-align:center;padding:20px 0;">Termina de vincular tu cuenta primero.</p>`);
+  const myPlayerId = await getMyPlayerId();
+  if (!myPlayerId) {
+    openClubModal(`<p class="acta-empty" style="text-align:center;padding:20px 0;">Tu cuenta todavía no está autorizada. Pide a un delegado que la añada.</p>`);
     return;
   }
 
@@ -364,8 +338,17 @@ window.openVotar = async function openVotar(round) {
 
   openClubModal('<p class="acta-empty" style="text-align:center;">Cargando…</p>');
 
+  const open = await isVotingOpen(SEASON, round);
+  if (!open) {
+    openClubModal(`
+      <h3 class="club-modal-title">Votación cerrada</h3>
+      <p class="club-modal-sub" style="margin-bottom:0;">Ya han pasado más de 24 horas desde el inicio de este partido, así que la votación está cerrada.</p>
+    `);
+    return;
+  }
+
   const existingVotes = await getVotes(SEASON, round);
-  const alreadyVoted = existingVotes.some((v) => v.voterId === link.playerId);
+  const alreadyVoted = existingVotes.some((v) => v.voterId === myPlayerId);
   if (alreadyVoted) {
     openClubModal(`
       <h3 class="club-modal-title">Ya has votado</h3>
