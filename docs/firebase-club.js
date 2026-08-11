@@ -66,7 +66,7 @@ export async function getMyPlayerId() {
   const user = auth.currentUser;
   if (!user || !user.email) return null;
   try {
-    const snap = await getDoc(doc(db, 'playerEmails', user.email.toLowerCase()));
+    const snap = await getDoc(doc(db, 'playersEmails', user.email.toLowerCase()));
     return snap.exists() ? snap.data().playerId : null;
   } catch (err) {
     return null; // email no autorizado: las reglas bloquean la lectura
