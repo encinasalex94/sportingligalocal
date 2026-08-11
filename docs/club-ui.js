@@ -24,6 +24,20 @@ function parseMatchDateTime(dateStr, timeStr) {
   return new Date(y, m - 1, d, h, min);
 }
 
+function toggleSection(sectionId, dividerId, show) {
+  const section = document.getElementById(sectionId);
+  const divider = dividerId ? document.getElementById(dividerId) : null;
+  if (section) section.style.display = show ? '' : 'none';
+  if (divider) divider.style.display = show ? '' : 'none';
+}
+
+function applySectionVisibility() {
+  const show = !!window.CLUB_LOGGED_IN;
+  toggleSection('convocatoria', 'divider-convocatoria', show);
+  toggleSection('goleadores', 'divider-goleadores', show);
+  toggleSection('valoraciones', 'divider-valoraciones', show);
+}
+
 // ---- Modal genérico -------------------------------------------------
 function openClubModal(html) {
   document.getElementById('club-content').innerHTML = html;
@@ -54,6 +68,7 @@ async function renderAuthWidget() {
         console.error('Error de login:', err);
       }
     });
+    applySectionVisibility();
     window.rerenderClubDependentUI && window.rerenderClubDependentUI();
     return;
   }
@@ -73,6 +88,7 @@ async function renderAuthWidget() {
   // Solo consideramos "sesión activa" (para mostrar votar/ranking) una vez
   // que la cuenta ya está vinculada a un jugador de la plantilla.
   window.CLUB_LOGGED_IN = !!myLinkCache;
+  applySectionVisibility();
   window.rerenderClubDependentUI && window.rerenderClubDependentUI();
 
   if (!myLinkCache) {
@@ -122,8 +138,8 @@ async function renderConvocatoria() {
   if (!data) return;
 
   if (!window.CLUB_LOGGED_IN) {
-    sub.textContent = 'Inicia sesión para ver y gestionar la convocatoria.';
-    content.innerHTML = '';
+    // La sección entera está oculta (ver applySectionVisibility), no hace
+    // falta pintar nada.
     return;
   }
 
@@ -342,7 +358,7 @@ async function renderRanking() {
   if (!list) return;
 
   if (!window.CLUB_LOGGED_IN) {
-    list.innerHTML = '<li class="sb-empty" style="padding:14px;">Inicia sesión para ver las valoraciones del vestuario.</li>';
+    // La sección entera está oculta (ver applySectionVisibility).
     return;
   }
 
