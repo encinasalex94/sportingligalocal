@@ -110,6 +110,32 @@ export async function submitVote(season, round, voterId, voterPin, ratedId, rati
   });
 }
 
+// ---- ranking de un partido concreto (para saber el MVP de la jornada) --
+export async function getRankingForMatch(season, round) {
+  const votes = await getVotes(season, round);
+  const byPlayer = new Map();
+  for (const v of votes) {
+    if (!v.ratedId || typeof v.rating !== 'number') continue;
+    if (!byPlayer.has(v.ratedId)) byPlayer.set(v.ratedId, { total: 0, count: 0 });
+    const entry = byPlayer.get(v.ratedId);
+    entry.total += v.rating;
+    entry.count += 1;
+  }
+
+  const roster = await getRoster();
+  const nameById = new Map(roster.map((p) => [p.id, p.name]));
+
+  const ranking = Array.from(byPlayer.entries()).map(([playerId, { total, count }]) => ({
+    playerId,
+    name: nameById.get(playerId) || playerId,
+    average: Math.round((total / count) * 100) / 100,
+    votes: count,
+  }));
+
+  ranking.sort((a, b) => b.average - a.average || b.votes - a.votes);
+  return ranking;
+}
+
 // ---- ranking de valoraciones (media de todas las votaciones recibidas) --
 export async function getRankingValoraciones() {
   const snap = await getDocs(query(collectionGroup(db, 'votes')));
