@@ -188,8 +188,8 @@ function renderMatchCard(m, roundNumber) {
   const votarBtn = isOwnMatch && m.played
     ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${roundNumber})">Votar</button></div>`
     : '';
-  const rankingBtn = isOwnMatch
-    ? `<div class="acta-btn-wrap"><a class="acta-btn acta-btn-ghost" href="#valoraciones">Ver ranking</a></div>`
+  const rankingBtn = isOwnMatch && m.played
+    ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" onclick="window.openRanking && window.openRanking(${roundNumber})">Ver ranking</button></div>`
     : '';
   return `
     <div class="match-card ${isOwnMatch ? 'is-own' : ''} ${pending ? 'is-pending' : ''}">
@@ -355,7 +355,9 @@ function renderCalendar(data) {
       const votarBtn = m.played
         ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${m.round})">Votar</button></div>`
         : '';
-      const rankingBtn = `<div class="acta-btn-wrap"><a class="acta-btn acta-btn-ghost" href="#valoraciones">Ver ranking</a></div>`;
+      const rankingBtn = m.played
+        ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" onclick="window.openRanking && window.openRanking(${m.round})">Ver ranking</button></div>`
+        : '';
       return `
         <div class="calendar-item ${cls}">
           <div class="calendar-round">
