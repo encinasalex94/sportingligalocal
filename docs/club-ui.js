@@ -73,7 +73,9 @@ async function renderCustomMatchesInCalendar() {
   const viewingPretemporada = window.CURRENT_COMPETITION_TYPE === 'pretemporada';
   if (!viewingPretemporada) return; // el Tipo elegido es Liga o Copa, no toca
 
-  if (!window.CLUB_LOGGED_IN) return; // igual que el resto de secciones con nombres/datos del club
+  // El calendario de partidos (rivales, fechas) siempre ha sido público —
+  // igual que el de la Liga. Lo que sí pide sesión es la Convocatoria
+  // (quién va a cada partido), no el propio calendario.
 
   try {
     const customMatches = await getAllCustomMatches();
@@ -95,6 +97,7 @@ async function renderCustomMatchesInCalendar() {
 // Cuando cambia el selector de Tipo (en app.js), repintamos los amistosos.
 window.onCompetitionViewChanged = function onCompetitionViewChanged() {
   renderCustomMatchesInCalendar();
+  applySectionVisibility();
 };
 
 async function renderScorers() {
@@ -126,11 +129,14 @@ function toggleSection(sectionId, dividerId, show) {
 }
 
 function applySectionVisibility() {
-  const show = !!window.CLUB_LOGGED_IN;
-  toggleSection('convocatoria', 'divider-convocatoria', show);
-  toggleSection('goleadores', 'divider-goleadores', show);
-  toggleSection('valoraciones', 'divider-valoraciones', show);
-  if (show) renderScorers();
+  const loggedIn = !!window.CLUB_LOGGED_IN;
+  const viewingLiga = window.CURRENT_COMPETITION_TYPE === 'liga';
+  const showGoleadores = loggedIn && viewingLiga;
+
+  toggleSection('convocatoria', 'divider-convocatoria', loggedIn);
+  toggleSection('goleadores', 'divider-goleadores', showGoleadores);
+  toggleSection('valoraciones', 'divider-valoraciones', loggedIn);
+  if (showGoleadores) renderScorers();
 }
 
 function shortName(name) {
