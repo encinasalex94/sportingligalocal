@@ -48,6 +48,23 @@ const ICON_VOTE =
 const ICON_STAR =
   '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3.5l2.6 5.4 5.9.7-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.7L12 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>';
 
+// Ventana de votación: 24h desde el inicio del partido. Esto es solo para
+// decidir si se MUESTRA el botón "Votar" (mejor experiencia); el bloqueo
+// real e infalsificable vive en las reglas de Firestore (matchMeta).
+function isVotingWindowOpen(dateStr, timeStr) {
+  if (!dateStr) return true; // sin fecha, no ocultamos por precaución
+  const [d, m, y] = dateStr.split('-').map(Number);
+  let hh = 0, mm = 0;
+  if (timeStr) {
+    const parts = timeStr.split(':').map(Number);
+    hh = parts[0] || 0;
+    mm = parts[1] || 0;
+  }
+  const kickoff = new Date(y, m - 1, d, hh, mm);
+  const closesAt = kickoff.getTime() + 24 * 60 * 60 * 1000;
+  return Date.now() < closesAt;
+}
+
 // Genera la fila de "chips" de hora y campo, reutilizada en el marcador
 // destacado, las tarjetas de resultados y el calendario.
 function renderMetaRow(time, venue, extraClass = '') {
@@ -195,7 +212,7 @@ function renderMatchCard(m, roundNumber) {
   const actaBtn = m.codActa && loggedIn
     ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">${ICON_DOC}Ver acta</button></div>`
     : '';
-  const votarBtn = isOwnMatch && m.played && loggedIn
+  const votarBtn = isOwnMatch && m.played && loggedIn && isVotingWindowOpen(m.date, m.time)
     ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${roundNumber})">${ICON_VOTE}Votar</button></div>`
     : '';
   const rankingBtn = isOwnMatch && m.played && loggedIn
@@ -349,7 +366,7 @@ function renderCalendar(data) {
       const actaBtn = m.codActa && loggedIn
         ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">${ICON_DOC}Ver acta</button></div>`
         : '';
-      const votarBtn = m.played && loggedIn
+      const votarBtn = m.played && loggedIn && isVotingWindowOpen(m.date, m.time)
         ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${m.round})">${ICON_VOTE}Votar</button></div>`
         : '';
       const rankingBtn = m.played && loggedIn
