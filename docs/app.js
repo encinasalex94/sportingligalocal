@@ -209,7 +209,7 @@ function renderMatchCard(m, roundNumber) {
   const score = pending ? 'vs' : `${m.homeGoals} : ${m.awayGoals}`;
   const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-center');
   const loggedIn = !!window.CLUB_LOGGED_IN;
-  const actaBtn = m.codActa && loggedIn
+  const actaBtn = m.played && m.codActa && loggedIn
     ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">${ICON_DOC}Ver acta</button></div>`
     : '';
   const votarBtn = isOwnMatch && m.played && loggedIn && isVotingWindowOpen(m.date, m.time)
@@ -363,7 +363,7 @@ function renderCalendar(data) {
       const score = m.played ? `${m.goalsFor} - ${m.goalsAgainst}` : 'Pendiente';
       const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-compact');
       const loggedIn = !!window.CLUB_LOGGED_IN;
-      const actaBtn = m.codActa && loggedIn
+      const actaBtn = m.played && m.codActa && loggedIn
         ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">${ICON_DOC}Ver acta</button></div>`
         : '';
       const votarBtn = m.played && loggedIn && isVotingWindowOpen(m.date, m.time)
