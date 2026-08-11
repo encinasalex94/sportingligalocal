@@ -375,14 +375,14 @@ document.getElementById('club-overlay')?.addEventListener('click', (e) => {
   if (e.target.id === 'club-overlay') closeClubModal();
 });
 
-onAuthChange(() => {
-  renderAuthWidget();
+onAuthChange(async () => {
+  await renderAuthWidget();
   renderConvocatoria();
   renderRanking();
 });
 
-function init() {
-  renderAuthWidget();
+async function init() {
+  await renderAuthWidget();
   renderConvocatoria();
   renderRanking();
 }
