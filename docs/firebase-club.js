@@ -176,4 +176,16 @@ export async function getRankingValoraciones() {
   return ranking;
 }
 
+// ---- actas de partido (requieren sesión iniciada, lo comprueban las reglas) --
+export async function getActaById(codActa) {
+  const snap = await getDoc(doc(db, 'actas', String(codActa)));
+  return snap.exists() ? snap.data() : null;
+}
+
+// ---- goleadores (requieren sesión iniciada) ---------------------------------
+export async function getScorers() {
+  const snap = await getDoc(doc(db, 'scorers', 'current'));
+  return snap.exists() ? snap.data() : { topScorers: [], ownTeamScorers: [] };
+}
+
 export { matchIdFor };
