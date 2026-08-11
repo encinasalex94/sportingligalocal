@@ -671,6 +671,9 @@ table.standings tbody tr.own-row td.cell-team::before {
 .calendar-item.win { border-left-color: var(--win); }
 .calendar-item.draw { border-left-color: var(--draw); }
 .calendar-item.loss { border-left-color: var(--loss); }
+.calendar-item.amistoso { border-left-color: var(--slate-light); }
+.calendar-item.amistoso .calendar-score { color: var(--slate); font-family: var(--font-body); font-size: 12px; text-transform: uppercase; }
+.calendar-item.amistoso.is-pending .calendar-score { color: var(--blue); }
 
 .calendar-round {
   font-family: var(--font-mono);
@@ -1324,6 +1327,21 @@ button:focus-visible {
   font-size: 10.5px;
   font-weight: 400;
   color: var(--slate-light);
+}
+
+.convocatoria-count-list li.is-me {
+  color: var(--blue);
+  background: rgba(30,79,168,0.08);
+  border-radius: 6px;
+  padding: 3px 8px;
+  margin-left: -8px;
+}
+
+.convocatoria-me-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--blue-bright);
 }
 
 .convocatoria-own-row {
