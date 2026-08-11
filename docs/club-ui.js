@@ -4,7 +4,7 @@ import {
   getSignups, setSignup, getVotes, submitVote,
   getRankingForMatch, getRankingValoraciones,
   getActaById, getScorers,
-  getUpcomingCustomMatches, addCustomMatch, deleteCustomMatch,
+  getUpcomingCustomMatches, getAllCustomMatches, addCustomMatch, deleteCustomMatch,
 } from './firebase-club.js';
 
 const SEASON = '2025-2026';
@@ -43,6 +43,43 @@ function scorerListItemHtml(s) {
       <span class="scorer-goals">${s.goals}</span>
     </li>
   `;
+}
+
+// ---- Amistosos de pretemporada dentro del Calendario del Sporting -------
+function customMatchCardHtml(m) {
+  const now = Date.now();
+  const played = m.timestamp < now;
+  const cls = played ? '' : 'is-pending';
+  return `
+    <div class="calendar-item amistoso ${cls}">
+      <div class="calendar-round">
+        <span>Amistoso</span>
+        <span class="calendar-venue">${m.isHome ? 'Casa' : 'Fuera'}</span>
+      </div>
+      <span class="calendar-opponent" title="${m.opponent}">${m.opponent}</span>
+      <span class="calendar-score">${played ? 'Disputado' : 'Pendiente'}</span>
+      <span class="calendar-date">${m.date || ''}${m.time ? ' · ' + m.time : ''}</span>
+    </div>
+  `;
+}
+
+async function renderCustomMatchesInCalendar() {
+  const list = document.getElementById('calendar-list');
+  if (!list) return;
+
+  // Quitamos cualquier tarjeta de amistoso pintada antes (por si se repinta)
+  list.querySelectorAll('.calendar-item.amistoso').forEach((el) => el.remove());
+
+  if (!window.CLUB_LOGGED_IN) return; // igual que el resto de secciones con nombres/datos del club
+
+  try {
+    const customMatches = await getAllCustomMatches();
+    if (!customMatches.length) return;
+    const html = customMatches.map(customMatchCardHtml).join('');
+    list.insertAdjacentHTML('beforeend', html);
+  } catch (err) {
+    console.error('Error cargando amistosos:', err);
+  }
 }
 
 async function renderScorers() {
@@ -214,6 +251,7 @@ async function renderAuthWidget() {
     });
     applySectionVisibility();
     window.rerenderClubDependentUI && window.rerenderClubDependentUI();
+    renderCustomMatchesInCalendar();
     return;
   }
 
@@ -233,6 +271,7 @@ async function renderAuthWidget() {
   window.CLUB_LOGGED_IN = !!myPlayerIdCache;
   applySectionVisibility();
   window.rerenderClubDependentUI && window.rerenderClubDependentUI();
+  renderCustomMatchesInCalendar();
 
   if (!myPlayerIdCache) {
     openClubModal(`
@@ -316,7 +355,7 @@ async function renderConvocatoria() {
 
     const signedListHtml = signedEntries.length
       ? `<ol class="convocatoria-count-list">${signedEntries
-          .map((e) => `<li>${e.name}${e.updatedAt ? ` <span class="convocatoria-time">${formatSignupTime(e.updatedAt)}</span>` : ''}</li>`)
+          .map((e) => `<li class="${e.id === myPlayerId ? 'is-me' : ''}">${e.name}${e.id === myPlayerId ? ' <span class="convocatoria-me-tag">(tú)</span>' : ''}${e.updatedAt ? ` <span class="convocatoria-time">${formatSignupTime(e.updatedAt)}</span>` : ''}</li>`)
           .join('')}</ol>`
       : '<p class="acta-empty">Todavía no se ha apuntado nadie.</p>';
 
@@ -422,6 +461,7 @@ async function renderConvocatoria() {
       try {
         await deleteCustomMatch(match.season, match.round);
         renderConvocatoria();
+        renderCustomMatchesInCalendar();
       } catch (err) {
         console.error(err);
         alert('No se pudo borrar.');
@@ -452,6 +492,7 @@ function wireAdminPanel(admin) {
     try {
       await addCustomMatch({ opponent, date, time });
       renderConvocatoria();
+      renderCustomMatchesInCalendar();
     } catch (err) {
       console.error(err);
       errorEl.textContent = 'No se pudo añadir el partido.';
