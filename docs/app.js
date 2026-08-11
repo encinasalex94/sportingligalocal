@@ -323,6 +323,11 @@ function applyView(seasonLabel, type, data) {
   window.CURRENT_SEASON_LABEL = seasonLabel;
   window.CURRENT_COMPETITION_TYPE = type;
 
+  // El marcador del último partido es de la Liga real (2025-2026); no
+  // aplica a Pretemporada ni a Copa (sin datos todavía).
+  const heroSection = document.getElementById('scoreboard-hero-section');
+  if (heroSection) heroSection.style.display = type === 'liga' ? '' : 'none';
+
   if (type === 'liga') {
     renderRoundSelector(data);
   } else if (type === 'copa') {
