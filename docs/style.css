@@ -652,7 +652,7 @@ table.standings tbody tr.own-row td.cell-team::before {
 /* ---------------------------- CALENDAR ---------------------------- */
 .calendar-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 10px;
 }
 
