@@ -4,6 +4,7 @@ import {
   getSignups, setSignup, getVotes, submitVote,
   getRankingForMatch, getRankingValoraciones,
   getActaById, getScorers,
+  getUpcomingCustomMatches, addCustomMatch, deleteCustomMatch,
 } from './firebase-club.js';
 
 const SEASON = '2025-2026';
@@ -253,8 +254,13 @@ async function renderConvocatoria() {
     return;
   }
 
+  const myPlayerId = currentUser() ? await getMyPlayerId() : null;
+  const admin = myPlayerId ? await getMyAdminStatus() : false;
+
   const now = new Date();
-  const upcoming = (data.rounds || [])
+
+  // Próximo partido "real" (temporada oficial, desde FFMadrid)
+  const upcomingReal = (data.rounds || [])
     .flatMap((r) => r.matches.map((m) => ({ ...m, round: r.round, roundDate: r.date })))
     .filter((m) => isOwn(m.homeTeam) || isOwn(m.awayTeam))
     .filter((m) => !m.played)
@@ -262,24 +268,56 @@ async function renderConvocatoria() {
       const dt = parseMatchDateTime(m.date || m.roundDate, m.time);
       return !dt || dt > now;
     })
-    .sort((a, b) => (a.round || 0) - (b.round || 0));
+    .map((m) => ({
+      season: SEASON, round: m.round,
+      opponent: isOwn(m.homeTeam) ? m.awayTeam : m.homeTeam,
+      date: m.date, time: m.time, isCustom: false,
+      timestamp: parseMatchDateTime(m.date || m.roundDate, m.time)?.getTime() || Infinity,
+    }));
 
-  if (!upcoming.length) {
+  // Amistosos / pretemporada (los añade un delegado a mano)
+  const customMatches = await getUpcomingCustomMatches();
+  const upcomingCustom = customMatches
+    .filter((m) => m.timestamp > now.getTime())
+    .map((m) => ({ ...m, isCustom: true }));
+
+  const allUpcoming = [...upcomingReal, ...upcomingCustom].sort((a, b) => a.timestamp - b.timestamp);
+
+  // Panel de admin: crear un amistoso nuevo (siempre visible para el admin,
+  // aunque ya haya un próximo partido, para poder ir añadiendo varios)
+  const adminPanelHtml = admin ? `
+    <div class="admin-panel">
+      <div class="admin-panel-title">Añadir partido de pretemporada (solo delegados)</div>
+      <div class="admin-panel-row">
+        <input type="text" id="custom-opponent" placeholder="Rival" class="club-select" style="flex:2;" />
+        <input type="date" id="custom-date" class="club-select" style="flex:1;" />
+        <input type="time" id="custom-time" class="club-select" style="flex:1;" />
+        <button class="acta-btn acta-btn-alt" id="custom-add-btn">Añadir</button>
+      </div>
+      <div id="custom-add-error" class="club-error"></div>
+    </div>
+  ` : '';
+
+  if (!allUpcoming.length) {
     sub.textContent = 'No hay ningún partido próximo programado todavía.';
-    content.innerHTML = '';
+    content.innerHTML = adminPanelHtml;
+    wireAdminPanel(admin);
     return;
   }
 
-  const next = upcoming[0];
-  const opponent = isOwn(next.homeTeam) ? next.awayTeam : next.homeTeam;
-  sub.textContent = `Jornada ${next.round} · vs ${opponent} · ${next.date || ''}${next.time ? ' · ' + next.time : ''}`;
+  const next = allUpcoming[0];
+  sub.textContent = `${next.isCustom ? 'Amistoso' : `Jornada ${next.round}`} · vs ${next.opponent} · ${next.date || ''}${next.time ? ' · ' + next.time : ''}`;
 
   const roster = await getRoster();
-  const signups = await getSignups(SEASON, next.round);
-  const myPlayerId = currentUser() ? await getMyPlayerId() : null;
-  const admin = myPlayerId ? await getMyAdminStatus() : false;
+  const signups = await getSignups(next.season, next.round);
+
+  const deleteBtnHtml = admin && next.isCustom
+    ? `<button class="acta-btn" id="custom-delete-btn" style="margin-bottom:14px;">Borrar este amistoso</button>`
+    : '';
 
   content.innerHTML = `
+    ${adminPanelHtml}
+    ${deleteBtnHtml}
     <ul class="convocatoria-list">
       ${roster.map((p) => {
         const signed = !!signups[p.id]?.signedUp;
@@ -302,7 +340,7 @@ async function renderConvocatoria() {
       const currentlySigned = btn.dataset.signed === 'true';
       btn.disabled = true;
       try {
-        await setSignup(SEASON, next.round, playerId, !currentlySigned);
+        await setSignup(next.season, next.round, playerId, !currentlySigned);
         renderConvocatoria();
       } catch (err) {
         console.error(err);
@@ -310,6 +348,50 @@ async function renderConvocatoria() {
         btn.disabled = false;
       }
     });
+  });
+
+  const deleteBtn = document.getElementById('custom-delete-btn');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', async () => {
+      if (!confirm('¿Borrar este amistoso y su convocatoria?')) return;
+      try {
+        await deleteCustomMatch(next.season, next.round);
+        renderConvocatoria();
+      } catch (err) {
+        console.error(err);
+        alert('No se pudo borrar.');
+      }
+    });
+  }
+
+  wireAdminPanel(admin);
+}
+
+function wireAdminPanel(admin) {
+  if (!admin) return;
+  const addBtn = document.getElementById('custom-add-btn');
+  if (!addBtn) return;
+  addBtn.addEventListener('click', async () => {
+    const opponent = document.getElementById('custom-opponent').value.trim();
+    const dateInput = document.getElementById('custom-date').value; // YYYY-MM-DD
+    const time = document.getElementById('custom-time').value; // HH:MM
+    const errorEl = document.getElementById('custom-add-error');
+
+    if (!opponent) { errorEl.textContent = 'Escribe el nombre del rival.'; return; }
+    if (!dateInput) { errorEl.textContent = 'Elige una fecha.'; return; }
+
+    const [y, mo, d] = dateInput.split('-');
+    const date = `${d}-${mo}-${y}`; // formato DD-MM-YYYY, igual que el resto de la web
+
+    addBtn.disabled = true;
+    try {
+      await addCustomMatch({ opponent, date, time });
+      renderConvocatoria();
+    } catch (err) {
+      console.error(err);
+      errorEl.textContent = 'No se pudo añadir el partido.';
+      addBtn.disabled = false;
+    }
   });
 }
 
