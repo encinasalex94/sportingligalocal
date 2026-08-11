@@ -28,6 +28,7 @@ const { wrapper } = require('axios-cookiejar-support');
 const { CookieJar } = require('tough-cookie');
 const cheerio = require('cheerio');
 const iconv = require('iconv-lite');
+const admin = require('firebase-admin');
 const fs = require('fs');
 const path = require('path');
 
@@ -57,6 +58,61 @@ const CONFIG = {
 
 const OUTPUT_PATH = path.join(__dirname, '..', 'docs', 'data', 'data.json');
 const REQUEST_DELAY_MS = 400; // para no saturar el servidor de FFMadrid
+
+// ---- Firebase Admin (para escribir actas y goleadores, datos con nombres
+// de jugadores, fuera del data.json público) --------------------------
+let firestoreDb = null;
+function initFirebase() {
+  if (firestoreDb) return firestoreDb;
+  const raw = process.env.FIREBASE_SERVICE_ACCOUNT;
+  if (!raw) {
+    log('Aviso: no hay FIREBASE_SERVICE_ACCOUNT configurado; se omite la escritura en Firestore (actas/goleadores no se actualizarán ahí).');
+    return null;
+  }
+  const serviceAccount = JSON.parse(raw);
+  admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+  firestoreDb = admin.firestore();
+  return firestoreDb;
+}
+
+async function getExistingActaIds() {
+  const db = initFirebase();
+  if (!db) return new Set();
+  const snap = await db.collection('actas').listDocuments();
+  return new Set(snap.map((d) => d.id));
+}
+
+async function writeActasToFirestore(ligaRounds) {
+  const db = initFirebase();
+  if (!db) return { written: 0 };
+  let written = 0;
+  for (const r of ligaRounds) {
+    for (const m of r.matches) {
+      if (!m.codActa || !m.acta) continue;
+      await db.collection('actas').doc(String(m.codActa)).set({
+        ...m.acta,
+        round: r.round,
+        homeTeam: m.homeTeam,
+        awayTeam: m.awayTeam,
+        homeGoals: m.homeGoals,
+        awayGoals: m.awayGoals,
+        updatedAt: Date.now(),
+      });
+      written++;
+    }
+  }
+  return { written };
+}
+
+async function writeScorersToFirestore(topScorers, ownTeamScorers) {
+  const db = initFirebase();
+  if (!db) return;
+  await db.collection('scorers').doc('current').set({
+    topScorers,
+    ownTeamScorers,
+    updatedAt: Date.now(),
+  });
+}
 
 const jar = new CookieJar();
 const client = wrapper(
@@ -600,23 +656,16 @@ async function main() {
   log('Iniciando sesión en NFG...');
   await login();
 
-  // Cargamos el data.json de la ejecución anterior (si existe) una sola vez.
-  // Nos sirve para dos cosas: saltarnos jornadas cuya hora/campo ya
-  // conocíamos, y reutilizar actas ya descargadas. Si la jornada ya está
-  // jugada y no le falta nada, no tiene sentido volver a pedirla — la
-  // temporada no cambia con el tiempo una vez terminada.
+  // Cargamos el data.json de la ejecución anterior (si existe) para
+  // saltarnos jornadas cuya hora/campo ya conocíamos.
   let previousData = null;
-  const previousActaCache = new Map();
   const previousRoundsByNumber = new Map();
   try {
     previousData = JSON.parse(fs.readFileSync(OUTPUT_PATH, 'utf-8'));
     for (const r of previousData.rounds || []) {
       previousRoundsByNumber.set(r.round, r);
-      for (const m of r.matches || []) {
-        if (m.codActa && m.acta) previousActaCache.set(String(m.codActa), m.acta);
-      }
     }
-    log(`Datos previos cargados: ${previousData.rounds?.length || 0} jornadas, ${previousActaCache.size} actas.`);
+    log(`Datos previos cargados: ${previousData.rounds?.length || 0} jornadas.`);
   } catch (err) {
     log('No hay data.json previo (primera ejecución); se descargará todo desde cero.');
   }
@@ -683,16 +732,16 @@ async function main() {
   // a la caché de arriba, en ejecuciones posteriores solo se piden las
   // actas nuevas (partidos que no teníamos todavía).
   log('Descargando fichas de partido (actas) de todos los partidos jugados...');
+  const existingActaIds = await getExistingActaIds();
+  log(`  -> ${existingActaIds.size} actas ya existentes en Firestore (se omiten)`);
   let actasNuevas = 0;
   let actasReutilizadas = 0;
   for (const r of ligaRounds) {
     for (const m of r.matches) {
       if (!m.played || !m.codActa) continue;
-      const cached = previousActaCache.get(String(m.codActa));
-      if (cached) {
-        m.acta = cached;
+      if (existingActaIds.has(String(m.codActa))) {
         actasReutilizadas++;
-        continue;
+        continue; // ya está en Firestore, no hace falta volver a pedirla ni reescribirla
       }
       try {
         m.acta = await fetchActa(m.codActa);
@@ -703,7 +752,7 @@ async function main() {
       }
     }
   }
-  log(`  -> ${actasNuevas} actas nuevas descargadas, ${actasReutilizadas} reutilizadas de antes`);
+  log(`  -> ${actasNuevas} actas nuevas descargadas, ${actasReutilizadas} ya estaban en Firestore`);
 
   const ownTeamCalendar = extractOwnMatches(ligaRounds);
 
@@ -721,6 +770,22 @@ async function main() {
       }))
     : [];
 
+  log('Escribiendo actas en Firestore (fuera del data.json público)...');
+  const { written: actasWritten } = await writeActasToFirestore(ligaRounds);
+  log(`  -> ${actasWritten} actas escritas/actualizadas en Firestore`);
+
+  log('Escribiendo goleadores en Firestore (fuera del data.json público)...');
+  await writeScorersToFirestore(scorers.slice(0, 20), scorers.filter((s) => s.isOwnTeam));
+
+  // Versión pública del calendario: sin la ficha completa del partido (que
+  // contiene alineaciones = nombres de jugadores). Esa vive solo en
+  // Firestore, detrás de sesión iniciada. El código "codActa" se queda
+  // (es solo un identificador numérico, no revela nada por sí mismo).
+  const publicRounds = ligaRounds.map((r) => ({
+    ...r,
+    matches: r.matches.map(({ acta, ...rest }) => rest),
+  }));
+
   const data = {
     generatedAt: new Date().toISOString(),
     team: { id: CONFIG.codEquipoPropio, name: CONFIG.nombreEquipoPropio },
@@ -732,10 +797,8 @@ async function main() {
     },
     standings: clasificacion.standings,
     lastRoundResults,
-    rounds: ligaRounds,
+    rounds: publicRounds,
     ownTeamCalendar,
-    topScorers: scorers.slice(0, 20),
-    ownTeamScorers: scorers.filter((s) => s.isOwnTeam),
   };
 
   fs.mkdirSync(path.dirname(OUTPUT_PATH), { recursive: true });
