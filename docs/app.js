@@ -323,7 +323,8 @@ function renderScorerList(elId, scorers, emptyMsg) {
   const el = document.getElementById(elId);
 
   if (!window.CLUB_LOGGED_IN) {
-    el.innerHTML = '<li class="sb-empty" style="padding:14px;">Inicia sesión para ver esta información.</li>';
+    // La sección "Goleadores" entera está oculta (ver club-ui.js), no hace
+    // falta pintar nada aquí.
     return;
   }
 
@@ -370,16 +371,16 @@ function renderCalendar(data) {
       const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-compact');
       const loggedIn = !!window.CLUB_LOGGED_IN;
       const actaBtn = m.codActa && loggedIn
-        ? `<button class="acta-btn-icon" onclick="openActa('${m.codActa}')" title="Ver acta" aria-label="Ver acta">${ICON_DOC}</button>`
+        ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">${ICON_DOC}Ver acta</button></div>`
         : '';
       const votarBtn = m.played && loggedIn
-        ? `<button class="acta-btn-icon acta-btn-icon-alt" onclick="window.openVotar && window.openVotar(${m.round})" title="Votar" aria-label="Votar">${ICON_VOTE}</button>`
+        ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${m.round})">${ICON_VOTE}Votar</button></div>`
         : '';
       const rankingBtn = m.played && loggedIn
-        ? `<button class="acta-btn-icon" onclick="window.openRanking && window.openRanking(${m.round})" title="Ranking" aria-label="Ranking">${ICON_STAR}</button>`
+        ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" onclick="window.openRanking && window.openRanking(${m.round})">${ICON_STAR}Ranking</button></div>`
         : '';
       const iconRow = (actaBtn || votarBtn || rankingBtn)
-        ? `<div class="acta-icon-row">${actaBtn}${votarBtn}${rankingBtn}</div>`
+        ? `<div class="acta-btn-row">${actaBtn}${votarBtn}${rankingBtn}</div>`
         : '';
       return `
         <div class="calendar-item ${cls}">
