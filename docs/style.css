@@ -1255,3 +1255,28 @@ button:focus-visible {
   text-align: center;
   font-size: 14px;
 }
+
+.mvp-highlight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(90deg, rgba(30,79,168,0.1), rgba(30,79,168,0.02));
+  border: 1px solid var(--blue-bright);
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+
+.mvp-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.mvp-score {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--navy);
+}
