@@ -45,6 +45,7 @@ async function renderAuthWidget() {
   const user = currentUser();
 
   if (!user) {
+    window.CLUB_LOGGED_IN = false;
     widget.innerHTML = `<button class="auth-btn" id="login-btn">Iniciar sesión</button>`;
     document.getElementById('login-btn').addEventListener('click', async () => {
       try {
@@ -53,6 +54,7 @@ async function renderAuthWidget() {
         console.error('Error de login:', err);
       }
     });
+    window.rerenderClubDependentUI && window.rerenderClubDependentUI();
     return;
   }
 
@@ -67,6 +69,11 @@ async function renderAuthWidget() {
     <button class="auth-btn" id="logout-btn">Cerrar sesión</button>
   `;
   document.getElementById('logout-btn').addEventListener('click', () => signOutUser());
+
+  // Solo consideramos "sesión activa" (para mostrar votar/ranking) una vez
+  // que la cuenta ya está vinculada a un jugador de la plantilla.
+  window.CLUB_LOGGED_IN = !!myLinkCache;
+  window.rerenderClubDependentUI && window.rerenderClubDependentUI();
 
   if (!myLinkCache) {
     promptLinkAccount();
@@ -113,6 +120,12 @@ async function renderConvocatoria() {
   const sub = document.getElementById('convocatoria-sub');
   const content = document.getElementById('convocatoria-content');
   if (!data) return;
+
+  if (!window.CLUB_LOGGED_IN) {
+    sub.textContent = 'Inicia sesión para ver y gestionar la convocatoria.';
+    content.innerHTML = '';
+    return;
+  }
 
   const now = new Date();
   const upcoming = (data.rounds || [])
@@ -327,6 +340,12 @@ window.openRanking = async function openRanking(round) {
 async function renderRanking() {
   const list = document.getElementById('valoraciones-list');
   if (!list) return;
+
+  if (!window.CLUB_LOGGED_IN) {
+    list.innerHTML = '<li class="sb-empty" style="padding:14px;">Inicia sesión para ver las valoraciones del vestuario.</li>';
+    return;
+  }
+
   try {
     const ranking = await getRankingValoraciones();
     if (!ranking.length) {
@@ -359,6 +378,7 @@ document.getElementById('club-overlay')?.addEventListener('click', (e) => {
 onAuthChange(() => {
   renderAuthWidget();
   renderConvocatoria();
+  renderRanking();
 });
 
 function init() {
