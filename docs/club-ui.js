@@ -259,7 +259,7 @@ async function renderConvocatoria() {
 
   const now = new Date();
 
-  // Próximo partido "real" (temporada oficial, desde FFMadrid)
+  // Todos los próximos partidos "reales" (temporada oficial, desde FFMadrid)
   const upcomingReal = (data.rounds || [])
     .flatMap((r) => r.matches.map((m) => ({ ...m, round: r.round, roundDate: r.date })))
     .filter((m) => isOwn(m.homeTeam) || isOwn(m.awayTeam))
@@ -271,11 +271,11 @@ async function renderConvocatoria() {
     .map((m) => ({
       season: SEASON, round: m.round,
       opponent: isOwn(m.homeTeam) ? m.awayTeam : m.homeTeam,
-      date: m.date, time: m.time, isCustom: false,
+      date: m.date || m.roundDate, time: m.time, isCustom: false,
       timestamp: parseMatchDateTime(m.date || m.roundDate, m.time)?.getTime() || Infinity,
     }));
 
-  // Amistosos / pretemporada (los añade un delegado a mano)
+  // Todos los amistosos / pretemporada próximos (los añade un delegado a mano)
   const customMatches = await getUpcomingCustomMatches();
   const upcomingCustom = customMatches
     .filter((m) => m.timestamp > now.getTime())
@@ -283,8 +283,76 @@ async function renderConvocatoria() {
 
   const allUpcoming = [...upcomingReal, ...upcomingCustom].sort((a, b) => a.timestamp - b.timestamp);
 
-  // Panel de admin: crear un amistoso nuevo (siempre visible para el admin,
-  // aunque ya haya un próximo partido, para poder ir añadiendo varios)
+  if (allUpcoming.length) {
+    sub.textContent = `${allUpcoming.length} próximo${allUpcoming.length === 1 ? '' : 's'} partido${allUpcoming.length === 1 ? '' : 's'}`;
+  } else {
+    sub.textContent = 'No hay ningún partido próximo programado todavía.';
+  }
+
+  const roster = await getRoster();
+  const nameById = new Map(roster.map((p) => [p.id, p.name]));
+
+  // Un bloque de convocatoria por cada partido próximo
+  const blocksHtml = await Promise.all(allUpcoming.map(async (match, idx) => {
+    const signups = await getSignups(match.season, match.round);
+    const signedIds = roster.map((p) => p.id).filter((id) => !!signups[id]?.signedUp);
+    const iAmSigned = myPlayerId ? signedIds.includes(myPlayerId) : false;
+    const key = `${match.season}__${match.round}`;
+
+    const titleLabel = match.isCustom ? 'Amistoso' : `Jornada ${match.round}`;
+
+    const deleteBtnHtml = admin && match.isCustom
+      ? `<button class="acta-btn" data-delete-match="${key}" style="margin-bottom:14px;">Borrar este amistoso</button>`
+      : '';
+
+    const signedListHtml = signedIds.length
+      ? `<ol class="convocatoria-count-list">${signedIds.map((id) => `<li>${nameById.get(id) || id}</li>`).join('')}</ol>`
+      : '<p class="acta-empty">Todavía no se ha apuntado nadie.</p>';
+
+    const myOwnButtonHtml = myPlayerId
+      ? `
+        <div class="convocatoria-own-row">
+          <button class="acta-btn ${iAmSigned ? 'acta-btn-alt' : ''} club-submit" data-my-signup="${key}" data-signed="${iAmSigned}">
+            ${iAmSigned ? 'Voy ✓ (pulsa para quitarte)' : 'Apuntarme'}
+          </button>
+        </div>
+      `
+      : '';
+
+    const adminManageHtml = admin
+      ? `
+        <details class="admin-panel">
+          <summary class="admin-panel-title">Gestionar convocatoria (delegado)</summary>
+          <ul class="convocatoria-list">
+            ${roster.map((p) => {
+              const signed = signedIds.includes(p.id);
+              return `
+                <li class="convocatoria-item ${signed ? 'is-signed' : ''}">
+                  <span>${p.name}</span>
+                  <button class="acta-btn ${signed ? 'acta-btn-alt' : ''}" data-player="${p.id}" data-match="${key}" data-signed="${signed}">
+                    ${signed ? 'Voy ✓' : 'Apuntar'}
+                  </button>
+                </li>
+              `;
+            }).join('')}
+          </ul>
+        </details>
+      `
+      : '';
+
+    return `
+      <div class="convocatoria-match-block">
+        <h3 class="convocatoria-match-title">${titleLabel} · vs ${match.opponent}</h3>
+        <p class="convocatoria-match-date">${match.date || ''}${match.time ? ' · ' + match.time : ''}</p>
+        ${deleteBtnHtml}
+        <div class="convocatoria-summary">${signedIds.length} apuntado${signedIds.length === 1 ? '' : 's'}</div>
+        ${signedListHtml}
+        ${myOwnButtonHtml}
+        ${adminManageHtml}
+      </div>
+    `;
+  }));
+
   const adminPanelHtml = admin ? `
     <div class="admin-panel">
       <div class="admin-panel-title">Añadir partido de pretemporada (solo delegados)</div>
@@ -298,99 +366,35 @@ async function renderConvocatoria() {
     </div>
   ` : '';
 
-  if (!allUpcoming.length) {
-    sub.textContent = 'No hay ningún partido próximo programado todavía.';
-    content.innerHTML = adminPanelHtml;
-    wireAdminPanel(admin);
-    return;
-  }
+  content.innerHTML = `${blocksHtml.join('<div class="divider" style="margin:22px 0;"></div>')}${allUpcoming.length ? '<div class="divider" style="margin:22px 0;"></div>' : ''}${adminPanelHtml}`;
 
-  const next = allUpcoming[0];
-  sub.textContent = `${next.isCustom ? 'Amistoso' : `Jornada ${next.round}`} · vs ${next.opponent} · ${next.date || ''}${next.time ? ' · ' + next.time : ''}`;
+  // Índice rápido: de la "clave" (season__round) a los datos del partido
+  const matchByKey = new Map(allUpcoming.map((m) => [`${m.season}__${m.round}`, m]));
 
-  const roster = await getRoster();
-  const signups = await getSignups(next.season, next.round);
-  const nameById = new Map(roster.map((p) => [p.id, p.name]));
-
-  const signedIds = roster.map((p) => p.id).filter((id) => !!signups[id]?.signedUp);
-  const iAmSigned = myPlayerId ? signedIds.includes(myPlayerId) : false;
-
-  const deleteBtnHtml = admin && next.isCustom
-    ? `<button class="acta-btn" id="custom-delete-btn" style="margin-bottom:14px;">Borrar este amistoso</button>`
-    : '';
-
-  // Lista numerada de quién va, solo informativa (sin botones)
-  const signedListHtml = signedIds.length
-    ? `<ol class="convocatoria-count-list">${signedIds
-        .map((id) => `<li>${nameById.get(id) || id}</li>`)
-        .join('')}</ol>`
-    : '<p class="acta-empty">Todavía no se ha apuntado nadie.</p>';
-
-  // Tu propio botón (el único que ve un jugador normal)
-  const myOwnButtonHtml = myPlayerId
-    ? `
-      <div class="convocatoria-own-row">
-        <button class="acta-btn ${iAmSigned ? 'acta-btn-alt' : ''} club-submit" id="my-signup-btn" data-signed="${iAmSigned}">
-          ${iAmSigned ? 'Voy ✓ (pulsa para quitarte)' : 'Apuntarme'}
-        </button>
-      </div>
-    `
-    : '';
-
-  // Panel de gestión para delegados: pueden apuntar/quitar a cualquiera
-  const adminManageHtml = admin
-    ? `
-      <div class="admin-panel">
-        <div class="admin-panel-title">Gestionar convocatoria (delegado)</div>
-        <ul class="convocatoria-list">
-          ${roster.map((p) => {
-            const signed = signedIds.includes(p.id);
-            return `
-              <li class="convocatoria-item ${signed ? 'is-signed' : ''}">
-                <span>${p.name}</span>
-                <button class="acta-btn ${signed ? 'acta-btn-alt' : ''}" data-player="${p.id}" data-signed="${signed}">
-                  ${signed ? 'Voy ✓' : 'Apuntar'}
-                </button>
-              </li>
-            `;
-          }).join('')}
-        </ul>
-      </div>
-    `
-    : '';
-
-  content.innerHTML = `
-    ${deleteBtnHtml}
-    <div class="convocatoria-summary">${signedIds.length} apuntado${signedIds.length === 1 ? '' : 's'}</div>
-    ${signedListHtml}
-    ${myOwnButtonHtml}
-    ${adminManageHtml}
-    ${adminPanelHtml}
-  `;
-
-  const myBtn = document.getElementById('my-signup-btn');
-  if (myBtn) {
-    myBtn.addEventListener('click', async () => {
-      const currentlySigned = myBtn.dataset.signed === 'true';
-      myBtn.disabled = true;
+  content.querySelectorAll('button[data-my-signup]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const match = matchByKey.get(btn.dataset.mySignup);
+      const currentlySigned = btn.dataset.signed === 'true';
+      btn.disabled = true;
       try {
-        await setSignup(next.season, next.round, myPlayerId, !currentlySigned);
+        await setSignup(match.season, match.round, myPlayerId, !currentlySigned);
         renderConvocatoria();
       } catch (err) {
         console.error(err);
         alert('No se pudo guardar, inténtalo de nuevo.');
-        myBtn.disabled = false;
+        btn.disabled = false;
       }
     });
-  }
+  });
 
   content.querySelectorAll('button[data-player]').forEach((btn) => {
     btn.addEventListener('click', async () => {
+      const match = matchByKey.get(btn.dataset.match);
       const playerId = btn.dataset.player;
       const currentlySigned = btn.dataset.signed === 'true';
       btn.disabled = true;
       try {
-        await setSignup(next.season, next.round, playerId, !currentlySigned);
+        await setSignup(match.season, match.round, playerId, !currentlySigned);
         renderConvocatoria();
       } catch (err) {
         console.error(err);
@@ -400,19 +404,19 @@ async function renderConvocatoria() {
     });
   });
 
-  const deleteBtn = document.getElementById('custom-delete-btn');
-  if (deleteBtn) {
-    deleteBtn.addEventListener('click', async () => {
+  content.querySelectorAll('button[data-delete-match]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const match = matchByKey.get(btn.dataset.deleteMatch);
       if (!confirm('¿Borrar este amistoso y su convocatoria?')) return;
       try {
-        await deleteCustomMatch(next.season, next.round);
+        await deleteCustomMatch(match.season, match.round);
         renderConvocatoria();
       } catch (err) {
         console.error(err);
         alert('No se pudo borrar.');
       }
     });
-  }
+  });
 
   wireAdminPanel(admin);
 }
