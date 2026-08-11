@@ -203,7 +203,7 @@ function renderStandings(standings, options = {}) {
   tbody.innerHTML = standingsRowsHtml(standings);
 }
 
-function renderMatchCard(m, roundNumber) {
+function renderMatchCard(m, roundNumber, roundDate) {
   const isOwnMatch = isOwn(m.homeTeam) || isOwn(m.awayTeam);
   const pending = !m.played;
   const score = pending ? 'vs' : `${m.homeGoals} : ${m.awayGoals}`;
@@ -212,7 +212,7 @@ function renderMatchCard(m, roundNumber) {
   const actaBtn = m.played && m.codActa && loggedIn
     ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">${ICON_DOC}Ver acta</button></div>`
     : '';
-  const votarBtn = isOwnMatch && m.played && loggedIn && isVotingWindowOpen(m.date, m.time)
+  const votarBtn = isOwnMatch && m.played && loggedIn && isVotingWindowOpen(m.date || roundDate, m.time)
     ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${roundNumber})">${ICON_VOTE}Votar</button></div>`
     : '';
   const rankingBtn = isOwnMatch && m.played && loggedIn
@@ -251,7 +251,7 @@ function renderRound(roundNumber) {
   if (!round.matches || round.matches.length === 0) {
     grid.innerHTML = '<p class="results-empty">Todavía no se ha publicado el calendario de esta jornada.</p>';
   } else {
-    grid.innerHTML = round.matches.map((m) => renderMatchCard(m, round.round)).join('');
+    grid.innerHTML = round.matches.map((m) => renderMatchCard(m, round.round, round.date)).join('');
   }
 
   // La clasificación acompaña a la jornada elegida: si es la última jugada,
