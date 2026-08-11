@@ -1,5 +1,5 @@
 import {
-  getRoster, getSignups, setSignup, getVotes, submitVote, getRankingValoraciones,
+  getRoster, getSignups, setSignup, getVotes, submitVote, getRankingValoraciones, verifyVoter,
 } from './firebase-club.js';
 
 const SEASON = '2025-2026';
@@ -144,7 +144,46 @@ window.openVotar = async function openVotar(round) {
   const match = roundData && roundData.matches.find((m) => isOwn(m.homeTeam) || isOwn(m.awayTeam));
   if (!match) return;
 
-  openClubModal('<p class="acta-empty" style="text-align:center;">Cargando…</p>');
+  // ---- Paso 1: identificarse ----
+  const rosterSelect = await rosterSelectHtml('vote-voter');
+  openClubModal(`
+    <h3 class="club-modal-title">Vota este partido</h3>
+    <p class="club-modal-sub">Jornada ${round}. Primero dinos quién eres.</p>
+    ${rosterSelect}
+    <input type="password" inputmode="numeric" maxlength="6" id="vote-pin" class="club-pin-input" placeholder="Tu PIN" style="margin-top:10px;" />
+    <div id="vote-error" class="club-error"></div>
+    <button class="acta-btn acta-btn-alt club-submit" id="vote-step1-submit">Continuar</button>
+  `);
+
+  document.getElementById('vote-step1-submit').addEventListener('click', async () => {
+    const voterId = document.getElementById('vote-voter').value;
+    const pin = document.getElementById('vote-pin').value.trim();
+    const errorEl = document.getElementById('vote-error');
+
+    if (!voterId) { errorEl.textContent = 'Selecciona tu nombre.'; return; }
+    if (!/^\d{6}$/.test(pin)) { errorEl.textContent = 'El PIN debe tener 6 dígitos.'; return; }
+
+    errorEl.textContent = '';
+    const { ok } = await verifyVoter(voterId, pin);
+    if (!ok) { errorEl.textContent = 'PIN incorrecto.'; return; }
+
+    // ¿Ya ha votado este partido? No se puede votar dos veces.
+    const existingVotes = await getVotes(SEASON, round);
+    const alreadyVoted = existingVotes.some((v) => v.voterId === voterId);
+    if (alreadyVoted) {
+      openClubModal(`
+        <h3 class="club-modal-title">Ya has votado</h3>
+        <p class="club-modal-sub" style="margin-bottom:0;">Ya registramos tu valoración para este partido. Solo se puede votar una vez por partido.</p>
+      `);
+      return;
+    }
+
+    await showVoteForm(round, match, voterId, pin);
+  });
+};
+
+async function showVoteForm(round, match, voterId, pin) {
+  openClubModal('<p class="acta-empty" style="text-align:center;">Cargando convocados…</p>');
 
   // Convocados: preferimos la convocatoria real si existe; si no (partidos
   // de antes de tener este sistema), usamos la alineación del acta.
@@ -178,13 +217,9 @@ window.openVotar = async function openVotar(round) {
     return;
   }
 
-  const rosterSelect = await rosterSelectHtml('vote-voter');
-
   openClubModal(`
-    <h3 class="club-modal-title">Vota este partido</h3>
-    <p class="club-modal-sub">Jornada ${round} · Pon nota del 0 al 10 (con decimales) a cada convocado.</p>
-    ${rosterSelect}
-    <input type="password" inputmode="numeric" maxlength="6" id="vote-pin" class="club-pin-input" placeholder="Tu PIN" style="margin-top:10px;" />
+    <h3 class="club-modal-title">Pon nota del 0 al 10</h3>
+    <p class="club-modal-sub">Puedes usar decimales (ej. 6,75). Deja en blanco a quien no quieras valorar.</p>
     <ul class="vote-list">
       ${players.map((p) => `
         <li class="vote-item">
@@ -198,29 +233,35 @@ window.openVotar = async function openVotar(round) {
   `);
 
   document.getElementById('vote-submit').addEventListener('click', async () => {
-    const voterId = document.getElementById('vote-voter').value;
-    const pin = document.getElementById('vote-pin').value.trim();
     const errorEl = document.getElementById('vote-error');
-
-    if (!voterId) { errorEl.textContent = 'Selecciona tu nombre.'; return; }
-    if (!/^\d{6}$/.test(pin)) { errorEl.textContent = 'El PIN debe tener 6 dígitos.'; return; }
-
+    const submitBtn = document.getElementById('vote-submit');
     const inputs = Array.from(document.querySelectorAll('.vote-input')).filter((i) => i.value !== '');
+
     if (!inputs.length) { errorEl.textContent = 'Pon al menos una nota.'; return; }
 
+    const invalid = inputs.some((i) => Number(i.value) < 0 || Number(i.value) > 10);
+    if (invalid) { errorEl.textContent = 'Las notas deben estar entre 0 y 10.'; return; }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando…';
     try {
       for (const input of inputs) {
         const ratedId = input.dataset.player;
         const rating = Number(input.value);
         await submitVote(SEASON, round, voterId, pin, ratedId, rating);
       }
-      closeClubModal();
+      openClubModal(`
+        <h3 class="club-modal-title">¡Gracias! ✓</h3>
+        <p class="club-modal-sub" style="margin-bottom:0;">Tu valoración se ha guardado correctamente (${inputs.length} jugador${inputs.length === 1 ? '' : 'es'} puntuado${inputs.length === 1 ? '' : 's'}).</p>
+      `);
       renderRanking();
     } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar valoraciones';
       errorEl.textContent = err.message === 'PIN incorrecto' ? 'PIN incorrecto.' : 'No se pudo guardar, inténtalo de nuevo.';
     }
   });
-};
+}
 
 // ---- RANKING ---------------------------------------------------
 async function renderRanking() {
