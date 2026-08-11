@@ -191,15 +191,18 @@ function renderMatchCard(m, roundNumber) {
   const pending = !m.played;
   const score = pending ? 'vs' : `${m.homeGoals} : ${m.awayGoals}`;
   const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-center');
-  const actaBtn = m.codActa
+  const loggedIn = !!window.CLUB_LOGGED_IN;
+  const actaBtn = m.codActa && loggedIn
     ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">${ICON_DOC}Ver acta</button></div>`
     : '';
-  const loggedIn = !!window.CLUB_LOGGED_IN;
   const votarBtn = isOwnMatch && m.played && loggedIn
     ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${roundNumber})">${ICON_VOTE}Votar</button></div>`
     : '';
   const rankingBtn = isOwnMatch && m.played && loggedIn
     ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" onclick="window.openRanking && window.openRanking(${roundNumber})">${ICON_STAR}Ranking</button></div>`
+    : '';
+  const btnRow = (actaBtn || votarBtn || rankingBtn)
+    ? `<div class="acta-btn-row">${actaBtn}${votarBtn}${rankingBtn}</div>`
     : '';
   return `
     <div class="match-card ${isOwnMatch ? 'is-own' : ''} ${pending ? 'is-pending' : ''}">
@@ -209,7 +212,7 @@ function renderMatchCard(m, roundNumber) {
         <span class="match-team away ${isOwn(m.awayTeam) ? 'away-own' : ''}">${shortName(m.awayTeam)}</span>
       </div>
       ${metaHtml}
-      <div class="acta-btn-row">${actaBtn}${votarBtn}${rankingBtn}</div>
+      ${btnRow}
     </div>
   `;
 }
@@ -318,6 +321,12 @@ function showSeasonUnavailable(seasonLabel) {
 
 function renderScorerList(elId, scorers, emptyMsg) {
   const el = document.getElementById(elId);
+
+  if (!window.CLUB_LOGGED_IN) {
+    el.innerHTML = '<li class="sb-empty" style="padding:14px;">Inicia sesión para ver esta información.</li>';
+    return;
+  }
+
   if (!scorers || scorers.length === 0) {
     el.innerHTML = `<li class="sb-empty" style="padding:14px;">${emptyMsg}</li>`;
     return;
@@ -359,15 +368,18 @@ function renderCalendar(data) {
       const cls = m.result === 'G' ? 'win' : m.result === 'E' ? 'draw' : m.result === 'P' ? 'loss' : '';
       const score = m.played ? `${m.goalsFor} - ${m.goalsAgainst}` : 'Pendiente';
       const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-compact');
-      const actaBtn = m.codActa
+      const loggedIn = !!window.CLUB_LOGGED_IN;
+      const actaBtn = m.codActa && loggedIn
         ? `<button class="acta-btn-icon" onclick="openActa('${m.codActa}')" title="Ver acta" aria-label="Ver acta">${ICON_DOC}</button>`
         : '';
-      const loggedIn = !!window.CLUB_LOGGED_IN;
       const votarBtn = m.played && loggedIn
         ? `<button class="acta-btn-icon acta-btn-icon-alt" onclick="window.openVotar && window.openVotar(${m.round})" title="Votar" aria-label="Votar">${ICON_VOTE}</button>`
         : '';
       const rankingBtn = m.played && loggedIn
         ? `<button class="acta-btn-icon" onclick="window.openRanking && window.openRanking(${m.round})" title="Ranking" aria-label="Ranking">${ICON_STAR}</button>`
+        : '';
+      const iconRow = (actaBtn || votarBtn || rankingBtn)
+        ? `<div class="acta-icon-row">${actaBtn}${votarBtn}${rankingBtn}</div>`
         : '';
       return `
         <div class="calendar-item ${cls}">
@@ -379,7 +391,7 @@ function renderCalendar(data) {
           <span class="calendar-score">${score}</span>
           <span class="calendar-date">${m.date || ''}</span>
           ${metaHtml}
-          <div class="acta-icon-row">${actaBtn}${votarBtn}${rankingBtn}</div>
+          ${iconRow}
         </div>
       `;
     })
@@ -557,6 +569,8 @@ async function init() {
       const currentRound = select && select.value ? Number(select.value) : null;
       if (currentRound) renderRound(currentRound);
       renderCalendar(DATA);
+      renderScorerList('own-scorers', DATA.ownTeamScorers, 'Todavía no hay goleadores registrados.');
+      renderScorerList('top-scorers', DATA.topScorers, 'Todavía no hay goleadores registrados.');
     };
   } catch (err) {
     console.error(err);
