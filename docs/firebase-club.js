@@ -222,6 +222,10 @@ export async function getUpcomingCustomMatches() {
   return list;
 }
 
+// Mismo dato, sin filtrar por fecha — para mostrar en el Calendario tanto
+// los amistosos ya jugados como los que quedan por jugar.
+export const getAllCustomMatches = getUpcomingCustomMatches;
+
 export async function addCustomMatch({ opponent, date, time, isHome }) {
   const myPlayerId = await getMyPlayerId();
   const admin = await getMyAdminStatus();
