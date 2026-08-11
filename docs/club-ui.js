@@ -26,6 +26,16 @@ function parseMatchDateTime(dateStr, timeStr) {
   return new Date(y, m - 1, d, h, min);
 }
 
+function formatSignupTime(ms) {
+  if (!ms) return '';
+  const d = new Date(ms);
+  const pad = (n) => String(n).padStart(2, '0');
+  const now = new Date();
+  const sameDay = d.toDateString() === now.toDateString();
+  const time = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  return sameDay ? time : `${pad(d.getDate())}/${pad(d.getMonth() + 1)} ${time}`;
+}
+
 function scorerListItemHtml(s) {
   return `
     <li class="${s.isOwnTeam ? 'is-own' : ''}">
@@ -290,12 +300,14 @@ async function renderConvocatoria() {
   }
 
   const roster = await getRoster();
-  const nameById = new Map(roster.map((p) => [p.id, p.name]));
-
   // Un bloque de convocatoria por cada partido próximo
   const blocksHtml = await Promise.all(allUpcoming.map(async (match, idx) => {
     const signups = await getSignups(match.season, match.round);
-    const signedIds = roster.map((p) => p.id).filter((id) => !!signups[id]?.signedUp);
+    const signedEntries = roster
+      .filter((p) => !!signups[p.id]?.signedUp)
+      .map((p) => ({ id: p.id, name: p.name, updatedAt: signups[p.id]?.updatedAt || 0 }))
+      .sort((a, b) => a.updatedAt - b.updatedAt); // por orden de inscripción
+    const signedIds = signedEntries.map((e) => e.id);
     const iAmSigned = myPlayerId ? signedIds.includes(myPlayerId) : false;
     const key = `${match.season}__${match.round}`;
 
@@ -305,8 +317,10 @@ async function renderConvocatoria() {
       ? `<button class="acta-btn" data-delete-match="${key}" style="margin-bottom:14px;">Borrar este amistoso</button>`
       : '';
 
-    const signedListHtml = signedIds.length
-      ? `<ol class="convocatoria-count-list">${signedIds.map((id) => `<li>${nameById.get(id) || id}</li>`).join('')}</ol>`
+    const signedListHtml = signedEntries.length
+      ? `<ol class="convocatoria-count-list">${signedEntries
+          .map((e) => `<li>${e.name}${e.updatedAt ? ` <span class="convocatoria-time">${formatSignupTime(e.updatedAt)}</span>` : ''}</li>`)
+          .join('')}</ol>`
       : '<p class="acta-empty">Todavía no se ha apuntado nadie.</p>';
 
     const myOwnButtonHtml = myPlayerId
