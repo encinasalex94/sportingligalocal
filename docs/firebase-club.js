@@ -1,7 +1,10 @@
 // ---------------------------------------------------------------------
-// Sporting de Maderasa — Convocatoria y Valoraciones (Firebase Firestore)
+// Sporting de Maderasa — Convocatoria y Valoraciones (Firebase Firestore + Auth)
 // ---------------------------------------------------------------------
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {
+  getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import {
   getFirestore, collection, collectionGroup, doc, getDoc, getDocs, setDoc,
   deleteDoc, query,
@@ -18,12 +21,21 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
-// ---- utilidades -------------------------------------------------------
-async function sha256(text) {
-  const enc = new TextEncoder().encode(text);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', enc);
-  return Array.from(new Uint8Array(hashBuffer)).map((b) => b.toString(16).padStart(2, '0')).join('');
+// ---- sesión ---------------------------------------------------
+export function signInWithGoogle() {
+  return signInWithPopup(auth, provider);
+}
+export function signOutUser() {
+  return signOut(auth);
+}
+export function onAuthChange(callback) {
+  return onAuthStateChanged(auth, callback);
+}
+export function currentUser() {
+  return auth.currentUser;
 }
 
 function matchIdFor(season, round) {
@@ -42,30 +54,29 @@ export async function getRoster() {
   return list;
 }
 
-// ---- verificación de PIN ------------------------------------------------
-// Comparación en el propio cliente (no hay Cloud Functions en el plan
-// gratuito de Firebase). No es a prueba de balas, pero es una barrera
-// razonable para un vestuario de amigos: nadie puede "listar" todos los
-// PIN de golpe, solo consultar el de un jugador concreto una vez que ya
-// sabe su nombre.
-async function getPlayerRecord(playerId) {
-  const snap = await getDoc(doc(db, 'players', playerId));
-  if (!snap.exists()) return null;
-  return snap.data(); // { pinHash, admin? }
+// ---- vínculo cuenta Google <-> jugador ---------------------------------
+export async function getMyLink() {
+  const user = auth.currentUser;
+  if (!user) return null;
+  const snap = await getDoc(doc(db, 'links', user.uid));
+  return snap.exists() ? snap.data() : null; // { playerId }
 }
 
-export async function verifyPin(playerId, pin) {
-  const record = await getPlayerRecord(playerId);
-  if (!record) return false;
-  const hash = await sha256(pin + '|' + playerId);
-  return hash === record.pinHash;
+export async function createLink(playerId) {
+  const user = auth.currentUser;
+  if (!user) throw new Error('Debes iniciar sesión primero');
+  await setDoc(doc(db, 'links', user.uid), { playerId, linkedAt: Date.now() });
 }
 
-export async function verifyVoter(voterId, pin) {
-  const record = await getPlayerRecord(voterId);
-  if (!record) return { ok: false, isAdmin: false };
-  const hash = await sha256(pin + '|' + voterId);
-  return { ok: hash === record.pinHash, isAdmin: !!record.admin };
+export async function getMyAdminStatus() {
+  const link = await getMyLink();
+  if (!link) return false;
+  try {
+    const snap = await getDoc(doc(db, 'players', link.playerId));
+    return snap.exists() && !!snap.data().admin;
+  } catch (err) {
+    return false;
+  }
 }
 
 // ---- convocatoria ---------------------------------------------------
@@ -77,14 +88,16 @@ export async function getSignups(season, round) {
   return result;
 }
 
-export async function setSignup(season, round, targetPlayerId, voterId, pin, signedUp) {
-  const { ok, isAdmin } = await verifyVoter(voterId, pin);
-  if (!ok) throw new Error('PIN incorrecto');
-  if (voterId !== targetPlayerId && !isAdmin) throw new Error('No autorizado');
+export async function setSignup(season, round, targetPlayerId, signedUp) {
+  const myLink = await getMyLink();
+  if (!myLink) throw new Error('Debes identificarte primero');
+  const admin = await getMyAdminStatus();
+  if (myLink.playerId !== targetPlayerId && !admin) throw new Error('No autorizado');
+
   const matchId = matchIdFor(season, round);
   const ref = doc(db, 'matches', matchId, 'signups', targetPlayerId);
   if (signedUp) {
-    await setDoc(ref, { signedUp: true, updatedAt: Date.now(), confirmedBy: voterId });
+    await setDoc(ref, { signedUp: true, updatedAt: Date.now(), confirmedBy: myLink.playerId });
   } else {
     await deleteDoc(ref);
   }
@@ -99,14 +112,14 @@ export async function getVotes(season, round) {
   return result;
 }
 
-export async function submitVote(season, round, voterId, voterPin, ratedId, rating) {
-  const ok = await verifyPin(voterId, voterPin);
-  if (!ok) throw new Error('PIN incorrecto');
+export async function submitVote(season, round, ratedId, rating) {
+  const myLink = await getMyLink();
+  if (!myLink) throw new Error('Debes identificarte primero');
   if (rating < 0 || rating > 10) throw new Error('La nota debe estar entre 0 y 10');
   const matchId = matchIdFor(season, round);
-  const voteId = `${voterId}_${ratedId}`;
+  const voteId = `${myLink.playerId}_${ratedId}`;
   await setDoc(doc(db, 'matches', matchId, 'votes', voteId), {
-    voterId, ratedId, rating: Math.round(rating * 100) / 100, updatedAt: Date.now(),
+    voterId: myLink.playerId, ratedId, rating: Math.round(rating * 100) / 100, updatedAt: Date.now(),
   });
 }
 
