@@ -1,6 +1,8 @@
 import {
-  getRoster, getSignups, setSignup, getVotes, submitVote, getRankingValoraciones,
-  getRankingForMatch, verifyVoter,
+  signInWithGoogle, signOutUser, onAuthChange, currentUser,
+  getRoster, getMyLink, createLink, getMyAdminStatus,
+  getSignups, setSignup, getVotes, submitVote,
+  getRankingForMatch, getRankingValoraciones,
 } from './firebase-club.js';
 
 const SEASON = '2025-2026';
@@ -11,7 +13,6 @@ function isOwn(name) {
 }
 
 function parseMatchDateTime(dateStr, timeStr) {
-  // dateStr formato DD-MM-YYYY, timeStr formato HH:MM
   if (!dateStr) return null;
   const [d, m, y] = dateStr.split('-').map(Number);
   let h = 0, min = 0;
@@ -23,22 +24,87 @@ function parseMatchDateTime(dateStr, timeStr) {
   return new Date(y, m - 1, d, h, min);
 }
 
-// ---- Modal genérico (nombre + PIN) --------------------------------------
+// ---- Modal genérico -------------------------------------------------
 function openClubModal(html) {
   document.getElementById('club-content').innerHTML = html;
   document.getElementById('club-overlay').classList.add('is-open');
   document.body.style.overflow = 'hidden';
 }
-
 function closeClubModal() {
   document.getElementById('club-overlay').classList.remove('is-open');
   document.body.style.overflow = '';
 }
+window.closeClubModalGlobal = closeClubModal;
 
-async function rosterSelectHtml(id) {
+// ---- Barra de sesión (login con Google) ------------------------------
+let myLinkCache = null;
+
+async function renderAuthWidget() {
+  const widget = document.getElementById('auth-widget');
+  if (!widget) return;
+  const user = currentUser();
+
+  if (!user) {
+    widget.innerHTML = `<button class="auth-btn" id="login-btn">Iniciar sesión</button>`;
+    document.getElementById('login-btn').addEventListener('click', async () => {
+      try {
+        await signInWithGoogle();
+      } catch (err) {
+        console.error('Error de login:', err);
+      }
+    });
+    return;
+  }
+
+  myLinkCache = await getMyLink();
+  const displayName = myLinkCache ? null : user.displayName;
+
+  widget.innerHTML = `
+    <span class="auth-user">
+      ${user.photoURL ? `<img src="${user.photoURL}" class="auth-avatar" alt="" />` : ''}
+      <span class="auth-user-name">${myLinkCache ? await playerNameById(myLinkCache.playerId) : (displayName || user.email)}</span>
+    </span>
+    <button class="auth-btn" id="logout-btn">Cerrar sesión</button>
+  `;
+  document.getElementById('logout-btn').addEventListener('click', () => signOutUser());
+
+  if (!myLinkCache) {
+    promptLinkAccount();
+  }
+}
+
+async function playerNameById(playerId) {
+  const roster = await getRoster();
+  const found = roster.find((p) => p.id === playerId);
+  return found ? found.name : playerId;
+}
+
+async function promptLinkAccount() {
   const roster = await getRoster();
   const options = roster.map((p) => `<option value="${p.id}">${p.name}</option>`).join('');
-  return `<select id="${id}" class="club-select"><option value="">-- Selecciona tu nombre --</option>${options}</select>`;
+  openClubModal(`
+    <h3 class="club-modal-title">¿Quién eres?</h3>
+    <p class="club-modal-sub">Es la primera vez que entras. Elige tu nombre para vincular tu cuenta (solo se hace una vez).</p>
+    <select id="link-select" class="club-select">
+      <option value="">-- Selecciona tu nombre --</option>
+      ${options}
+    </select>
+    <div id="link-error" class="club-error"></div>
+    <button class="acta-btn acta-btn-alt club-submit" id="link-submit">Confirmar</button>
+  `);
+  document.getElementById('link-submit').addEventListener('click', async () => {
+    const playerId = document.getElementById('link-select').value;
+    const errorEl = document.getElementById('link-error');
+    if (!playerId) { errorEl.textContent = 'Selecciona tu nombre.'; return; }
+    try {
+      await createLink(playerId);
+      closeClubModal();
+      renderAuthWidget();
+    } catch (err) {
+      console.error(err);
+      errorEl.textContent = 'No se pudo vincular tu cuenta. Inténtalo de nuevo.';
+    }
+  });
 }
 
 // ---- CONVOCATORIA ---------------------------------------------------
@@ -71,15 +137,18 @@ async function renderConvocatoria() {
 
   const roster = await getRoster();
   const signups = await getSignups(SEASON, next.round);
+  const link = currentUser() ? await getMyLink() : null;
+  const admin = link ? await getMyAdminStatus() : false;
 
   content.innerHTML = `
     <ul class="convocatoria-list">
       ${roster.map((p) => {
         const signed = !!signups[p.id]?.signedUp;
+        const canToggle = link && (link.playerId === p.id || admin);
         return `
           <li class="convocatoria-item ${signed ? 'is-signed' : ''}">
             <span>${p.name}</span>
-            <button class="acta-btn ${signed ? 'acta-btn-alt' : ''}" data-player="${p.id}" data-round="${next.round}" data-signed="${signed}">
+            <button class="acta-btn ${signed ? 'acta-btn-alt' : ''}" data-player="${p.id}" data-signed="${signed}" ${canToggle ? '' : 'disabled title="Inicia sesión para confirmarte a ti mismo (o pide a un delegado)"'}>
               ${signed ? 'Voy ✓' : 'Apuntarme'}
             </button>
           </li>
@@ -88,51 +157,20 @@ async function renderConvocatoria() {
     </ul>
   `;
 
-  content.querySelectorAll('button[data-player]').forEach((btn) => {
-    btn.addEventListener('click', () => {
+  content.querySelectorAll('button[data-player]:not([disabled])').forEach((btn) => {
+    btn.addEventListener('click', async () => {
       const playerId = btn.dataset.player;
-      const round = Number(btn.dataset.round);
       const currentlySigned = btn.dataset.signed === 'true';
-      openSignupPinModal(playerId, round, !currentlySigned);
+      btn.disabled = true;
+      try {
+        await setSignup(SEASON, next.round, playerId, !currentlySigned);
+        renderConvocatoria();
+      } catch (err) {
+        console.error(err);
+        alert(err.message === 'No autorizado' ? 'Solo el propio jugador o un delegado pueden confirmar esto.' : 'No se pudo guardar, inténtalo de nuevo.');
+        btn.disabled = false;
+      }
     });
-  });
-}
-
-async function openSignupPinModal(playerId, round, wantSignedUp) {
-  const rosterSelect = await rosterSelectHtml('signup-voter');
-  openClubModal(`
-    <h3 class="club-modal-title">${wantSignedUp ? 'Apuntar al partido' : 'Quitar de la convocatoria'}</h3>
-    <p class="club-modal-sub">¿Quién confirma esto? (tú mismo, o un delegado del equipo)</p>
-    ${rosterSelect}
-    <input type="password" inputmode="numeric" maxlength="6" id="signup-pin" class="club-pin-input" placeholder="Tu PIN" />
-    <div id="signup-error" class="club-error"></div>
-    <button class="acta-btn acta-btn-alt club-submit" id="signup-submit">Confirmar</button>
-  `);
-
-  // Preseleccionamos automáticamente al propio jugador, para el caso normal
-  // de que cada uno se apunte a sí mismo (un admin puede cambiarlo).
-  const voterSelect = document.getElementById('signup-voter');
-  if (voterSelect) voterSelect.value = playerId;
-
-  document.getElementById('signup-submit').addEventListener('click', async () => {
-    const voterId = document.getElementById('signup-voter').value;
-    const pin = document.getElementById('signup-pin').value.trim();
-    const errorEl = document.getElementById('signup-error');
-    if (!voterId) { errorEl.textContent = 'Selecciona quién confirma.'; return; }
-    if (!/^\d{6}$/.test(pin)) {
-      errorEl.textContent = 'El PIN debe tener 6 dígitos.';
-      return;
-    }
-    try {
-      await setSignup(SEASON, round, playerId, voterId, pin, wantSignedUp);
-      closeClubModal();
-      renderConvocatoria();
-    } catch (err) {
-      const msg = err.message === 'PIN incorrecto' ? 'PIN incorrecto.'
-        : err.message === 'No autorizado' ? 'Solo el propio jugador o un delegado pueden confirmar esto.'
-        : 'No se pudo guardar, inténtalo de nuevo.';
-      errorEl.textContent = msg;
-    }
   });
 }
 
@@ -141,50 +179,35 @@ window.openVotar = async function openVotar(round) {
   const data = window.APP_DATA;
   if (!data) return;
 
+  if (!currentUser()) {
+    openClubModal(`
+      <h3 class="club-modal-title">Inicia sesión</h3>
+      <p class="club-modal-sub" style="margin-bottom:0;">Para votar necesitas iniciar sesión con Google (botón arriba a la derecha).</p>
+    `);
+    return;
+  }
+
+  const link = await getMyLink();
+  if (!link) {
+    openClubModal(`<p class="acta-empty" style="text-align:center;padding:20px 0;">Termina de vincular tu cuenta primero.</p>`);
+    return;
+  }
+
   const roundData = (data.rounds || []).find((r) => r.round === round);
   const match = roundData && roundData.matches.find((m) => isOwn(m.homeTeam) || isOwn(m.awayTeam));
   if (!match) return;
 
-  // ---- Paso 1: identificarse ----
-  const rosterSelect = await rosterSelectHtml('vote-voter');
-  openClubModal(`
-    <h3 class="club-modal-title">Vota este partido</h3>
-    <p class="club-modal-sub">Jornada ${round}. Primero dinos quién eres.</p>
-    ${rosterSelect}
-    <input type="password" inputmode="numeric" maxlength="6" id="vote-pin" class="club-pin-input" placeholder="Tu PIN" style="margin-top:10px;" />
-    <div id="vote-error" class="club-error"></div>
-    <button class="acta-btn acta-btn-alt club-submit" id="vote-step1-submit">Continuar</button>
-  `);
+  openClubModal('<p class="acta-empty" style="text-align:center;">Cargando…</p>');
 
-  document.getElementById('vote-step1-submit').addEventListener('click', async () => {
-    const voterId = document.getElementById('vote-voter').value;
-    const pin = document.getElementById('vote-pin').value.trim();
-    const errorEl = document.getElementById('vote-error');
-
-    if (!voterId) { errorEl.textContent = 'Selecciona tu nombre.'; return; }
-    if (!/^\d{6}$/.test(pin)) { errorEl.textContent = 'El PIN debe tener 6 dígitos.'; return; }
-
-    errorEl.textContent = '';
-    const { ok } = await verifyVoter(voterId, pin);
-    if (!ok) { errorEl.textContent = 'PIN incorrecto.'; return; }
-
-    // ¿Ya ha votado este partido? No se puede votar dos veces.
-    const existingVotes = await getVotes(SEASON, round);
-    const alreadyVoted = existingVotes.some((v) => v.voterId === voterId);
-    if (alreadyVoted) {
-      openClubModal(`
-        <h3 class="club-modal-title">Ya has votado</h3>
-        <p class="club-modal-sub" style="margin-bottom:0;">Ya registramos tu valoración para este partido. Solo se puede votar una vez por partido.</p>
-      `);
-      return;
-    }
-
-    await showVoteForm(round, match, voterId, pin);
-  });
-};
-
-async function showVoteForm(round, match, voterId, pin) {
-  openClubModal('<p class="acta-empty" style="text-align:center;">Cargando convocados…</p>');
+  const existingVotes = await getVotes(SEASON, round);
+  const alreadyVoted = existingVotes.some((v) => v.voterId === link.playerId);
+  if (alreadyVoted) {
+    openClubModal(`
+      <h3 class="club-modal-title">Ya has votado</h3>
+      <p class="club-modal-sub" style="margin-bottom:0;">Ya registramos tu valoración para este partido. Solo se puede votar una vez por partido.</p>
+    `);
+    return;
+  }
 
   // Convocados: preferimos la convocatoria real si existe; si no (partidos
   // de antes de tener este sistema), usamos la alineación del acta.
@@ -203,7 +226,6 @@ async function showVoteForm(round, match, voterId, pin) {
     const ownSide = isOwn(match.homeTeam) ? match.acta.home : match.acta.away;
     if (ownSide) {
       const roster = await getRoster();
-      // Cruzamos por nombre (los nombres del acta y de la plantilla usan el mismo formato "APELLIDOS, NOMBRE")
       const byName = new Map(roster.map((p) => [p.name.toUpperCase(), p]));
       const all = [...(ownSide.titulares || []), ...(ownSide.suplentes || [])];
       players = all
@@ -220,7 +242,7 @@ async function showVoteForm(round, match, voterId, pin) {
 
   openClubModal(`
     <h3 class="club-modal-title">Pon nota del 0 al 10</h3>
-    <p class="club-modal-sub">Puedes usar decimales (ej. 6,75). Deja en blanco a quien no quieras valorar.</p>
+    <p class="club-modal-sub">Jornada ${round}. Puedes usar decimales (ej. 6,75). Deja en blanco a quien no quieras valorar.</p>
     <ul class="vote-list">
       ${players.map((p) => `
         <li class="vote-item">
@@ -239,7 +261,6 @@ async function showVoteForm(round, match, voterId, pin) {
     const inputs = Array.from(document.querySelectorAll('.vote-input')).filter((i) => i.value !== '');
 
     if (!inputs.length) { errorEl.textContent = 'Pon al menos una nota.'; return; }
-
     const invalid = inputs.some((i) => Number(i.value) < 0 || Number(i.value) > 10);
     if (invalid) { errorEl.textContent = 'Las notas deben estar entre 0 y 10.'; return; }
 
@@ -249,7 +270,7 @@ async function showVoteForm(round, match, voterId, pin) {
       for (const input of inputs) {
         const ratedId = input.dataset.player;
         const rating = Number(input.value);
-        await submitVote(SEASON, round, voterId, pin, ratedId, rating);
+        await submitVote(SEASON, round, ratedId, rating);
       }
       openClubModal(`
         <h3 class="club-modal-title">¡Gracias! ✓</h3>
@@ -259,10 +280,11 @@ async function showVoteForm(round, match, voterId, pin) {
     } catch (err) {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Enviar valoraciones';
-      errorEl.textContent = err.message === 'PIN incorrecto' ? 'PIN incorrecto.' : 'No se pudo guardar, inténtalo de nuevo.';
+      console.error(err);
+      errorEl.textContent = 'No se pudo guardar, inténtalo de nuevo.';
     }
   });
-}
+};
 
 // ---- RANKING DE UN PARTIDO (MVP de la jornada) ---------------------------------------------------
 window.openRanking = async function openRanking(round) {
@@ -301,9 +323,7 @@ window.openRanking = async function openRanking(round) {
   }
 };
 
-window.closeClubModalGlobal = closeClubModal;
-
-// ---- RANKING ---------------------------------------------------
+// ---- RANKING GENERAL ---------------------------------------------------
 async function renderRanking() {
   const list = document.getElementById('valoraciones-list');
   if (!list) return;
@@ -336,7 +356,13 @@ document.getElementById('club-overlay')?.addEventListener('click', (e) => {
   if (e.target.id === 'club-overlay') closeClubModal();
 });
 
+onAuthChange(() => {
+  renderAuthWidget();
+  renderConvocatoria();
+});
+
 function init() {
+  renderAuthWidget();
   renderConvocatoria();
   renderRanking();
 }
