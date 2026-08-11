@@ -1,5 +1,8 @@
 // ---------------------------------------------------------------------
 // Sporting de Maderasa — Convocatoria y Valoraciones (Firebase Firestore + Auth)
+// La identidad de cada jugador se decide por su email (lista controlada
+// por el club en la colección 'playerEmails'), NO por autoselección — así
+// nadie puede iniciar sesión y elegir "ser" otro jugador.
 // ---------------------------------------------------------------------
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {
@@ -23,6 +26,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+
+const SESSION_LENGTH_MS = 24 * 60 * 60 * 1000; // 24h para votar tras el inicio del partido
 
 // ---- sesión ---------------------------------------------------
 export function signInWithGoogle() {
@@ -54,25 +59,25 @@ export async function getRoster() {
   return list;
 }
 
-// ---- vínculo cuenta Google <-> jugador ---------------------------------
-export async function getMyLink() {
+// ---- identidad por email (sin autoselección) ---------------------------------
+// La lista de qué email corresponde a qué jugador la gestiona el club
+// directamente en Firestore (colección 'playerEmails'), no la web.
+export async function getMyPlayerId() {
   const user = auth.currentUser;
-  if (!user) return null;
-  const snap = await getDoc(doc(db, 'links', user.uid));
-  return snap.exists() ? snap.data() : null; // { playerId }
-}
-
-export async function createLink(playerId) {
-  const user = auth.currentUser;
-  if (!user) throw new Error('Debes iniciar sesión primero');
-  await setDoc(doc(db, 'links', user.uid), { playerId, linkedAt: Date.now() });
+  if (!user || !user.email) return null;
+  try {
+    const snap = await getDoc(doc(db, 'playerEmails', user.email.toLowerCase()));
+    return snap.exists() ? snap.data().playerId : null;
+  } catch (err) {
+    return null; // email no autorizado: las reglas bloquean la lectura
+  }
 }
 
 export async function getMyAdminStatus() {
-  const link = await getMyLink();
-  if (!link) return false;
+  const playerId = await getMyPlayerId();
+  if (!playerId) return false;
   try {
-    const snap = await getDoc(doc(db, 'players', link.playerId));
+    const snap = await getDoc(doc(db, 'players', playerId));
     return snap.exists() && !!snap.data().admin;
   } catch (err) {
     return false;
@@ -89,18 +94,32 @@ export async function getSignups(season, round) {
 }
 
 export async function setSignup(season, round, targetPlayerId, signedUp) {
-  const myLink = await getMyLink();
-  if (!myLink) throw new Error('Debes identificarte primero');
+  const myPlayerId = await getMyPlayerId();
+  if (!myPlayerId) throw new Error('Tu cuenta no está autorizada todavía');
   const admin = await getMyAdminStatus();
-  if (myLink.playerId !== targetPlayerId && !admin) throw new Error('No autorizado');
+  if (myPlayerId !== targetPlayerId && !admin) throw new Error('No autorizado');
 
   const matchId = matchIdFor(season, round);
   const ref = doc(db, 'matches', matchId, 'signups', targetPlayerId);
   if (signedUp) {
-    await setDoc(ref, { signedUp: true, updatedAt: Date.now(), confirmedBy: myLink.playerId });
+    await setDoc(ref, { signedUp: true, updatedAt: Date.now(), confirmedBy: myPlayerId });
   } else {
     await deleteDoc(ref);
   }
+}
+
+// ---- hora del partido / ventana de votación (24h) ---------------------------------
+export async function getMatchMeta(season, round) {
+  const matchId = matchIdFor(season, round);
+  const snap = await getDoc(doc(db, 'matchMeta', matchId));
+  return snap.exists() ? snap.data() : null;
+}
+
+export async function isVotingOpen(season, round) {
+  const meta = await getMatchMeta(season, round);
+  if (!meta || !meta.kickoffAt) return true; // sin dato, no bloqueamos por precaución de UX
+  const kickoffMs = meta.kickoffAt.toMillis ? meta.kickoffAt.toMillis() : meta.kickoffAt.seconds * 1000;
+  return Date.now() < kickoffMs + SESSION_LENGTH_MS;
 }
 
 // ---- votos ---------------------------------------------------
@@ -113,13 +132,17 @@ export async function getVotes(season, round) {
 }
 
 export async function submitVote(season, round, ratedId, rating) {
-  const myLink = await getMyLink();
-  if (!myLink) throw new Error('Debes identificarte primero');
+  const myPlayerId = await getMyPlayerId();
+  if (!myPlayerId) throw new Error('Tu cuenta no está autorizada todavía');
   if (rating < 0 || rating > 10) throw new Error('La nota debe estar entre 0 y 10');
+
+  const open = await isVotingOpen(season, round);
+  if (!open) throw new Error('La votación de este partido ya está cerrada (pasadas 24h desde el inicio)');
+
   const matchId = matchIdFor(season, round);
-  const voteId = `${myLink.playerId}_${ratedId}`;
+  const voteId = `${myPlayerId}_${ratedId}`;
   await setDoc(doc(db, 'matches', matchId, 'votes', voteId), {
-    voterId: myLink.playerId, ratedId, rating: Math.round(rating * 100) / 100, updatedAt: Date.now(),
+    voterId: myPlayerId, ratedId, rating: Math.round(rating * 100) / 100, updatedAt: Date.now(),
   });
 }
 
