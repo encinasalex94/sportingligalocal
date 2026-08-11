@@ -292,47 +292,79 @@ function renderRoundSelector(data) {
   });
 }
 
-// Temporadas que ofrece el desplegable de la propia web de FFMadrid. De
-// momento solo tenemos datos cargados de la temporada actual; el resto se
-// irán añadiendo cuando descarguemos su histórico (ver README).
-// De momento solo mostramos la temporada actual. Cuando arranque 2026-2027
-// (o se cargue el histórico de años anteriores), añádelas aquí:
-//   { value: '22', label: '2026-2027' },
-//   { value: '20', label: '2024-2025' },
-//   { value: '19', label: '2023-2024' },
-//   { value: '18', label: '2022-2023' },
-//   { value: '17', label: '2021-2022' },
-//   { value: '15', label: '2019-2020' },
-//   { value: '14', label: '2018-2019' },
+// Temporadas con datos reales de Liga (por ahora, solo esta — se irán
+// añadiendo aquí cuando tengamos histórico de años anteriores):
 const AVAILABLE_SEASONS = [
   { value: '21', label: '2025-2026' },
 ];
 
-function renderSeasonSelector(data) {
-  const select = document.getElementById('season-select');
-  if (!select) return;
-  const currentSeason = data.season || '2025-2026';
+// Tipo de competición a mostrar. "Liga" y "Copa" 2026-2027 todavía no
+// existen (la federación no ha colgado el calendario), así que por defecto
+// se muestra "Pretemporada", que es donde vive lo que sí podemos usar ya:
+// los amistosos que se van añadiendo desde la Convocatoria.
+const COMPETITION_TYPES = [
+  { value: 'pretemporada', label: 'Pretemporada' },
+  { value: 'liga', label: 'Liga' },
+  { value: 'copa', label: 'Copa' },
+];
 
-  select.innerHTML = AVAILABLE_SEASONS
-    .map((s) => `<option value="${s.value}" ${s.label === currentSeason ? 'selected' : ''}>${s.label}</option>`)
+// Consultadas por club-ui.js para saber qué pintar en el calendario.
+window.CURRENT_COMPETITION_TYPE = 'pretemporada';
+
+function applyCompetitionView(type, data) {
+  window.CURRENT_COMPETITION_TYPE = type;
+  const seasonSelect = document.getElementById('season-select');
+
+  if (type === 'liga') {
+    if (seasonSelect) seasonSelect.disabled = false;
+    renderRoundSelector(data);
+  } else {
+    if (seasonSelect) seasonSelect.disabled = true;
+    showSeasonUnavailable(type === 'copa' ? 'Copa 2026-2027 (sin calendario publicado todavía)' : 'Pretemporada 2026-2027');
+  }
+  renderCalendar(data);
+  window.onCompetitionViewChanged && window.onCompetitionViewChanged(type);
+}
+
+function renderCompetitionTypeSelector(data) {
+  const select = document.getElementById('competition-type-select');
+  if (!select) return;
+
+  select.innerHTML = COMPETITION_TYPES
+    .map((t) => `<option value="${t.value}">${t.label}</option>`)
     .join('');
+  select.value = 'pretemporada';
 
   select.addEventListener('change', () => {
-    const chosen = AVAILABLE_SEASONS.find((s) => s.value === select.value);
-    if (chosen && chosen.label === currentSeason) {
-      // Volvemos a la temporada con datos: repintamos todo con normalidad.
-      renderRoundSelector(DATA);
-    } else {
-      showSeasonUnavailable(chosen ? chosen.label : select.value);
-    }
+    applyCompetitionView(select.value, data);
   });
 }
 
-function showSeasonUnavailable(seasonLabel) {
+function renderSeasonSelector(data) {
+  const select = document.getElementById('season-select');
+  if (!select) return;
+
+  select.innerHTML = AVAILABLE_SEASONS
+    .map((s) => `<option value="${s.value}">${s.label}</option>`)
+    .join('');
+  select.value = AVAILABLE_SEASONS.find((s) => s.label === data.season)?.value || AVAILABLE_SEASONS[0].value;
+  select.disabled = true; // se habilita solo cuando el Tipo es "Liga"
+
+  select.addEventListener('change', () => {
+    // De momento solo hay una temporada de Liga con datos; esto queda listo
+    // para cuando haya más de una entre las que elegir.
+    renderRoundSelector(data);
+  });
+
+  // Arrancamos en modo "Pretemporada" (ver renderCompetitionTypeSelector)
+  applyCompetitionView('pretemporada', data);
+}
+
+function showSeasonUnavailable(label) {
   document.getElementById('round-select').innerHTML = '<option>—</option>';
   document.getElementById('round-label-2').textContent = '';
   document.getElementById('results-grid').innerHTML =
-    `<p class="results-empty">Sin datos de la temporada ${seasonLabel}.</p>`;
+    `<p class="results-empty">Sin datos de ${label}.</p>`;
   document.getElementById('standings-body').innerHTML = '';
 }
 
@@ -342,6 +374,22 @@ function showSeasonUnavailable(seasonLabel) {
 
 function renderCalendar(data) {
   const list = document.getElementById('calendar-list');
+  const summaryEl = document.getElementById('calendar-summary');
+
+  // El calendario de partidos de Liga solo aplica cuando el Tipo elegido es
+  // "Liga". Para "Pretemporada" lo rellena club-ui.js con los amistosos;
+  // para "Copa" no hay nada que mostrar todavía.
+  const showRealSeason = window.CURRENT_COMPETITION_TYPE === 'liga';
+  if (!showRealSeason) {
+    list.innerHTML = '';
+    if (summaryEl) {
+      summaryEl.textContent = window.CURRENT_COMPETITION_TYPE === 'copa'
+        ? 'Sin calendario de Copa publicado todavía'
+        : '';
+    }
+    return;
+  }
+
   const calendar = data.ownTeamCalendar || [];
 
   if (calendar.length === 0) {
@@ -434,9 +482,8 @@ async function init() {
     window.APP_DATA = data;
     renderMeta(data);
     renderScoreboard(data);
+    renderCompetitionTypeSelector(data);
     renderSeasonSelector(data);
-    renderRoundSelector(data);
-    renderCalendar(data);
     document.dispatchEvent(new CustomEvent('app-data-ready', { detail: data }));
 
     // Gancho para que club-ui.js pueda pedir un repintado cuando cambie el
