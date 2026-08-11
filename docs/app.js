@@ -319,33 +319,9 @@ function showSeasonUnavailable(seasonLabel) {
   document.getElementById('standings-body').innerHTML = '';
 }
 
-function renderScorerList(elId, scorers, emptyMsg) {
-  const el = document.getElementById(elId);
-
-  if (!window.CLUB_LOGGED_IN) {
-    // La sección "Goleadores" entera está oculta (ver club-ui.js), no hace
-    // falta pintar nada aquí.
-    return;
-  }
-
-  if (!scorers || scorers.length === 0) {
-    el.innerHTML = `<li class="sb-empty" style="padding:14px;">${emptyMsg}</li>`;
-    return;
-  }
-  el.innerHTML = scorers
-    .map(
-      (s) => `
-      <li class="${s.isOwnTeam ? 'is-own' : ''}">
-        <div class="scorer-name">
-          <span class="scorer-player">${s.player}</span>
-          <span class="scorer-team">${s.team}${s.penalties ? ` · ${s.penalties} de penalti` : ''}</span>
-        </div>
-        <span class="scorer-goals">${s.goals}</span>
-      </li>
-    `
-    )
-    .join('');
-}
+// Los "Goleadores" (nombres de jugadores) ya no viven en data.json ni se
+// pintan desde aquí — ahora se leen de Firestore y se pintan desde
+// club-ui.js, solo cuando hay sesión iniciada. Ver club-ui.js.
 
 function renderCalendar(data) {
   const list = document.getElementById('calendar-list');
@@ -415,121 +391,6 @@ function renderMeta(data) {
   }
 }
 
-// ---- Modal: ficha del partido (acta) ---------------------------------
-function playerListHtml(players) {
-  if (!players || !players.length) return '<p class="acta-empty">Sin datos</p>';
-  return `<ul class="acta-player-list">${players
-    .map((p) => `<li><span class="acta-player-number">${p.number || ''}</span><span>${p.name}</span></li>`)
-    .join('')}</ul>`;
-}
-
-function teamActaHtml(team) {
-  if (!team) return '<p class="acta-empty">Sin datos de este equipo</p>';
-  return `
-    <div class="acta-lineup-team">${team.teamName}</div>
-    <div class="acta-lineup-label">Titulares</div>
-    ${playerListHtml(team.titulares)}
-    ${team.suplentes && team.suplentes.length ? `<div class="acta-lineup-label">Suplentes</div>${playerListHtml(team.suplentes)}` : ''}
-    ${team.entrenador && !/no presenta/i.test(team.entrenador) ? `<div class="acta-lineup-label">Entrenador</div><p style="font-size:12.5px;margin:0;">${team.entrenador}</p>` : ''}
-    ${team.substitutions && team.substitutions.length ? `<div class="acta-lineup-label">Cambios</div><ul class="acta-player-list">${team.substitutions.map((s) => `<li>${s}</li>`).join('')}</ul>` : ''}
-  `;
-}
-
-function findMatchByCodActa(codActa) {
-  if (!DATA || !DATA.rounds) return null;
-  for (const r of DATA.rounds) {
-    const match = (r.matches || []).find((m) => String(m.codActa) === String(codActa));
-    if (match) return { round: r.round, match };
-  }
-  return null;
-}
-
-function openActa(codActa) {
-  const found = findMatchByCodActa(codActa);
-  const overlay = document.getElementById('acta-overlay');
-  const content = document.getElementById('acta-content');
-
-  if (!found || !found.match.acta) {
-    content.innerHTML = '<p class="acta-empty" style="text-align:center;padding:20px 0;">Ficha no disponible todavía para este partido.</p>';
-    overlay.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-    return;
-  }
-
-  const { round, match } = found;
-  const acta = match.acta;
-  const homeTeamName = match.homeTeam;
-  const awayTeamName = match.awayTeam;
-  const homeIsOwn = isOwn(homeTeamName);
-  const awayIsOwn = isOwn(awayTeamName);
-
-  const finalScore = acta.goals && acta.goals.length
-    ? acta.goals[acta.goals.length - 1]
-    : { homeScore: match.homeGoals, awayScore: match.awayGoals };
-
-  const metaBits = [];
-  if (acta.date) metaBits.push(acta.date);
-  if (acta.time) metaBits.push(`${acta.time} h`);
-  metaBits.push(`Jornada ${round}`);
-
-  const goalsHtml = acta.goals && acta.goals.length
-    ? `<ul class="acta-goals-list">${acta.goals
-        .map(
-          (g) => `
-        <li>
-          <span class="acta-goal-score">${g.homeScore}-${g.awayScore}</span>
-          <span class="acta-goal-minute">${g.minute != null ? `${g.minute}'` : ''}</span>
-          <span>${g.scorer}${g.penalty ? ' (penalti)' : ''}${g.ownGoal ? ' (propia puerta)' : ''}</span>
-        </li>`
-        )
-        .join('')}</ul>`
-    : '<p class="acta-empty">Sin goles registrados</p>';
-
-  const allCards = [
-    ...((acta.home && acta.home.cards) || []).map((c) => ({ ...c, team: acta.home.teamName })),
-    ...((acta.away && acta.away.cards) || []).map((c) => ({ ...c, team: acta.away.teamName })),
-  ];
-
-  const cardsHtml = allCards.length
-    ? `<ul class="acta-goals-list">${allCards
-        .map(
-          (c) => `
-        <li>
-          <span class="acta-card-dot ${c.color === 'roja' ? 'red' : 'yellow'}"></span>
-          <span class="acta-goal-minute">${c.final ? 'Final' : c.minute != null ? `${c.minute}'` : ''}</span>
-          <span>${c.player} <span class="acta-card-team">(${shortName(c.team)})</span></span>
-        </li>`
-        )
-        .join('')}</ul>`
-    : '';
-
-  content.innerHTML = `
-    <div class="acta-header">
-      <div class="acta-header-meta">${metaBits.join(' · ')}</div>
-      <div class="acta-header-score">
-        <span class="acta-team-name home ${homeIsOwn ? 'is-own' : ''}">${shortName(homeTeamName)}</span>
-        <span class="score-box">${finalScore.homeScore} : ${finalScore.awayScore}</span>
-        <span class="acta-team-name away ${awayIsOwn ? 'is-own' : ''}">${shortName(awayTeamName)}</span>
-      </div>
-      ${acta.referees && acta.referees.length ? `<div class="acta-referee">Árbitro: ${acta.referees.join(', ')}</div>` : ''}
-    </div>
-
-    <div class="acta-section-title">Goles</div>
-    ${goalsHtml}
-
-    ${cardsHtml ? `<div class="acta-section-title">Tarjetas</div>${cardsHtml}` : ''}
-
-    <div class="acta-section-title">Alineaciones</div>
-    <div class="acta-lineups">
-      <div>${teamActaHtml(acta.home)}</div>
-      <div>${teamActaHtml(acta.away)}</div>
-    </div>
-  `;
-
-  overlay.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
-}
-
 function closeActa() {
   document.getElementById('acta-overlay').classList.remove('is-open');
   document.body.style.overflow = '';
@@ -559,8 +420,6 @@ async function init() {
     renderSeasonSelector(data);
     renderRoundSelector(data);
     renderCalendar(data);
-    renderScorerList('own-scorers', data.ownTeamScorers, 'Todavía no hay goleadores registrados.');
-    renderScorerList('top-scorers', data.topScorers, 'Todavía no hay goleadores registrados.');
     document.dispatchEvent(new CustomEvent('app-data-ready', { detail: data }));
 
     // Gancho para que club-ui.js pueda pedir un repintado cuando cambie el
@@ -570,8 +429,6 @@ async function init() {
       const currentRound = select && select.value ? Number(select.value) : null;
       if (currentRound) renderRound(currentRound);
       renderCalendar(DATA);
-      renderScorerList('own-scorers', DATA.ownTeamScorers, 'Todavía no hay goleadores registrados.');
-      renderScorerList('top-scorers', DATA.topScorers, 'Todavía no hay goleadores registrados.');
     };
   } catch (err) {
     console.error(err);
