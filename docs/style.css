@@ -1294,6 +1294,34 @@ button:focus-visible {
   border-color: var(--blue-bright);
 }
 
+.admin-panel {
+  background: var(--ice);
+  border: 1px dashed rgba(11,31,61,0.25);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+
+.admin-panel-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--slate);
+  margin-bottom: 10px;
+}
+
+.admin-panel-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.admin-panel-row input {
+  min-width: 120px;
+}
+
 /* ---------------------------- MODAL CLUB (PIN / VOTOS) ---------------------------- */
 .club-modal {
   max-width: 420px;
