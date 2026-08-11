@@ -30,10 +30,7 @@ function formatSignupTime(ms) {
   if (!ms) return '';
   const d = new Date(ms);
   const pad = (n) => String(n).padStart(2, '0');
-  const now = new Date();
-  const sameDay = d.toDateString() === now.toDateString();
-  const time = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
-  return sameDay ? time : `${pad(d.getDate())}/${pad(d.getMonth() + 1)} ${time}`;
+  return `${pad(d.getDate())}/${pad(d.getMonth() + 1)} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
 function scorerListItemHtml(s) {
