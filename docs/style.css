@@ -68,10 +68,14 @@ a { color: inherit; }
   z-index: 2;
 }
 
-.auth-bar {
+.auth-widget-corner {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  z-index: 3;
   display: flex;
-  justify-content: flex-end;
-  padding: 8px 24px 0;
+  align-items: center;
+  gap: 8px;
 }
 
 .auth-btn {
@@ -82,10 +86,11 @@ a { color: inherit; }
   border: 1px solid var(--line);
   color: var(--white);
   border-radius: 999px;
-  padding: 5px 12px;
+  padding: 4px 11px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .auth-btn:hover { background: rgba(255,255,255,0.15); }
@@ -93,21 +98,29 @@ a { color: inherit; }
 .auth-user {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   color: var(--slate-light);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 10px 3px 3px;
 }
 
 .auth-avatar {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: 1px solid var(--line);
 }
 
 .auth-user-name {
   color: var(--white);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-weight: 600;
 }
 
@@ -639,8 +652,8 @@ table.standings tbody tr.own-row td.cell-team::before {
 /* ---------------------------- CALENDAR ---------------------------- */
 .calendar-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
 }
 
 .calendar-item {
@@ -848,10 +861,16 @@ button:focus-visible {
   .wrap { padding: 0 16px; }
 
   .header-inner.wrap {
-    padding: 26px 20px;
+    padding: 40px 20px 26px;
   }
 
-  .auth-bar { padding: 8px 20px 0; }
+  .auth-widget-corner {
+    top: 8px;
+    right: 10px;
+  }
+
+  .auth-user-name { max-width: 70px; }
+  .auth-btn { font-size: 9px; padding: 3px 8px; }
 
   .section { padding: 34px 0; }
 
@@ -906,20 +925,27 @@ button:focus-visible {
 .acta-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  margin-top: 10px;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 4px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--blue);
   background: var(--white);
   border: 1px solid var(--blue);
   border-radius: 999px;
-  padding: 5px 12px;
+  padding: 4px 9px;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
+}
+
+.acta-btn .btn-icon {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
 }
 
 .acta-btn:hover {
@@ -933,10 +959,47 @@ button:focus-visible {
   justify-content: center;
 }
 
-.calendar-item .acta-btn {
-  font-size: 9.5px;
-  padding: 3px 9px;
+/* Botones-icono redondos y compactos, usados en el calendario donde el
+   espacio es más reducido: solo el icono, con el texto como tooltip. */
+.acta-icon-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
   margin-top: 8px;
+}
+
+.acta-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--blue);
+  background: var(--white);
+  color: var(--blue);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.acta-btn-icon .btn-icon {
+  width: 13px;
+  height: 13px;
+}
+
+.acta-btn-icon:hover {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.acta-btn-icon-alt {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.acta-btn-icon-alt:hover {
+  background: var(--navy);
+  border-color: var(--navy);
 }
 
 /* ---------------------------- ACTA MODAL ---------------------------- */
