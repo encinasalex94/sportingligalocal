@@ -48,11 +48,24 @@ export async function getRoster() {
 // razonable para un vestuario de amigos: nadie puede "listar" todos los
 // PIN de golpe, solo consultar el de un jugador concreto una vez que ya
 // sabe su nombre.
-export async function verifyPin(playerId, pin) {
+async function getPlayerRecord(playerId) {
   const snap = await getDoc(doc(db, 'players', playerId));
-  if (!snap.exists()) return false;
+  if (!snap.exists()) return null;
+  return snap.data(); // { pinHash, admin? }
+}
+
+export async function verifyPin(playerId, pin) {
+  const record = await getPlayerRecord(playerId);
+  if (!record) return false;
   const hash = await sha256(pin + '|' + playerId);
-  return hash === snap.data().pinHash;
+  return hash === record.pinHash;
+}
+
+export async function verifyVoter(voterId, pin) {
+  const record = await getPlayerRecord(voterId);
+  if (!record) return { ok: false, isAdmin: false };
+  const hash = await sha256(pin + '|' + voterId);
+  return { ok: hash === record.pinHash, isAdmin: !!record.admin };
 }
 
 // ---- convocatoria ---------------------------------------------------
@@ -64,13 +77,14 @@ export async function getSignups(season, round) {
   return result;
 }
 
-export async function setSignup(season, round, playerId, pin, signedUp) {
-  const ok = await verifyPin(playerId, pin);
+export async function setSignup(season, round, targetPlayerId, voterId, pin, signedUp) {
+  const { ok, isAdmin } = await verifyVoter(voterId, pin);
   if (!ok) throw new Error('PIN incorrecto');
+  if (voterId !== targetPlayerId && !isAdmin) throw new Error('No autorizado');
   const matchId = matchIdFor(season, round);
-  const ref = doc(db, 'matches', matchId, 'signups', playerId);
+  const ref = doc(db, 'matches', matchId, 'signups', targetPlayerId);
   if (signedUp) {
-    await setDoc(ref, { signedUp: true, updatedAt: Date.now() });
+    await setDoc(ref, { signedUp: true, updatedAt: Date.now(), confirmedBy: voterId });
   } else {
     await deleteDoc(ref);
   }
