@@ -70,17 +70,32 @@ async function renderCustomMatchesInCalendar() {
   // Quitamos cualquier tarjeta de amistoso pintada antes (por si se repinta)
   list.querySelectorAll('.calendar-item.amistoso').forEach((el) => el.remove());
 
+  const viewingPretemporada = window.CURRENT_COMPETITION_TYPE === 'pretemporada';
+  if (!viewingPretemporada) return; // el Tipo elegido es Liga o Copa, no toca
+
   if (!window.CLUB_LOGGED_IN) return; // igual que el resto de secciones con nombres/datos del club
 
   try {
     const customMatches = await getAllCustomMatches();
-    if (!customMatches.length) return;
+    const summaryEl = document.getElementById('calendar-summary');
+    if (!customMatches.length) {
+      if (summaryEl) summaryEl.textContent = 'Amistosos de pretemporada · ninguno programado todavía';
+      return;
+    }
+    if (summaryEl) {
+      summaryEl.textContent = `Amistosos de pretemporada · ${customMatches.length} programado${customMatches.length === 1 ? '' : 's'}`;
+    }
     const html = customMatches.map(customMatchCardHtml).join('');
     list.insertAdjacentHTML('beforeend', html);
   } catch (err) {
     console.error('Error cargando amistosos:', err);
   }
 }
+
+// Cuando cambia el selector de Tipo (en app.js), repintamos los amistosos.
+window.onCompetitionViewChanged = function onCompetitionViewChanged() {
+  renderCustomMatchesInCalendar();
+};
 
 async function renderScorers() {
   const ownEl = document.getElementById('own-scorers');
