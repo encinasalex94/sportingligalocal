@@ -97,27 +97,40 @@ async function renderConvocatoria() {
   });
 }
 
-function openSignupPinModal(playerId, round, wantSignedUp) {
+async function openSignupPinModal(playerId, round, wantSignedUp) {
+  const rosterSelect = await rosterSelectHtml('signup-voter');
   openClubModal(`
-    <h3 class="club-modal-title">${wantSignedUp ? 'Apuntarte al partido' : 'Quitarte de la convocatoria'}</h3>
-    <p class="club-modal-sub">Introduce tu PIN de 6 dígitos para confirmar.</p>
-    <input type="password" inputmode="numeric" maxlength="6" id="signup-pin" class="club-pin-input" placeholder="••••••" />
+    <h3 class="club-modal-title">${wantSignedUp ? 'Apuntar al partido' : 'Quitar de la convocatoria'}</h3>
+    <p class="club-modal-sub">¿Quién confirma esto? (tú mismo, o un delegado del equipo)</p>
+    ${rosterSelect}
+    <input type="password" inputmode="numeric" maxlength="6" id="signup-pin" class="club-pin-input" placeholder="Tu PIN" />
     <div id="signup-error" class="club-error"></div>
     <button class="acta-btn acta-btn-alt club-submit" id="signup-submit">Confirmar</button>
   `);
+
+  // Preseleccionamos automáticamente al propio jugador, para el caso normal
+  // de que cada uno se apunte a sí mismo (un admin puede cambiarlo).
+  const voterSelect = document.getElementById('signup-voter');
+  if (voterSelect) voterSelect.value = playerId;
+
   document.getElementById('signup-submit').addEventListener('click', async () => {
+    const voterId = document.getElementById('signup-voter').value;
     const pin = document.getElementById('signup-pin').value.trim();
     const errorEl = document.getElementById('signup-error');
+    if (!voterId) { errorEl.textContent = 'Selecciona quién confirma.'; return; }
     if (!/^\d{6}$/.test(pin)) {
       errorEl.textContent = 'El PIN debe tener 6 dígitos.';
       return;
     }
     try {
-      await setSignup(SEASON, round, playerId, pin, wantSignedUp);
+      await setSignup(SEASON, round, playerId, voterId, pin, wantSignedUp);
       closeClubModal();
       renderConvocatoria();
     } catch (err) {
-      errorEl.textContent = err.message === 'PIN incorrecto' ? 'PIN incorrecto.' : 'No se pudo guardar, inténtalo de nuevo.';
+      const msg = err.message === 'PIN incorrecto' ? 'PIN incorrecto.'
+        : err.message === 'No autorizado' ? 'Solo el propio jugador o un delegado pueden confirmar esto.'
+        : 'No se pudo guardar, inténtalo de nuevo.';
+      errorEl.textContent = msg;
     }
   });
 }
