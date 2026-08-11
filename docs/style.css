@@ -1294,6 +1294,42 @@ button:focus-visible {
   border-color: var(--blue-bright);
 }
 
+.convocatoria-summary {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--slate);
+  margin-bottom: 10px;
+}
+
+.convocatoria-count-list {
+  list-style: decimal;
+  margin: 0 0 20px;
+  padding-left: 22px;
+  columns: 2;
+  column-gap: 24px;
+}
+
+.convocatoria-count-list li {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--navy);
+  padding: 3px 0;
+  break-inside: avoid;
+}
+
+.convocatoria-own-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.convocatoria-own-row .acta-btn {
+  padding: 10px 24px;
+  font-size: 12px;
+}
+
 .admin-panel {
   background: var(--ice);
   border: 1px dashed rgba(11,31,61,0.25);
