@@ -310,31 +310,81 @@ async function renderConvocatoria() {
 
   const roster = await getRoster();
   const signups = await getSignups(next.season, next.round);
+  const nameById = new Map(roster.map((p) => [p.id, p.name]));
+
+  const signedIds = roster.map((p) => p.id).filter((id) => !!signups[id]?.signedUp);
+  const iAmSigned = myPlayerId ? signedIds.includes(myPlayerId) : false;
 
   const deleteBtnHtml = admin && next.isCustom
     ? `<button class="acta-btn" id="custom-delete-btn" style="margin-bottom:14px;">Borrar este amistoso</button>`
     : '';
 
+  // Lista numerada de quién va, solo informativa (sin botones)
+  const signedListHtml = signedIds.length
+    ? `<ol class="convocatoria-count-list">${signedIds
+        .map((id) => `<li>${nameById.get(id) || id}</li>`)
+        .join('')}</ol>`
+    : '<p class="acta-empty">Todavía no se ha apuntado nadie.</p>';
+
+  // Tu propio botón (el único que ve un jugador normal)
+  const myOwnButtonHtml = myPlayerId
+    ? `
+      <div class="convocatoria-own-row">
+        <button class="acta-btn ${iAmSigned ? 'acta-btn-alt' : ''} club-submit" id="my-signup-btn" data-signed="${iAmSigned}">
+          ${iAmSigned ? 'Voy ✓ (pulsa para quitarte)' : 'Apuntarme'}
+        </button>
+      </div>
+    `
+    : '';
+
+  // Panel de gestión para delegados: pueden apuntar/quitar a cualquiera
+  const adminManageHtml = admin
+    ? `
+      <div class="admin-panel">
+        <div class="admin-panel-title">Gestionar convocatoria (delegado)</div>
+        <ul class="convocatoria-list">
+          ${roster.map((p) => {
+            const signed = signedIds.includes(p.id);
+            return `
+              <li class="convocatoria-item ${signed ? 'is-signed' : ''}">
+                <span>${p.name}</span>
+                <button class="acta-btn ${signed ? 'acta-btn-alt' : ''}" data-player="${p.id}" data-signed="${signed}">
+                  ${signed ? 'Voy ✓' : 'Apuntar'}
+                </button>
+              </li>
+            `;
+          }).join('')}
+        </ul>
+      </div>
+    `
+    : '';
+
   content.innerHTML = `
-    ${adminPanelHtml}
     ${deleteBtnHtml}
-    <ul class="convocatoria-list">
-      ${roster.map((p) => {
-        const signed = !!signups[p.id]?.signedUp;
-        const canToggle = myPlayerId && (myPlayerId === p.id || admin);
-        return `
-          <li class="convocatoria-item ${signed ? 'is-signed' : ''}">
-            <span>${p.name}</span>
-            <button class="acta-btn ${signed ? 'acta-btn-alt' : ''}" data-player="${p.id}" data-signed="${signed}" ${canToggle ? '' : 'disabled title="Solo el propio jugador (con cuenta autorizada) o un delegado pueden confirmar esto"'}>
-              ${signed ? 'Voy ✓' : 'Apuntarme'}
-            </button>
-          </li>
-        `;
-      }).join('')}
-    </ul>
+    <div class="convocatoria-summary">${signedIds.length} apuntado${signedIds.length === 1 ? '' : 's'}</div>
+    ${signedListHtml}
+    ${myOwnButtonHtml}
+    ${adminManageHtml}
+    ${adminPanelHtml}
   `;
 
-  content.querySelectorAll('button[data-player]:not([disabled])').forEach((btn) => {
+  const myBtn = document.getElementById('my-signup-btn');
+  if (myBtn) {
+    myBtn.addEventListener('click', async () => {
+      const currentlySigned = myBtn.dataset.signed === 'true';
+      myBtn.disabled = true;
+      try {
+        await setSignup(next.season, next.round, myPlayerId, !currentlySigned);
+        renderConvocatoria();
+      } catch (err) {
+        console.error(err);
+        alert('No se pudo guardar, inténtalo de nuevo.');
+        myBtn.disabled = false;
+      }
+    });
+  }
+
+  content.querySelectorAll('button[data-player]').forEach((btn) => {
     btn.addEventListener('click', async () => {
       const playerId = btn.dataset.player;
       const currentlySigned = btn.dataset.signed === 'true';
