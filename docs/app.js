@@ -39,6 +39,15 @@ const ICON_CLOCK =
 const ICON_PIN =
   '<svg class="meta-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21s7-6.1 7-11.5a7 7 0 1 0-14 0C5 14.9 12 21 12 21Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.3" stroke="currentColor" stroke-width="1.8"/></svg>';
 
+const ICON_DOC =
+  '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 13h6M9 17h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+
+const ICON_VOTE =
+  '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 12.5l2 2 4.5-5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/></svg>';
+
+const ICON_STAR =
+  '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3.5l2.6 5.4 5.9.7-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.7L12 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+
 // Genera la fila de "chips" de hora y campo, reutilizada en el marcador
 // destacado, las tarjetas de resultados y el calendario.
 function renderMetaRow(time, venue, extraClass = '') {
@@ -183,13 +192,14 @@ function renderMatchCard(m, roundNumber) {
   const score = pending ? 'vs' : `${m.homeGoals} : ${m.awayGoals}`;
   const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-center');
   const actaBtn = m.codActa
-    ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">Ver acta</button></div>`
+    ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">${ICON_DOC}Ver acta</button></div>`
     : '';
-  const votarBtn = isOwnMatch && m.played
-    ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${roundNumber})">Votar</button></div>`
+  const loggedIn = !!window.CLUB_LOGGED_IN;
+  const votarBtn = isOwnMatch && m.played && loggedIn
+    ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${roundNumber})">${ICON_VOTE}Votar</button></div>`
     : '';
-  const rankingBtn = isOwnMatch && m.played
-    ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" onclick="window.openRanking && window.openRanking(${roundNumber})">Ver ranking</button></div>`
+  const rankingBtn = isOwnMatch && m.played && loggedIn
+    ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" onclick="window.openRanking && window.openRanking(${roundNumber})">${ICON_STAR}Ranking</button></div>`
     : '';
   return `
     <div class="match-card ${isOwnMatch ? 'is-own' : ''} ${pending ? 'is-pending' : ''}">
@@ -350,13 +360,14 @@ function renderCalendar(data) {
       const score = m.played ? `${m.goalsFor} - ${m.goalsAgainst}` : 'Pendiente';
       const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-compact');
       const actaBtn = m.codActa
-        ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">Ver acta</button></div>`
+        ? `<button class="acta-btn-icon" onclick="openActa('${m.codActa}')" title="Ver acta" aria-label="Ver acta">${ICON_DOC}</button>`
         : '';
-      const votarBtn = m.played
-        ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${m.round})">Votar</button></div>`
+      const loggedIn = !!window.CLUB_LOGGED_IN;
+      const votarBtn = m.played && loggedIn
+        ? `<button class="acta-btn-icon acta-btn-icon-alt" onclick="window.openVotar && window.openVotar(${m.round})" title="Votar" aria-label="Votar">${ICON_VOTE}</button>`
         : '';
-      const rankingBtn = m.played
-        ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" onclick="window.openRanking && window.openRanking(${m.round})">Ver ranking</button></div>`
+      const rankingBtn = m.played && loggedIn
+        ? `<button class="acta-btn-icon" onclick="window.openRanking && window.openRanking(${m.round})" title="Ranking" aria-label="Ranking">${ICON_STAR}</button>`
         : '';
       return `
         <div class="calendar-item ${cls}">
@@ -368,7 +379,7 @@ function renderCalendar(data) {
           <span class="calendar-score">${score}</span>
           <span class="calendar-date">${m.date || ''}</span>
           ${metaHtml}
-          <div class="acta-btn-row">${actaBtn}${votarBtn}${rankingBtn}</div>
+          <div class="acta-icon-row">${actaBtn}${votarBtn}${rankingBtn}</div>
         </div>
       `;
     })
@@ -538,6 +549,15 @@ async function init() {
     renderScorerList('own-scorers', data.ownTeamScorers, 'Todavía no hay goleadores registrados.');
     renderScorerList('top-scorers', data.topScorers, 'Todavía no hay goleadores registrados.');
     document.dispatchEvent(new CustomEvent('app-data-ready', { detail: data }));
+
+    // Gancho para que club-ui.js pueda pedir un repintado cuando cambie el
+    // estado de sesión (para mostrar/ocultar los botones de Votar/Ranking).
+    window.rerenderClubDependentUI = function rerenderClubDependentUI() {
+      const select = document.getElementById('round-select');
+      const currentRound = select && select.value ? Number(select.value) : null;
+      if (currentRound) renderRound(currentRound);
+      renderCalendar(DATA);
+    };
   } catch (err) {
     console.error(err);
     document.querySelector('main').innerHTML =
