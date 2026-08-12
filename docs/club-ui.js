@@ -917,7 +917,7 @@ async function renderConvocatoria() {
 
     const signedListInnerHtml = signedEntries.length
       ? `<ol class="convocatoria-count-list">${signedEntries
-          .map((e) => `<li class="${e.id === myPlayerId ? 'is-me' : ''}">${e.name}${e.id === myPlayerId ? ' <span class="convocatoria-me-tag">(tú)</span>' : ''}${e.updatedAt ? ` <span class="convocatoria-time">${formatSignupTime(e.updatedAt)}</span>` : ''}</li>`)
+          .map((e) => `<li data-player-id="${e.id}" class="${e.id === myPlayerId ? 'is-me' : ''}">${e.name}${e.id === myPlayerId ? ' <span class="convocatoria-me-tag">(tú)</span>' : ''}${e.updatedAt ? ` <span class="convocatoria-time">${formatSignupTime(e.updatedAt)}</span>` : ''}</li>`)
           .join('')}</ol>`
       : '<p class="acta-empty">Todavía no se ha apuntado nadie.</p>';
 
@@ -965,7 +965,7 @@ async function renderConvocatoria() {
       : '';
 
     return `
-      <div class="convocatoria-match-block">
+      <div class="convocatoria-match-block" data-match-key="${key}">
         <h3 class="convocatoria-match-title">${titleLabel} · vs ${match.opponent}</h3>
         <p class="convocatoria-match-date">${match.date || ''}${match.time ? ' · ' + match.time : ''}${match.venue ? ' · ' + match.venue : ''}</p>
         <div style="display:flex; gap:8px; margin-bottom:14px;">${editBtnHtml}${deleteBtnHtml}</div>
@@ -1002,18 +1002,77 @@ async function renderConvocatoria() {
   // Índice rápido: de la "clave" (season__round) a los datos del partido
   const matchByKey = new Map(allUpcoming.map((m) => [`${m.season}__${m.round}`, m]));
 
+  // Actualiza al instante el bloque de un partido (contador, lista de
+  // apuntados, botón de gestión y botón propio) sin esperar a Firestore ni
+  // recargar toda la Convocatoria — así apuntar a gente no se siente lento.
+  function applyOptimisticSignup(key, playerId, playerName, nowSigned) {
+    const block = content.querySelector(`.convocatoria-match-block[data-match-key="${CSS.escape(key)}"]`);
+    if (!block) return;
+
+    // Botón de gestión (delegado)
+    const manageBtn = block.querySelector(`button[data-player="${CSS.escape(playerId)}"][data-match="${CSS.escape(key)}"]`);
+    if (manageBtn) {
+      manageBtn.dataset.signed = String(nowSigned);
+      manageBtn.textContent = nowSigned ? 'Voy ✓' : 'Apuntar';
+      manageBtn.classList.toggle('acta-btn-alt', nowSigned);
+      manageBtn.closest('li')?.classList.toggle('is-signed', nowSigned);
+    }
+
+    // Botón propio (si el jugador tocado eres tú)
+    const ownBtn = block.querySelector(`button[data-my-signup="${CSS.escape(key)}"]`);
+    if (ownBtn && playerId === myPlayerId) {
+      ownBtn.dataset.signed = String(nowSigned);
+      ownBtn.textContent = nowSigned ? 'Voy ✓ (pulsa para quitarte)' : 'Apuntarme';
+      ownBtn.classList.toggle('acta-btn-alt', nowSigned);
+    }
+
+    // Aviso de "no apuntado"
+    const warning = block.querySelector('.convocatoria-warning');
+    if (warning && playerId === myPlayerId) warning.style.display = nowSigned ? 'none' : '';
+
+    // Contador + lista numerada
+    let list = block.querySelector('.convocatoria-count-list');
+    const summary = block.querySelector('.convocatoria-summary-toggle');
+
+    // Si es la primera persona en apuntarse, todavía no existe el <ol> (solo
+    // el mensaje de "nadie apuntado") — lo creamos sobre la marcha.
+    if (nowSigned && !list) {
+      const emptyMsg = block.querySelector('.attendee-panel .acta-empty');
+      list = document.createElement('ol');
+      list.className = 'convocatoria-count-list';
+      if (emptyMsg) emptyMsg.replaceWith(list);
+    }
+
+    const existingLi = list?.querySelector(`li[data-player-id="${CSS.escape(playerId)}"]`);
+
+    if (nowSigned && list && !existingLi) {
+      const li = document.createElement('li');
+      li.dataset.playerId = playerId;
+      if (playerId === myPlayerId) li.className = 'is-me';
+      li.innerHTML = `${playerName}${playerId === myPlayerId ? ' <span class="convocatoria-me-tag">(tú)</span>' : ''} <span class="convocatoria-time">${formatSignupTime(Date.now())}</span>`;
+      list.appendChild(li);
+    } else if (!nowSigned && existingLi) {
+      existingLi.remove();
+    }
+
+    if (summary) {
+      const count = list ? list.children.length : 0;
+      summary.textContent = `${count} apuntado${count === 1 ? '' : 's'}`;
+    }
+  }
+
   content.querySelectorAll('button[data-my-signup]').forEach((btn) => {
     btn.addEventListener('click', async () => {
       const match = matchByKey.get(btn.dataset.mySignup);
       const currentlySigned = btn.dataset.signed === 'true';
-      btn.disabled = true;
+      const nowSigned = !currentlySigned;
+      applyOptimisticSignup(btn.dataset.mySignup, myPlayerId, await playerNameById(myPlayerId), nowSigned);
       try {
-        await setSignup(match.season, match.round, myPlayerId, !currentlySigned);
-        renderConvocatoria();
+        await setSignup(match.season, match.round, myPlayerId, nowSigned);
       } catch (err) {
         console.error(err);
+        applyOptimisticSignup(btn.dataset.mySignup, myPlayerId, await playerNameById(myPlayerId), currentlySigned); // revertir
         alert('No se pudo guardar, inténtalo de nuevo.');
-        btn.disabled = false;
       }
     });
   });
@@ -1023,14 +1082,15 @@ async function renderConvocatoria() {
       const match = matchByKey.get(btn.dataset.match);
       const playerId = btn.dataset.player;
       const currentlySigned = btn.dataset.signed === 'true';
-      btn.disabled = true;
+      const nowSigned = !currentlySigned;
+      const playerName = await playerNameById(playerId);
+      applyOptimisticSignup(btn.dataset.match, playerId, playerName, nowSigned);
       try {
-        await setSignup(match.season, match.round, playerId, !currentlySigned);
-        renderConvocatoria();
+        await setSignup(match.season, match.round, playerId, nowSigned);
       } catch (err) {
         console.error(err);
+        applyOptimisticSignup(btn.dataset.match, playerId, playerName, currentlySigned); // revertir
         alert(err.message === 'No autorizado' ? 'Solo el propio jugador o un delegado pueden confirmar esto.' : 'No se pudo guardar, inténtalo de nuevo.');
-        btn.disabled = false;
       }
     });
   });
