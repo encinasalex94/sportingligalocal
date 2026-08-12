@@ -238,7 +238,8 @@ export async function addCustomMatch({ opponent, date, time, isHome }) {
     hh = parts[0] || 0;
     mm = parts[1] || 0;
   }
-  const timestamp = new Date(y, mo - 1, d, hh, mm).getTime();
+  const kickoffDate = new Date(y, mo - 1, d, hh, mm);
+  const timestamp = kickoffDate.getTime();
 
   const season = 'pretemporada';
   const round = `PT-${timestamp}`;
@@ -247,8 +248,24 @@ export async function addCustomMatch({ opponent, date, time, isHome }) {
   await setDoc(doc(db, 'customMatches', id), {
     season, round, opponent, date, time: time || null, isHome: !!isHome,
     timestamp, createdBy: myPlayerId, createdAt: Date.now(),
+    played: false, homeGoals: null, awayGoals: null,
   });
+
+  // Necesario para poder votar en este partido más adelante (la regla de
+  // Firestore compara la hora real del partido para cerrar la votación
+  // pasadas 24h, igual que con los partidos de Liga).
+  await setDoc(doc(db, 'matchMeta', id), { round, date, time: time || null, kickoffAt: kickoffDate });
+
   return { season, round };
+}
+
+export async function setCustomMatchResult(season, round, homeGoals, awayGoals) {
+  const admin = await getMyAdminStatus();
+  if (!admin) throw new Error('Solo un delegado puede rellenar el resultado');
+  const id = matchIdFor(season, round);
+  await setDoc(doc(db, 'customMatches', id), {
+    played: true, homeGoals: Number(homeGoals), awayGoals: Number(awayGoals),
+  }, { merge: true });
 }
 
 export async function deleteCustomMatch(season, round) {
