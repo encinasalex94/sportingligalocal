@@ -74,8 +74,11 @@ function customMatchCardHtml(m, isAdmin) {
     cls = '';
   }
 
-  const addResultBtn = isAdmin && timePassed && !hasResult
-    ? `<button class="acta-btn-icon" data-add-result="${key}" title="Añadir resultado" aria-label="Añadir resultado">${ICON_DOC}</button>`
+  const addResultBtn = isAdmin && timePassed
+    ? `<button class="acta-btn-icon" data-add-result="${key}" title="${hasResult ? 'Editar resultado' : 'Añadir resultado'}" aria-label="Resultado">${ICON_DOC}</button>`
+    : '';
+  const detailBtn = hasResult && !isAdmin
+    ? `<button class="acta-btn-icon" data-detail-custom="${key}" title="Ver ficha" aria-label="Ver ficha">${ICON_DOC}</button>`
     : '';
   const votarBtn = hasResult
     ? `<button class="acta-btn-icon acta-btn-icon-alt" data-votar-custom="${key}" title="Votar" aria-label="Votar">${ICON_VOTE}</button>`
@@ -83,8 +86,8 @@ function customMatchCardHtml(m, isAdmin) {
   const rankingBtn = hasResult
     ? `<button class="acta-btn-icon" data-ranking-custom="${key}" title="Ranking" aria-label="Ranking">${ICON_STAR}</button>`
     : '';
-  const iconRow = (addResultBtn || votarBtn || rankingBtn)
-    ? `<div class="acta-icon-row">${addResultBtn}${votarBtn}${rankingBtn}</div>`
+  const iconRow = (addResultBtn || detailBtn || votarBtn || rankingBtn)
+    ? `<div class="acta-icon-row">${addResultBtn}${detailBtn}${votarBtn}${rankingBtn}</div>`
     : '';
 
   return `
@@ -101,15 +104,18 @@ function customMatchCardHtml(m, isAdmin) {
   `;
 }
 
+let customMatchesRenderToken = 0;
+
 async function renderCustomMatchesInCalendar() {
+  const token = ++customMatchesRenderToken; // esta llamada es la "más nueva" hasta que otra la sustituya
   const list = document.getElementById('calendar-list');
   if (!list) return;
 
-  // Quitamos cualquier tarjeta de amistoso pintada antes (por si se repinta)
-  list.querySelectorAll('.calendar-item.amistoso').forEach((el) => el.remove());
-
   const viewingPretemporada = window.CURRENT_COMPETITION_TYPE === 'pretemporada';
-  if (!viewingPretemporada) return; // el Tipo elegido es Liga o Copa, no toca
+  if (!viewingPretemporada) {
+    list.querySelectorAll('.calendar-item.amistoso').forEach((el) => el.remove());
+    return; // el Tipo elegido es Liga o Copa, no toca
+  }
 
   // El calendario de partidos (rivales, fechas) siempre ha sido público —
   // igual que el de la Liga. Lo que sí pide sesión es la Convocatoria
@@ -117,9 +123,19 @@ async function renderCustomMatchesInCalendar() {
 
   try {
     const customMatches = await getAllCustomMatches();
+
+    // Si mientras esperábamos esta respuesta se lanzó OTRA llamada más
+    // reciente a esta misma función, la descartamos — es la causa de que
+    // antes se duplicaran las tarjetas (dos llamadas casi a la vez, cada
+    // una borrando e insertando por su cuenta sin saber de la otra).
+    if (token !== customMatchesRenderToken) return;
+
+    list.querySelectorAll('.calendar-item.amistoso').forEach((el) => el.remove());
+
     const summaryEl = document.getElementById('calendar-summary');
     if (!customMatches.length) {
       if (summaryEl) summaryEl.textContent = 'Amistosos de pretemporada · ninguno programado todavía';
+      populateCustomRoundSelector([]);
       return;
     }
     if (summaryEl) {
@@ -127,6 +143,8 @@ async function renderCustomMatchesInCalendar() {
     }
 
     const isAdmin = currentUser() ? await getMyAdminStatus() : false;
+    if (token !== customMatchesRenderToken) return;
+
     const html = customMatches.map((m) => customMatchCardHtml(m, isAdmin)).join('');
     list.insertAdjacentHTML('beforeend', html);
 
@@ -135,6 +153,11 @@ async function renderCustomMatchesInCalendar() {
     list.querySelectorAll('button[data-add-result]').forEach((btn) => {
       btn.addEventListener('click', () => {
         openAddResultModal(matchByKey.get(btn.dataset.addResult));
+      });
+    });
+    list.querySelectorAll('button[data-detail-custom]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        openCustomMatchDetail(matchByKey.get(btn.dataset.detailCustom));
       });
     });
     list.querySelectorAll('button[data-votar-custom]').forEach((btn) => {
@@ -147,34 +170,116 @@ async function renderCustomMatchesInCalendar() {
         window.openRankingCustom(matchByKey.get(btn.dataset.rankingCustom));
       });
     });
+
+    populateCustomRoundSelector(customMatches);
+    updateHeroForCustomMatches(customMatches);
   } catch (err) {
     console.error('Error cargando amistosos:', err);
   }
 }
 
-function openAddResultModal(match) {
+async function openAddResultModal(match) {
   if (!match) return;
+  const roster = await getRoster();
+  const playerOptionsHtml = (selectedId) => `
+    <option value="">-- jugador --</option>
+    ${roster.map((p) => `<option value="${p.id}" ${p.id === selectedId ? 'selected' : ''}>${p.name}</option>`).join('')}
+  `;
+
+  const existingGoals = match.goals || [];
+  const existingCards = match.cards || [];
+
   openClubModal(`
     <h3 class="club-modal-title">Resultado del amistoso</h3>
     <p class="club-modal-sub">vs ${match.opponent} · ${match.date || ''}${match.time ? ' · ' + match.time : ''}</p>
     <div class="admin-panel-row" style="justify-content:center;">
       <span style="font-weight:600;">${match.isHome ? 'Nosotros' : match.opponent}</span>
-      <input type="number" min="0" id="result-home" class="club-select" style="width:70px;text-align:center;" placeholder="0" />
+      <input type="number" min="0" id="result-home" class="club-select" style="width:70px;text-align:center;" value="${match.homeGoals ?? ''}" placeholder="0" />
       <span>-</span>
-      <input type="number" min="0" id="result-away" class="club-select" style="width:70px;text-align:center;" placeholder="0" />
+      <input type="number" min="0" id="result-away" class="club-select" style="width:70px;text-align:center;" value="${match.awayGoals ?? ''}" placeholder="0" />
       <span style="font-weight:600;">${match.isHome ? match.opponent : 'Nosotros'}</span>
     </div>
+
+    <div class="admin-panel-title" style="margin-top:18px;">Goles (nuestros)</div>
+    <div id="goals-rows"></div>
+    <button class="acta-btn" id="add-goal-row" type="button">+ Añadir gol</button>
+
+    <div class="admin-panel-title" style="margin-top:18px;">Tarjetas</div>
+    <div id="cards-rows"></div>
+    <button class="acta-btn" id="add-card-row" type="button">+ Añadir tarjeta</button>
+
     <div id="result-error" class="club-error"></div>
     <button class="acta-btn acta-btn-alt club-submit" id="result-submit">Guardar resultado</button>
   `);
+
+  const goalsContainer = document.getElementById('goals-rows');
+  const cardsContainer = document.getElementById('cards-rows');
+
+  function addGoalRow(g) {
+    const row = document.createElement('div');
+    row.className = 'admin-panel-row goal-row';
+    row.innerHTML = `
+      <select class="club-select goal-scorer">${playerOptionsHtml(g?.scorerId)}</select>
+      <span style="font-size:11px;color:var(--slate);">asist.</span>
+      <select class="club-select goal-assist">${playerOptionsHtml(g?.assistId)}</select>
+      <input type="number" min="0" class="club-select goal-minute" placeholder="min" style="width:60px;" value="${g?.minute ?? ''}" />
+      <button class="acta-btn" type="button" data-remove-row>✕</button>
+    `;
+    row.querySelector('[data-remove-row]').addEventListener('click', () => row.remove());
+    goalsContainer.appendChild(row);
+  }
+
+  function addCardRow(c) {
+    const row = document.createElement('div');
+    row.className = 'admin-panel-row card-row';
+    row.innerHTML = `
+      <select class="club-select card-player">${playerOptionsHtml(c?.playerId)}</select>
+      <select class="club-select card-type">
+        <option value="amarilla" ${c?.type === 'amarilla' ? 'selected' : ''}>Amarilla</option>
+        <option value="roja" ${c?.type === 'roja' ? 'selected' : ''}>Roja</option>
+      </select>
+      <input type="number" min="0" class="club-select card-minute" placeholder="min" style="width:60px;" value="${c?.minute ?? ''}" />
+      <button class="acta-btn" type="button" data-remove-row>✕</button>
+    `;
+    row.querySelector('[data-remove-row]').addEventListener('click', () => row.remove());
+    cardsContainer.appendChild(row);
+  }
+
+  existingGoals.forEach(addGoalRow);
+  existingCards.forEach(addCardRow);
+
+  document.getElementById('add-goal-row').addEventListener('click', () => addGoalRow());
+  document.getElementById('add-card-row').addEventListener('click', () => addCardRow());
 
   document.getElementById('result-submit').addEventListener('click', async () => {
     const homeInput = document.getElementById('result-home').value;
     const awayInput = document.getElementById('result-away').value;
     const errorEl = document.getElementById('result-error');
     if (homeInput === '' || awayInput === '') { errorEl.textContent = 'Rellena los dos marcadores.'; return; }
+
+    const byId = new Map(roster.map((p) => [p.id, p.name]));
+    const goals = Array.from(goalsContainer.querySelectorAll('.goal-row')).map((row) => {
+      const scorerId = row.querySelector('.goal-scorer').value;
+      const assistId = row.querySelector('.goal-assist').value;
+      const minute = row.querySelector('.goal-minute').value;
+      if (!scorerId) return null;
+      return {
+        scorerId, scorerName: byId.get(scorerId) || scorerId,
+        assistId: assistId || null, assistName: assistId ? (byId.get(assistId) || assistId) : null,
+        minute: minute ? Number(minute) : null,
+      };
+    }).filter(Boolean);
+
+    const cards = Array.from(cardsContainer.querySelectorAll('.card-row')).map((row) => {
+      const playerId = row.querySelector('.card-player').value;
+      const type = row.querySelector('.card-type').value;
+      const minute = row.querySelector('.card-minute').value;
+      if (!playerId) return null;
+      return { playerId, playerName: byId.get(playerId) || playerId, type, minute: minute ? Number(minute) : null };
+    }).filter(Boolean);
+
     try {
-      await setCustomMatchResult(match.season, match.round, homeInput, awayInput);
+      await setCustomMatchResult(match.season, match.round, homeInput, awayInput, goals, cards);
       closeClubModal();
       renderCustomMatchesInCalendar();
     } catch (err) {
@@ -184,11 +289,127 @@ function openAddResultModal(match) {
   });
 }
 
+function openCustomMatchDetail(match) {
+  if (!match) return;
+  const goalsHtml = (match.goals || []).length
+    ? `<ul class="acta-goals-list">${match.goals.map((g) => `
+        <li>
+          <span class="acta-goal-minute">${g.minute != null ? `${g.minute}'` : ''}</span>
+          <span>${g.scorerName}${g.assistName ? ` <span style="color:var(--slate-light);">(asist. ${g.assistName})</span>` : ''}</span>
+        </li>`).join('')}</ul>`
+    : '<p class="acta-empty">Sin goles registrados.</p>';
+
+  const cardsHtml = (match.cards || []).length
+    ? `<ul class="acta-goals-list">${match.cards.map((c) => `
+        <li>
+          <span class="acta-card-dot ${c.type === 'roja' ? 'red' : 'yellow'}"></span>
+          <span class="acta-goal-minute">${c.minute != null ? `${c.minute}'` : ''}</span>
+          <span>${c.playerName}</span>
+        </li>`).join('')}</ul>`
+    : '';
+
+  openClubModal(`
+    <h3 class="club-modal-title">vs ${match.opponent}</h3>
+    <p class="club-modal-sub">${match.date || ''}${match.time ? ' · ' + match.time : ''} · ${match.isHome ? match.homeGoals : match.awayGoals} - ${match.isHome ? match.awayGoals : match.homeGoals}</p>
+    <div class="acta-section-title">Goles</div>
+    ${goalsHtml}
+    ${cardsHtml ? `<div class="acta-section-title">Tarjetas</div>${cardsHtml}` : ''}
+  `);
+}
+
 // Cuando cambia el selector de Tipo (en app.js), repintamos los amistosos.
 window.onCompetitionViewChanged = function onCompetitionViewChanged() {
   renderCustomMatchesInCalendar();
   applySectionVisibility();
 };
+
+// ---- "Ver jornada" en Pretemporada: lista los amistosos en orden ---------
+function populateCustomRoundSelector(customMatches) {
+  if (window.CURRENT_COMPETITION_TYPE !== 'pretemporada') return;
+  const select = document.getElementById('round-select');
+  if (!select) return;
+
+  if (!customMatches.length) {
+    select.innerHTML = '<option>—</option>';
+    return;
+  }
+
+  select.innerHTML = customMatches
+    .map((m, i) => `<option value="${m.season}__${m.round}">${i + 1}. vs ${m.opponent}${m.date ? ' (' + m.date + ')' : ''}</option>`)
+    .join('');
+
+  select.onchange = () => {
+    const key = select.value;
+    const card = document.querySelector(`.calendar-item[data-match-key="${CSS.escape(key)}"]`);
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.add('flash-highlight');
+      setTimeout(() => card.classList.remove('flash-highlight'), 1600);
+    }
+  };
+}
+
+// ---- Marcador destacado en Pretemporada: último amistoso jugado, o si no
+// hay ninguno, el próximo programado ---------------------------------------
+function updateHeroForCustomMatches(customMatches) {
+  if (window.CURRENT_COMPETITION_TYPE !== 'pretemporada') return;
+
+  const heroSection = document.getElementById('scoreboard-hero-section');
+  const scoreboardEl = document.getElementById('hero-scoreboard');
+  const badgeEl = document.getElementById('hero-result-badge');
+  const metaEl = document.getElementById('hero-meta');
+  const labelEl = document.getElementById('round-label');
+  if (!heroSection || !scoreboardEl) return;
+
+  const now = Date.now();
+  const played = customMatches.filter((m) => m.played && m.homeGoals != null && m.awayGoals != null);
+  const upcoming = customMatches.filter((m) => m.timestamp > now);
+
+  let match = null;
+  let isPlayedView = false;
+  if (played.length) {
+    match = played[played.length - 1]; // vienen ordenados por fecha ascendente
+    isPlayedView = true;
+  } else if (upcoming.length) {
+    match = upcoming[0];
+    isPlayedView = false;
+  }
+
+  if (!match) {
+    heroSection.style.display = 'none';
+    return;
+  }
+  heroSection.style.display = '';
+
+  const homeName = match.isHome ? OWN_TEAM_NAME : match.opponent;
+  const awayName = match.isHome ? match.opponent : OWN_TEAM_NAME;
+
+  if (labelEl) labelEl.textContent = isPlayedView ? 'Último amistoso' : 'Próximo amistoso';
+
+  if (isPlayedView) {
+    const ourGoals = match.isHome ? match.homeGoals : match.awayGoals;
+    const theirGoals = match.isHome ? match.awayGoals : match.homeGoals;
+    const result = ourGoals === theirGoals ? 'EMPATE' : ourGoals > theirGoals ? 'VICTORIA' : 'DERROTA';
+    scoreboardEl.innerHTML = `
+      <div class="sb-team ${match.isHome ? 'is-own' : ''}"><span class="sb-team-name">${shortName(homeName)}</span></div>
+      <div class="sb-score"><span>${match.homeGoals}</span><span class="dash">:</span><span>${match.awayGoals}</span></div>
+      <div class="sb-team ${!match.isHome ? 'is-own' : ''}"><span class="sb-team-name">${shortName(awayName)}</span></div>
+    `;
+    if (badgeEl) badgeEl.innerHTML = `<span class="sb-badge">${result}</span>`;
+  } else {
+    scoreboardEl.innerHTML = `
+      <div class="sb-team ${match.isHome ? 'is-own' : ''}"><span class="sb-team-name">${shortName(homeName)}</span></div>
+      <div class="sb-score"><span>-</span><span class="dash">:</span><span>-</span></div>
+      <div class="sb-team ${!match.isHome ? 'is-own' : ''}"><span class="sb-team-name">${shortName(awayName)}</span></div>
+    `;
+    if (badgeEl) badgeEl.innerHTML = `<span class="sb-badge">PRÓXIMO PARTIDO</span>`;
+  }
+
+  const metaBits = [];
+  if (match.date) metaBits.push(`<span class="meta-chip">${match.date}</span>`);
+  if (match.time) metaBits.push(`<span class="meta-chip">${match.time}</span>`);
+  if (metaEl) metaEl.innerHTML = metaBits.length ? `<div class="meta-row meta-row-center">${metaBits.join('')}</div>` : '';
+}
 
 async function renderScorers() {
   const ownEl = document.getElementById('own-scorers');
