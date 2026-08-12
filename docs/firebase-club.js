@@ -226,7 +226,7 @@ export async function getUpcomingCustomMatches() {
 // los amistosos ya jugados como los que quedan por jugar.
 export const getAllCustomMatches = getUpcomingCustomMatches;
 
-export async function addCustomMatch({ opponent, date, time, isHome }) {
+export async function addCustomMatch({ opponent, date, time, venue, isHome }) {
   const myPlayerId = await getMyPlayerId();
   const admin = await getMyAdminStatus();
   if (!admin) throw new Error('Solo un delegado puede añadir partidos');
@@ -246,7 +246,7 @@ export async function addCustomMatch({ opponent, date, time, isHome }) {
   const id = matchIdFor(season, round);
 
   await setDoc(doc(db, 'customMatches', id), {
-    season, round, opponent, date, time: time || null, isHome: !!isHome,
+    season, round, opponent, date, time: time || null, venue: venue || null, isHome: !!isHome,
     timestamp, createdBy: myPlayerId, createdAt: Date.now(),
     played: false, homeGoals: null, awayGoals: null,
   });
@@ -257,6 +257,30 @@ export async function addCustomMatch({ opponent, date, time, isHome }) {
   await setDoc(doc(db, 'matchMeta', id), { round, date, time: time || null, kickoffAt: kickoffDate });
 
   return { season, round };
+}
+
+export async function updateCustomMatch(season, round, { opponent, date, time, venue, isHome }) {
+  const admin = await getMyAdminStatus();
+  if (!admin) throw new Error('Solo un delegado puede editar partidos');
+
+  const id = matchIdFor(season, round);
+  const [d, mo, y] = date.split('-').map(Number);
+  let hh = 0, mm = 0;
+  if (time) {
+    const parts = time.split(':').map(Number);
+    hh = parts[0] || 0;
+    mm = parts[1] || 0;
+  }
+  const kickoffDate = new Date(y, mo - 1, d, hh, mm);
+
+  await setDoc(doc(db, 'customMatches', id), {
+    opponent, date, time: time || null, venue: venue || null, isHome: !!isHome,
+    timestamp: kickoffDate.getTime(),
+  }, { merge: true });
+
+  // La hora del partido puede haber cambiado — actualizamos también
+  // matchMeta, de donde sale el límite de 24h para votar.
+  await setDoc(doc(db, 'matchMeta', id), { round, date, time: time || null, kickoffAt: kickoffDate }, { merge: true });
 }
 
 export async function setCustomMatchResult(season, round, homeGoals, awayGoals, goals = [], cards = []) {
