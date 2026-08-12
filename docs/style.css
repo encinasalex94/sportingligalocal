@@ -584,6 +584,19 @@ table.standings tbody tr.own-row td.cell-team::before {
 }
 
 /* ---------------------------- SECTION HEADER + ROUND SELECT ---------------------------- */
+.selector-bar {
+  padding: 18px 0;
+  background: var(--ice);
+}
+
+.selector-bar .selectors-group {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 .section-header-row {
   display: flex;
   align-items: flex-end;
@@ -894,6 +907,10 @@ button:focus-visible {
   .selectors-group {
     width: 100%;
     align-items: stretch;
+  }
+
+  .selector-bar .selectors-group {
+    flex-direction: column;
   }
 
   .round-select-wrap {
