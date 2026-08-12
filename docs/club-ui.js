@@ -179,31 +179,25 @@ async function renderCustomMatchesInCalendar() {
   }
 }
 
-function dateToInputValue(dateStr) {
-  if (!dateStr) return '';
-  const [d, mo, y] = dateStr.split('-');
-  return `${y}-${mo}-${d}`; // formato YYYY-MM-DD que espera <input type="date">
-}
-
 function openEditMatchModal(match) {
   if (!match) return;
   openClubModal(`
     <h3 class="club-modal-title">Editar amistoso</h3>
     <p class="club-modal-sub">Cambia lo que haga falta y guarda.</p>
     <div class="field-group">
-      <label class="field-label">⚽ Rival</label>
+      <label class="field-label">Rival</label>
       <input type="text" id="edit-opponent" class="club-select" value="${match.opponent || ''}" />
     </div>
     <div class="field-group">
-      <label class="field-label">📅 Fecha</label>
-      <input type="date" id="edit-date" class="club-select" value="${dateToInputValue(match.date)}" />
+      <label class="field-label">Fecha (DD-MM-AAAA)</label>
+      <input type="text" id="edit-date" class="club-select" inputmode="numeric" placeholder="ej. 20-08-2026" value="${match.date || ''}" />
     </div>
     <div class="field-group">
-      <label class="field-label">🕐 Hora</label>
-      <input type="time" id="edit-time" class="club-select" value="${match.time || ''}" />
+      <label class="field-label">Hora (HH:MM)</label>
+      <input type="text" id="edit-time" class="club-select" inputmode="numeric" placeholder="ej. 19:00" value="${match.time || ''}" />
     </div>
     <div class="field-group">
-      <label class="field-label">📍 Campo</label>
+      <label class="field-label">Campo</label>
       <input type="text" id="edit-venue" class="club-select" value="${match.venue || ''}" />
     </div>
     <label style="display:flex; align-items:center; gap:8px; font-size:13px; margin-top:6px;">
@@ -216,17 +210,15 @@ function openEditMatchModal(match) {
 
   document.getElementById('edit-submit').addEventListener('click', async () => {
     const opponent = document.getElementById('edit-opponent').value.trim();
-    const dateInput = document.getElementById('edit-date').value;
-    const time = document.getElementById('edit-time').value;
+    const date = document.getElementById('edit-date').value.trim();
+    const time = document.getElementById('edit-time').value.trim();
     const venue = document.getElementById('edit-venue').value.trim();
     const isHome = document.getElementById('edit-ishome').checked;
     const errorEl = document.getElementById('edit-error');
 
     if (!opponent) { errorEl.textContent = 'Escribe el nombre del rival.'; return; }
-    if (!dateInput) { errorEl.textContent = 'Elige una fecha.'; return; }
-
-    const [y, mo, d] = dateInput.split('-');
-    const date = `${d}-${mo}-${y}`;
+    if (!/^\d{2}-\d{2}-\d{4}$/.test(date)) { errorEl.textContent = 'La fecha debe tener el formato DD-MM-AAAA.'; return; }
+    if (time && !/^\d{1,2}:\d{2}$/.test(time)) { errorEl.textContent = 'La hora debe tener el formato HH:MM.'; return; }
 
     try {
       await updateCustomMatch(match.season, match.round, { opponent, date, time, venue, isHome });
@@ -329,11 +321,11 @@ async function openAddResultModal(match) {
     openClubModal(`
       <h3 class="club-modal-title">Gol de ${byId.get(scorerId)}</h3>
       <div class="field-group">
-        <label class="field-label">🕐 Minuto (opcional)</label>
+        <label class="field-label">Minuto (opcional)</label>
         <input type="number" min="0" id="mini-goal-minute" class="club-select" placeholder="ej. 35" />
       </div>
       <div class="field-group">
-        <label class="field-label">🎯 Asistencia (opcional)</label>
+        <label class="field-label">Asistencia (opcional)</label>
         <select id="mini-goal-assist" class="club-select">
           <option value="">-- sin asistencia --</option>
           ${assistOptions.map((p) => `<option value="${p.id}">${p.name}</option>`).join('')}
@@ -1128,19 +1120,19 @@ function openAddMatchModal() {
   openClubModal(`
     <h3 class="club-modal-title">Añadir partido de pretemporada</h3>
     <div class="field-group">
-      <label class="field-label">⚽ Rival</label>
+      <label class="field-label">Rival</label>
       <input type="text" id="custom-opponent" placeholder="Nombre del rival" class="club-select" />
     </div>
     <div class="field-group">
-      <label class="field-label">📅 Fecha</label>
-      <input type="date" id="custom-date" class="club-select" />
+      <label class="field-label">Fecha (DD-MM-AAAA)</label>
+      <input type="text" id="custom-date" class="club-select" inputmode="numeric" placeholder="ej. 20-08-2026" />
     </div>
     <div class="field-group">
-      <label class="field-label">🕐 Hora</label>
-      <input type="time" id="custom-time" class="club-select" />
+      <label class="field-label">Hora (HH:MM)</label>
+      <input type="text" id="custom-time" class="club-select" inputmode="numeric" placeholder="ej. 19:00" />
     </div>
     <div class="field-group">
-      <label class="field-label">📍 Campo</label>
+      <label class="field-label">Campo</label>
       <input type="text" id="custom-venue" placeholder="Nombre del campo" class="club-select" />
     </div>
     <label style="display:flex; align-items:center; gap:8px; font-size:13px; margin-top:6px;">
@@ -1153,18 +1145,16 @@ function openAddMatchModal() {
 
   document.getElementById('custom-add-btn').addEventListener('click', async () => {
     const opponent = document.getElementById('custom-opponent').value.trim();
-    const dateInput = document.getElementById('custom-date').value; // YYYY-MM-DD
-    const time = document.getElementById('custom-time').value; // HH:MM
+    const date = document.getElementById('custom-date').value.trim();
+    const time = document.getElementById('custom-time').value.trim();
     const venue = document.getElementById('custom-venue').value.trim();
     const isHome = document.getElementById('custom-ishome').checked;
     const errorEl = document.getElementById('custom-add-error');
     const addBtn = document.getElementById('custom-add-btn');
 
     if (!opponent) { errorEl.textContent = 'Escribe el nombre del rival.'; return; }
-    if (!dateInput) { errorEl.textContent = 'Elige una fecha.'; return; }
-
-    const [y, mo, d] = dateInput.split('-');
-    const date = `${d}-${mo}-${y}`; // formato DD-MM-YYYY, igual que el resto de la web
+    if (!/^\d{2}-\d{2}-\d{4}$/.test(date)) { errorEl.textContent = 'La fecha debe tener el formato DD-MM-AAAA.'; return; }
+    if (time && !/^\d{1,2}:\d{2}$/.test(time)) { errorEl.textContent = 'La hora debe tener el formato HH:MM.'; return; }
 
     addBtn.disabled = true;
     try {
