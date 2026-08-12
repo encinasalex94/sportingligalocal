@@ -31,7 +31,7 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   margin: 0;
@@ -39,6 +39,8 @@ body {
   color: var(--navy);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 .wrap {
@@ -616,6 +618,7 @@ table.standings tbody tr.own-row td.cell-team::before {
   flex-direction: column;
   gap: 8px;
   align-items: flex-end;
+  min-width: 0;
 }
 
 .round-select-wrap {
@@ -627,6 +630,8 @@ table.standings tbody tr.own-row td.cell-team::before {
   color: var(--slate);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .round-select-wrap select {
@@ -639,6 +644,11 @@ table.standings tbody tr.own-row td.cell-team::before {
   border-radius: 8px;
   padding: 8px 12px;
   cursor: pointer;
+  min-width: 0;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .round-select-wrap select:focus-visible {
@@ -1552,10 +1562,12 @@ details.admin-panel[open] summary.admin-panel-title {
 .field-group-row {
   display: flex;
   gap: 10px;
+  min-width: 0;
 }
 
 .field-group-row .field-group {
   flex: 1;
+  min-width: 0;
 }
 
 .field-label {
@@ -1571,6 +1583,8 @@ details.admin-panel[open] summary.admin-panel-title {
 .field-group .club-select,
 .field-group-row .club-select {
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .admin-panel {
@@ -1629,6 +1643,7 @@ details.admin-panel[open] summary.admin-panel-title {
   font-family: var(--font-body);
   font-size: 14px;
   background: var(--white);
+  box-sizing: border-box;
 }
 
 .club-pin-input {
