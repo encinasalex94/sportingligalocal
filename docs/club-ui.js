@@ -56,7 +56,7 @@ const ICON_VOTE =
 const ICON_STAR =
   '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3.5l2.6 5.4 5.9.7-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.7L12 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>';
 
-function customMatchCardHtml(m, isAdmin) {
+function customMatchCardHtml(m, isAdmin, loggedIn) {
   const now = Date.now();
   const timePassed = m.timestamp < now;
   const hasResult = m.played && m.homeGoals != null && m.awayGoals != null;
@@ -71,19 +71,19 @@ function customMatchCardHtml(m, isAdmin) {
     cls = ourGoals > theirGoals ? 'win' : ourGoals < theirGoals ? 'loss' : 'draw';
   } else if (timePassed) {
     scoreHtml = 'Sin resultado';
-    cls = '';
+    cls = 'sin-resultado';
   }
 
   const addResultBtn = isAdmin && timePassed
     ? `<button class="acta-btn-icon" data-add-result="${key}" title="${hasResult ? 'Editar resultado' : 'Añadir resultado'}" aria-label="Resultado">${ICON_DOC}</button>`
     : '';
-  const detailBtn = hasResult && !isAdmin
+  const detailBtn = hasResult && loggedIn && !isAdmin
     ? `<button class="acta-btn-icon" data-detail-custom="${key}" title="Ver ficha" aria-label="Ver ficha">${ICON_DOC}</button>`
     : '';
-  const votarBtn = hasResult
+  const votarBtn = hasResult && loggedIn
     ? `<button class="acta-btn-icon acta-btn-icon-alt" data-votar-custom="${key}" title="Votar" aria-label="Votar">${ICON_VOTE}</button>`
     : '';
-  const rankingBtn = hasResult
+  const rankingBtn = hasResult && loggedIn
     ? `<button class="acta-btn-icon" data-ranking-custom="${key}" title="Ranking" aria-label="Ranking">${ICON_STAR}</button>`
     : '';
   const iconRow = (addResultBtn || detailBtn || votarBtn || rankingBtn)
@@ -143,9 +143,10 @@ async function renderCustomMatchesInCalendar() {
     }
 
     const isAdmin = currentUser() ? await getMyAdminStatus() : false;
+    const loggedIn = !!window.CLUB_LOGGED_IN;
     if (token !== customMatchesRenderToken) return;
 
-    const html = customMatches.map((m) => customMatchCardHtml(m, isAdmin)).join('');
+    const html = customMatches.map((m) => customMatchCardHtml(m, isAdmin, loggedIn)).join('');
     list.insertAdjacentHTML('beforeend', html);
 
     const matchByKey = new Map(customMatches.map((m) => [`${m.season}__${m.round}`, m]));
@@ -323,6 +324,74 @@ window.onCompetitionViewChanged = function onCompetitionViewChanged() {
   applySectionVisibility();
 };
 
+function getCurrentCustomMatch(customMatches) {
+  const now = Date.now();
+  const played = customMatches.filter((m) => m.played && m.homeGoals != null && m.awayGoals != null);
+  const upcoming = customMatches.filter((m) => m.timestamp > now);
+  if (played.length) return played[played.length - 1];
+  if (upcoming.length) return upcoming[0];
+  return null;
+}
+
+// ---- "Resultados de la jornada" para Pretemporada: mismo estilo que Liga --
+function renderResultadosForCustomMatch(match, allMatches) {
+  const grid = document.getElementById('results-grid');
+  const label = document.getElementById('round-label-2');
+  if (!grid) return;
+
+  if (!match) {
+    grid.innerHTML = '<p class="results-empty">Sin amistosos programados todavía.</p>';
+    if (label) label.textContent = '';
+    return;
+  }
+
+  const idx = allMatches.findIndex((m) => m.season === match.season && m.round === match.round);
+  if (label) label.textContent = `Amistoso ${idx + 1} · vs ${match.opponent}${match.date ? ' (' + match.date + ')' : ''}`;
+
+  const hasResult = match.played && match.homeGoals != null && match.awayGoals != null;
+  const pending = !hasResult;
+  const homeName = match.isHome ? OWN_TEAM_NAME : match.opponent;
+  const awayName = match.isHome ? match.opponent : OWN_TEAM_NAME;
+  const score = hasResult ? `${match.homeGoals} : ${match.awayGoals}` : 'vs';
+  const loggedIn = !!window.CLUB_LOGGED_IN;
+  const key = `${match.season}__${match.round}`;
+
+  const metaBits = [];
+  if (match.time) metaBits.push(`<span class="meta-chip">${match.time}</span>`);
+  const metaHtml = metaBits.length ? `<div class="meta-row meta-row-center">${metaBits.join('')}</div>` : '';
+
+  const detailBtn = hasResult && loggedIn
+    ? `<div class="acta-btn-wrap"><button class="acta-btn" data-detail-custom-results="${key}">${ICON_DOC}Ver ficha</button></div>` : '';
+  const votarBtn = hasResult && loggedIn
+    ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" data-votar-custom-results="${key}">${ICON_VOTE}Votar</button></div>` : '';
+  const rankingBtn = hasResult && loggedIn
+    ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" data-ranking-custom-results="${key}">${ICON_STAR}Ranking</button></div>` : '';
+  const btnRow = (detailBtn || votarBtn || rankingBtn) ? `<div class="acta-btn-row">${detailBtn}${votarBtn}${rankingBtn}</div>` : '';
+
+  grid.innerHTML = `
+    <div class="match-card is-own ${pending ? 'is-pending' : ''}">
+      <div class="match-card-row">
+        <span class="match-team home ${match.isHome ? 'home-own' : ''}">${shortName(homeName)}</span>
+        <span class="match-score ${pending ? 'is-pending' : ''}">${score}</span>
+        <span class="match-team away ${!match.isHome ? 'away-own' : ''}">${shortName(awayName)}</span>
+      </div>
+      ${metaHtml}
+      ${btnRow}
+    </div>
+  `;
+
+  const matchByKey = new Map(allMatches.map((m) => [`${m.season}__${m.round}`, m]));
+  grid.querySelectorAll('[data-votar-custom-results]').forEach((btn) => {
+    btn.addEventListener('click', () => window.openVotarCustom(matchByKey.get(btn.dataset.votarCustomResults)));
+  });
+  grid.querySelectorAll('[data-ranking-custom-results]').forEach((btn) => {
+    btn.addEventListener('click', () => window.openRankingCustom(matchByKey.get(btn.dataset.rankingCustomResults)));
+  });
+  grid.querySelectorAll('[data-detail-custom-results]').forEach((btn) => {
+    btn.addEventListener('click', () => openCustomMatchDetail(matchByKey.get(btn.dataset.detailCustomResults)));
+  });
+}
+
 // ---- "Ver jornada" en Pretemporada: lista los amistosos en orden ---------
 function populateCustomRoundSelector(customMatches) {
   if (window.CURRENT_COMPETITION_TYPE !== 'pretemporada') return;
@@ -331,6 +400,7 @@ function populateCustomRoundSelector(customMatches) {
 
   if (!customMatches.length) {
     select.innerHTML = '<option>—</option>';
+    renderResultadosForCustomMatch(null, []);
     return;
   }
 
@@ -338,8 +408,17 @@ function populateCustomRoundSelector(customMatches) {
     .map((m, i) => `<option value="${m.season}__${m.round}">${i + 1}. vs ${m.opponent}${m.date ? ' (' + m.date + ')' : ''}</option>`)
     .join('');
 
+  // Seleccionamos por defecto el partido "actual" (último jugado o el
+  // próximo), igual que en el marcador destacado.
+  const current = getCurrentCustomMatch(customMatches);
+  if (current) select.value = `${current.season}__${current.round}`;
+  renderResultadosForCustomMatch(current, customMatches);
+
   select.onchange = () => {
     const key = select.value;
+    const match = customMatches.find((m) => `${m.season}__${m.round}` === key);
+    renderResultadosForCustomMatch(match, customMatches);
+
     const card = document.querySelector(`.calendar-item[data-match-key="${CSS.escape(key)}"]`);
     if (card) {
       card.scrollIntoView({ behavior: 'smooth', block: 'center' });
