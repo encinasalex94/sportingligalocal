@@ -366,8 +366,9 @@ function applyView(seasonLabel, type, data) {
   // (2025-2026); no aplican a Pretemporada ni a Copa (sin datos todavía) —
   // así que directamente se ocultan enteras, en vez de mostrarse vacías.
   const isLiga = type === 'liga';
+  const isCopa = type === 'copa';
   toggleSectionById('clasificacion', 'divider-clasificacion', isLiga);
-  toggleSectionById('resultados', 'divider-resultados', isLiga);
+  toggleSectionById('resultados', 'divider-resultados', !isCopa);
 
   // El marcador destacado: en Liga es el último resultado real (ya
   // pintado); en Copa no hay datos, se oculta; en Pretemporada lo decide
@@ -384,6 +385,10 @@ function applyView(seasonLabel, type, data) {
   } else {
     const roundSelect = document.getElementById('round-select');
     if (roundSelect) roundSelect.innerHTML = '<option>—</option>';
+    const grid = document.getElementById('results-grid');
+    const label = document.getElementById('round-label-2');
+    if (grid && type === 'pretemporada') grid.innerHTML = '<p class="results-empty">Cargando…</p>';
+    if (label && type === 'pretemporada') label.textContent = '';
   }
   renderCalendar(data);
   window.onCompetitionViewChanged && window.onCompetitionViewChanged(type);
