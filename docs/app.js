@@ -82,9 +82,48 @@ function renderScoreboard(data) {
   );
 
   if (!own) {
-    el.innerHTML = `<p class="sb-empty">Aún no hay resultados disponibles para esta jornada.</p>`;
-    document.getElementById('hero-result-badge').innerHTML = '';
-    document.getElementById('hero-meta').innerHTML = '';
+    // Sin partidos jugados todavía: buscamos el próximo programado (el más
+    // cercano en el tiempo) y lo mostramos como "próximo partido".
+    const now = new Date();
+    const upcoming = (data.rounds || [])
+      .flatMap((r) => r.matches.map((m) => ({ ...m, roundDate: r.date })))
+      .filter((m) => isOwn(m.homeTeam) || isOwn(m.awayTeam))
+      .filter((m) => !m.played)
+      .map((m) => {
+        const dateStr = m.date || m.roundDate;
+        let dt = null;
+        if (dateStr) {
+          const [d, mo, y] = dateStr.split('-').map(Number);
+          let hh = 0, mm = 0;
+          if (m.time) { const p = m.time.split(':').map(Number); hh = p[0] || 0; mm = p[1] || 0; }
+          dt = new Date(y, mo - 1, d, hh, mm);
+        }
+        return { ...m, dateStr, dt };
+      })
+      .filter((m) => !m.dt || m.dt > now)
+      .sort((a, b) => (a.dt?.getTime() || Infinity) - (b.dt?.getTime() || Infinity));
+
+    const next = upcoming[0];
+    if (!next) {
+      el.innerHTML = `<p class="sb-empty">Aún no hay partidos programados.</p>`;
+      document.getElementById('hero-result-badge').innerHTML = '';
+      document.getElementById('hero-meta').innerHTML = '';
+      return;
+    }
+
+    const isHomeNext = isOwn(next.homeTeam);
+    el.innerHTML = `
+      <div class="sb-team ${isHomeNext ? 'is-own' : ''}">
+        <span class="sb-team-name">${shortName(next.homeTeam)}</span>
+      </div>
+      <div class="sb-score"><span>-</span><span class="dash">:</span><span>-</span></div>
+      <div class="sb-team ${!isHomeNext ? 'is-own' : ''}">
+        <span class="sb-team-name">${shortName(next.awayTeam)}</span>
+      </div>
+    `;
+    document.getElementById('hero-result-badge').innerHTML = `<span class="sb-badge">PRÓXIMO PARTIDO</span>`;
+    document.getElementById('hero-meta').innerHTML = renderMetaRow(next.time, next.venue, 'meta-row-center');
+    document.getElementById('round-label').textContent = 'Próximo partido';
     return;
   }
 
@@ -323,17 +362,28 @@ function applyView(seasonLabel, type, data) {
   window.CURRENT_SEASON_LABEL = seasonLabel;
   window.CURRENT_COMPETITION_TYPE = type;
 
-  // El marcador del último partido, la Clasificación y los Resultados son
-  // cosas de la Liga real (2025-2026); no aplican a Pretemporada ni a Copa
-  // (sin datos todavía) — así que directamente se ocultan enteras, en vez
-  // de mostrarse vacías con un aviso.
+  // La Clasificación y los Resultados son cosas de la Liga real
+  // (2025-2026); no aplican a Pretemporada ni a Copa (sin datos todavía) —
+  // así que directamente se ocultan enteras, en vez de mostrarse vacías.
   const isLiga = type === 'liga';
-  toggleSectionById('scoreboard-hero-section', null, isLiga);
   toggleSectionById('clasificacion', 'divider-clasificacion', isLiga);
   toggleSectionById('resultados', 'divider-resultados', isLiga);
 
+  // El marcador destacado: en Liga es el último resultado real (ya
+  // pintado); en Copa no hay datos, se oculta; en Pretemporada lo decide
+  // club-ui.js según haya o no amistosos (último jugado o el próximo).
+  const heroSection = document.getElementById('scoreboard-hero-section');
+  if (heroSection) {
+    if (type === 'copa') heroSection.style.display = 'none';
+    else if (isLiga) heroSection.style.display = '';
+    else heroSection.style.display = 'none'; // se revela solo si hay amistosos
+  }
+
   if (isLiga) {
     renderRoundSelector(data);
+  } else {
+    const roundSelect = document.getElementById('round-select');
+    if (roundSelect) roundSelect.innerHTML = '<option>—</option>';
   }
   renderCalendar(data);
   window.onCompetitionViewChanged && window.onCompetitionViewChanged(type);
