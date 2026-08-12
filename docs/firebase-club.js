@@ -259,12 +259,13 @@ export async function addCustomMatch({ opponent, date, time, isHome }) {
   return { season, round };
 }
 
-export async function setCustomMatchResult(season, round, homeGoals, awayGoals) {
+export async function setCustomMatchResult(season, round, homeGoals, awayGoals, goals = [], cards = []) {
   const admin = await getMyAdminStatus();
   if (!admin) throw new Error('Solo un delegado puede rellenar el resultado');
   const id = matchIdFor(season, round);
   await setDoc(doc(db, 'customMatches', id), {
     played: true, homeGoals: Number(homeGoals), awayGoals: Number(awayGoals),
+    goals, cards,
   }, { merge: true });
 }
 
