@@ -1474,6 +1474,105 @@ details.admin-panel[open] summary.admin-panel-title {
   margin-bottom: 10px;
 }
 
+.player-result-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.player-result-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(11,31,61,0.06);
+}
+
+.player-result-row:last-child { border-bottom: none; }
+
+.player-result-name {
+  flex: 1 1 100%;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.player-result-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: 1;
+}
+
+.player-goal-tag,
+.player-card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  background: var(--ice);
+  border-radius: 999px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+.player-card-tag.yellow { background: rgba(228,180,41,0.18); }
+.player-card-tag.red { background: rgba(194,66,66,0.16); }
+
+.player-goal-tag button,
+.player-card-tag button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--slate-light);
+  font-size: 11px;
+  padding: 0 0 0 2px;
+  line-height: 1;
+}
+
+.player-result-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.player-result-actions .acta-btn {
+  padding: 5px 9px;
+  font-size: 11px;
+  margin-top: 0;
+}
+
+.field-group {
+  margin-bottom: 12px;
+}
+
+.field-group-row {
+  display: flex;
+  gap: 10px;
+}
+
+.field-group-row .field-group {
+  flex: 1;
+}
+
+.field-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--slate);
+  margin-bottom: 4px;
+}
+
+.field-group .club-select,
+.field-group-row .club-select {
+  width: 100%;
+}
+
 .admin-panel {
   background: var(--ice);
   border: 1px dashed rgba(11,31,61,0.25);
