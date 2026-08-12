@@ -323,20 +323,29 @@ function applyView(seasonLabel, type, data) {
   window.CURRENT_SEASON_LABEL = seasonLabel;
   window.CURRENT_COMPETITION_TYPE = type;
 
-  // El marcador del último partido es de la Liga real (2025-2026); no
-  // aplica a Pretemporada ni a Copa (sin datos todavía).
-  const heroSection = document.getElementById('scoreboard-hero-section');
-  if (heroSection) heroSection.style.display = type === 'liga' ? '' : 'none';
+  // El marcador del último partido, la Clasificación y los Resultados son
+  // cosas de la Liga real (2025-2026); no aplican a Pretemporada ni a Copa
+  // (sin datos todavía) — así que directamente se ocultan enteras, en vez
+  // de mostrarse vacías con un aviso.
+  const isLiga = type === 'liga';
+  toggleSectionById('scoreboard-hero-section', null, isLiga);
+  toggleSectionById('clasificacion', 'divider-clasificacion', isLiga);
+  toggleSectionById('resultados', 'divider-resultados', isLiga);
 
-  if (type === 'liga') {
+  if (isLiga) {
     renderRoundSelector(data);
-  } else if (type === 'copa') {
-    showSeasonUnavailable('Copa (sin calendario publicado todavía)');
-  } else {
-    showSeasonUnavailable(`Pretemporada ${seasonLabel}`);
   }
   renderCalendar(data);
   window.onCompetitionViewChanged && window.onCompetitionViewChanged(type);
+}
+
+function toggleSectionById(sectionId, dividerId, show) {
+  const section = document.getElementById(sectionId);
+  if (section) section.style.display = show ? '' : 'none';
+  if (dividerId) {
+    const divider = document.getElementById(dividerId);
+    if (divider) divider.style.display = show ? '' : 'none';
+  }
 }
 
 function renderTypeSelector(seasonLabel, data) {
@@ -367,14 +376,6 @@ function renderSeasonSelector(data) {
   });
 
   renderTypeSelector(select.value, data);
-}
-
-function showSeasonUnavailable(label) {
-  document.getElementById('round-select').innerHTML = '<option>—</option>';
-  document.getElementById('round-label-2').textContent = '';
-  document.getElementById('results-grid').innerHTML =
-    `<p class="results-empty">Sin datos de ${label}.</p>`;
-  document.getElementById('standings-body').innerHTML = '';
 }
 
 // Los "Goleadores" (nombres de jugadores) ya no viven en data.json ni se
