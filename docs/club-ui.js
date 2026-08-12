@@ -5,6 +5,7 @@ import {
   getRankingForMatch, getRankingValoraciones,
   getActaById, getScorers,
   getUpcomingCustomMatches, getAllCustomMatches, addCustomMatch, deleteCustomMatch,
+  setCustomMatchResult,
 } from './firebase-club.js';
 
 const SEASON = '2025-2026';
@@ -46,19 +47,56 @@ function scorerListItemHtml(s) {
 }
 
 // ---- Amistosos de pretemporada dentro del Calendario del Sporting -------
-function customMatchCardHtml(m) {
+const ICON_DOC =
+  '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 13h6M9 17h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+
+const ICON_VOTE =
+  '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 12.5l2 2 4.5-5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/></svg>';
+
+const ICON_STAR =
+  '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3.5l2.6 5.4 5.9.7-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.7L12 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+
+function customMatchCardHtml(m, isAdmin) {
   const now = Date.now();
-  const played = m.timestamp < now;
-  const cls = played ? '' : 'is-pending';
+  const timePassed = m.timestamp < now;
+  const hasResult = m.played && m.homeGoals != null && m.awayGoals != null;
+  const key = `${m.season}__${m.round}`;
+
+  let scoreHtml = 'Pendiente';
+  let cls = 'is-pending';
+  if (hasResult) {
+    const ourGoals = m.isHome ? m.homeGoals : m.awayGoals;
+    const theirGoals = m.isHome ? m.awayGoals : m.homeGoals;
+    scoreHtml = `${ourGoals} - ${theirGoals}`;
+    cls = ourGoals > theirGoals ? 'win' : ourGoals < theirGoals ? 'loss' : 'draw';
+  } else if (timePassed) {
+    scoreHtml = 'Sin resultado';
+    cls = '';
+  }
+
+  const addResultBtn = isAdmin && timePassed && !hasResult
+    ? `<button class="acta-btn-icon" data-add-result="${key}" title="Añadir resultado" aria-label="Añadir resultado">${ICON_DOC}</button>`
+    : '';
+  const votarBtn = hasResult
+    ? `<button class="acta-btn-icon acta-btn-icon-alt" data-votar-custom="${key}" title="Votar" aria-label="Votar">${ICON_VOTE}</button>`
+    : '';
+  const rankingBtn = hasResult
+    ? `<button class="acta-btn-icon" data-ranking-custom="${key}" title="Ranking" aria-label="Ranking">${ICON_STAR}</button>`
+    : '';
+  const iconRow = (addResultBtn || votarBtn || rankingBtn)
+    ? `<div class="acta-icon-row">${addResultBtn}${votarBtn}${rankingBtn}</div>`
+    : '';
+
   return `
-    <div class="calendar-item amistoso ${cls}">
+    <div class="calendar-item amistoso ${cls}" data-match-key="${key}">
       <div class="calendar-round">
         <span>Amistoso</span>
         <span class="calendar-venue">${m.isHome ? 'Casa' : 'Fuera'}</span>
       </div>
       <span class="calendar-opponent" title="${m.opponent}">${m.opponent}</span>
-      <span class="calendar-score">${played ? 'Disputado' : 'Pendiente'}</span>
+      <span class="calendar-score">${scoreHtml}</span>
       <span class="calendar-date">${m.date || ''}${m.time ? ' · ' + m.time : ''}</span>
+      ${iconRow}
     </div>
   `;
 }
@@ -87,11 +125,63 @@ async function renderCustomMatchesInCalendar() {
     if (summaryEl) {
       summaryEl.textContent = `Amistosos de pretemporada · ${customMatches.length} programado${customMatches.length === 1 ? '' : 's'}`;
     }
-    const html = customMatches.map(customMatchCardHtml).join('');
+
+    const isAdmin = currentUser() ? await getMyAdminStatus() : false;
+    const html = customMatches.map((m) => customMatchCardHtml(m, isAdmin)).join('');
     list.insertAdjacentHTML('beforeend', html);
+
+    const matchByKey = new Map(customMatches.map((m) => [`${m.season}__${m.round}`, m]));
+
+    list.querySelectorAll('button[data-add-result]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        openAddResultModal(matchByKey.get(btn.dataset.addResult));
+      });
+    });
+    list.querySelectorAll('button[data-votar-custom]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        window.openVotarCustom(matchByKey.get(btn.dataset.votarCustom));
+      });
+    });
+    list.querySelectorAll('button[data-ranking-custom]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        window.openRankingCustom(matchByKey.get(btn.dataset.rankingCustom));
+      });
+    });
   } catch (err) {
     console.error('Error cargando amistosos:', err);
   }
+}
+
+function openAddResultModal(match) {
+  if (!match) return;
+  openClubModal(`
+    <h3 class="club-modal-title">Resultado del amistoso</h3>
+    <p class="club-modal-sub">vs ${match.opponent} · ${match.date || ''}${match.time ? ' · ' + match.time : ''}</p>
+    <div class="admin-panel-row" style="justify-content:center;">
+      <span style="font-weight:600;">${match.isHome ? 'Nosotros' : match.opponent}</span>
+      <input type="number" min="0" id="result-home" class="club-select" style="width:70px;text-align:center;" placeholder="0" />
+      <span>-</span>
+      <input type="number" min="0" id="result-away" class="club-select" style="width:70px;text-align:center;" placeholder="0" />
+      <span style="font-weight:600;">${match.isHome ? match.opponent : 'Nosotros'}</span>
+    </div>
+    <div id="result-error" class="club-error"></div>
+    <button class="acta-btn acta-btn-alt club-submit" id="result-submit">Guardar resultado</button>
+  `);
+
+  document.getElementById('result-submit').addEventListener('click', async () => {
+    const homeInput = document.getElementById('result-home').value;
+    const awayInput = document.getElementById('result-away').value;
+    const errorEl = document.getElementById('result-error');
+    if (homeInput === '' || awayInput === '') { errorEl.textContent = 'Rellena los dos marcadores.'; return; }
+    try {
+      await setCustomMatchResult(match.season, match.round, homeInput, awayInput);
+      closeClubModal();
+      renderCustomMatchesInCalendar();
+    } catch (err) {
+      console.error(err);
+      errorEl.textContent = 'No se pudo guardar el resultado.';
+    }
+  });
 }
 
 // Cuando cambia el selector de Tipo (en app.js), repintamos los amistosos.
@@ -309,6 +399,11 @@ async function playerNameById(playerId) {
 }
 
 // ---- CONVOCATORIA ---------------------------------------------------
+// Recuerda qué paneles "Gestionar convocatoria" estaban abiertos, para que
+// no se cierren solos cada vez que se repinta la lista tras un clic
+// (si no, apuntar a varias personas seguidas se hace tedioso).
+const openAdminPanels = new Set();
+
 async function renderConvocatoria() {
   const data = window.APP_DATA;
   const sub = document.getElementById('convocatoria-sub');
@@ -392,7 +487,7 @@ async function renderConvocatoria() {
 
     const adminManageHtml = admin
       ? `
-        <details class="admin-panel">
+        <details class="admin-panel" data-match-key="${key}" ${openAdminPanels.has(key) ? 'open' : ''}>
           <summary class="admin-panel-title">Gestionar convocatoria (delegado)</summary>
           <ul class="convocatoria-list">
             ${roster.map((p) => {
@@ -438,6 +533,14 @@ async function renderConvocatoria() {
   ` : '';
 
   content.innerHTML = `${blocksHtml.join('<div class="divider" style="margin:22px 0;"></div>')}${allUpcoming.length ? '<div class="divider" style="margin:22px 0;"></div>' : ''}${adminPanelHtml}`;
+
+  content.querySelectorAll('details.admin-panel[data-match-key]').forEach((el) => {
+    el.addEventListener('toggle', () => {
+      const key = el.dataset.matchKey;
+      if (el.open) openAdminPanels.add(key);
+      else openAdminPanels.delete(key);
+    });
+  });
 
   // Índice rápido: de la "clave" (season__round) a los datos del partido
   const matchByKey = new Map(allUpcoming.map((m) => [`${m.season}__${m.round}`, m]));
@@ -643,7 +746,138 @@ window.openVotar = async function openVotar(round) {
   });
 };
 
-// ---- RANKING DE UN PARTIDO (MVP de la jornada) ---------------------------------------------------
+// ---- VOTAR / RANKING en amistosos de pretemporada ---------------------------------------------------
+window.openVotarCustom = async function openVotarCustom(match) {
+  if (!match) return;
+
+  if (!currentUser()) {
+    openClubModal(`
+      <h3 class="club-modal-title">Inicia sesión</h3>
+      <p class="club-modal-sub" style="margin-bottom:0;">Para votar necesitas iniciar sesión con Google (botón arriba a la derecha).</p>
+    `);
+    return;
+  }
+
+  const myPlayerId = await getMyPlayerId();
+  if (!myPlayerId) {
+    openClubModal(`<p class="acta-empty" style="text-align:center;padding:20px 0;">Tu cuenta todavía no está autorizada. Pide a un delegado que la añada.</p>`);
+    return;
+  }
+
+  openClubModal('<p class="acta-empty" style="text-align:center;">Cargando…</p>');
+
+  const open = await isVotingOpen(match.season, match.round);
+  if (!open) {
+    openClubModal(`
+      <h3 class="club-modal-title">Votación cerrada</h3>
+      <p class="club-modal-sub" style="margin-bottom:0;">Ya han pasado más de 24 horas desde el inicio de este partido, así que la votación está cerrada.</p>
+    `);
+    return;
+  }
+
+  const existingVotes = await getVotes(match.season, match.round);
+  const alreadyVoted = existingVotes.some((v) => v.voterId === myPlayerId);
+  if (alreadyVoted) {
+    openClubModal(`
+      <h3 class="club-modal-title">Ya has votado</h3>
+      <p class="club-modal-sub" style="margin-bottom:0;">Ya registramos tu valoración para este partido. Solo se puede votar una vez por partido.</p>
+    `);
+    return;
+  }
+
+  // En amistosos no hay acta oficial — los convocados salen solo de la
+  // convocatoria registrada en la propia web.
+  const signups = await getSignups(match.season, match.round);
+  const signedIds = Object.keys(signups).filter((id) => signups[id]?.signedUp);
+  if (!signedIds.length) {
+    openClubModal('<p class="acta-empty" style="text-align:center;padding:20px 0;">No hay convocados registrados para este amistoso.</p>');
+    return;
+  }
+  const roster = await getRoster();
+  const byId = new Map(roster.map((p) => [p.id, p.name]));
+  const players = signedIds.map((id) => ({ id, name: byId.get(id) || id }));
+
+  openClubModal(`
+    <h3 class="club-modal-title">Pon nota del 0 al 10</h3>
+    <p class="club-modal-sub">Amistoso vs ${match.opponent}. Puedes usar decimales. Deja en blanco a quien no quieras valorar.</p>
+    <ul class="vote-list">
+      ${players.map((p) => `
+        <li class="vote-item">
+          <span>${p.name}</span>
+          <input type="number" min="0" max="10" step="0.01" class="vote-input" data-player="${p.id}" placeholder="-" />
+        </li>
+      `).join('')}
+    </ul>
+    <div id="vote-error" class="club-error"></div>
+    <button class="acta-btn acta-btn-alt club-submit" id="vote-submit">Enviar valoraciones</button>
+  `);
+
+  document.getElementById('vote-submit').addEventListener('click', async () => {
+    const errorEl = document.getElementById('vote-error');
+    const submitBtn = document.getElementById('vote-submit');
+    const inputs = Array.from(document.querySelectorAll('.vote-input')).filter((i) => i.value !== '');
+
+    if (!inputs.length) { errorEl.textContent = 'Pon al menos una nota.'; return; }
+    const invalid = inputs.some((i) => Number(i.value) < 0 || Number(i.value) > 10);
+    if (invalid) { errorEl.textContent = 'Las notas deben estar entre 0 y 10.'; return; }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando…';
+    try {
+      for (const input of inputs) {
+        const ratedId = input.dataset.player;
+        const rating = Number(input.value);
+        await submitVote(match.season, match.round, ratedId, rating);
+      }
+      openClubModal(`
+        <h3 class="club-modal-title">¡Gracias! ✓</h3>
+        <p class="club-modal-sub" style="margin-bottom:0;">Tu valoración se ha guardado correctamente (${inputs.length} jugador${inputs.length === 1 ? '' : 'es'} puntuado${inputs.length === 1 ? '' : 's'}).</p>
+      `);
+      renderRanking();
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar valoraciones';
+      console.error(err);
+      errorEl.textContent = 'No se pudo guardar, inténtalo de nuevo.';
+    }
+  });
+};
+
+window.openRankingCustom = async function openRankingCustom(match) {
+  if (!match) return;
+  openClubModal('<p class="acta-empty" style="text-align:center;">Cargando…</p>');
+  try {
+    const ranking = await getRankingForMatch(match.season, match.round);
+    if (!ranking.length) {
+      openClubModal(`
+        <h3 class="club-modal-title">vs ${match.opponent}</h3>
+        <p class="acta-empty" style="text-align:center;padding:10px 0;">Todavía no hay valoraciones para este amistoso.</p>
+      `);
+      return;
+    }
+    const mvp = ranking[0];
+    openClubModal(`
+      <h3 class="club-modal-title">MVP · vs ${match.opponent}</h3>
+      <div class="mvp-highlight">
+        <span class="mvp-name">${mvp.name}</span>
+        <span class="mvp-score">${mvp.average.toFixed(2)}</span>
+      </div>
+      <ul class="vote-list" style="margin-top:18px;">
+        ${ranking.map((r, i) => `
+          <li class="vote-item">
+            <span>${i + 1}. ${r.name}</span>
+            <span class="scorer-goals" style="font-size:14px;">${r.average.toFixed(2)}</span>
+          </li>
+        `).join('')}
+      </ul>
+    `);
+  } catch (err) {
+    console.error('Error cargando ranking del amistoso:', err);
+    openClubModal(`<p class="acta-empty" style="text-align:center;padding:20px 0;">No se pudo cargar el ranking (${err.message || 'error'}).</p>`);
+  }
+};
+
+
 window.openRanking = async function openRanking(round) {
   openClubModal('<p class="acta-empty" style="text-align:center;">Cargando…</p>');
   try {
