@@ -755,7 +755,8 @@ async function playerNameById(playerId) {
 // Recuerda qué paneles "Gestionar convocatoria" estaban abiertos, para que
 // no se cierren solos cada vez que se repinta la lista tras un clic
 // (si no, apuntar a varias personas seguidas se hace tedioso).
-const closedAdminPanels = new Set();
+const openAdminPanels = new Set();
+const openAttendeeLists = new Set();
 
 async function renderConvocatoria() {
   const data = window.APP_DATA;
@@ -825,11 +826,23 @@ async function renderConvocatoria() {
       ? `<button class="acta-btn" data-edit-match="${key}">Editar amistoso</button>`
       : '';
 
-    const signedListHtml = signedEntries.length
+    const signedListInnerHtml = signedEntries.length
       ? `<ol class="convocatoria-count-list">${signedEntries
           .map((e) => `<li class="${e.id === myPlayerId ? 'is-me' : ''}">${e.name}${e.id === myPlayerId ? ' <span class="convocatoria-me-tag">(tú)</span>' : ''}${e.updatedAt ? ` <span class="convocatoria-time">${formatSignupTime(e.updatedAt)}</span>` : ''}</li>`)
           .join('')}</ol>`
       : '<p class="acta-empty">Todavía no se ha apuntado nadie.</p>';
+
+    const signedListHtml = `
+      <details class="attendee-panel" data-attendee-key="${key}" ${openAttendeeLists.has(key) ? 'open' : ''}>
+        <summary class="admin-panel-title convocatoria-summary-toggle">${signedIds.length} apuntado${signedIds.length === 1 ? '' : 's'}</summary>
+        ${signedListInnerHtml}
+      </details>
+    `;
+
+    // Aviso bien visible si el propio jugador todavía no se ha apuntado.
+    const notSignedWarningHtml = myPlayerId && !iAmSigned
+      ? `<div class="convocatoria-warning">⚠️ Todavía no estás apuntado a este partido</div>`
+      : '';
 
     const myOwnButtonHtml = myPlayerId
       ? `
@@ -843,7 +856,7 @@ async function renderConvocatoria() {
 
     const adminManageHtml = admin
       ? `
-        <details class="admin-panel" data-match-key="${key}" ${closedAdminPanels.has(key) ? '' : 'open'}>
+        <details class="admin-panel" data-match-key="${key}" ${openAdminPanels.has(key) ? 'open' : ''}>
           <summary class="admin-panel-title">Gestionar convocatoria (delegado)</summary>
           <ul class="convocatoria-list">
             ${roster.map((p) => {
@@ -867,7 +880,7 @@ async function renderConvocatoria() {
         <h3 class="convocatoria-match-title">${titleLabel} · vs ${match.opponent}</h3>
         <p class="convocatoria-match-date">${match.date || ''}${match.time ? ' · ' + match.time : ''}${match.venue ? ' · ' + match.venue : ''}</p>
         <div style="display:flex; gap:8px; margin-bottom:14px;">${editBtnHtml}${deleteBtnHtml}</div>
-        <div class="convocatoria-summary">${signedIds.length} apuntado${signedIds.length === 1 ? '' : 's'}</div>
+        ${notSignedWarningHtml}
         ${signedListHtml}
         ${myOwnButtonHtml}
         ${adminManageHtml}
@@ -894,8 +907,16 @@ async function renderConvocatoria() {
   content.querySelectorAll('details.admin-panel[data-match-key]').forEach((el) => {
     el.addEventListener('toggle', () => {
       const key = el.dataset.matchKey;
-      if (el.open) closedAdminPanels.delete(key);
-      else closedAdminPanels.add(key);
+      if (el.open) openAdminPanels.add(key);
+      else openAdminPanels.delete(key);
+    });
+  });
+
+  content.querySelectorAll('details.admin-panel[data-attendee-key]').forEach((el) => {
+    el.addEventListener('toggle', () => {
+      const key = el.dataset.attendeeKey;
+      if (el.open) openAttendeeLists.add(key);
+      else openAttendeeLists.delete(key);
     });
   });
 
