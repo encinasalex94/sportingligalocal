@@ -4,7 +4,7 @@ import {
   getSignups, setSignup, getVotes, submitVote,
   getRankingForMatch, getRankingValoraciones,
   getActaById, getScorers,
-  getUpcomingCustomMatches, getAllCustomMatches, addCustomMatch, deleteCustomMatch,
+  getUpcomingCustomMatches, getAllCustomMatches, addCustomMatch, updateCustomMatch, deleteCustomMatch,
   setCustomMatchResult,
 } from './firebase-club.js';
 
@@ -98,7 +98,7 @@ function customMatchCardHtml(m, isAdmin, loggedIn) {
       </div>
       <span class="calendar-opponent" title="${m.opponent}">${m.opponent}</span>
       <span class="calendar-score">${scoreHtml}</span>
-      <span class="calendar-date">${m.date || ''}${m.time ? ' · ' + m.time : ''}</span>
+      <span class="calendar-date">${m.date || ''}${m.time ? ' · ' + m.time : ''}${m.venue ? ' · ' + m.venue : ''}</span>
       ${iconRow}
     </div>
   `;
@@ -177,6 +177,57 @@ async function renderCustomMatchesInCalendar() {
   } catch (err) {
     console.error('Error cargando amistosos:', err);
   }
+}
+
+function dateToInputValue(dateStr) {
+  if (!dateStr) return '';
+  const [d, mo, y] = dateStr.split('-');
+  return `${y}-${mo}-${d}`; // formato YYYY-MM-DD que espera <input type="date">
+}
+
+function openEditMatchModal(match) {
+  if (!match) return;
+  openClubModal(`
+    <h3 class="club-modal-title">Editar amistoso</h3>
+    <p class="club-modal-sub">Cambia lo que haga falta y guarda.</p>
+    <div class="admin-panel-row" style="flex-direction:column; align-items:stretch;">
+      <input type="text" id="edit-opponent" placeholder="Rival" class="club-select" value="${match.opponent || ''}" />
+      <input type="date" id="edit-date" class="club-select" value="${dateToInputValue(match.date)}" />
+      <input type="time" id="edit-time" class="club-select" value="${match.time || ''}" />
+      <input type="text" id="edit-venue" placeholder="Campo" class="club-select" value="${match.venue || ''}" />
+      <label style="display:flex; align-items:center; gap:8px; font-size:13px;">
+        <input type="checkbox" id="edit-ishome" ${match.isHome ? 'checked' : ''} />
+        Jugamos en casa
+      </label>
+    </div>
+    <div id="edit-error" class="club-error"></div>
+    <button class="acta-btn acta-btn-alt club-submit" id="edit-submit">Guardar cambios</button>
+  `);
+
+  document.getElementById('edit-submit').addEventListener('click', async () => {
+    const opponent = document.getElementById('edit-opponent').value.trim();
+    const dateInput = document.getElementById('edit-date').value;
+    const time = document.getElementById('edit-time').value;
+    const venue = document.getElementById('edit-venue').value.trim();
+    const isHome = document.getElementById('edit-ishome').checked;
+    const errorEl = document.getElementById('edit-error');
+
+    if (!opponent) { errorEl.textContent = 'Escribe el nombre del rival.'; return; }
+    if (!dateInput) { errorEl.textContent = 'Elige una fecha.'; return; }
+
+    const [y, mo, d] = dateInput.split('-');
+    const date = `${d}-${mo}-${y}`;
+
+    try {
+      await updateCustomMatch(match.season, match.round, { opponent, date, time, venue, isHome });
+      closeClubModal();
+      renderConvocatoria();
+      renderCustomMatchesInCalendar();
+    } catch (err) {
+      console.error(err);
+      errorEl.textContent = 'No se pudo guardar el cambio.';
+    }
+  });
 }
 
 async function openAddResultModal(match) {
@@ -358,6 +409,7 @@ function renderResultadosForCustomMatch(match, allMatches) {
 
   const metaBits = [];
   if (match.time) metaBits.push(`<span class="meta-chip">${match.time}</span>`);
+  if (match.venue) metaBits.push(`<span class="meta-chip">${match.venue}</span>`);
   const metaHtml = metaBits.length ? `<div class="meta-row meta-row-center">${metaBits.join('')}</div>` : '';
 
   const detailBtn = hasResult && loggedIn
@@ -487,6 +539,7 @@ function updateHeroForCustomMatches(customMatches) {
   const metaBits = [];
   if (match.date) metaBits.push(`<span class="meta-chip">${match.date}</span>`);
   if (match.time) metaBits.push(`<span class="meta-chip">${match.time}</span>`);
+  if (match.venue) metaBits.push(`<span class="meta-chip">${match.venue}</span>`);
   if (metaEl) metaEl.innerHTML = metaBits.length ? `<div class="meta-row meta-row-center">${metaBits.join('')}</div>` : '';
 }
 
@@ -702,7 +755,7 @@ async function playerNameById(playerId) {
 // Recuerda qué paneles "Gestionar convocatoria" estaban abiertos, para que
 // no se cierren solos cada vez que se repinta la lista tras un clic
 // (si no, apuntar a varias personas seguidas se hace tedioso).
-const openAdminPanels = new Set();
+const closedAdminPanels = new Set();
 
 async function renderConvocatoria() {
   const data = window.APP_DATA;
@@ -766,7 +819,10 @@ async function renderConvocatoria() {
     const titleLabel = match.isCustom ? 'Amistoso' : `Jornada ${match.round}`;
 
     const deleteBtnHtml = admin && match.isCustom
-      ? `<button class="acta-btn" data-delete-match="${key}" style="margin-bottom:14px;">Borrar este amistoso</button>`
+      ? `<button class="acta-btn" data-delete-match="${key}">Borrar este amistoso</button>`
+      : '';
+    const editBtnHtml = admin && match.isCustom
+      ? `<button class="acta-btn" data-edit-match="${key}">Editar amistoso</button>`
       : '';
 
     const signedListHtml = signedEntries.length
@@ -787,7 +843,7 @@ async function renderConvocatoria() {
 
     const adminManageHtml = admin
       ? `
-        <details class="admin-panel" data-match-key="${key}" ${openAdminPanels.has(key) ? 'open' : ''}>
+        <details class="admin-panel" data-match-key="${key}" ${closedAdminPanels.has(key) ? '' : 'open'}>
           <summary class="admin-panel-title">Gestionar convocatoria (delegado)</summary>
           <ul class="convocatoria-list">
             ${roster.map((p) => {
@@ -809,8 +865,8 @@ async function renderConvocatoria() {
     return `
       <div class="convocatoria-match-block">
         <h3 class="convocatoria-match-title">${titleLabel} · vs ${match.opponent}</h3>
-        <p class="convocatoria-match-date">${match.date || ''}${match.time ? ' · ' + match.time : ''}</p>
-        ${deleteBtnHtml}
+        <p class="convocatoria-match-date">${match.date || ''}${match.time ? ' · ' + match.time : ''}${match.venue ? ' · ' + match.venue : ''}</p>
+        <div style="display:flex; gap:8px; margin-bottom:14px;">${editBtnHtml}${deleteBtnHtml}</div>
         <div class="convocatoria-summary">${signedIds.length} apuntado${signedIds.length === 1 ? '' : 's'}</div>
         ${signedListHtml}
         ${myOwnButtonHtml}
@@ -826,6 +882,7 @@ async function renderConvocatoria() {
         <input type="text" id="custom-opponent" placeholder="Rival" class="club-select" style="flex:2;" />
         <input type="date" id="custom-date" class="club-select" style="flex:1;" />
         <input type="time" id="custom-time" class="club-select" style="flex:1;" />
+        <input type="text" id="custom-venue" placeholder="Campo" class="club-select" style="flex:1;" />
         <button class="acta-btn acta-btn-alt" id="custom-add-btn">Añadir</button>
       </div>
       <div id="custom-add-error" class="club-error"></div>
@@ -837,8 +894,8 @@ async function renderConvocatoria() {
   content.querySelectorAll('details.admin-panel[data-match-key]').forEach((el) => {
     el.addEventListener('toggle', () => {
       const key = el.dataset.matchKey;
-      if (el.open) openAdminPanels.add(key);
-      else openAdminPanels.delete(key);
+      if (el.open) closedAdminPanels.delete(key);
+      else closedAdminPanels.add(key);
     });
   });
 
@@ -893,6 +950,12 @@ async function renderConvocatoria() {
     });
   });
 
+  content.querySelectorAll('button[data-edit-match]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      openEditMatchModal(matchByKey.get(btn.dataset.editMatch));
+    });
+  });
+
   wireAdminPanel(admin);
 }
 
@@ -904,6 +967,7 @@ function wireAdminPanel(admin) {
     const opponent = document.getElementById('custom-opponent').value.trim();
     const dateInput = document.getElementById('custom-date').value; // YYYY-MM-DD
     const time = document.getElementById('custom-time').value; // HH:MM
+    const venue = document.getElementById('custom-venue').value.trim();
     const errorEl = document.getElementById('custom-add-error');
 
     if (!opponent) { errorEl.textContent = 'Escribe el nombre del rival.'; return; }
@@ -914,7 +978,7 @@ function wireAdminPanel(admin) {
 
     addBtn.disabled = true;
     try {
-      await addCustomMatch({ opponent, date, time });
+      await addCustomMatch({ opponent, date, time, venue });
       renderConvocatoria();
       renderCustomMatchesInCalendar();
     } catch (err) {
