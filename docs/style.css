@@ -684,12 +684,10 @@ table.standings tbody tr.own-row td.cell-team::before {
 .calendar-item.win { border-left-color: var(--win); }
 .calendar-item.draw { border-left-color: var(--draw); }
 .calendar-item.loss { border-left-color: var(--loss); }
-.calendar-item.amistoso { border-left-color: var(--slate-light); }
-.calendar-item.amistoso .calendar-score { color: var(--slate); font-family: var(--font-body); font-size: 12px; text-transform: uppercase; }
-.calendar-item.amistoso.is-pending .calendar-score { color: var(--blue); }
-.calendar-item.amistoso.win .calendar-score { color: var(--win); font-family: var(--font-mono); font-size: 15px; }
-.calendar-item.amistoso.draw .calendar-score { color: var(--draw); font-family: var(--font-mono); font-size: 15px; }
-.calendar-item.amistoso.loss .calendar-score { color: var(--loss); font-family: var(--font-mono); font-size: 15px; }
+.calendar-item.amistoso.is-pending { border-left-color: var(--blue-bright); }
+.calendar-item.amistoso.is-pending .calendar-score { color: var(--blue); font-family: var(--font-body); font-size: 12px; text-transform: uppercase; }
+.calendar-item.amistoso.sin-resultado { border-left-color: var(--slate-light); }
+.calendar-item.amistoso.sin-resultado .calendar-score { color: var(--slate); font-family: var(--font-body); font-size: 12px; text-transform: uppercase; }
 
 .calendar-item.flash-highlight {
   animation: flash-highlight-anim 1.6s ease;
