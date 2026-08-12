@@ -470,13 +470,6 @@ function populateCustomRoundSelector(customMatches) {
     const key = select.value;
     const match = customMatches.find((m) => `${m.season}__${m.round}` === key);
     renderResultadosForCustomMatch(match, customMatches);
-
-    const card = document.querySelector(`.calendar-item[data-match-key="${CSS.escape(key)}"]`);
-    if (card) {
-      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      card.classList.add('flash-highlight');
-      setTimeout(() => card.classList.remove('flash-highlight'), 1600);
-    }
   };
 }
 
@@ -841,7 +834,7 @@ async function renderConvocatoria() {
 
     // Aviso bien visible si el propio jugador todavía no se ha apuntado.
     const notSignedWarningHtml = myPlayerId && !iAmSigned
-      ? `<div class="convocatoria-warning">⚠️ Todavía no estás apuntado a este partido</div>`
+      ? `<div class="convocatoria-warning"><svg class="warning-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3.5L22 20.5H2L12 3.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 10v4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="17.2" r="1" fill="currentColor"/></svg> Todavía no estás apuntado a este partido</div>`
       : '';
 
     const myOwnButtonHtml = myPlayerId
