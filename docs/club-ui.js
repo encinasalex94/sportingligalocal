@@ -190,16 +190,28 @@ function openEditMatchModal(match) {
   openClubModal(`
     <h3 class="club-modal-title">Editar amistoso</h3>
     <p class="club-modal-sub">Cambia lo que haga falta y guarda.</p>
-    <div class="admin-panel-row" style="flex-direction:column; align-items:stretch;">
-      <input type="text" id="edit-opponent" placeholder="Rival" class="club-select" value="${match.opponent || ''}" />
-      <input type="date" id="edit-date" class="club-select" value="${dateToInputValue(match.date)}" />
-      <input type="time" id="edit-time" class="club-select" value="${match.time || ''}" />
-      <input type="text" id="edit-venue" placeholder="Campo" class="club-select" value="${match.venue || ''}" />
-      <label style="display:flex; align-items:center; gap:8px; font-size:13px;">
-        <input type="checkbox" id="edit-ishome" ${match.isHome ? 'checked' : ''} />
-        Jugamos en casa
-      </label>
+    <div class="field-group">
+      <label class="field-label">⚽ Rival</label>
+      <input type="text" id="edit-opponent" class="club-select" value="${match.opponent || ''}" />
     </div>
+    <div class="field-group-row">
+      <div class="field-group">
+        <label class="field-label">📅 Fecha</label>
+        <input type="date" id="edit-date" class="club-select" value="${dateToInputValue(match.date)}" />
+      </div>
+      <div class="field-group">
+        <label class="field-label">🕐 Hora</label>
+        <input type="time" id="edit-time" class="club-select" value="${match.time || ''}" />
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">📍 Campo</label>
+      <input type="text" id="edit-venue" class="club-select" value="${match.venue || ''}" />
+    </div>
+    <label style="display:flex; align-items:center; gap:8px; font-size:13px; margin-top:6px;">
+      <input type="checkbox" id="edit-ishome" ${match.isHome ? 'checked' : ''} />
+      Jugamos en casa
+    </label>
     <div id="edit-error" class="club-error"></div>
     <button class="acta-btn acta-btn-alt club-submit" id="edit-submit">Guardar cambios</button>
   `);
@@ -233,121 +245,189 @@ function openEditMatchModal(match) {
 async function openAddResultModal(match) {
   if (!match) return;
   const roster = await getRoster();
-  const playerOptionsHtml = (selectedId) => `
-    <option value="">-- jugador --</option>
-    ${roster.map((p) => `<option value="${p.id}" ${p.id === selectedId ? 'selected' : ''}>${p.name}</option>`).join('')}
-  `;
 
-  const existingGoals = match.goals || [];
-  const existingCards = match.cards || [];
-
-  openClubModal(`
-    <h3 class="club-modal-title">Resultado del amistoso</h3>
-    <p class="club-modal-sub">vs ${match.opponent} · ${match.date || ''}${match.time ? ' · ' + match.time : ''}</p>
-    <div class="admin-panel-row" style="justify-content:center;">
-      <span style="font-weight:600;">${match.isHome ? 'Nosotros' : match.opponent}</span>
-      <input type="number" min="0" id="result-home" class="club-select" style="width:70px;text-align:center;" value="${match.homeGoals ?? ''}" placeholder="0" />
-      <span>-</span>
-      <input type="number" min="0" id="result-away" class="club-select" style="width:70px;text-align:center;" value="${match.awayGoals ?? ''}" placeholder="0" />
-      <span style="font-weight:600;">${match.isHome ? match.opponent : 'Nosotros'}</span>
-    </div>
-
-    <div class="admin-panel-title" style="margin-top:18px;">Goles (nuestros)</div>
-    <div id="goals-rows"></div>
-    <button class="acta-btn" id="add-goal-row" type="button">+ Añadir gol</button>
-
-    <div class="admin-panel-title" style="margin-top:18px;">Tarjetas</div>
-    <div id="cards-rows"></div>
-    <button class="acta-btn" id="add-card-row" type="button">+ Añadir tarjeta</button>
-
-    <div id="result-error" class="club-error"></div>
-    <button class="acta-btn acta-btn-alt club-submit" id="result-submit">Guardar resultado</button>
-  `);
-
-  const goalsContainer = document.getElementById('goals-rows');
-  const cardsContainer = document.getElementById('cards-rows');
-
-  function addGoalRow(g) {
-    const row = document.createElement('div');
-    row.className = 'admin-panel-row goal-row';
-    row.innerHTML = `
-      <select class="club-select goal-scorer">${playerOptionsHtml(g?.scorerId)}</select>
-      <span style="font-size:11px;color:var(--slate);">asist.</span>
-      <select class="club-select goal-assist">${playerOptionsHtml(g?.assistId)}</select>
-      <input type="number" min="0" class="club-select goal-minute" placeholder="min" style="width:60px;" value="${g?.minute ?? ''}" />
-      <button class="acta-btn" type="button" data-remove-row>✕</button>
-    `;
-    row.querySelector('[data-remove-row]').addEventListener('click', () => row.remove());
-    goalsContainer.appendChild(row);
-  }
-
-  function addCardRow(c) {
-    const row = document.createElement('div');
-    row.className = 'admin-panel-row card-row';
-    row.innerHTML = `
-      <select class="club-select card-player">${playerOptionsHtml(c?.playerId)}</select>
-      <select class="club-select card-type">
-        <option value="amarilla" ${c?.type === 'amarilla' ? 'selected' : ''}>Amarilla</option>
-        <option value="roja" ${c?.type === 'roja' ? 'selected' : ''}>Roja</option>
-      </select>
-      <input type="number" min="0" class="club-select card-minute" placeholder="min" style="width:60px;" value="${c?.minute ?? ''}" />
-      <button class="acta-btn" type="button" data-remove-row>✕</button>
-    `;
-    row.querySelector('[data-remove-row]').addEventListener('click', () => row.remove());
-    cardsContainer.appendChild(row);
-  }
-
-  existingGoals.forEach(addGoalRow);
-  existingCards.forEach(addCardRow);
-
-  document.getElementById('add-goal-row').addEventListener('click', () => addGoalRow());
-  document.getElementById('add-card-row').addEventListener('click', () => addCardRow());
-
-  document.getElementById('result-submit').addEventListener('click', async () => {
-    const homeInput = document.getElementById('result-home').value;
-    const awayInput = document.getElementById('result-away').value;
-    const errorEl = document.getElementById('result-error');
-    if (homeInput === '' || awayInput === '') { errorEl.textContent = 'Rellena los dos marcadores.'; return; }
-
-    const byId = new Map(roster.map((p) => [p.id, p.name]));
-    const goals = Array.from(goalsContainer.querySelectorAll('.goal-row')).map((row) => {
-      const scorerId = row.querySelector('.goal-scorer').value;
-      const assistId = row.querySelector('.goal-assist').value;
-      const minute = row.querySelector('.goal-minute').value;
-      if (!scorerId) return null;
-      return {
-        scorerId, scorerName: byId.get(scorerId) || scorerId,
-        assistId: assistId || null, assistName: assistId ? (byId.get(assistId) || assistId) : null,
-        minute: minute ? Number(minute) : null,
-      };
-    }).filter(Boolean);
-
-    const cards = Array.from(cardsContainer.querySelectorAll('.card-row')).map((row) => {
-      const playerId = row.querySelector('.card-player').value;
-      const type = row.querySelector('.card-type').value;
-      const minute = row.querySelector('.card-minute').value;
-      if (!playerId) return null;
-      return { playerId, playerName: byId.get(playerId) || playerId, type, minute: minute ? Number(minute) : null };
-    }).filter(Boolean);
-
-    try {
-      await setCustomMatchResult(match.season, match.round, homeInput, awayInput, goals, cards);
-      closeClubModal();
-      renderCustomMatchesInCalendar();
-    } catch (err) {
-      console.error(err);
-      errorEl.textContent = 'No se pudo guardar el resultado.';
+  // Si hay convocatoria registrada, priorizamos esa lista (más corta y
+  // relevante); si no, mostramos toda la plantilla.
+  let players = roster;
+  try {
+    const signups = await getSignups(match.season, match.round);
+    const signedIds = Object.keys(signups).filter((id) => signups[id]?.signedUp);
+    if (signedIds.length) {
+      const byId = new Map(roster.map((p) => [p.id, p.name]));
+      players = signedIds.map((id) => ({ id, name: byId.get(id) || id }));
     }
+  } catch (err) { /* usamos toda la plantilla */ }
+
+  // Estado en memoria mientras se rellena el acta: por jugador, sus goles
+  // (cada uno con minuto y asistencia opcional) y tarjetas.
+  const state = new Map(players.map((p) => [p.id, { goals: [], card: null }]));
+  (match.goals || []).forEach((g) => {
+    if (state.has(g.scorerId)) state.get(g.scorerId).goals.push({ minute: g.minute, assistId: g.assistId || null });
   });
+  (match.cards || []).forEach((c) => {
+    if (state.has(c.playerId)) state.get(c.playerId).card = { type: c.type, minute: c.minute };
+  });
+
+  const byId = new Map(roster.map((p) => [p.id, p.name]));
+
+  function playerRowHtml(p) {
+    const entry = state.get(p.id);
+    const goalsTags = entry.goals
+      .map((g, i) => `
+        <span class="player-goal-tag" data-player="${p.id}" data-goal-idx="${i}">
+          ⚽ ${g.minute != null ? g.minute + "'" : ''}${g.assistId ? ` (asist. ${shortName(byId.get(g.assistId) || '')})` : ''}
+          <button type="button" data-remove-goal="${p.id}" data-idx="${i}">✕</button>
+        </span>
+      `).join('');
+    const cardTag = entry.card
+      ? `<span class="player-card-tag ${entry.card.type === 'roja' ? 'red' : 'yellow'}">
+          ${entry.card.type === 'roja' ? '🟥' : '🟨'} ${entry.card.minute != null ? entry.card.minute + "'" : ''}
+          <button type="button" data-remove-card="${p.id}">✕</button>
+        </span>`
+      : '';
+
+    return `
+      <li class="player-result-row" data-player-row="${p.id}">
+        <span class="player-result-name">${p.name}</span>
+        <span class="player-result-tags">${goalsTags}${cardTag}</span>
+        <span class="player-result-actions">
+          <button type="button" class="acta-btn" data-add-goal="${p.id}">⚽ Gol</button>
+          <button type="button" class="acta-btn" data-add-yellow="${p.id}">🟨</button>
+          <button type="button" class="acta-btn" data-add-red="${p.id}">🟥</button>
+        </span>
+      </li>
+    `;
+  }
+
+  function renderPlayerList() {
+    const list = document.getElementById('players-result-list');
+    if (list) list.innerHTML = players.map(playerRowHtml).join('');
+    wirePlayerRows();
+  }
+
+  function wirePlayerRows() {
+    document.querySelectorAll('[data-add-goal]').forEach((btn) => {
+      btn.addEventListener('click', () => openMiniGoalForm(btn.dataset.addGoal));
+    });
+    document.querySelectorAll('[data-add-yellow]').forEach((btn) => {
+      btn.addEventListener('click', () => { state.get(btn.dataset.addYellow).card = { type: 'amarilla', minute: null }; renderPlayerList(); });
+    });
+    document.querySelectorAll('[data-add-red]').forEach((btn) => {
+      btn.addEventListener('click', () => { state.get(btn.dataset.addRed).card = { type: 'roja', minute: null }; renderPlayerList(); });
+    });
+    document.querySelectorAll('[data-remove-goal]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.get(btn.dataset.removeGoal).goals.splice(Number(btn.dataset.idx), 1);
+        renderPlayerList();
+      });
+    });
+    document.querySelectorAll('[data-remove-card]').forEach((btn) => {
+      btn.addEventListener('click', () => { state.get(btn.dataset.removeCard).card = null; renderPlayerList(); });
+    });
+  }
+
+  function openMiniGoalForm(scorerId) {
+    const assistOptions = players.filter((p) => p.id !== scorerId);
+    openClubModal(`
+      <h3 class="club-modal-title">Gol de ${byId.get(scorerId)}</h3>
+      <div class="field-group">
+        <label class="field-label">🕐 Minuto (opcional)</label>
+        <input type="number" min="0" id="mini-goal-minute" class="club-select" placeholder="ej. 35" />
+      </div>
+      <div class="field-group">
+        <label class="field-label">🎯 Asistencia (opcional)</label>
+        <select id="mini-goal-assist" class="club-select">
+          <option value="">-- sin asistencia --</option>
+          ${assistOptions.map((p) => `<option value="${p.id}">${p.name}</option>`).join('')}
+        </select>
+      </div>
+      <button class="acta-btn acta-btn-alt club-submit" id="mini-goal-save">Añadir gol</button>
+    `);
+    document.getElementById('mini-goal-save').addEventListener('click', () => {
+      const minute = document.getElementById('mini-goal-minute').value;
+      const assistId = document.getElementById('mini-goal-assist').value || null;
+      state.get(scorerId).goals.push({ minute: minute ? Number(minute) : null, assistId });
+      reopenMainModal();
+    });
+  }
+
+  function reopenMainModal() {
+    openMainModal();
+  }
+
+  function openMainModal() {
+    openClubModal(`
+      <h3 class="club-modal-title">Resultado del amistoso</h3>
+      <p class="club-modal-sub">vs ${match.opponent} · ${match.date || ''}${match.time ? ' · ' + match.time : ''}</p>
+      <div class="admin-panel-row" style="justify-content:center;">
+        <span style="font-weight:600;">${match.isHome ? 'Nosotros' : match.opponent}</span>
+        <input type="number" min="0" id="result-home" class="club-select" style="width:70px;text-align:center;" value="${match.homeGoals ?? ''}" placeholder="0" />
+        <span>-</span>
+        <input type="number" min="0" id="result-away" class="club-select" style="width:70px;text-align:center;" value="${match.awayGoals ?? ''}" placeholder="0" />
+        <span style="font-weight:600;">${match.isHome ? match.opponent : 'Nosotros'}</span>
+      </div>
+
+      <div class="admin-panel-title" style="margin-top:18px;">Goles y tarjetas — toca un jugador</div>
+      <ul id="players-result-list" class="player-result-list"></ul>
+
+      <div id="result-error" class="club-error"></div>
+      <button class="acta-btn acta-btn-alt club-submit" id="result-submit">Guardar resultado</button>
+    `);
+    renderPlayerList();
+
+    document.getElementById('result-submit').addEventListener('click', async () => {
+      const homeInput = document.getElementById('result-home').value;
+      const awayInput = document.getElementById('result-away').value;
+      const errorEl = document.getElementById('result-error');
+      if (homeInput === '' || awayInput === '') { errorEl.textContent = 'Rellena los dos marcadores.'; return; }
+
+      const goals = [];
+      const cards = [];
+      state.forEach((entry, playerId) => {
+        entry.goals.forEach((g) => {
+          goals.push({
+            scorerId: playerId, scorerName: byId.get(playerId) || playerId,
+            assistId: g.assistId, assistName: g.assistId ? (byId.get(g.assistId) || g.assistId) : null,
+            minute: g.minute,
+          });
+        });
+        if (entry.card) {
+          cards.push({ playerId, playerName: byId.get(playerId) || playerId, type: entry.card.type, minute: entry.card.minute });
+        }
+      });
+
+      try {
+        await setCustomMatchResult(match.season, match.round, homeInput, awayInput, goals, cards);
+        closeClubModal();
+        renderCustomMatchesInCalendar();
+      } catch (err) {
+        console.error(err);
+        errorEl.textContent = 'No se pudo guardar el resultado.';
+      }
+    });
+  }
+
+  openMainModal();
 }
 
-function openCustomMatchDetail(match) {
+async function openCustomMatchDetail(match) {
   if (!match) return;
+  openClubModal('<p class="acta-empty" style="text-align:center;">Cargando…</p>');
+
+  const admin = await getMyAdminStatus();
+  const homeName = match.isHome ? OWN_TEAM_NAME : match.opponent;
+  const awayName = match.isHome ? match.opponent : OWN_TEAM_NAME;
+
+  const metaBits = [];
+  if (match.date) metaBits.push(match.date);
+  if (match.time) metaBits.push(`${match.time} h`);
+  if (match.venue) metaBits.push(match.venue);
+
   const goalsHtml = (match.goals || []).length
     ? `<ul class="acta-goals-list">${match.goals.map((g) => `
         <li>
           <span class="acta-goal-minute">${g.minute != null ? `${g.minute}'` : ''}</span>
-          <span>${g.scorerName}${g.assistName ? ` <span style="color:var(--slate-light);">(asist. ${g.assistName})</span>` : ''}</span>
+          <span>⚽ ${g.scorerName}${g.assistName ? ` <span style="color:var(--slate-light);">(asist. ${g.assistName})</span>` : ''}</span>
         </li>`).join('')}</ul>`
     : '<p class="acta-empty">Sin goles registrados.</p>';
 
@@ -360,13 +440,29 @@ function openCustomMatchDetail(match) {
         </li>`).join('')}</ul>`
     : '';
 
+  const editBtnHtml = admin
+    ? `<p style="text-align:center;margin-top:18px;"><button class="acta-btn" id="edit-from-detail">Editar ficha</button></p>`
+    : '';
+
   openClubModal(`
-    <h3 class="club-modal-title">vs ${match.opponent}</h3>
-    <p class="club-modal-sub">${match.date || ''}${match.time ? ' · ' + match.time : ''} · ${match.isHome ? match.homeGoals : match.awayGoals} - ${match.isHome ? match.awayGoals : match.homeGoals}</p>
+    <div class="acta-header">
+      <div class="acta-header-meta">${metaBits.join(' · ')}</div>
+      <div class="acta-header-score">
+        <span class="acta-team-name home ${match.isHome ? 'is-own' : ''}">${shortName(homeName)}</span>
+        <span class="score-box">${match.homeGoals} : ${match.awayGoals}</span>
+        <span class="acta-team-name away ${!match.isHome ? 'is-own' : ''}">${shortName(awayName)}</span>
+      </div>
+    </div>
     <div class="acta-section-title">Goles</div>
     ${goalsHtml}
     ${cardsHtml ? `<div class="acta-section-title">Tarjetas</div>${cardsHtml}` : ''}
+    ${editBtnHtml}
   `);
+
+  const editBtn = document.getElementById('edit-from-detail');
+  if (editBtn) {
+    editBtn.addEventListener('click', () => openAddResultModal(match));
+  }
 }
 
 // Cuando cambia el selector de Tipo (en app.js), repintamos los amistosos.
@@ -881,19 +977,9 @@ async function renderConvocatoria() {
     `;
   }));
 
-  const adminPanelHtml = admin ? `
-    <div class="admin-panel">
-      <div class="admin-panel-title">Añadir partido de pretemporada (solo delegados)</div>
-      <div class="admin-panel-row">
-        <input type="text" id="custom-opponent" placeholder="Rival" class="club-select" style="flex:2;" />
-        <input type="date" id="custom-date" class="club-select" style="flex:1;" />
-        <input type="time" id="custom-time" class="club-select" style="flex:1;" />
-        <input type="text" id="custom-venue" placeholder="Campo" class="club-select" style="flex:1;" />
-        <button class="acta-btn acta-btn-alt" id="custom-add-btn">Añadir</button>
-      </div>
-      <div id="custom-add-error" class="club-error"></div>
-    </div>
-  ` : '';
+  const adminPanelHtml = admin
+    ? `<div class="acta-btn-wrap" style="margin-top:8px;"><button class="acta-btn acta-btn-alt" id="open-add-match-modal">+ Añadir partido de pretemporada</button></div>`
+    : '';
 
   content.innerHTML = `${blocksHtml.join('<div class="divider" style="margin:22px 0;"></div>')}${allUpcoming.length ? '<div class="divider" style="margin:22px 0;"></div>' : ''}${adminPanelHtml}`;
 
@@ -975,14 +1061,48 @@ async function renderConvocatoria() {
 
 function wireAdminPanel(admin) {
   if (!admin) return;
-  const addBtn = document.getElementById('custom-add-btn');
-  if (!addBtn) return;
-  addBtn.addEventListener('click', async () => {
+  const openBtn = document.getElementById('open-add-match-modal');
+  if (!openBtn) return;
+  openBtn.addEventListener('click', openAddMatchModal);
+}
+
+function openAddMatchModal() {
+  openClubModal(`
+    <h3 class="club-modal-title">Añadir partido de pretemporada</h3>
+    <div class="field-group">
+      <label class="field-label">⚽ Rival</label>
+      <input type="text" id="custom-opponent" placeholder="Nombre del rival" class="club-select" />
+    </div>
+    <div class="field-group-row">
+      <div class="field-group">
+        <label class="field-label">📅 Fecha</label>
+        <input type="date" id="custom-date" class="club-select" />
+      </div>
+      <div class="field-group">
+        <label class="field-label">🕐 Hora</label>
+        <input type="time" id="custom-time" class="club-select" />
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label">📍 Campo</label>
+      <input type="text" id="custom-venue" placeholder="Nombre del campo" class="club-select" />
+    </div>
+    <label style="display:flex; align-items:center; gap:8px; font-size:13px; margin-top:6px;">
+      <input type="checkbox" id="custom-ishome" />
+      Jugamos en casa
+    </label>
+    <div id="custom-add-error" class="club-error"></div>
+    <button class="acta-btn acta-btn-alt club-submit" id="custom-add-btn">Añadir partido</button>
+  `);
+
+  document.getElementById('custom-add-btn').addEventListener('click', async () => {
     const opponent = document.getElementById('custom-opponent').value.trim();
     const dateInput = document.getElementById('custom-date').value; // YYYY-MM-DD
     const time = document.getElementById('custom-time').value; // HH:MM
     const venue = document.getElementById('custom-venue').value.trim();
+    const isHome = document.getElementById('custom-ishome').checked;
     const errorEl = document.getElementById('custom-add-error');
+    const addBtn = document.getElementById('custom-add-btn');
 
     if (!opponent) { errorEl.textContent = 'Escribe el nombre del rival.'; return; }
     if (!dateInput) { errorEl.textContent = 'Elige una fecha.'; return; }
@@ -992,7 +1112,8 @@ function wireAdminPanel(admin) {
 
     addBtn.disabled = true;
     try {
-      await addCustomMatch({ opponent, date, time, venue });
+      await addCustomMatch({ opponent, date, time, venue, isHome });
+      closeClubModal();
       renderConvocatoria();
       renderCustomMatchesInCalendar();
     } catch (err) {
