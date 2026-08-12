@@ -905,7 +905,7 @@ async function renderConvocatoria() {
     });
   });
 
-  content.querySelectorAll('details.admin-panel[data-attendee-key]').forEach((el) => {
+  content.querySelectorAll('details.attendee-panel[data-attendee-key]').forEach((el) => {
     el.addEventListener('toggle', () => {
       const key = el.dataset.attendeeKey;
       if (el.open) openAttendeeLists.add(key);
