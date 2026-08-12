@@ -194,15 +194,13 @@ function openEditMatchModal(match) {
       <label class="field-label">⚽ Rival</label>
       <input type="text" id="edit-opponent" class="club-select" value="${match.opponent || ''}" />
     </div>
-    <div class="field-group-row">
-      <div class="field-group">
-        <label class="field-label">📅 Fecha</label>
-        <input type="date" id="edit-date" class="club-select" value="${dateToInputValue(match.date)}" />
-      </div>
-      <div class="field-group">
-        <label class="field-label">🕐 Hora</label>
-        <input type="time" id="edit-time" class="club-select" value="${match.time || ''}" />
-      </div>
+    <div class="field-group">
+      <label class="field-label">📅 Fecha</label>
+      <input type="date" id="edit-date" class="club-select" value="${dateToInputValue(match.date)}" />
+    </div>
+    <div class="field-group">
+      <label class="field-label">🕐 Hora</label>
+      <input type="time" id="edit-time" class="club-select" value="${match.time || ''}" />
     </div>
     <div class="field-group">
       <label class="field-label">📍 Campo</label>
@@ -1133,15 +1131,13 @@ function openAddMatchModal() {
       <label class="field-label">⚽ Rival</label>
       <input type="text" id="custom-opponent" placeholder="Nombre del rival" class="club-select" />
     </div>
-    <div class="field-group-row">
-      <div class="field-group">
-        <label class="field-label">📅 Fecha</label>
-        <input type="date" id="custom-date" class="club-select" />
-      </div>
-      <div class="field-group">
-        <label class="field-label">🕐 Hora</label>
-        <input type="time" id="custom-time" class="club-select" />
-      </div>
+    <div class="field-group">
+      <label class="field-label">📅 Fecha</label>
+      <input type="date" id="custom-date" class="club-select" />
+    </div>
+    <div class="field-group">
+      <label class="field-label">🕐 Hora</label>
+      <input type="time" id="custom-time" class="club-select" />
     </div>
     <div class="field-group">
       <label class="field-label">📍 Campo</label>
