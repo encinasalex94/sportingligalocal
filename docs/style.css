@@ -1302,9 +1302,9 @@ button:focus-visible {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .convocatoria-item {
@@ -1337,8 +1337,14 @@ button:focus-visible {
   list-style: decimal;
   margin: 0 0 20px;
   padding-left: 22px;
-  columns: 2;
-  column-gap: 24px;
+  columns: 1;
+}
+
+@media (min-width: 640px) {
+  .convocatoria-count-list {
+    columns: 2;
+    column-gap: 24px;
+  }
 }
 
 .convocatoria-count-list li {
