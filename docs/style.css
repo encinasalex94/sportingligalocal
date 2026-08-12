@@ -1333,9 +1333,57 @@ button:focus-visible {
   margin-bottom: 10px;
 }
 
+.attendee-panel {
+  margin-bottom: 14px;
+}
+
+.attendee-panel .convocatoria-summary-toggle {
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.attendee-panel[open] .convocatoria-summary-toggle {
+  margin-bottom: 4px;
+}
+
+.convocatoria-summary-toggle {
+  font-family: var(--font-display) !important;
+  font-size: 16px !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  color: var(--navy) !important;
+  cursor: pointer;
+  list-style: none;
+}
+
+.convocatoria-summary-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.convocatoria-summary-toggle::before {
+  content: '▸ ';
+  color: var(--blue);
+}
+
+details[open] > .convocatoria-summary-toggle::before {
+  content: '▾ ';
+}
+
+.convocatoria-warning {
+  background: rgba(194,66,66,0.1);
+  border: 1px solid var(--loss);
+  color: var(--loss);
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
 .convocatoria-count-list {
   list-style: decimal;
-  margin: 0 0 20px;
+  margin: 10px 0 0;
   padding-left: 22px;
   columns: 1;
 }
