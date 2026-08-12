@@ -52,29 +52,33 @@
 
   <div class="divider" aria-hidden="true"></div>
 
+  <!-- SELECTORES: controlan Clasificación, Resultados y Calendario a la vez -->
+  <section class="selector-bar">
+    <div class="wrap">
+      <div class="selectors-group">
+        <label class="round-select-wrap">
+          <span>Temporada:</span>
+          <select id="season-select"></select>
+        </label>
+        <label class="round-select-wrap">
+          <span>Tipo:</span>
+          <select id="competition-type-select"></select>
+        </label>
+        <label class="round-select-wrap">
+          <span>Ver jornada:</span>
+          <select id="round-select"></select>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" id="divider-clasificacion" aria-hidden="true"></div>
+
   <!-- CLASIFICACIÓN -->
   <section class="section" id="clasificacion">
     <div class="wrap">
-      <div class="section-header-row">
-        <div>
-          <h2 class="section-title">Clasificación</h2>
-          <p class="section-sub" id="competition-title">—</p>
-        </div>
-        <div class="selectors-group">
-          <label class="round-select-wrap">
-            <span>Temporada:</span>
-            <select id="season-select"></select>
-          </label>
-          <label class="round-select-wrap">
-            <span>Tipo:</span>
-            <select id="competition-type-select"></select>
-          </label>
-          <label class="round-select-wrap">
-            <span>Ver jornada:</span>
-            <select id="round-select"></select>
-          </label>
-        </div>
-      </div>
+      <h2 class="section-title">Clasificación</h2>
+      <p class="section-sub" id="competition-title">—</p>
       <div class="table-scroll">
         <table class="standings">
           <thead>
@@ -100,7 +104,7 @@
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"></div>
+  <div class="divider" id="divider-resultados" aria-hidden="true"></div>
 
   <!-- RESULTADOS -->
   <section class="section" id="resultados">
