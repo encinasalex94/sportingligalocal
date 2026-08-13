@@ -1624,7 +1624,7 @@ details.admin-panel[open] summary.admin-panel-title {
   font-family: var(--font-display);
   font-size: 18px;
   text-transform: uppercase;
-  margin: 0 0 4px;
+  margin: 0 0 16px;
   text-align: center;
 }
 
