@@ -179,6 +179,27 @@ async function renderCustomMatchesInCalendar() {
   }
 }
 
+function attachDateAutoFormat(input) {
+  if (!input) return;
+  input.addEventListener('input', () => {
+    const digits = input.value.replace(/\D/g, '').slice(0, 8);
+    let formatted = digits;
+    if (digits.length > 4) formatted = `${digits.slice(0, 2)}-${digits.slice(2, 4)}-${digits.slice(4)}`;
+    else if (digits.length > 2) formatted = `${digits.slice(0, 2)}-${digits.slice(2)}`;
+    input.value = formatted;
+  });
+}
+
+function attachTimeAutoFormat(input) {
+  if (!input) return;
+  input.addEventListener('input', () => {
+    const digits = input.value.replace(/\D/g, '').slice(0, 4);
+    let formatted = digits;
+    if (digits.length > 2) formatted = `${digits.slice(0, 2)}:${digits.slice(2)}`;
+    input.value = formatted;
+  });
+}
+
 function openEditMatchModal(match) {
   if (!match) return;
   openClubModal(`
@@ -207,6 +228,9 @@ function openEditMatchModal(match) {
     <div id="edit-error" class="club-error"></div>
     <button class="acta-btn acta-btn-alt club-submit" id="edit-submit">Guardar cambios</button>
   `);
+
+  attachDateAutoFormat(document.getElementById('edit-date'));
+  attachTimeAutoFormat(document.getElementById('edit-time'));
 
   document.getElementById('edit-submit').addEventListener('click', async () => {
     const opponent = document.getElementById('edit-opponent').value.trim();
@@ -1142,6 +1166,9 @@ function openAddMatchModal() {
     <div id="custom-add-error" class="club-error"></div>
     <button class="acta-btn acta-btn-alt club-submit" id="custom-add-btn">Añadir partido</button>
   `);
+
+  attachDateAutoFormat(document.getElementById('custom-date'));
+  attachTimeAutoFormat(document.getElementById('custom-time'));
 
   document.getElementById('custom-add-btn').addEventListener('click', async () => {
     const opponent = document.getElementById('custom-opponent').value.trim();
