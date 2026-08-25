@@ -379,6 +379,7 @@ function applyView(seasonLabel, type, data) {
   // (club-ui.js, el selector de jornada, etc.) dependen de esto.
   DATA = data;
   window.APP_DATA = data;
+  renderMeta(data);
 
   // La Clasificación y los Resultados son cosas de la Liga real; no
   // aplican a Pretemporada ni a Copa (sin datos todavía) — así que
