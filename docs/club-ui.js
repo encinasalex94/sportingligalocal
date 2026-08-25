@@ -8,7 +8,7 @@ import {
   setCustomMatchResult,
 } from './firebase-club.js';
 
-const SEASON = '2025-2026';
+const SEASON = '2026-2027';
 const OWN_TEAM_NAME = 'SPORTING DE MADERASA - BAR JUANJO';
 
 function isOwn(name) {
@@ -862,7 +862,7 @@ const openAdminPanels = new Set();
 const openAttendeeLists = new Set();
 
 async function renderConvocatoria() {
-  const data = window.APP_DATA;
+  const data = window.LIVE_SEASON_DATA || window.APP_DATA;
   const sub = document.getElementById('convocatoria-sub');
   const content = document.getElementById('convocatoria-content');
   if (!data) return;
