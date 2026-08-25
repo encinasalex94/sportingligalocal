@@ -901,16 +901,18 @@ async function renderConvocatoria() {
     .map((m) => ({ ...m, isCustom: true }));
 
   const allUpcoming = [...upcomingReal, ...upcomingCustom].sort((a, b) => a.timestamp - b.timestamp);
+  const nextMatches = allUpcoming.slice(0, 1); // solo el más cercano, para no saturar la vista
 
-  if (allUpcoming.length) {
-    sub.textContent = `${allUpcoming.length} próximo${allUpcoming.length === 1 ? '' : 's'} partido${allUpcoming.length === 1 ? '' : 's'}`;
+  if (nextMatches.length) {
+    const next = nextMatches[0];
+    sub.textContent = `${next.isCustom ? 'Amistoso' : `Jornada ${next.round}`} · vs ${next.opponent} · ${next.date || ''}${next.time ? ' · ' + next.time : ''}`;
   } else {
     sub.textContent = 'No hay ningún partido próximo programado todavía.';
   }
 
   const roster = await getRoster();
-  // Un bloque de convocatoria por cada partido próximo
-  const blocksHtml = await Promise.all(allUpcoming.map(async (match, idx) => {
+  // Un único bloque de convocatoria: el próximo partido
+  const blocksHtml = await Promise.all(nextMatches.map(async (match, idx) => {
     const signups = await getSignups(match.season, match.round);
     const signedEntries = roster
       .filter((p) => !!signups[p.id]?.signedUp)
