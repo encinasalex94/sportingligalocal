@@ -3,9 +3,9 @@ const OWN_TEAM_NAME = 'SPORTING DE MADERASA - BAR JUANJO';
 
 let DATA = null;
 
-async function loadData() {
-  const res = await fetch('data/data.json', { cache: 'no-store' });
-  if (!res.ok) throw new Error('No se pudo cargar data/data.json');
+async function loadData(file = 'data/data.json') {
+  const res = await fetch(file, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`No se pudo cargar ${file}`);
   return res.json();
 }
 
@@ -339,15 +339,16 @@ function renderRoundSelector(data) {
 const SEASONS = [
   {
     label: '2026-2027',
+    dataFile: 'data/data.json',
     types: [
-      { value: 'pretemporada', label: 'Pretemporada' },
-      // Cuando la federación publique el calendario, añade aquí:
-      // { value: 'liga', label: 'Liga' },
+      { value: 'liga', label: 'Liga' },
+      // Cuando la federación publique el calendario de Copa 2026-2027:
       // { value: 'copa', label: 'Copa' },
     ],
   },
   {
     label: '2025-2026',
+    dataFile: 'data/season-2025-2026.json',
     types: [
       { value: 'liga', label: 'Liga' },
     ],
@@ -358,26 +359,45 @@ const SEASONS = [
 window.CURRENT_SEASON_LABEL = null;
 window.CURRENT_COMPETITION_TYPE = null;
 
+// Evita volver a descargar el JSON de una temporada que ya se cargó antes.
+const seasonDataCache = new Map();
+
+async function getSeasonData(seasonLabel) {
+  if (seasonDataCache.has(seasonLabel)) return seasonDataCache.get(seasonLabel);
+  const season = SEASONS.find((s) => s.label === seasonLabel) || SEASONS[0];
+  const data = await loadData(season.dataFile);
+  seasonDataCache.set(seasonLabel, data);
+  return data;
+}
+
 function applyView(seasonLabel, type, data) {
   window.CURRENT_SEASON_LABEL = seasonLabel;
   window.CURRENT_COMPETITION_TYPE = type;
 
-  // La Clasificación y los Resultados son cosas de la Liga real
-  // (2025-2026); no aplican a Pretemporada ni a Copa (sin datos todavía) —
-  // así que directamente se ocultan enteras, en vez de mostrarse vacías.
+  // Mantenemos sincronizados el DATA global y window.APP_DATA con la
+  // temporada que se esté viendo ahora mismo — otras partes de la web
+  // (club-ui.js, el selector de jornada, etc.) dependen de esto.
+  DATA = data;
+  window.APP_DATA = data;
+
+  // La Clasificación y los Resultados son cosas de la Liga real; no
+  // aplican a Pretemporada ni a Copa (sin datos todavía) — así que
+  // directamente se ocultan enteras, en vez de mostrarse vacías.
   const isLiga = type === 'liga';
   const isCopa = type === 'copa';
   toggleSectionById('clasificacion', 'divider-clasificacion', isLiga);
   toggleSectionById('resultados', 'divider-resultados', !isCopa);
 
-  // El marcador destacado: en Liga es el último resultado real (ya
-  // pintado); en Copa no hay datos, se oculta; en Pretemporada lo decide
-  // club-ui.js según haya o no amistosos (último jugado o el próximo).
+  // El marcador destacado: en Liga es el último resultado real de ESA
+  // temporada (hay que repintarlo, no vale con uno fijo cargado al
+  // principio); en Copa no hay datos, se oculta; en Pretemporada lo
+  // decide club-ui.js según haya o no amistosos.
   const heroSection = document.getElementById('scoreboard-hero-section');
-  if (heroSection) {
-    if (type === 'copa') heroSection.style.display = 'none';
-    else if (isLiga) heroSection.style.display = '';
-    else heroSection.style.display = 'none'; // se revela solo si hay amistosos
+  if (isLiga) {
+    if (heroSection) heroSection.style.display = '';
+    renderScoreboard(data);
+  } else if (heroSection) {
+    heroSection.style.display = 'none'; // en pretemporada se revela solo si hay amistosos
   }
 
   if (isLiga) {
@@ -419,18 +439,28 @@ function renderTypeSelector(seasonLabel, data) {
   applyView(seasonLabel, typeSelect.value, data);
 }
 
-function renderSeasonSelector(data) {
+function renderSeasonSelector(initialData) {
   const select = document.getElementById('season-select');
   if (!select) return;
 
   select.innerHTML = SEASONS.map((s) => `<option value="${s.label}">${s.label}</option>`).join('');
   select.value = SEASONS[0].label; // 2026-2027 por defecto
+  seasonDataCache.set(SEASONS[0].label, initialData); // ya la tenemos, nos la ahorramos volver a pedir
 
-  select.addEventListener('change', () => {
-    renderTypeSelector(select.value, data);
+  select.addEventListener('change', async () => {
+    select.disabled = true;
+    try {
+      const data = await getSeasonData(select.value);
+      renderTypeSelector(select.value, data);
+    } catch (err) {
+      console.error(err);
+      alert('No se pudieron cargar los datos de esa temporada.');
+    } finally {
+      select.disabled = false;
+    }
   });
 
-  renderTypeSelector(select.value, data);
+  renderTypeSelector(select.value, initialData);
 }
 
 // Los "Goleadores" (nombres de jugadores) ya no viven en data.json ni se
@@ -546,8 +576,11 @@ async function init() {
     DATA = data;
     window.APP_DATA = data;
     renderMeta(data);
-    renderScoreboard(data);
     renderSeasonSelector(data);
+    // Referencia fija a la temporada EN CURSO (2026-2027), independiente de
+    // qué temporada esté navegando el usuario en los selectores — la
+    // Convocatoria siempre debe mirar aquí, nunca a una temporada archivada.
+    window.LIVE_SEASON_DATA = data;
     document.dispatchEvent(new CustomEvent('app-data-ready', { detail: data }));
 
     // Gancho para que club-ui.js pueda pedir un repintado cuando cambie el
