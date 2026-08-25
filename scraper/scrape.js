@@ -36,14 +36,14 @@ const path = require('path');
 const CONFIG = {
   baseUrl: 'https://aranjuez.ffmadrid.es',
   codPrimaria: '1000128',
-  codTemporada: '21', // 2025-2026
-  temporadaTexto: '2025-2026',
+  codTemporada: '22', // 2026-2027
+  temporadaTexto: '2026-2027',
   codEquipoPropio: '1000030',
   nombreEquipoPropio: 'SPORTING DE MADERASA - BAR JUANJO',
 
   liga: {
-    codCompeticion: '1009587',
-    codGrupo: '1009591',
+    codCompeticion: '1011203',
+    codGrupo: '1011204',
   },
 
   // Nota: esta temporada el club también jugó la Copa Aficionados F-11, pero
