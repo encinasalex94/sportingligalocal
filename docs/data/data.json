@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T07:37:08.575Z",
+  "generatedAt": "2026-08-27T17:57:43.446Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -163,21 +163,6 @@
     },
     {
       "position": 11,
-      "teamId": "1000007",
-      "teamName": "TORINO - VENTACONS - BAR JUANI",
-      "points": 0,
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "goalDifference": 0,
-      "form": [],
-      "isOwnTeam": false
-    },
-    {
-      "position": 12,
       "teamId": "1004150",
       "teamName": "UNION CAFETERA",
       "points": 0,
@@ -241,13 +226,12 @@
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
-          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "Descansa",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "UNION CAFETERA",
@@ -307,14 +291,13 @@
           "codActa": null
         },
         {
-          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeTeam": "Descansa",
           "awayTeam": "NEWTEAM- SMT",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -365,13 +348,12 @@
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
-          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "Descansa",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -431,14 +413,13 @@
           "codActa": null
         },
         {
-          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeTeam": "Descansa",
           "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -489,13 +470,12 @@
         },
         {
           "homeTeam": "FYSOL-POSTAS",
-          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "Descansa",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -555,14 +535,13 @@
           "codActa": null
         },
         {
-          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeTeam": "Descansa",
           "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -613,13 +592,12 @@
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
-          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "Descansa",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
@@ -679,14 +657,13 @@
           "codActa": null
         },
         {
-          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeTeam": "Descansa",
           "awayTeam": "POSTAS TAPERIA / MISTER PIXEL / LIBRERIA ALONSO",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -737,13 +714,12 @@
       "matches": [
         {
           "homeTeam": "RUMANIA CF",
-          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "Descansa",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "POSTAS TAPERIA / MISTER PIXEL / LIBRERIA ALONSO",
@@ -804,13 +780,12 @@
       "matches": [
         {
           "homeTeam": "UNION CAFETERA",
-          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "Descansa",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -870,14 +845,13 @@
       "date": "10-01-2027",
       "matches": [
         {
-          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeTeam": "Descansa",
           "awayTeam": "DELAPIO-40 BAR DE VINOS",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -977,14 +951,13 @@
           "codActa": null
         },
         {
-          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeTeam": "Descansa",
           "awayTeam": "J.C.R. - ATLETICO JERINGA",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1045,13 +1018,12 @@
         },
         {
           "homeTeam": "NEWTEAM- SMT",
-          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "Descansa",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -1101,14 +1073,13 @@
           "codActa": null
         },
         {
-          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeTeam": "Descansa",
           "awayTeam": "RIMATEC-PUB TENESSE",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1169,13 +1140,12 @@
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
-          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "Descansa",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
@@ -1225,14 +1195,13 @@
           "codActa": null
         },
         {
-          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeTeam": "Descansa",
           "awayTeam": "FYSOL-POSTAS",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1293,13 +1262,12 @@
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "Descansa",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -1349,14 +1317,13 @@
           "codActa": null
         },
         {
-          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeTeam": "Descansa",
           "awayTeam": "NEWCASTLE PUB F.C.",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1417,13 +1384,12 @@
         },
         {
           "homeTeam": "POSTAS TAPERIA / MISTER PIXEL / LIBRERIA ALONSO",
-          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "Descansa",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -1473,14 +1439,13 @@
       "date": "17-04-2027",
       "matches": [
         {
-          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeTeam": "Descansa",
           "awayTeam": "RUMANIA CF",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1540,14 +1505,13 @@
       "date": "25-04-2027",
       "matches": [
         {
-          "homeTeam": "TORINO - VENTACONS - BAR JUANI",
+          "homeTeam": "Descansa",
           "awayTeam": "UNION CAFETERA",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -1604,17 +1568,16 @@
     {
       "round": 22,
       "roundLabel": null,
-      "date": "15-05-2027",
+      "date": "08-05-2027",
       "matches": [
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
-          "awayTeam": "TORINO - VENTACONS - BAR JUANI",
+          "awayTeam": "Descansa",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "J.C.R. - ATLETICO JERINGA",
@@ -1720,9 +1683,9 @@
       "roundLabel": null,
       "date": "10-10-2026",
       "time": null,
-      "venue": "Campo Pendiente de asignar",
+      "venue": null,
       "isHome": false,
-      "opponent": "TORINO - VENTACONS - BAR JUANI",
+      "opponent": "Descansa",
       "goalsFor": null,
       "goalsAgainst": null,
       "played": false,
@@ -1885,9 +1848,9 @@
       "roundLabel": null,
       "date": "14-02-2027",
       "time": null,
-      "venue": "Campo Pendiente de asignar",
+      "venue": null,
       "isHome": true,
-      "opponent": "TORINO - VENTACONS - BAR JUANI",
+      "opponent": "Descansa",
       "goalsFor": null,
       "goalsAgainst": null,
       "played": false,
@@ -1988,7 +1951,7 @@
     {
       "round": 22,
       "roundLabel": null,
-      "date": "15-05-2027",
+      "date": "08-05-2027",
       "time": null,
       "venue": "Campo Pendiente de asignar",
       "isHome": true,
