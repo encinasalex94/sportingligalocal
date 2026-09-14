@@ -13,13 +13,8 @@ function shortName(name) {
   return (name || '').trim();
 }
 
-// El equipo aparece con nombre distinto en Copa ("SPORTING ARANJUEZ") que
-// en Liga ("SPORTING DE MADERASA - BAR JUANJO"). Reconocemos cualquiera.
-const OWN_TEAM_NAME_VARIANTS = [OWN_TEAM_NAME, 'SPORTING ARANJUEZ'];
-
 function isOwn(name) {
-  const upper = (name || '').toUpperCase();
-  return OWN_TEAM_NAME_VARIANTS.some((variant) => upper.includes(variant));
+  return (name || '').toUpperCase().includes(OWN_TEAM_NAME);
 }
 
 function formatVenue(venue) {
