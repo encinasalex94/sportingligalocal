@@ -701,22 +701,6 @@ async function runCopa(existingActaIds) {
 
   if (!copaRounds.length) {
     log('  -> todavía no hay ninguna jornada de Copa publicada, no se genera copa.json');
-    // DIAGNÓSTICO TEMPORAL: guardamos la página cruda para ver por qué no
-    // se detectó ninguna jornada (se borra en cuanto lo hayamos revisado).
-    try {
-      const debugResp = await httpGet(`${CONFIG.baseUrl}/nfg/NPcd/NFG_VisCalendario_Vis`, {
-        params: {
-          cod_primaria: CONFIG.codPrimaria,
-          codtemporada: CONFIG.codTemporada,
-          codcompeticion: CONFIG.copa.codCompeticion,
-          codgrupo: CONFIG.copa.codGrupo,
-        },
-      });
-      fs.writeFileSync(path.join(__dirname, 'debug-copa-calendario.html'), debugResp.data, 'utf-8');
-      log('  -> guardado scraper/debug-copa-calendario.html para revisar');
-    } catch (err) {
-      log(`  -> no se pudo ni guardar el diagnóstico: ${err.message}`);
-    }
     return;
   }
 
