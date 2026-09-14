@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-09-14T08:39:48.537Z",
+  "team": {
+    "id": "1000030",
+    "name": "SPORTING DE MADERASA - BAR JUANJO"
+  },
+  "season": "2026-2027",
+  "competition": {
+    "title": "Copa Aficionados F-11",
+    "season": "Temporada 2026-2027",
+    "round": "Jornada 1"
+  },
+  "standings": [],
+  "lastRoundResults": [],
+  "rounds": [
+    {
+      "round": 1,
+      "roundLabel": null,
+      "date": "22-11-2026",
+      "matches": [
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "SPORTING ARANJUEZ",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        }
+      ]
+    }
+  ],
+  "ownTeamCalendar": []
+}
