@@ -693,56 +693,77 @@ function computeStandingsFromRounds(roundsList) {
 }
 
 // ---- Copa: mismo flujo que Liga, pero eliminatoria (sin clasificación) ----
+// La Copa está organizada en "grupos" de 2 equipos cada uno (cada cruce es
+// su propio grupo). Para tener todos los partidos de una jornada hay que
+// recorrerlos todos, no solo el nuestro.
+async function fetchCopaGroupCodes() {
+  const url = `${CONFIG.baseUrl}/nfg/NPcd/NFG_CmpJornada`;
+  const resp = await httpGet(url, {
+    params: {
+      cod_primaria: CONFIG.codPrimaria,
+      CodCompeticion: CONFIG.copa.codCompeticion,
+      CodGrupo: CONFIG.copa.codGrupo,
+      CodTemporada: CONFIG.codTemporada,
+      CodJornada: 1,
+      cod_agrupacion: 1,
+      Sch_Tipo_Juego: 1,
+    },
+  });
+  const $ = cheerio.load(resp.data);
+  const codes = [];
+  $('select#grupo option').each((_, opt) => {
+    const val = $(opt).attr('value');
+    if (val && val !== '0') codes.push(val);
+  });
+  return codes;
+}
+
 async function runCopa(existingActaIds) {
-  log('Descargando calendario de Copa (eliminatoria)...');
-  const copaRounds = await fetchCalendario(CONFIG.copa.codCompeticion, CONFIG.copa.codGrupo, { knockout: true });
-  log(`  -> ${copaRounds.length} jornada(s) de Copa publicada(s)`);
+  log('Descubriendo todos los grupos (cruces) de la Copa...');
+  const groupCodes = await fetchCopaGroupCodes();
+  log(`  -> ${groupCodes.length} grupos encontrados`);
   await sleep(REQUEST_DELAY_MS);
 
-  // DIAGNÓSTICO TEMPORAL: para ver si la página de calendario trae de
-  // verdad todos los partidos de la jornada o solo el nuestro (se borra en
-  // cuanto lo hayamos revisado).
-  try {
-    const debugCalendario = await httpGet(`${CONFIG.baseUrl}/nfg/NPcd/NFG_VisCalendario_Vis`, {
-      params: {
-        cod_primaria: CONFIG.codPrimaria,
-        codtemporada: CONFIG.codTemporada,
-        codcompeticion: CONFIG.copa.codCompeticion,
-        codgrupo: CONFIG.copa.codGrupo,
-      },
-    });
-    fs.writeFileSync(path.join(__dirname, 'debug-copa-calendario.html'), debugCalendario.data, 'utf-8');
-    const debugJornada = await httpGet(`${CONFIG.baseUrl}/nfg/NPcd/NFG_CmpJornada`, {
-      params: {
-        cod_primaria: CONFIG.codPrimaria,
-        CodCompeticion: CONFIG.copa.codCompeticion,
-        CodGrupo: CONFIG.copa.codGrupo,
-        CodTemporada: CONFIG.codTemporada,
-        CodJornada: 1,
-        cod_agrupacion: 1,
-        Sch_Tipo_Juego: 1,
-      },
-    });
-    fs.writeFileSync(path.join(__dirname, 'debug-copa-jornada1.html'), debugJornada.data, 'utf-8');
-    log('  -> guardados scraper/debug-copa-*.html para revisar');
-  } catch (err) {
-    log(`  -> no se pudo guardar el diagnóstico: ${err.message}`);
+  if (!groupCodes.length) {
+    log('  -> no se encontró ningún grupo de Copa, no se genera copa.json');
+    return;
   }
+
+  // Combinamos los partidos de todos los grupos en jornadas conjuntas (cada
+  // grupo aporta su propio cruce a la jornada que le corresponda).
+  const roundsByNumber = new Map();
+  for (const groupCode of groupCodes) {
+    try {
+      const groupRounds = await fetchCalendario(CONFIG.copa.codCompeticion, groupCode, { knockout: true });
+      await sleep(REQUEST_DELAY_MS);
+
+      for (const gr of groupRounds) {
+        if (!gr.matches.length) continue;
+        try {
+          const details = await fetchRoundDetail(CONFIG.copa.codCompeticion, groupCode, CONFIG.codTemporada, gr.round);
+          mergeRoundDetail(gr, details);
+          await sleep(REQUEST_DELAY_MS);
+        } catch (err) {
+          log(`  -> grupo ${groupCode} jornada ${gr.round}: no se pudo obtener hora/campo (${err.message})`);
+        }
+
+        if (!roundsByNumber.has(gr.round)) {
+          roundsByNumber.set(gr.round, { round: gr.round, roundLabel: gr.roundLabel, date: gr.date, matches: [] });
+        }
+        roundsByNumber.get(gr.round).matches.push(...gr.matches);
+      }
+    } catch (err) {
+      log(`  -> grupo ${groupCode}: no se pudo descargar (${err.message})`);
+    }
+  }
+
+  const copaRounds = Array.from(roundsByNumber.values()).sort((a, b) => a.round - b.round);
+  const totalPartidos = copaRounds.reduce((n, r) => n + r.matches.length, 0);
+  log(`  -> ${copaRounds.length} jornada(s) combinadas, ${totalPartidos} partidos en total`);
 
   if (!copaRounds.length) {
     log('  -> todavía no hay ninguna jornada de Copa publicada, no se genera copa.json');
     return;
-  }
-
-  log(`Descargando hora/campo de las ${copaRounds.length} jornada(s) de Copa...`);
-  for (const round of copaRounds) {
-    try {
-      const details = await fetchRoundDetail(CONFIG.copa.codCompeticion, CONFIG.copa.codGrupo, CONFIG.codTemporada, round.round);
-      mergeRoundDetail(round, details);
-      await sleep(REQUEST_DELAY_MS);
-    } catch (err) {
-      log(`  -> jornada de Copa ${round.round}: no se pudo obtener hora/campo (${err.message})`);
-    }
   }
 
   log('Descargando fichas de partido (actas) de Copa ya disputados...');
