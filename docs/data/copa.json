@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T15:54:30.181Z",
+  "generatedAt": "2026-09-14T20:09:45.033Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -30,7 +30,7 @@
         },
         {
           "homeTeam": "ALBIRROJA",
-          "awayTeam": "SHOTS FC",
+          "awayTeam": "EUROGALLO FC",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
