@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T08:39:48.537Z",
+  "generatedAt": "2026-09-14T08:43:45.470Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -31,5 +31,21 @@
       ]
     }
   ],
-  "ownTeamCalendar": []
+  "ownTeamCalendar": [
+    {
+      "round": 1,
+      "roundLabel": null,
+      "date": "22-11-2026",
+      "time": null,
+      "venue": "Campo Pendiente de asignar",
+      "isHome": false,
+      "opponent": "FYSOL-POSTAS",
+      "goalsFor": null,
+      "goalsAgainst": null,
+      "played": false,
+      "result": null,
+      "penalties": null,
+      "codActa": null
+    }
+  ]
 }
