@@ -11,8 +11,11 @@ import {
 const SEASON = '2026-2027';
 const OWN_TEAM_NAME = 'SPORTING DE MADERASA - BAR JUANJO';
 
+const OWN_TEAM_NAME_VARIANTS = [OWN_TEAM_NAME, 'SPORTING ARANJUEZ'];
+
 function isOwn(name) {
-  return (name || '').toUpperCase().includes(OWN_TEAM_NAME);
+  const upper = (name || '').toUpperCase();
+  return OWN_TEAM_NAME_VARIANTS.some((variant) => upper.includes(variant));
 }
 
 function parseMatchDateTime(dateStr, timeStr) {
