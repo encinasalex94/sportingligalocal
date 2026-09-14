@@ -339,18 +339,15 @@ function renderRoundSelector(data) {
 const SEASONS = [
   {
     label: '2026-2027',
-    dataFile: 'data/data.json',
     types: [
-      { value: 'liga', label: 'Liga' },
-      // Cuando la federación publique el calendario de Copa 2026-2027:
-      // { value: 'copa', label: 'Copa' },
+      { value: 'liga', label: 'Liga', dataFile: 'data/data.json' },
+      { value: 'copa', label: 'Copa', dataFile: 'data/copa.json' },
     ],
   },
   {
     label: '2025-2026',
-    dataFile: 'data/season-2025-2026.json',
     types: [
-      { value: 'liga', label: 'Liga' },
+      { value: 'liga', label: 'Liga', dataFile: 'data/season-2025-2026.json' },
     ],
   },
 ];
@@ -359,14 +356,16 @@ const SEASONS = [
 window.CURRENT_SEASON_LABEL = null;
 window.CURRENT_COMPETITION_TYPE = null;
 
-// Evita volver a descargar el JSON de una temporada que ya se cargó antes.
-const seasonDataCache = new Map();
+// Evita volver a descargar el JSON de una combinación temporada+tipo ya vista.
+const typeDataCache = new Map();
 
-async function getSeasonData(seasonLabel) {
-  if (seasonDataCache.has(seasonLabel)) return seasonDataCache.get(seasonLabel);
+async function getTypeData(seasonLabel, type) {
+  const key = `${seasonLabel}__${type}`;
+  if (typeDataCache.has(key)) return typeDataCache.get(key);
   const season = SEASONS.find((s) => s.label === seasonLabel) || SEASONS[0];
-  const data = await loadData(season.dataFile);
-  seasonDataCache.set(seasonLabel, data);
+  const typeConfig = season.types.find((t) => t.value === type) || season.types[0];
+  const data = await loadData(typeConfig.dataFile);
+  typeDataCache.set(key, data);
   return data;
 }
 
@@ -375,41 +374,38 @@ function applyView(seasonLabel, type, data) {
   window.CURRENT_COMPETITION_TYPE = type;
 
   // Mantenemos sincronizados el DATA global y window.APP_DATA con la
-  // temporada que se esté viendo ahora mismo — otras partes de la web
+  // temporada/tipo que se esté viendo ahora mismo — otras partes de la web
   // (club-ui.js, el selector de jornada, etc.) dependen de esto.
   DATA = data;
   window.APP_DATA = data;
   renderMeta(data);
 
-  // La Clasificación y los Resultados son cosas de la Liga real; no
-  // aplican a Pretemporada ni a Copa (sin datos todavía) — así que
-  // directamente se ocultan enteras, en vez de mostrarse vacías.
+  // Liga y Copa tienen jornadas reales (Resultados, marcador, selector de
+  // jornada funcionan igual en ambas); Pretemporada usa amistosos, que
+  // rellena club-ui.js aparte. La Clasificación sí es exclusiva de Liga —
+  // la Copa es eliminatoria y no tiene tabla.
   const isLiga = type === 'liga';
-  const isCopa = type === 'copa';
+  const usesRealRounds = type === 'liga' || type === 'copa';
   toggleSectionById('clasificacion', 'divider-clasificacion', isLiga);
-  toggleSectionById('resultados', 'divider-resultados', !isCopa);
+  toggleSectionById('resultados', 'divider-resultados', true);
 
-  // El marcador destacado: en Liga es el último resultado real de ESA
-  // temporada (hay que repintarlo, no vale con uno fijo cargado al
-  // principio); en Copa no hay datos, se oculta; en Pretemporada lo
-  // decide club-ui.js según haya o no amistosos.
   const heroSection = document.getElementById('scoreboard-hero-section');
-  if (isLiga) {
+  if (usesRealRounds) {
     if (heroSection) heroSection.style.display = '';
     renderScoreboard(data);
   } else if (heroSection) {
     heroSection.style.display = 'none'; // en pretemporada se revela solo si hay amistosos
   }
 
-  if (isLiga) {
+  if (usesRealRounds) {
     renderRoundSelector(data);
   } else {
     const roundSelect = document.getElementById('round-select');
     if (roundSelect) roundSelect.innerHTML = '<option>—</option>';
     const grid = document.getElementById('results-grid');
     const label = document.getElementById('round-label-2');
-    if (grid && type === 'pretemporada') grid.innerHTML = '<p class="results-empty">Cargando…</p>';
-    if (label && type === 'pretemporada') label.textContent = '';
+    if (grid) grid.innerHTML = '<p class="results-empty">Cargando…</p>';
+    if (label) label.textContent = '';
   }
   renderCalendar(data);
   window.onCompetitionViewChanged && window.onCompetitionViewChanged(type);
@@ -424,20 +420,29 @@ function toggleSectionById(sectionId, dividerId, show) {
   }
 }
 
-function renderTypeSelector(seasonLabel, data) {
+function renderTypeSelector(seasonLabel, initialData, initialType) {
   const season = SEASONS.find((s) => s.label === seasonLabel) || SEASONS[0];
   const typeSelect = document.getElementById('competition-type-select');
   if (!typeSelect) return;
 
   typeSelect.innerHTML = season.types.map((t) => `<option value="${t.value}">${t.label}</option>`).join('');
-  typeSelect.value = season.types[0].value;
+  typeSelect.value = initialType || season.types[0].value;
   typeSelect.disabled = season.types.length <= 1; // nada que elegir todavía
 
-  typeSelect.onchange = () => {
-    applyView(seasonLabel, typeSelect.value, data);
+  typeSelect.onchange = async () => {
+    typeSelect.disabled = true;
+    try {
+      const data = await getTypeData(seasonLabel, typeSelect.value);
+      applyView(seasonLabel, typeSelect.value, data);
+    } catch (err) {
+      console.error(err);
+      alert('No se pudieron cargar esos datos.');
+    } finally {
+      typeSelect.disabled = season.types.length <= 1;
+    }
   };
 
-  applyView(seasonLabel, typeSelect.value, data);
+  applyView(seasonLabel, typeSelect.value, initialData);
 }
 
 function renderSeasonSelector(initialData) {
@@ -446,13 +451,17 @@ function renderSeasonSelector(initialData) {
 
   select.innerHTML = SEASONS.map((s) => `<option value="${s.label}">${s.label}</option>`).join('');
   select.value = SEASONS[0].label; // 2026-2027 por defecto
-  seasonDataCache.set(SEASONS[0].label, initialData); // ya la tenemos, nos la ahorramos volver a pedir
+  const initialType = SEASONS[0].types[0].value;
+  typeDataCache.set(`${SEASONS[0].label}__${initialType}`, initialData); // ya la tenemos, nos la ahorramos volver a pedir
 
   select.addEventListener('change', async () => {
     select.disabled = true;
     try {
-      const data = await getSeasonData(select.value);
-      renderTypeSelector(select.value, data);
+      const seasonLabel = select.value;
+      const season = SEASONS.find((s) => s.label === seasonLabel);
+      const defaultType = season.types[0].value;
+      const data = await getTypeData(seasonLabel, defaultType);
+      renderTypeSelector(seasonLabel, data, defaultType);
     } catch (err) {
       console.error(err);
       alert('No se pudieron cargar los datos de esa temporada.');
@@ -461,7 +470,7 @@ function renderSeasonSelector(initialData) {
     }
   });
 
-  renderTypeSelector(select.value, initialData);
+  renderTypeSelector(select.value, initialData, initialType);
 }
 
 // Los "Goleadores" (nombres de jugadores) ya no viven en data.json ni se
@@ -472,17 +481,13 @@ function renderCalendar(data) {
   const list = document.getElementById('calendar-list');
   const summaryEl = document.getElementById('calendar-summary');
 
-  // El calendario de partidos de Liga solo aplica cuando el Tipo elegido es
-  // "Liga". Para "Pretemporada" lo rellena club-ui.js con los amistosos;
-  // para "Copa" no hay nada que mostrar todavía.
-  const showRealSeason = window.CURRENT_COMPETITION_TYPE === 'liga';
+  // El calendario de partidos de Liga/Copa (ambas tienen jornadas reales)
+  // solo se sustituye por los amistosos cuando el Tipo es "Pretemporada",
+  // que rellena club-ui.js aparte.
+  const showRealSeason = window.CURRENT_COMPETITION_TYPE === 'liga' || window.CURRENT_COMPETITION_TYPE === 'copa';
   if (!showRealSeason) {
     list.innerHTML = '';
-    if (summaryEl) {
-      summaryEl.textContent = window.CURRENT_COMPETITION_TYPE === 'copa'
-        ? 'Sin calendario de Copa publicado todavía'
-        : '';
-    }
+    if (summaryEl) summaryEl.textContent = '';
     return;
   }
 
