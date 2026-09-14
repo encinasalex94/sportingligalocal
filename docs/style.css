@@ -662,10 +662,6 @@ table.standings tbody tr.own-row td.cell-team::before {
   padding: 20px 0;
 }
 
-.match-card.is-pending {
-  opacity: 0.6;
-}
-
 .match-score.is-pending {
   background: var(--ice);
   color: var(--slate);
@@ -694,8 +690,8 @@ table.standings tbody tr.own-row td.cell-team::before {
 .calendar-item.win { border-left-color: var(--win); }
 .calendar-item.draw { border-left-color: var(--draw); }
 .calendar-item.loss { border-left-color: var(--loss); }
-.calendar-item.amistoso.is-pending { border-left-color: var(--blue-bright); }
-.calendar-item.amistoso.is-pending .calendar-score { color: var(--blue); font-family: var(--font-body); font-size: 12px; text-transform: uppercase; }
+.calendar-item.is-pending { border-left-color: var(--blue-bright); }
+.calendar-item.is-pending .calendar-score { color: var(--blue); font-family: var(--font-body); font-weight: 600; font-size: 12px; text-transform: uppercase; }
 .calendar-item.amistoso.sin-resultado { border-left-color: var(--slate-light); }
 .calendar-item.amistoso.sin-resultado .calendar-score { color: var(--slate); font-family: var(--font-body); font-size: 12px; text-transform: uppercase; }
 
