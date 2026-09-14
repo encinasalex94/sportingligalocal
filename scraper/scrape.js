@@ -699,6 +699,36 @@ async function runCopa(existingActaIds) {
   log(`  -> ${copaRounds.length} jornada(s) de Copa publicada(s)`);
   await sleep(REQUEST_DELAY_MS);
 
+  // DIAGNÓSTICO TEMPORAL: para ver si la página de calendario trae de
+  // verdad todos los partidos de la jornada o solo el nuestro (se borra en
+  // cuanto lo hayamos revisado).
+  try {
+    const debugCalendario = await httpGet(`${CONFIG.baseUrl}/nfg/NPcd/NFG_VisCalendario_Vis`, {
+      params: {
+        cod_primaria: CONFIG.codPrimaria,
+        codtemporada: CONFIG.codTemporada,
+        codcompeticion: CONFIG.copa.codCompeticion,
+        codgrupo: CONFIG.copa.codGrupo,
+      },
+    });
+    fs.writeFileSync(path.join(__dirname, 'debug-copa-calendario.html'), debugCalendario.data, 'utf-8');
+    const debugJornada = await httpGet(`${CONFIG.baseUrl}/nfg/NPcd/NFG_CmpJornada`, {
+      params: {
+        cod_primaria: CONFIG.codPrimaria,
+        CodCompeticion: CONFIG.copa.codCompeticion,
+        CodGrupo: CONFIG.copa.codGrupo,
+        CodTemporada: CONFIG.codTemporada,
+        CodJornada: 1,
+        cod_agrupacion: 1,
+        Sch_Tipo_Juego: 1,
+      },
+    });
+    fs.writeFileSync(path.join(__dirname, 'debug-copa-jornada1.html'), debugJornada.data, 'utf-8');
+    log('  -> guardados scraper/debug-copa-*.html para revisar');
+  } catch (err) {
+    log(`  -> no se pudo guardar el diagnóstico: ${err.message}`);
+  }
+
   if (!copaRounds.length) {
     log('  -> todavía no hay ninguna jornada de Copa publicada, no se genera copa.json');
     return;
