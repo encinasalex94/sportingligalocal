@@ -190,17 +190,8 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// El equipo aparece con nombres distintos según la competición: en Liga es
-// "SPORTING DE MADERASA - BAR JUANJO", pero en Copa está inscrito como
-// "SPORTING ARANJUEZ" a secas. Reconocemos cualquiera de los dos.
-const OWN_TEAM_NAME_VARIANTS = [
-  CONFIG.nombreEquipoPropio,
-  'SPORTING ARANJUEZ',
-];
-
 function isOwnTeamName(name) {
-  const upper = (name || '').toUpperCase();
-  return OWN_TEAM_NAME_VARIANTS.some((variant) => upper.includes(variant));
+  return (name || '').toUpperCase().includes(CONFIG.nombreEquipoPropio);
 }
 
 async function login() {
