@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T09:11:09.420Z",
+  "generatedAt": "2026-09-14T09:15:15.727Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -190,21 +190,6 @@
       "venue": "Campo Pendiente de asignar",
       "isHome": false,
       "opponent": "NEW COTTON MEKASO MCS",
-      "goalsFor": null,
-      "goalsAgainst": null,
-      "played": false,
-      "result": null,
-      "penalties": null,
-      "codActa": null
-    },
-    {
-      "round": 1,
-      "roundLabel": null,
-      "date": "21-11-2026",
-      "time": null,
-      "venue": "Campo Pendiente de asignar",
-      "isHome": false,
-      "opponent": "FYSOL-POSTAS",
       "goalsFor": null,
       "goalsAgainst": null,
       "played": false,
