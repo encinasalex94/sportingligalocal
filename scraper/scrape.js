@@ -46,6 +46,11 @@ const CONFIG = {
     codGrupo: '1011204',
   },
 
+  copa: {
+    codCompeticion: '1011564',
+    codGrupo: '1015548',
+  },
+
   // Nota: esta temporada el club también jugó la Copa Aficionados F-11, pero
   // como no está garantizado que se dispute todos los años, la web no la
   // descarga ni la muestra. Si en el futuro quieres reactivarla, aquí van
@@ -678,6 +683,96 @@ function computeStandingsFromRounds(roundsList) {
   return table;
 }
 
+// ---- Copa: mismo flujo que Liga, pero eliminatoria (sin clasificación) ----
+async function runCopa(existingActaIds) {
+  log('Descargando calendario de Copa (eliminatoria)...');
+  const copaRounds = await fetchCalendario(CONFIG.copa.codCompeticion, CONFIG.copa.codGrupo, { knockout: true });
+  log(`  -> ${copaRounds.length} jornada(s) de Copa publicada(s)`);
+  await sleep(REQUEST_DELAY_MS);
+
+  if (!copaRounds.length) {
+    log('  -> todavía no hay ninguna jornada de Copa publicada, no se genera copa.json');
+    return;
+  }
+
+  log(`Descargando hora/campo de las ${copaRounds.length} jornada(s) de Copa...`);
+  for (const round of copaRounds) {
+    try {
+      const details = await fetchRoundDetail(CONFIG.copa.codCompeticion, CONFIG.copa.codGrupo, CONFIG.codTemporada, round.round);
+      mergeRoundDetail(round, details);
+      await sleep(REQUEST_DELAY_MS);
+    } catch (err) {
+      log(`  -> jornada de Copa ${round.round}: no se pudo obtener hora/campo (${err.message})`);
+    }
+  }
+
+  log('Descargando fichas de partido (actas) de Copa ya disputados...');
+  let actasNuevas = 0;
+  let actasReutilizadas = 0;
+  for (const r of copaRounds) {
+    for (const m of r.matches) {
+      if (!m.played || !m.codActa) continue;
+      if (existingActaIds.has(String(m.codActa))) {
+        actasReutilizadas++;
+        continue;
+      }
+      try {
+        m.acta = await fetchActa(m.codActa);
+        existingActaIds.add(String(m.codActa));
+        actasNuevas++;
+        await sleep(REQUEST_DELAY_MS);
+      } catch (err) {
+        log(`  -> acta Copa ${m.codActa} (jornada ${r.round}): no se pudo descargar (${err.message})`);
+      }
+    }
+  }
+  log(`  -> ${actasNuevas} actas de Copa nuevas descargadas, ${actasReutilizadas} ya estaban en Firestore`);
+
+  log('Escribiendo actas de Copa en Firestore...');
+  const { written: actasWritten } = await writeActasToFirestore(copaRounds);
+  log(`  -> ${actasWritten} actas de Copa escritas/actualizadas en Firestore`);
+
+  const ownTeamCalendar = extractOwnMatches(copaRounds);
+
+  const playedRounds = copaRounds.filter((r) => r.matches.some((m) => m.played));
+  const lastPlayedRound = playedRounds[playedRounds.length - 1] || null;
+  const lastRoundResults = lastPlayedRound
+    ? lastPlayedRound.matches.map((m) => ({
+        homeTeam: m.homeTeam, awayTeam: m.awayTeam, homeGoals: m.homeGoals, awayGoals: m.awayGoals,
+        time: m.time, venue: m.venue, codActa: m.codActa || null,
+      }))
+    : [];
+
+  // Igual que en Liga: la versión pública no lleva la ficha completa
+  // (alineaciones = nombres de jugadores), esa vive solo en Firestore.
+  const publicRounds = copaRounds.map((r) => ({
+    ...r,
+    matches: r.matches.map(({ acta, ...rest }) => rest),
+  }));
+
+  const data = {
+    generatedAt: new Date().toISOString(),
+    team: { id: CONFIG.codEquipoPropio, name: CONFIG.nombreEquipoPropio },
+    season: CONFIG.temporadaTexto,
+    competition: {
+      title: 'Copa Aficionados F-11',
+      season: `Temporada ${CONFIG.temporadaTexto}`,
+      round: lastPlayedRound
+        ? `${lastPlayedRound.roundLabel || `Jornada ${lastPlayedRound.round}`} (${lastPlayedRound.date || ''})`
+        : (copaRounds[0]?.roundLabel || `Jornada ${copaRounds[0]?.round}`),
+    },
+    standings: [], // la Copa es eliminatoria, no hay tabla de clasificación
+    lastRoundResults,
+    rounds: publicRounds,
+    ownTeamCalendar,
+  };
+
+  const outputPath = path.join(__dirname, '..', 'docs', 'data', 'copa.json');
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+  fs.writeFileSync(outputPath, JSON.stringify(data, null, 2), 'utf-8');
+  log(`Guardado en ${outputPath}`);
+}
+
 async function main() {
   log('Iniciando sesión en NFG...');
   await login();
@@ -834,6 +929,13 @@ async function main() {
   fs.mkdirSync(path.dirname(OUTPUT_PATH), { recursive: true });
   fs.writeFileSync(OUTPUT_PATH, JSON.stringify(data, null, 2), 'utf-8');
   log(`Guardado en ${OUTPUT_PATH}`);
+
+  log('--- Copa ---');
+  try {
+    await runCopa(existingActaIds);
+  } catch (err) {
+    log(`No se pudo actualizar la Copa: ${err.message}`);
+  }
 }
 
 main().catch((err) => {
