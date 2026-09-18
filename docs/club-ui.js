@@ -650,7 +650,6 @@ async function renderScorers() {
   const ownEl = document.getElementById('own-scorers');
   const topEl = document.getElementById('top-scorers');
   if (!ownEl || !topEl) return;
-  if (!window.CLUB_LOGGED_IN) return; // sección oculta, no hace falta pintar
 
   try {
     const { topScorers, ownTeamScorers } = await getScorers();
@@ -677,12 +676,13 @@ function toggleSection(sectionId, dividerId, show) {
 function applySectionVisibility() {
   const loggedIn = !!window.CLUB_LOGGED_IN;
   const viewingLiga = window.CURRENT_COMPETITION_TYPE === 'liga';
-  const showGoleadores = loggedIn && viewingLiga;
+  const showGoleadores = viewingLiga; // ya público, ya no depende de sesión
 
   toggleSection('convocatoria', 'divider-convocatoria', loggedIn);
   toggleSection('goleadores', 'divider-goleadores', showGoleadores);
-  toggleSection('valoraciones', 'divider-valoraciones', loggedIn);
+  toggleSection('valoraciones', 'divider-valoraciones', true); // público, votar sigue pidiendo sesión
   if (showGoleadores) renderScorers();
+  renderRanking();
 }
 
 function shortName(name) {
@@ -1492,11 +1492,6 @@ window.openRanking = async function openRanking(round) {
 async function renderRanking() {
   const list = document.getElementById('valoraciones-list');
   if (!list) return;
-
-  if (!window.CLUB_LOGGED_IN) {
-    // La sección entera está oculta (ver applySectionVisibility).
-    return;
-  }
 
   try {
     const ranking = await getRankingValoraciones();
