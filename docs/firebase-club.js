@@ -84,28 +84,18 @@ export async function getMyAdminStatus() {
   }
 }
 
-// ---- convocatoria ---------------------------------------------------
-export async function getSignups(season, round) {
+// ---- asistencia (quién fue de verdad al partido, solo delegados la marcan) --
+export async function getAttendance(season, round) {
   const matchId = matchIdFor(season, round);
-  const snap = await getDocs(collection(db, 'matches', matchId, 'signups'));
-  const result = {};
-  snap.forEach((d) => { result[d.id] = d.data(); });
-  return result;
+  const snap = await getDoc(doc(db, 'attendance', matchId));
+  return snap.exists() ? (snap.data().playerIds || []) : null; // null = todavía no se ha marcado
 }
 
-export async function setSignup(season, round, targetPlayerId, signedUp) {
-  const myPlayerId = await getMyPlayerId();
-  if (!myPlayerId) throw new Error('Tu cuenta no está autorizada todavía');
+export async function setAttendance(season, round, playerIds) {
   const admin = await getMyAdminStatus();
-  if (myPlayerId !== targetPlayerId && !admin) throw new Error('No autorizado');
-
+  if (!admin) throw new Error('Solo un delegado puede marcar la asistencia');
   const matchId = matchIdFor(season, round);
-  const ref = doc(db, 'matches', matchId, 'signups', targetPlayerId);
-  if (signedUp) {
-    await setDoc(ref, { signedUp: true, updatedAt: Date.now(), confirmedBy: myPlayerId });
-  } else {
-    await deleteDoc(ref);
-  }
+  await setDoc(doc(db, 'attendance', matchId), { playerIds, updatedAt: Date.now() });
 }
 
 // ---- hora del partido / ventana de votación (24h) ---------------------------------
