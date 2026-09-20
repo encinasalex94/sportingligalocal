@@ -270,13 +270,13 @@ function renderMatchCard(m, roundNumber, roundDate) {
   const score = pending ? 'vs' : `${m.homeGoals} : ${m.awayGoals}`;
   const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-center');
   const loggedIn = !!window.CLUB_LOGGED_IN;
-  const actaBtn = m.played && m.codActa && loggedIn
+  const actaBtn = m.played && m.codActa
     ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">${ICON_DOC}Ver acta</button></div>`
     : '';
   const votarBtn = isOwnMatch && loggedIn && isVotingWindowOpen(m.date || roundDate, m.time)
     ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${roundNumber})">${ICON_VOTE}Votar</button></div>`
     : '';
-  const rankingBtn = isOwnMatch && m.played && loggedIn
+  const rankingBtn = isOwnMatch && m.played
     ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" onclick="window.openRanking && window.openRanking(${roundNumber})">${ICON_STAR}Ranking</button></div>`
     : '';
   const attendanceBtn = isOwnMatch && window.CLUB_IS_ADMIN && hasKickedOff(m.date || roundDate, m.time)
@@ -537,13 +537,13 @@ function renderCalendar(data) {
       const score = m.played ? `${m.goalsFor} - ${m.goalsAgainst}` : 'Pendiente';
       const metaHtml = renderMetaRow(m.time, m.venue, 'meta-row-compact');
       const loggedIn = !!window.CLUB_LOGGED_IN;
-      const actaBtn = m.played && m.codActa && loggedIn
+      const actaBtn = m.played && m.codActa
         ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="openActa('${m.codActa}')">${ICON_DOC}Ver acta</button></div>`
         : '';
       const votarBtn = loggedIn && isVotingWindowOpen(m.date, m.time)
         ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" onclick="window.openVotar && window.openVotar(${m.round})">${ICON_VOTE}Votar</button></div>`
         : '';
-      const rankingBtn = m.played && loggedIn
+      const rankingBtn = m.played
         ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" onclick="window.openRanking && window.openRanking(${m.round})">${ICON_STAR}Ranking</button></div>`
         : '';
       const attendanceBtn = window.CLUB_IS_ADMIN && hasKickedOff(m.date, m.time)
