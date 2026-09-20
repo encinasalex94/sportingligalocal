@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T16:57:33.345Z",
+  "generatedAt": "2026-09-20T19:18:42.343Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -30,6 +30,23 @@
     },
     {
       "position": 2,
+      "teamId": "1000030",
+      "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+      "points": 3,
+      "played": 1,
+      "won": 1,
+      "drawn": 0,
+      "lost": 0,
+      "goalsFor": 2,
+      "goalsAgainst": 0,
+      "goalDifference": 2,
+      "form": [
+        "G"
+      ],
+      "isOwnTeam": true
+    },
+    {
+      "position": 3,
       "teamId": "1000033",
       "teamName": "FYSOL-POSTAS",
       "points": 0,
@@ -44,7 +61,7 @@
       "isOwnTeam": false
     },
     {
-      "position": 3,
+      "position": 4,
       "teamId": "1007397",
       "teamName": "CHESTERFIELD UNITED",
       "points": 0,
@@ -59,24 +76,9 @@
       "isOwnTeam": false
     },
     {
-      "position": 4,
+      "position": 5,
       "teamId": "1000049",
       "teamName": "DELAPIO-40 BAR DE VINOS",
-      "points": 0,
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "goalDifference": 0,
-      "form": [],
-      "isOwnTeam": false
-    },
-    {
-      "position": 5,
-      "teamId": "1000027",
-      "teamName": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
       "points": 0,
       "played": 0,
       "won": 0,
@@ -150,21 +152,6 @@
     },
     {
       "position": 10,
-      "teamId": "1000030",
-      "teamName": "SPORTING DE MADERASA - BAR JUANJO",
-      "points": 0,
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "goalDifference": 0,
-      "form": [],
-      "isOwnTeam": true
-    },
-    {
-      "position": 11,
       "teamId": "1004150",
       "teamName": "UNION CAFETERA",
       "points": 0,
@@ -179,7 +166,7 @@
       "isOwnTeam": false
     },
     {
-      "position": 12,
+      "position": 11,
       "teamId": "1000026",
       "teamName": "NEWTEAM- SMT",
       "points": 0,
@@ -189,6 +176,23 @@
       "lost": 1,
       "goalsFor": 1,
       "goalsAgainst": 3,
+      "goalDifference": -2,
+      "form": [
+        "P"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 12,
+      "teamId": "1000027",
+      "teamName": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+      "points": 0,
+      "played": 1,
+      "won": 0,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 0,
+      "goalsAgainst": 2,
       "goalDifference": -2,
       "form": [
         "P"
@@ -245,11 +249,11 @@
     {
       "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
       "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 0,
+      "awayGoals": 2,
       "time": "12:00",
       "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-      "codActa": null
+      "codActa": "13705"
     }
   ],
   "rounds": [
@@ -311,12 +315,12 @@
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
           "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 0,
+          "awayGoals": 2,
+          "played": true,
           "time": "12:00",
           "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-          "codActa": null
+          "codActa": "13705"
         }
       ]
     },
@@ -1737,12 +1741,12 @@
       "venue": "ENRIQUE MORENO - F - Hierba Artificial",
       "isHome": false,
       "opponent": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-      "goalsFor": null,
-      "goalsAgainst": null,
-      "played": false,
-      "result": null,
+      "goalsFor": 2,
+      "goalsAgainst": 0,
+      "played": true,
+      "result": "G",
       "penalties": null,
-      "codActa": null
+      "codActa": "13705"
     },
     {
       "round": 2,
