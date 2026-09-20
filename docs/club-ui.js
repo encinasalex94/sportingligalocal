@@ -950,6 +950,7 @@ function openEditActaModal(codActa, acta) {
         await updateActa(codActa, { goals, homeCards, awayCards });
         closeClubModal();
         window.openActa(codActa);
+        renderScorers();
       } catch (err) {
         console.error(err);
         errorEl.textContent = 'No se pudo guardar (' + (err.message || 'error') + ').';
