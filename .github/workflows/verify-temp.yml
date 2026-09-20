@@ -1,0 +1,21 @@
+name: Verificar (uso único)
+on:
+  workflow_dispatch: {}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install
+      - env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: node scraper/verify-temp.js
+      - run: |
+          git config user.name "sporting-maderasa-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add scraper/verify-result.json
+          git commit -m "Resultado de verificacion temporal" || echo "nada que commitear"
+          git push || echo "nada que subir"
