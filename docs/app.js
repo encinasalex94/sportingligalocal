@@ -66,6 +66,22 @@ function isVotingWindowOpen(dateStr, timeStr) {
   return now >= kickoff && now < closesAt;
 }
 
+// Igual que isVotingWindowOpen pero sin el límite de 24h — para saber si ya
+// se puede marcar asistencia (los delegados deben poder hacerlo en
+// cualquier momento después del partido, no solo el primer día).
+function hasKickedOff(dateStr, timeStr) {
+  if (!dateStr) return true;
+  const [d, m, y] = dateStr.split('-').map(Number);
+  let hh = 0, mm = 0;
+  if (timeStr) {
+    const parts = timeStr.split(':').map(Number);
+    hh = parts[0] || 0;
+    mm = parts[1] || 0;
+  }
+  const kickoff = new Date(y, m - 1, d, hh, mm).getTime();
+  return Date.now() >= kickoff;
+}
+
 // Genera la fila de "chips" de hora y campo, reutilizada en el marcador
 // destacado, las tarjetas de resultados y el calendario.
 function renderMetaRow(time, venue, extraClass = '') {
@@ -258,8 +274,11 @@ function renderMatchCard(m, roundNumber, roundDate) {
   const rankingBtn = isOwnMatch && m.played && loggedIn
     ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" onclick="window.openRanking && window.openRanking(${roundNumber})">${ICON_STAR}Ranking</button></div>`
     : '';
-  const btnRow = (actaBtn || votarBtn || rankingBtn)
-    ? `<div class="acta-btn-row">${actaBtn}${votarBtn}${rankingBtn}</div>`
+  const attendanceBtn = isOwnMatch && window.CLUB_IS_ADMIN && hasKickedOff(m.date || roundDate, m.time)
+    ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="window.openAttendanceModal && window.openAttendanceModal(${roundNumber})">${ICON_DOC}Asistencia</button></div>`
+    : '';
+  const btnRow = (actaBtn || votarBtn || rankingBtn || attendanceBtn)
+    ? `<div class="acta-btn-row">${actaBtn}${votarBtn}${rankingBtn}${attendanceBtn}</div>`
     : '';
   return `
     <div class="match-card ${isOwnMatch ? 'is-own' : ''} ${pending ? 'is-pending' : ''}">
@@ -522,8 +541,11 @@ function renderCalendar(data) {
       const rankingBtn = m.played && loggedIn
         ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" onclick="window.openRanking && window.openRanking(${m.round})">${ICON_STAR}Ranking</button></div>`
         : '';
-      const iconRow = (actaBtn || votarBtn || rankingBtn)
-        ? `<div class="acta-btn-row">${actaBtn}${votarBtn}${rankingBtn}</div>`
+      const attendanceBtn = window.CLUB_IS_ADMIN && hasKickedOff(m.date, m.time)
+        ? `<div class="acta-btn-wrap"><button class="acta-btn" onclick="window.openAttendanceModal && window.openAttendanceModal(${m.round})">${ICON_DOC}Asistencia</button></div>`
+        : '';
+      const iconRow = (actaBtn || votarBtn || rankingBtn || attendanceBtn)
+        ? `<div class="acta-btn-row">${actaBtn}${votarBtn}${rankingBtn}${attendanceBtn}</div>`
         : '';
       return `
         <div class="calendar-item ${cls}">
