@@ -1,7 +1,7 @@
 import {
   signInWithGoogle, signOutUser, onAuthChange, currentUser,
   getRoster, getMyPlayerId, getMyAdminStatus, isVotingOpen,
-  getSignups, setSignup, getVotes, submitVote,
+  getAttendance, setAttendance, getVotes, submitVote,
   getRankingForMatch, getRankingValoraciones,
   getActaById, getScorers,
   getUpcomingCustomMatches, getAllCustomMatches, addCustomMatch, updateCustomMatch, deleteCustomMatch,
@@ -56,6 +56,15 @@ const ICON_VOTE =
 const ICON_STAR =
   '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3.5l2.6 5.4 5.9.7-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.7L12 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>';
 
+const ICON_EDIT =
+  '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+
+const ICON_TRASH =
+  '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+const ICON_ATTENDANCE =
+  '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15 12l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
 function customMatchCardHtml(m, isAdmin, loggedIn) {
   const now = Date.now();
   const timePassed = m.timestamp < now;
@@ -75,6 +84,15 @@ function customMatchCardHtml(m, isAdmin, loggedIn) {
     cls = 'sin-resultado';
   }
 
+  const editBtn = isAdmin
+    ? `<button class="acta-btn-icon" data-edit-match="${key}" title="Editar amistoso" aria-label="Editar">${ICON_EDIT}</button>`
+    : '';
+  const deleteBtn = isAdmin
+    ? `<button class="acta-btn-icon" data-delete-match="${key}" title="Borrar amistoso" aria-label="Borrar">${ICON_TRASH}</button>`
+    : '';
+  const attendanceBtn = isAdmin && timePassed
+    ? `<button class="acta-btn-icon" data-attendance-custom="${key}" title="Marcar asistencia" aria-label="Asistencia">${ICON_ATTENDANCE}</button>`
+    : '';
   const addResultBtn = isAdmin && timePassed
     ? `<button class="acta-btn-icon" data-add-result="${key}" title="${hasResult ? 'Editar resultado' : 'Añadir resultado'}" aria-label="Resultado">${ICON_DOC}</button>`
     : '';
@@ -87,8 +105,8 @@ function customMatchCardHtml(m, isAdmin, loggedIn) {
   const rankingBtn = hasResult && loggedIn
     ? `<button class="acta-btn-icon" data-ranking-custom="${key}" title="Ranking" aria-label="Ranking">${ICON_STAR}</button>`
     : '';
-  const iconRow = (addResultBtn || detailBtn || votarBtn || rankingBtn)
-    ? `<div class="acta-icon-row">${addResultBtn}${detailBtn}${votarBtn}${rankingBtn}</div>`
+  const iconRow = (editBtn || deleteBtn || attendanceBtn || addResultBtn || detailBtn || votarBtn || rankingBtn)
+    ? `<div class="acta-icon-row">${editBtn}${deleteBtn}${attendanceBtn}${addResultBtn}${detailBtn}${votarBtn}${rankingBtn}</div>`
     : '';
 
   return `
@@ -115,6 +133,8 @@ async function renderCustomMatchesInCalendar() {
   const viewingPretemporada = window.CURRENT_COMPETITION_TYPE === 'pretemporada';
   if (!viewingPretemporada) {
     list.querySelectorAll('.calendar-item.amistoso').forEach((el) => el.remove());
+    const adminActionsEl = document.getElementById('calendar-admin-actions');
+    if (adminActionsEl) adminActionsEl.innerHTML = '';
     return; // el Tipo elegido es Liga o Copa, no toca
   }
 
@@ -133,6 +153,19 @@ async function renderCustomMatchesInCalendar() {
 
     list.querySelectorAll('.calendar-item.amistoso').forEach((el) => el.remove());
 
+    const isAdmin = currentUser() ? await getMyAdminStatus() : false;
+    const loggedIn = !!window.CLUB_LOGGED_IN;
+    if (token !== customMatchesRenderToken) return;
+
+    const adminActionsEl = document.getElementById('calendar-admin-actions');
+    if (adminActionsEl) {
+      adminActionsEl.innerHTML = isAdmin
+        ? `<div class="acta-btn-wrap" style="margin-bottom:16px;"><button class="acta-btn acta-btn-alt" id="open-add-match-modal">+ Añadir partido de pretemporada</button></div>`
+        : '';
+      const openBtn = document.getElementById('open-add-match-modal');
+      if (openBtn) openBtn.addEventListener('click', openAddMatchModal);
+    }
+
     const summaryEl = document.getElementById('calendar-summary');
     if (!customMatches.length) {
       if (summaryEl) summaryEl.textContent = 'Amistosos de pretemporada · ninguno programado todavía';
@@ -142,10 +175,6 @@ async function renderCustomMatchesInCalendar() {
     if (summaryEl) {
       summaryEl.textContent = `Amistosos de pretemporada · ${customMatches.length} programado${customMatches.length === 1 ? '' : 's'}`;
     }
-
-    const isAdmin = currentUser() ? await getMyAdminStatus() : false;
-    const loggedIn = !!window.CLUB_LOGGED_IN;
-    if (token !== customMatchesRenderToken) return;
 
     const html = customMatches.map((m) => customMatchCardHtml(m, isAdmin, loggedIn)).join('');
     list.insertAdjacentHTML('beforeend', html);
@@ -170,6 +199,29 @@ async function renderCustomMatchesInCalendar() {
     list.querySelectorAll('button[data-ranking-custom]').forEach((btn) => {
       btn.addEventListener('click', () => {
         window.openRankingCustom(matchByKey.get(btn.dataset.rankingCustom));
+      });
+    });
+    list.querySelectorAll('button[data-edit-match]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        openEditMatchModal(matchByKey.get(btn.dataset.editMatch));
+      });
+    });
+    list.querySelectorAll('button[data-delete-match]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const match = matchByKey.get(btn.dataset.deleteMatch);
+        if (!confirm('¿Borrar este amistoso?')) return;
+        try {
+          await deleteCustomMatch(match.season, match.round);
+          renderCustomMatchesInCalendar();
+        } catch (err) {
+          console.error(err);
+          alert('No se pudo borrar.');
+        }
+      });
+    });
+    list.querySelectorAll('button[data-attendance-custom]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        openAttendanceModalCustom(matchByKey.get(btn.dataset.attendanceCustom));
       });
     });
 
@@ -200,6 +252,55 @@ function attachTimeAutoFormat(input) {
     input.value = formatted;
   });
 }
+
+async function openAttendanceModalGeneric(season, round, subtitle) {
+  const roster = await getRoster();
+  let existing = [];
+  try {
+    existing = (await getAttendance(season, round)) || [];
+  } catch (err) { /* nada marcado todavía */ }
+
+  openClubModal(`
+    <h3 class="club-modal-title">Marcar asistencia</h3>
+    <p class="club-modal-sub">${subtitle}</p>
+    <ul class="convocatoria-list">
+      ${roster.map((p) => `
+        <li class="convocatoria-item ${existing.includes(p.id) ? 'is-signed' : ''}">
+          <span>${p.name}</span>
+          <input type="checkbox" class="attendance-check" data-player="${p.id}" ${existing.includes(p.id) ? 'checked' : ''} />
+        </li>
+      `).join('')}
+    </ul>
+    <div id="attendance-error" class="club-error"></div>
+    <button class="acta-btn acta-btn-alt club-submit" id="attendance-submit">Guardar asistencia</button>
+  `);
+
+  document.getElementById('attendance-submit').addEventListener('click', async () => {
+    const checked = Array.from(document.querySelectorAll('.attendance-check:checked')).map((el) => el.dataset.player);
+    const errorEl = document.getElementById('attendance-error');
+    try {
+      await setAttendance(season, round, checked);
+      closeClubModal();
+    } catch (err) {
+      console.error(err);
+      errorEl.textContent = 'No se pudo guardar la asistencia.';
+    }
+  });
+}
+
+function openAttendanceModalCustom(match) {
+  if (!match) return;
+  openAttendanceModalGeneric(match.season, match.round, `vs ${match.opponent} · ${match.date || ''}`);
+}
+
+window.openAttendanceModal = function openAttendanceModal(round) {
+  const data = window.APP_DATA;
+  if (!data) return;
+  const roundData = (data.rounds || []).find((r) => r.round === round);
+  const match = roundData && roundData.matches.find((m) => isOwn(m.homeTeam) || isOwn(m.awayTeam));
+  const opponent = match ? (isOwn(match.homeTeam) ? match.awayTeam : match.homeTeam) : '';
+  openAttendanceModalGeneric(SEASON, round, `vs ${opponent} · Jornada ${round}`);
+};
 
 function openEditMatchModal(match) {
   if (!match) return;
@@ -248,7 +349,6 @@ function openEditMatchModal(match) {
     try {
       await updateCustomMatch(match.season, match.round, { opponent, date, time, venue, isHome });
       closeClubModal();
-      renderConvocatoria();
       renderCustomMatchesInCalendar();
     } catch (err) {
       console.error(err);
@@ -261,15 +361,14 @@ async function openAddResultModal(match) {
   if (!match) return;
   const roster = await getRoster();
 
-  // Si hay convocatoria registrada, priorizamos esa lista (más corta y
+  // Si ya se ha marcado la asistencia, priorizamos esa lista (más corta y
   // relevante); si no, mostramos toda la plantilla.
   let players = roster;
   try {
-    const signups = await getSignups(match.season, match.round);
-    const signedIds = Object.keys(signups).filter((id) => signups[id]?.signedUp);
-    if (signedIds.length) {
+    const attendance = await getAttendance(match.season, match.round);
+    if (attendance && attendance.length) {
       const byId = new Map(roster.map((p) => [p.id, p.name]));
-      players = signedIds.map((id) => ({ id, name: byId.get(id) || id }));
+      players = attendance.map((id) => ({ id, name: byId.get(id) || id }));
     }
   } catch (err) { /* usamos toda la plantilla */ }
 
@@ -677,11 +776,9 @@ function toggleSection(sectionId, dividerId, show) {
 }
 
 function applySectionVisibility() {
-  const loggedIn = !!window.CLUB_LOGGED_IN;
   const viewingLiga = window.CURRENT_COMPETITION_TYPE === 'liga';
-  const showGoleadores = viewingLiga; // ya público, ya no depende de sesión
+  const showGoleadores = viewingLiga; // público, ya no depende de sesión
 
-  toggleSection('convocatoria', 'divider-convocatoria', loggedIn);
   toggleSection('goleadores', 'divider-goleadores', showGoleadores);
   toggleSection('valoraciones', 'divider-valoraciones', true); // público, votar sigue pidiendo sesión
   if (showGoleadores) renderScorers();
@@ -811,6 +908,7 @@ async function renderAuthWidget() {
 
   if (!user) {
     window.CLUB_LOGGED_IN = false;
+    window.CLUB_IS_ADMIN = false;
     widget.innerHTML = `<button class="auth-btn" id="login-btn">Iniciar sesión</button>`;
     document.getElementById('login-btn').addEventListener('click', async () => {
       try {
@@ -836,9 +934,10 @@ async function renderAuthWidget() {
   `;
   document.getElementById('logout-btn').addEventListener('click', () => signOutUser());
 
-  // Solo consideramos "sesión activa" (para mostrar convocatoria/votar/
-  // ranking/goleadores) si tu email está en la lista autorizada del club.
+  // Solo consideramos "sesión activa" (para mostrar votar/ranking/
+  // goleadores) si tu email está en la lista autorizada del club.
   window.CLUB_LOGGED_IN = !!myPlayerIdCache;
+  window.CLUB_IS_ADMIN = myPlayerIdCache ? await getMyAdminStatus() : false;
   applySectionVisibility();
   window.rerenderClubDependentUI && window.rerenderClubDependentUI();
   renderCustomMatchesInCalendar();
@@ -857,286 +956,6 @@ async function playerNameById(playerId) {
   return found ? found.name : playerId;
 }
 
-// ---- CONVOCATORIA ---------------------------------------------------
-// Recuerda qué paneles "Gestionar convocatoria" estaban abiertos, para que
-// no se cierren solos cada vez que se repinta la lista tras un clic
-// (si no, apuntar a varias personas seguidas se hace tedioso).
-const openAdminPanels = new Set();
-const openAttendeeLists = new Set();
-
-async function renderConvocatoria() {
-  const data = window.LIVE_SEASON_DATA || window.APP_DATA;
-  const sub = document.getElementById('convocatoria-sub');
-  const content = document.getElementById('convocatoria-content');
-  if (!data) return;
-
-  if (!window.CLUB_LOGGED_IN) {
-    // La sección entera está oculta (ver applySectionVisibility), no hace
-    // falta pintar nada.
-    return;
-  }
-
-  const myPlayerId = currentUser() ? await getMyPlayerId() : null;
-  const admin = myPlayerId ? await getMyAdminStatus() : false;
-
-  const now = new Date();
-
-  // Todos los próximos partidos "reales" (temporada oficial, desde FFMadrid)
-  const upcomingReal = (data.rounds || [])
-    .flatMap((r) => r.matches.map((m) => ({ ...m, round: r.round, roundDate: r.date })))
-    .filter((m) => isOwn(m.homeTeam) || isOwn(m.awayTeam))
-    .filter((m) => !m.played)
-    .filter((m) => {
-      const dt = parseMatchDateTime(m.date || m.roundDate, m.time);
-      return !dt || dt > now;
-    })
-    .map((m) => ({
-      season: SEASON, round: m.round,
-      opponent: isOwn(m.homeTeam) ? m.awayTeam : m.homeTeam,
-      date: m.date || m.roundDate, time: m.time, isCustom: false,
-      timestamp: parseMatchDateTime(m.date || m.roundDate, m.time)?.getTime() || Infinity,
-    }));
-
-  // Todos los amistosos / pretemporada próximos (los añade un delegado a mano)
-  const customMatches = await getUpcomingCustomMatches();
-  const upcomingCustom = customMatches
-    .filter((m) => m.timestamp > now.getTime())
-    .map((m) => ({ ...m, isCustom: true }));
-
-  const allUpcoming = [...upcomingReal, ...upcomingCustom].sort((a, b) => a.timestamp - b.timestamp);
-  const nextMatches = allUpcoming.slice(0, 1); // solo el más cercano, para no saturar la vista
-
-  if (nextMatches.length) {
-    const next = nextMatches[0];
-    sub.textContent = `${next.isCustom ? 'Amistoso' : `Jornada ${next.round}`} · vs ${next.opponent} · ${next.date || ''}${next.time ? ' · ' + next.time : ''}`;
-  } else {
-    sub.textContent = 'No hay ningún partido próximo programado todavía.';
-  }
-
-  const roster = await getRoster();
-  // Un único bloque de convocatoria: el próximo partido
-  const blocksHtml = await Promise.all(nextMatches.map(async (match, idx) => {
-    const signups = await getSignups(match.season, match.round);
-    const signedEntries = roster
-      .filter((p) => !!signups[p.id]?.signedUp)
-      .map((p) => ({ id: p.id, name: p.name, updatedAt: signups[p.id]?.updatedAt || 0 }))
-      .sort((a, b) => a.updatedAt - b.updatedAt); // por orden de inscripción
-    const signedIds = signedEntries.map((e) => e.id);
-    const iAmSigned = myPlayerId ? signedIds.includes(myPlayerId) : false;
-    const key = `${match.season}__${match.round}`;
-
-    const titleLabel = match.isCustom ? 'Amistoso' : `Jornada ${match.round}`;
-
-    const deleteBtnHtml = admin && match.isCustom
-      ? `<button class="acta-btn" data-delete-match="${key}">Borrar este amistoso</button>`
-      : '';
-    const editBtnHtml = admin && match.isCustom
-      ? `<button class="acta-btn" data-edit-match="${key}">Editar amistoso</button>`
-      : '';
-
-    const signedListInnerHtml = signedEntries.length
-      ? `<ol class="convocatoria-count-list">${signedEntries
-          .map((e) => `<li data-player-id="${e.id}" class="${e.id === myPlayerId ? 'is-me' : ''}">${e.name}${e.id === myPlayerId ? ' <span class="convocatoria-me-tag">(tú)</span>' : ''}${e.updatedAt ? ` <span class="convocatoria-time">${formatSignupTime(e.updatedAt)}</span>` : ''}</li>`)
-          .join('')}</ol>`
-      : '<p class="acta-empty">Todavía no se ha apuntado nadie.</p>';
-
-    const signedListHtml = `
-      <details class="attendee-panel" data-attendee-key="${key}" ${openAttendeeLists.has(key) ? 'open' : ''}>
-        <summary class="admin-panel-title convocatoria-summary-toggle">${signedIds.length} apuntado${signedIds.length === 1 ? '' : 's'}</summary>
-        ${signedListInnerHtml}
-      </details>
-    `;
-
-    // Aviso bien visible si el propio jugador todavía no se ha apuntado.
-    const notSignedWarningHtml = myPlayerId && !iAmSigned
-      ? `<div class="convocatoria-warning"><svg class="warning-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3.5L22 20.5H2L12 3.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 10v4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="17.2" r="1" fill="currentColor"/></svg> Todavía no estás apuntado a este partido</div>`
-      : '';
-
-    const myOwnButtonHtml = myPlayerId
-      ? `
-        <div class="convocatoria-own-row">
-          <button class="acta-btn ${iAmSigned ? 'acta-btn-alt' : ''} club-submit" data-my-signup="${key}" data-signed="${iAmSigned}">
-            ${iAmSigned ? 'Voy ✓ (pulsa para quitarte)' : 'Apuntarme'}
-          </button>
-        </div>
-      `
-      : '';
-
-    const adminManageHtml = admin
-      ? `
-        <details class="admin-panel" data-match-key="${key}" ${openAdminPanels.has(key) ? 'open' : ''}>
-          <summary class="admin-panel-title">Gestionar convocatoria (delegado)</summary>
-          <ul class="convocatoria-list">
-            ${roster.map((p) => {
-              const signed = signedIds.includes(p.id);
-              return `
-                <li class="convocatoria-item ${signed ? 'is-signed' : ''}">
-                  <span>${p.name}</span>
-                  <button class="acta-btn ${signed ? 'acta-btn-alt' : ''}" data-player="${p.id}" data-match="${key}" data-signed="${signed}">
-                    ${signed ? 'Voy ✓' : 'Apuntar'}
-                  </button>
-                </li>
-              `;
-            }).join('')}
-          </ul>
-        </details>
-      `
-      : '';
-
-    return `
-      <div class="convocatoria-match-block" data-match-key="${key}">
-        <h3 class="convocatoria-match-title">${titleLabel} · vs ${match.opponent}</h3>
-        <p class="convocatoria-match-date">${match.date || ''}${match.time ? ' · ' + match.time : ''}${match.venue ? ' · ' + match.venue : ''}</p>
-        <div style="display:flex; gap:8px; margin-bottom:14px;">${editBtnHtml}${deleteBtnHtml}</div>
-        ${notSignedWarningHtml}
-        ${signedListHtml}
-        ${myOwnButtonHtml}
-        ${adminManageHtml}
-      </div>
-    `;
-  }));
-
-  const adminPanelHtml = admin
-    ? `<div class="acta-btn-wrap" style="margin-top:8px;"><button class="acta-btn acta-btn-alt" id="open-add-match-modal">+ Añadir partido de pretemporada</button></div>`
-    : '';
-
-  content.innerHTML = `${blocksHtml.join('<div class="divider" style="margin:22px 0;"></div>')}${allUpcoming.length ? '<div class="divider" style="margin:22px 0;"></div>' : ''}${adminPanelHtml}`;
-
-  content.querySelectorAll('details.admin-panel[data-match-key]').forEach((el) => {
-    el.addEventListener('toggle', () => {
-      const key = el.dataset.matchKey;
-      if (el.open) openAdminPanels.add(key);
-      else openAdminPanels.delete(key);
-    });
-  });
-
-  content.querySelectorAll('details.attendee-panel[data-attendee-key]').forEach((el) => {
-    el.addEventListener('toggle', () => {
-      const key = el.dataset.attendeeKey;
-      if (el.open) openAttendeeLists.add(key);
-      else openAttendeeLists.delete(key);
-    });
-  });
-
-  // Índice rápido: de la "clave" (season__round) a los datos del partido
-  const matchByKey = new Map(allUpcoming.map((m) => [`${m.season}__${m.round}`, m]));
-
-  // Actualiza al instante el bloque de un partido (contador, lista de
-  // apuntados, botón de gestión y botón propio) sin esperar a Firestore ni
-  // recargar toda la Convocatoria — así apuntar a gente no se siente lento.
-  function applyOptimisticSignup(key, playerId, playerName, nowSigned) {
-    const block = content.querySelector(`.convocatoria-match-block[data-match-key="${CSS.escape(key)}"]`);
-    if (!block) return;
-
-    // Botón de gestión (delegado)
-    const manageBtn = block.querySelector(`button[data-player="${CSS.escape(playerId)}"][data-match="${CSS.escape(key)}"]`);
-    if (manageBtn) {
-      manageBtn.dataset.signed = String(nowSigned);
-      manageBtn.textContent = nowSigned ? 'Voy ✓' : 'Apuntar';
-      manageBtn.classList.toggle('acta-btn-alt', nowSigned);
-      manageBtn.closest('li')?.classList.toggle('is-signed', nowSigned);
-    }
-
-    // Botón propio (si el jugador tocado eres tú)
-    const ownBtn = block.querySelector(`button[data-my-signup="${CSS.escape(key)}"]`);
-    if (ownBtn && playerId === myPlayerId) {
-      ownBtn.dataset.signed = String(nowSigned);
-      ownBtn.textContent = nowSigned ? 'Voy ✓ (pulsa para quitarte)' : 'Apuntarme';
-      ownBtn.classList.toggle('acta-btn-alt', nowSigned);
-    }
-
-    // Aviso de "no apuntado"
-    const warning = block.querySelector('.convocatoria-warning');
-    if (warning && playerId === myPlayerId) warning.style.display = nowSigned ? 'none' : '';
-
-    // Contador + lista numerada
-    let list = block.querySelector('.convocatoria-count-list');
-    const summary = block.querySelector('.convocatoria-summary-toggle');
-
-    // Si es la primera persona en apuntarse, todavía no existe el <ol> (solo
-    // el mensaje de "nadie apuntado") — lo creamos sobre la marcha.
-    if (nowSigned && !list) {
-      const emptyMsg = block.querySelector('.attendee-panel .acta-empty');
-      list = document.createElement('ol');
-      list.className = 'convocatoria-count-list';
-      if (emptyMsg) emptyMsg.replaceWith(list);
-    }
-
-    const existingLi = list?.querySelector(`li[data-player-id="${CSS.escape(playerId)}"]`);
-
-    if (nowSigned && list && !existingLi) {
-      const li = document.createElement('li');
-      li.dataset.playerId = playerId;
-      if (playerId === myPlayerId) li.className = 'is-me';
-      li.innerHTML = `${playerName}${playerId === myPlayerId ? ' <span class="convocatoria-me-tag">(tú)</span>' : ''} <span class="convocatoria-time">${formatSignupTime(Date.now())}</span>`;
-      list.appendChild(li);
-    } else if (!nowSigned && existingLi) {
-      existingLi.remove();
-    }
-
-    if (summary) {
-      const count = list ? list.children.length : 0;
-      summary.textContent = `${count} apuntado${count === 1 ? '' : 's'}`;
-    }
-  }
-
-  content.querySelectorAll('button[data-my-signup]').forEach((btn) => {
-    btn.addEventListener('click', async () => {
-      const match = matchByKey.get(btn.dataset.mySignup);
-      const currentlySigned = btn.dataset.signed === 'true';
-      const nowSigned = !currentlySigned;
-      applyOptimisticSignup(btn.dataset.mySignup, myPlayerId, await playerNameById(myPlayerId), nowSigned);
-      try {
-        await setSignup(match.season, match.round, myPlayerId, nowSigned);
-      } catch (err) {
-        console.error(err);
-        applyOptimisticSignup(btn.dataset.mySignup, myPlayerId, await playerNameById(myPlayerId), currentlySigned); // revertir
-        alert('No se pudo guardar, inténtalo de nuevo.');
-      }
-    });
-  });
-
-  content.querySelectorAll('button[data-player]').forEach((btn) => {
-    btn.addEventListener('click', async () => {
-      const match = matchByKey.get(btn.dataset.match);
-      const playerId = btn.dataset.player;
-      const currentlySigned = btn.dataset.signed === 'true';
-      const nowSigned = !currentlySigned;
-      const playerName = await playerNameById(playerId);
-      applyOptimisticSignup(btn.dataset.match, playerId, playerName, nowSigned);
-      try {
-        await setSignup(match.season, match.round, playerId, nowSigned);
-      } catch (err) {
-        console.error(err);
-        applyOptimisticSignup(btn.dataset.match, playerId, playerName, currentlySigned); // revertir
-        alert(err.message === 'No autorizado' ? 'Solo el propio jugador o un delegado pueden confirmar esto.' : 'No se pudo guardar, inténtalo de nuevo.');
-      }
-    });
-  });
-
-  content.querySelectorAll('button[data-delete-match]').forEach((btn) => {
-    btn.addEventListener('click', async () => {
-      const match = matchByKey.get(btn.dataset.deleteMatch);
-      if (!confirm('¿Borrar este amistoso y su convocatoria?')) return;
-      try {
-        await deleteCustomMatch(match.season, match.round);
-        renderConvocatoria();
-        renderCustomMatchesInCalendar();
-      } catch (err) {
-        console.error(err);
-        alert('No se pudo borrar.');
-      }
-    });
-  });
-
-  content.querySelectorAll('button[data-edit-match]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      openEditMatchModal(matchByKey.get(btn.dataset.editMatch));
-    });
-  });
-
-  wireAdminPanel(admin);
-}
 
 function wireAdminPanel(admin) {
   if (!admin) return;
@@ -1192,7 +1011,6 @@ function openAddMatchModal() {
     try {
       await addCustomMatch({ opponent, date, time, venue, isHome });
       closeClubModal();
-      renderConvocatoria();
       renderCustomMatchesInCalendar();
     } catch (err) {
       console.error(err);
@@ -1246,7 +1064,15 @@ window.openVotar = async function openVotar(round) {
     return;
   }
 
-  const players = await getRoster();
+  const roster = await getRoster();
+  let players = roster;
+  try {
+    const attendance = await getAttendance(SEASON, round);
+    if (attendance && attendance.length) {
+      const byId = new Map(roster.map((p) => [p.id, p.name]));
+      players = attendance.map((id) => ({ id, name: byId.get(id) || id }));
+    }
+  } catch (err) { /* usamos toda la plantilla */ }
 
   openClubModal(`
     <h3 class="club-modal-title">Pon nota del 0 al 10</h3>
@@ -1333,7 +1159,15 @@ window.openVotarCustom = async function openVotarCustom(match) {
     return;
   }
 
-  const players = await getRoster();
+  const roster = await getRoster();
+  let players = roster;
+  try {
+    const attendance = await getAttendance(match.season, match.round);
+    if (attendance && attendance.length) {
+      const byId = new Map(roster.map((p) => [p.id, p.name]));
+      players = attendance.map((id) => ({ id, name: byId.get(id) || id }));
+    }
+  } catch (err) { /* usamos toda la plantilla */ }
 
   openClubModal(`
     <h3 class="club-modal-title">Pon nota del 0 al 10</h3>
@@ -1488,13 +1322,11 @@ document.getElementById('club-overlay')?.addEventListener('click', (e) => {
 
 onAuthChange(async () => {
   await renderAuthWidget();
-  renderConvocatoria();
   renderRanking();
 });
 
 async function init() {
   await renderAuthWidget();
-  renderConvocatoria();
   renderRanking();
 }
 
