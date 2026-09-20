@@ -1002,9 +1002,7 @@ window.openActa = async function openActa(codActa) {
   const homeIsOwn = isOwn(homeTeamName);
   const awayIsOwn = isOwn(awayTeamName);
 
-  const finalScore = acta.goals && acta.goals.length
-    ? acta.goals[acta.goals.length - 1]
-    : { homeScore: acta.homeGoals, awayScore: acta.awayGoals };
+  const finalScore = { homeScore: acta.homeGoals, awayScore: acta.awayGoals };
 
   const metaBits = [];
   if (acta.date) metaBits.push(acta.date);
