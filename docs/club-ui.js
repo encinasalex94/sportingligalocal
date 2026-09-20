@@ -59,6 +59,7 @@ const ICON_STAR =
 function customMatchCardHtml(m, isAdmin, loggedIn) {
   const now = Date.now();
   const timePassed = m.timestamp < now;
+  const within24h = timePassed && (now - m.timestamp) < 24 * 60 * 60 * 1000;
   const hasResult = m.played && m.homeGoals != null && m.awayGoals != null;
   const key = `${m.season}__${m.round}`;
 
@@ -80,7 +81,7 @@ function customMatchCardHtml(m, isAdmin, loggedIn) {
   const detailBtn = hasResult && loggedIn && !isAdmin
     ? `<button class="acta-btn-icon" data-detail-custom="${key}" title="Ver ficha" aria-label="Ver ficha">${ICON_DOC}</button>`
     : '';
-  const votarBtn = hasResult && loggedIn
+  const votarBtn = within24h && loggedIn
     ? `<button class="acta-btn-icon acta-btn-icon-alt" data-votar-custom="${key}" title="Votar" aria-label="Votar">${ICON_VOTE}</button>`
     : '';
   const rankingBtn = hasResult && loggedIn
@@ -516,6 +517,8 @@ function renderResultadosForCustomMatch(match, allMatches) {
   const score = hasResult ? `${match.homeGoals} : ${match.awayGoals}` : 'vs';
   const loggedIn = !!window.CLUB_LOGGED_IN;
   const key = `${match.season}__${match.round}`;
+  const now = Date.now();
+  const within24h = match.timestamp < now && (now - match.timestamp) < 24 * 60 * 60 * 1000;
 
   const metaBits = [];
   if (match.time) metaBits.push(`<span class="meta-chip">${match.time}</span>`);
@@ -524,7 +527,7 @@ function renderResultadosForCustomMatch(match, allMatches) {
 
   const detailBtn = hasResult && loggedIn
     ? `<div class="acta-btn-wrap"><button class="acta-btn" data-detail-custom-results="${key}">${ICON_DOC}Ver ficha</button></div>` : '';
-  const votarBtn = hasResult && loggedIn
+  const votarBtn = within24h && loggedIn
     ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-alt" data-votar-custom-results="${key}">${ICON_VOTE}Votar</button></div>` : '';
   const rankingBtn = hasResult && loggedIn
     ? `<div class="acta-btn-wrap"><button class="acta-btn acta-btn-ghost" data-ranking-custom-results="${key}">${ICON_STAR}Ranking</button></div>` : '';
