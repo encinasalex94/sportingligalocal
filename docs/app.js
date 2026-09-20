@@ -207,7 +207,7 @@ function standingsRowsHtml(standings) {
 // elige una jornada distinta a la última disputada, para que la tabla
 // refleje ese momento de la temporada (puede diferir levemente de la oficial
 // en desempates especiales que aplique la federación).
-function computeStandingsAsOf(rounds, roundNumber) {
+function computeStandingsAsOf(rounds, roundNumber, officialStandings) {
   const teams = new Map();
   function ensure(name) {
     if (!teams.has(name)) {
@@ -219,6 +219,11 @@ function computeStandingsAsOf(rounds, roundNumber) {
     }
     return teams.get(name);
   }
+
+  // Sembramos con TODOS los equipos de la competición (aunque todavía no
+  // hayan jugado ningún partido) — si no, un equipo sin partidos jugados
+  // hasta esa jornada simplemente no aparecería en la tabla.
+  (officialStandings || []).forEach((t) => ensure(t.teamName));
 
   const relevantRounds = rounds.filter((r) => r.round <= roundNumber).sort((a, b) => a.round - b.round);
 
@@ -321,7 +326,7 @@ function renderRound(roundNumber) {
   if (roundNumber === lastPlayedRound || lastPlayedRound === null) {
     renderStandings(DATA.standings, { computed: false });
   } else {
-    const computed = computeStandingsAsOf(DATA.rounds, roundNumber);
+    const computed = computeStandingsAsOf(DATA.rounds, roundNumber, DATA.standings);
     renderStandings(computed, { computed: true, round: roundNumber });
   }
 }
