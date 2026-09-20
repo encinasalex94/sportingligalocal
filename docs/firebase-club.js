@@ -13,6 +13,13 @@ import {
   deleteDoc, query,
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
+// El nombre real del club en Liga (en Copa aparece "SPORTING ARANJUEZ", que
+// es OTRO club distinto, no lo incluimos aquí para no confundirlos).
+const OWN_TEAM_NAME = 'SPORTING DE MADERASA - BAR JUANJO';
+function isOwn(name) {
+  return (name || '').toUpperCase().includes(OWN_TEAM_NAME);
+}
+
 const firebaseConfig = {
   apiKey: "AIzaSyCm3juynuzyIh1GhZD-5Wr_PDK5zqzKtvU",
   authDomain: "sportingaranjuez.firebaseapp.com",
@@ -207,6 +214,44 @@ export async function updateActa(codActa, { goals, homeCards, awayCards }) {
     home: { ...(current.home || {}), cards: homeCards },
     away: { ...(current.away || {}), cards: awayCards },
   }, { merge: true });
+
+  // Los goleadores (Sporting y del grupo) se guardan aparte para que se
+  // puedan ver sin tener que recorrer todas las actas en cada visita — al
+  // editar un acta a mano, los recalculamos aquí mismo para que no se
+  // queden desactualizados hasta la próxima vez que corra el scraper.
+  await recomputeScorersFromActas();
+}
+
+function isPlayerInTeamSide(teamSide, playerName) {
+  if (!teamSide) return false;
+  const all = [...(teamSide.titulares || []), ...(teamSide.suplentes || [])];
+  return all.some((p) => p.name === playerName);
+}
+
+async function recomputeScorersFromActas() {
+  const snap = await getDocs(collection(db, 'actas'));
+  const tally = new Map(); // nombre del jugador -> { player, team, goals, penalties, isOwnTeam }
+
+  snap.forEach((docSnap) => {
+    const acta = docSnap.data();
+    (acta.goals || []).forEach((g) => {
+      if (g.ownGoal || !g.scorer) return;
+      const scoredForHome = isPlayerInTeamSide(acta.home, g.scorer);
+      const teamName = scoredForHome ? acta.homeTeam : acta.awayTeam;
+      if (!tally.has(g.scorer)) {
+        tally.set(g.scorer, { player: g.scorer, team: teamName, goals: 0, penalties: 0, isOwnTeam: isOwn(teamName) });
+      }
+      const entry = tally.get(g.scorer);
+      entry.goals += 1;
+      if (g.penalty) entry.penalties += 1;
+    });
+  });
+
+  const all = Array.from(tally.values()).sort((a, b) => b.goals - a.goals);
+  const topScorers = all.slice(0, 20);
+  const ownTeamScorers = all.filter((s) => s.isOwnTeam).sort((a, b) => b.goals - a.goals);
+
+  await setDoc(doc(db, 'scorers', 'current'), { topScorers, ownTeamScorers, updatedAt: Date.now() });
 }
 
 // ---- goleadores (requieren sesión iniciada) ---------------------------------
