@@ -228,12 +228,18 @@ function isPlayerInTeamSide(teamSide, playerName) {
   return all.some((p) => p.name === playerName);
 }
 
+const CURRENT_LEAGUE_SEASON = '2026-2027';
+
 async function recomputeScorersFromActas() {
   const snap = await getDocs(collection(db, 'actas'));
   const tally = new Map(); // nombre del jugador -> { player, team, goals, penalties, isOwnTeam }
 
   snap.forEach((docSnap) => {
     const acta = docSnap.data();
+    // Los "Goleadores" son de la Liga de la temporada en curso — ni de
+    // temporadas anteriores ni de la Copa (competición aparte).
+    if (acta.season !== CURRENT_LEAGUE_SEASON || acta.competition !== 'liga') return;
+
     (acta.goals || []).forEach((g) => {
       if (g.ownGoal || !g.scorer) return;
       const scoredForHome = isPlayerInTeamSide(acta.home, g.scorer);
