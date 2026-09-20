@@ -92,7 +92,11 @@ async function writeMatchMetaToFirestore(ownTeamCalendar, season) {
   if (!db) return { written: 0 };
   let written = 0;
   for (const m of ownTeamCalendar) {
-    if (!m.played || !m.date) continue;
+    // Antes solo se escribía para partidos ya jugados, pero ahora se puede
+    // votar en cuanto pasa la hora del partido (aunque el resultado todavía
+    // no esté publicado) — hace falta la hora desde que el partido está
+    // programado, no solo después de jugarse.
+    if (!m.date) continue;
     const [d, mo, y] = m.date.split('-').map(Number);
     let hh = 0, mm = 0;
     if (m.time) {
