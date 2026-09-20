@@ -1246,36 +1246,7 @@ window.openVotar = async function openVotar(round) {
     return;
   }
 
-  // Convocados: preferimos la convocatoria real si existe; si no (partidos
-  // de antes de tener este sistema), usamos la alineación del acta.
-  let players = [];
-  try {
-    const signups = await getSignups(SEASON, round);
-    const signedIds = Object.keys(signups).filter((id) => signups[id]?.signedUp);
-    if (signedIds.length) {
-      const roster = await getRoster();
-      const byId = new Map(roster.map((p) => [p.id, p.name]));
-      players = signedIds.map((id) => ({ id, name: byId.get(id) || id }));
-    }
-  } catch (err) { /* seguimos con el fallback */ }
-
-  if (!players.length && match.acta) {
-    const ownSide = isOwn(match.homeTeam) ? match.acta.home : match.acta.away;
-    if (ownSide) {
-      const roster = await getRoster();
-      const byName = new Map(roster.map((p) => [p.name.toUpperCase(), p]));
-      const all = [...(ownSide.titulares || []), ...(ownSide.suplentes || [])];
-      players = all
-        .map((pl) => byName.get(pl.name.toUpperCase()))
-        .filter(Boolean)
-        .map((p) => ({ id: p.id, name: p.name }));
-    }
-  }
-
-  if (!players.length) {
-    openClubModal('<p class="acta-empty" style="text-align:center;padding:20px 0;">No hay convocados registrados para este partido todavía.</p>');
-    return;
-  }
+  const players = await getRoster();
 
   openClubModal(`
     <h3 class="club-modal-title">Pon nota del 0 al 10</h3>
@@ -1362,17 +1333,7 @@ window.openVotarCustom = async function openVotarCustom(match) {
     return;
   }
 
-  // En amistosos no hay acta oficial — los convocados salen solo de la
-  // convocatoria registrada en la propia web.
-  const signups = await getSignups(match.season, match.round);
-  const signedIds = Object.keys(signups).filter((id) => signups[id]?.signedUp);
-  if (!signedIds.length) {
-    openClubModal('<p class="acta-empty" style="text-align:center;padding:20px 0;">No hay convocados registrados para este amistoso.</p>');
-    return;
-  }
-  const roster = await getRoster();
-  const byId = new Map(roster.map((p) => [p.id, p.name]));
-  const players = signedIds.map((id) => ({ id, name: byId.get(id) || id }));
+  const players = await getRoster();
 
   openClubModal(`
     <h3 class="club-modal-title">Pon nota del 0 al 10</h3>
