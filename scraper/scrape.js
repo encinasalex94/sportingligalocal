@@ -117,7 +117,7 @@ async function writeMatchMetaToFirestore(ownTeamCalendar, season) {
   return { written };
 }
 
-async function writeActasToFirestore(ligaRounds) {
+async function writeActasToFirestore(ligaRounds, competition = 'liga') {
   const db = initFirebase();
   if (!db) return { written: 0 };
   let written = 0;
@@ -131,6 +131,8 @@ async function writeActasToFirestore(ligaRounds) {
         awayTeam: m.awayTeam,
         homeGoals: m.homeGoals,
         awayGoals: m.awayGoals,
+        season: CONFIG.temporadaTexto,
+        competition,
         updatedAt: Date.now(),
       });
       written++;
@@ -784,7 +786,7 @@ async function runCopa(existingActaIds) {
   log(`  -> ${actasNuevas} actas de Copa nuevas descargadas, ${actasReutilizadas} ya estaban en Firestore`);
 
   log('Escribiendo actas de Copa en Firestore...');
-  const { written: actasWritten } = await writeActasToFirestore(copaRounds);
+  const { written: actasWritten } = await writeActasToFirestore(copaRounds, 'copa');
   log(`  -> ${actasWritten} actas de Copa escritas/actualizadas en Firestore`);
 
   const ownTeamCalendar = extractOwnMatches(copaRounds);
