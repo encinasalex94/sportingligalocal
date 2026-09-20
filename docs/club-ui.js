@@ -797,120 +797,169 @@ function playerListHtml(players) {
 }
 
 function openEditActaModal(codActa, acta) {
-  openClubModal(`
-    <h3 class="club-modal-title">Editar acta</h3>
-    <p class="club-modal-sub">vs ${acta.awayTeam === acta.homeTeam ? '' : ''}${shortName(acta.homeTeam)} - ${shortName(acta.awayTeam)}</p>
+  const homeTeamName = acta.homeTeam;
+  const awayTeamName = acta.awayTeam;
 
-    <div class="admin-panel-title">Goles</div>
-    <div id="acta-goals-rows"></div>
-    <button class="acta-btn" id="acta-add-goal" type="button">+ Añadir gol</button>
+  const homePlayers = [...((acta.home && acta.home.titulares) || []), ...((acta.home && acta.home.suplentes) || [])]
+    .map((p) => ({ key: `home::${p.name}`, name: p.name, team: 'home', teamName: homeTeamName }));
+  const awayPlayers = [...((acta.away && acta.away.titulares) || []), ...((acta.away && acta.away.suplentes) || [])]
+    .map((p) => ({ key: `away::${p.name}`, name: p.name, team: 'away', teamName: awayTeamName }));
+  const players = [...homePlayers, ...awayPlayers];
 
-    <div class="admin-panel-title" style="margin-top:18px;">Tarjetas</div>
-    <div id="acta-cards-rows"></div>
-    <button class="acta-btn" id="acta-add-card" type="button">+ Añadir tarjeta</button>
+  // Estado en memoria mientras se edita: por jugador, sus goles (cada uno
+  // con minuto y asistencia opcional) y su tarjeta.
+  const state = new Map(players.map((p) => [p.key, { goals: [], card: null }]));
 
-    <div id="acta-edit-error" class="club-error"></div>
-    <button class="acta-btn acta-btn-alt club-submit" id="acta-edit-save">Guardar cambios</button>
-  `);
-
-  const goalsContainer = document.getElementById('acta-goals-rows');
-  const cardsContainer = document.getElementById('acta-cards-rows');
-
-  function addGoalRow(g) {
-    const row = document.createElement('div');
-    row.className = 'admin-panel-row goal-row';
-    row.style.flexWrap = 'wrap';
-    row.innerHTML = `
-      <input type="number" class="club-select ge-home" style="width:56px;" value="${g?.homeScore ?? ''}" placeholder="local" />
-      <span>-</span>
-      <input type="number" class="club-select ge-away" style="width:56px;" value="${g?.awayScore ?? ''}" placeholder="visit." />
-      <input type="number" class="club-select ge-minute" style="width:60px;" value="${g?.minute ?? ''}" placeholder="min" />
-      <input type="text" class="club-select ge-scorer" style="flex:1;min-width:130px;" value="${g?.scorer || ''}" placeholder="Goleador" />
-      <input type="text" class="club-select ge-assist" style="flex:1;min-width:130px;" value="${g?.assist || ''}" placeholder="Asistencia (opcional)" />
-      <label style="font-size:11px;display:flex;align-items:center;gap:4px;"><input type="checkbox" class="ge-penalty" ${g?.penalty ? 'checked' : ''} /> Penalti</label>
-      <label style="font-size:11px;display:flex;align-items:center;gap:4px;"><input type="checkbox" class="ge-owngoal" ${g?.ownGoal ? 'checked' : ''} /> En propia</label>
-      <button class="acta-btn" type="button" data-remove-row>✕</button>
-    `;
-    row.querySelector('[data-remove-row]').addEventListener('click', () => row.remove());
-    goalsContainer.appendChild(row);
-  }
-
-  function addCardRow(c) {
-    const row = document.createElement('div');
-    row.className = 'admin-panel-row card-row';
-    row.style.flexWrap = 'wrap';
-    row.innerHTML = `
-      <input type="text" class="club-select ce-player" style="flex:1;min-width:130px;" value="${c?.player || ''}" placeholder="Jugador" />
-      <select class="club-select ce-team">
-        <option value="home" ${c?.team === 'home' ? 'selected' : ''}>${shortName(acta.homeTeam)}</option>
-        <option value="away" ${c?.team === 'away' ? 'selected' : ''}>${shortName(acta.awayTeam)}</option>
-      </select>
-      <select class="club-select ce-color">
-        <option value="amarilla" ${c?.color !== 'roja' ? 'selected' : ''}>Amarilla</option>
-        <option value="roja" ${c?.color === 'roja' ? 'selected' : ''}>Roja</option>
-      </select>
-      <input type="number" class="club-select ce-minute" style="width:60px;" value="${c?.minute ?? ''}" placeholder="min" />
-      <button class="acta-btn" type="button" data-remove-row>✕</button>
-    `;
-    row.querySelector('[data-remove-row]').addEventListener('click', () => row.remove());
-    cardsContainer.appendChild(row);
-  }
-
-  (acta.goals || []).forEach(addGoalRow);
-  const existingCards = [
-    ...((acta.home && acta.home.cards) || []).map((c) => ({ ...c, team: 'home' })),
-    ...((acta.away && acta.away.cards) || []).map((c) => ({ ...c, team: 'away' })),
-  ];
-  existingCards.forEach(addCardRow);
-
-  document.getElementById('acta-add-goal').addEventListener('click', () => addGoalRow());
-  document.getElementById('acta-add-card').addEventListener('click', () => addCardRow());
-
-  document.getElementById('acta-edit-save').addEventListener('click', async () => {
-    const errorEl = document.getElementById('acta-edit-error');
-
-    const goals = Array.from(goalsContainer.querySelectorAll('.goal-row')).map((row) => {
-      const scorer = row.querySelector('.ge-scorer').value.trim();
-      if (!scorer) return null;
-      const homeScore = row.querySelector('.ge-home').value;
-      const awayScore = row.querySelector('.ge-away').value;
-      const minute = row.querySelector('.ge-minute').value;
-      const assist = row.querySelector('.ge-assist').value.trim();
-      return {
-        scorer,
-        homeScore: homeScore === '' ? null : Number(homeScore),
-        awayScore: awayScore === '' ? null : Number(awayScore),
-        minute: minute === '' ? null : Number(minute),
-        assist: assist || null,
-        penalty: row.querySelector('.ge-penalty').checked,
-        ownGoal: row.querySelector('.ge-owngoal').checked,
-      };
-    }).filter(Boolean);
-
-    const allCards = Array.from(cardsContainer.querySelectorAll('.card-row')).map((row) => {
-      const player = row.querySelector('.ce-player').value.trim();
-      if (!player) return null;
-      const minute = row.querySelector('.ce-minute').value;
-      return {
-        player, team: row.querySelector('.ce-team').value,
-        color: row.querySelector('.ce-color').value,
-        minute: minute === '' ? null : Number(minute),
-      };
-    }).filter(Boolean);
-
-    const homeCards = allCards.filter((c) => c.team === 'home').map(({ team, ...rest }) => rest);
-    const awayCards = allCards.filter((c) => c.team === 'away').map(({ team, ...rest }) => rest);
-
-    try {
-      await updateActa(codActa, { goals, homeCards, awayCards });
-      closeClubModal();
-      window.openActa(codActa);
-    } catch (err) {
-      console.error(err);
-      errorEl.textContent = 'No se pudo guardar (' + (err.message || 'error') + ').';
-    }
+  // Precargamos lo que ya hubiera en el acta, emparejando por nombre exacto
+  // con la alineación (si un nombre no encaja, el gol/tarjeta se pierde del
+  // encaje automático pero se puede volver a añadir a mano).
+  const byName = new Map(players.map((p) => [p.name, p.key]));
+  (acta.goals || []).forEach((g) => {
+    const scorerKey = byName.get(g.scorer);
+    if (scorerKey) state.get(scorerKey).goals.push({ minute: g.minute, assistKey: g.assist ? byName.get(g.assist) : null });
   });
+  ((acta.home && acta.home.cards) || []).forEach((c) => {
+    const key = byName.get(c.player);
+    if (key) state.get(key).card = { type: c.color === 'roja' ? 'roja' : 'amarilla', minute: c.minute };
+  });
+  ((acta.away && acta.away.cards) || []).forEach((c) => {
+    const key = byName.get(c.player);
+    if (key) state.get(key).card = { type: c.color === 'roja' ? 'roja' : 'amarilla', minute: c.minute };
+  });
+
+  function playerRowHtml(p) {
+    const entry = state.get(p.key);
+    const goalsTags = entry.goals
+      .map((g, i) => `
+        <span class="player-goal-tag" data-goal-idx="${i}">
+          ⚽ ${g.minute != null ? g.minute + "'" : ''}${g.assistKey ? ` (asist. ${shortName(players.find((x) => x.key === g.assistKey)?.name || '')})` : ''}
+          <button type="button" data-remove-goal="${p.key}" data-idx="${i}">✕</button>
+        </span>
+      `).join('');
+    const cardTag = entry.card
+      ? `<span class="player-card-tag ${entry.card.type === 'roja' ? 'red' : 'yellow'}">
+          ${entry.card.type === 'roja' ? '🟥' : '🟨'} ${entry.card.minute != null ? entry.card.minute + "'" : ''}
+          <button type="button" data-remove-card="${p.key}">✕</button>
+        </span>`
+      : '';
+
+    return `
+      <li class="player-result-row" data-player-row="${p.key}">
+        <span class="player-result-name">${p.name} <span style="color:var(--slate-light);font-weight:400;">(${shortName(p.teamName)})</span></span>
+        <span class="player-result-tags">${goalsTags}${cardTag}</span>
+        <span class="player-result-actions">
+          <button type="button" class="acta-btn" data-add-goal="${p.key}">⚽ Gol</button>
+          <button type="button" class="acta-btn" data-add-yellow="${p.key}">🟨</button>
+          <button type="button" class="acta-btn" data-add-red="${p.key}">🟥</button>
+        </span>
+      </li>
+    `;
+  }
+
+  function renderPlayerList() {
+    const list = document.getElementById('acta-players-list');
+    if (list) list.innerHTML = players.map(playerRowHtml).join('');
+    wirePlayerRows();
+  }
+
+  function wirePlayerRows() {
+    document.querySelectorAll('[data-add-goal]').forEach((btn) => {
+      btn.addEventListener('click', () => openMiniGoalForm(btn.dataset.addGoal));
+    });
+    document.querySelectorAll('[data-add-yellow]').forEach((btn) => {
+      btn.addEventListener('click', () => { state.get(btn.dataset.addYellow).card = { type: 'amarilla', minute: null }; renderPlayerList(); });
+    });
+    document.querySelectorAll('[data-add-red]').forEach((btn) => {
+      btn.addEventListener('click', () => { state.get(btn.dataset.addRed).card = { type: 'roja', minute: null }; renderPlayerList(); });
+    });
+    document.querySelectorAll('[data-remove-goal]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.get(btn.dataset.removeGoal).goals.splice(Number(btn.dataset.idx), 1);
+        renderPlayerList();
+      });
+    });
+    document.querySelectorAll('[data-remove-card]').forEach((btn) => {
+      btn.addEventListener('click', () => { state.get(btn.dataset.removeCard).card = null; renderPlayerList(); });
+    });
+  }
+
+  function openMiniGoalForm(scorerKey) {
+    const scorer = players.find((p) => p.key === scorerKey);
+    // La asistencia solo puede venir de un compañero del mismo equipo.
+    const assistOptions = players.filter((p) => p.team === scorer.team && p.key !== scorerKey);
+    openClubModal(`
+      <h3 class="club-modal-title">Gol de ${scorer.name}</h3>
+      <div class="field-group">
+        <label class="field-label">Minuto (opcional)</label>
+        <input type="number" min="0" id="mini-goal-minute" class="club-select" placeholder="ej. 35" />
+      </div>
+      <div class="field-group">
+        <label class="field-label">Asistencia (opcional)</label>
+        <select id="mini-goal-assist" class="club-select">
+          <option value="">-- sin asistencia --</option>
+          ${assistOptions.map((p) => `<option value="${p.key}">${p.name}</option>`).join('')}
+        </select>
+      </div>
+      <button class="acta-btn acta-btn-alt club-submit" id="mini-goal-save">Añadir gol</button>
+    `);
+    document.getElementById('mini-goal-save').addEventListener('click', () => {
+      const minute = document.getElementById('mini-goal-minute').value;
+      const assistKey = document.getElementById('mini-goal-assist').value || null;
+      state.get(scorerKey).goals.push({ minute: minute ? Number(minute) : null, assistKey });
+      reopenMainModal();
+    });
+  }
+
+  function reopenMainModal() {
+    openMainModal();
+  }
+
+  function openMainModal() {
+    openClubModal(`
+      <h3 class="club-modal-title">Editar acta</h3>
+      <p class="club-modal-sub">${shortName(homeTeamName)} vs ${shortName(awayTeamName)}</p>
+      <div class="admin-panel-title">Goles y tarjetas — toca un jugador</div>
+      <ul id="acta-players-list" class="player-result-list"></ul>
+      <div id="acta-edit-error" class="club-error"></div>
+      <button class="acta-btn acta-btn-alt club-submit" id="acta-edit-save">Guardar cambios</button>
+    `);
+    renderPlayerList();
+
+    document.getElementById('acta-edit-save').addEventListener('click', async () => {
+      const errorEl = document.getElementById('acta-edit-error');
+      const goals = [];
+      const homeCards = [];
+      const awayCards = [];
+
+      state.forEach((entry, key) => {
+        const p = players.find((x) => x.key === key);
+        entry.goals.forEach((g) => {
+          goals.push({
+            scorer: p.name,
+            minute: g.minute,
+            assist: g.assistKey ? (players.find((x) => x.key === g.assistKey)?.name || null) : null,
+          });
+        });
+        if (entry.card) {
+          const card = { player: p.name, color: entry.card.type, minute: entry.card.minute };
+          if (p.team === 'home') homeCards.push(card); else awayCards.push(card);
+        }
+      });
+
+      try {
+        await updateActa(codActa, { goals, homeCards, awayCards });
+        closeClubModal();
+        window.openActa(codActa);
+      } catch (err) {
+        console.error(err);
+        errorEl.textContent = 'No se pudo guardar (' + (err.message || 'error') + ').';
+      }
+    });
+  }
+
+  openMainModal();
 }
+
 
 function teamActaHtml(team) {
   if (!team) return '<p class="acta-empty">Sin datos de este equipo</p>';
@@ -967,7 +1016,7 @@ window.openActa = async function openActa(codActa) {
         .map(
           (g) => `
         <li>
-          <span class="acta-goal-score">${g.homeScore}-${g.awayScore}</span>
+          ${g.homeScore != null && g.awayScore != null ? `<span class="acta-goal-score">${g.homeScore}-${g.awayScore}</span>` : ''}
           <span class="acta-goal-minute">${g.minute != null ? `${g.minute}'` : ''}</span>
           <span>${g.scorer}${g.assist ? ` <span style="color:var(--slate-light);">(asist. ${g.assist})</span>` : ''}${g.penalty ? ' (penalti)' : ''}${g.ownGoal ? ' (propia puerta)' : ''}</span>
         </li>`
