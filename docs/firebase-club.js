@@ -195,6 +195,20 @@ export async function getActaById(codActa) {
   return snap.exists() ? snap.data() : null;
 }
 
+export async function updateActa(codActa, { goals, homeCards, awayCards }) {
+  const admin = await getMyAdminStatus();
+  if (!admin) throw new Error('Solo un delegado puede editar el acta');
+  const ref = doc(db, 'actas', String(codActa));
+  const snap = await getDoc(ref);
+  if (!snap.exists()) throw new Error('Ficha no encontrada');
+  const current = snap.data();
+  await setDoc(ref, {
+    goals,
+    home: { ...(current.home || {}), cards: homeCards },
+    away: { ...(current.away || {}), cards: awayCards },
+  }, { merge: true });
+}
+
 // ---- goleadores (requieren sesión iniciada) ---------------------------------
 export async function getScorers() {
   const snap = await getDoc(doc(db, 'scorers', 'current'));
