@@ -798,10 +798,19 @@ async function renderPlayerStats() {
   const jornadasDisputadas = (data.ownTeamCalendar || []).filter((m) => m.played).length;
   if (sub) sub.textContent = `Temporada ${data.season || ''} · ${jornadasDisputadas} jornada${jornadasDisputadas === 1 ? '' : 's'} disputada${jornadasDisputadas === 1 ? '' : 's'}`;
 
+  // Puntos que sacó el EQUIPO en cada jornada (3 ganado, 1 empatado, 0
+  // perdido) — para el "Puntos por Jornada" de cada jugador, que refleja
+  // cómo le fue al equipo en los partidos que él disputó.
+  const teamPointsByRound = {};
+  (data.ownTeamCalendar || []).forEach((m) => {
+    if (!m.played) return;
+    teamPointsByRound[m.round] = m.result === 'G' ? 3 : m.result === 'E' ? 1 : 0;
+  });
+
   body.innerHTML = '<tr><td colspan="9" class="sb-empty" style="padding:14px;">Cargando…</td></tr>';
 
   try {
-    const stats = await getPlayerSeasonStats(SEASON, jornadasDisputadas);
+    const stats = await getPlayerSeasonStats(SEASON, jornadasDisputadas, teamPointsByRound);
     if (!stats.length) {
       body.innerHTML = '<tr><td colspan="9" class="sb-empty" style="padding:14px;">Todavía no hay datos esta temporada.</td></tr>';
       return;
