@@ -2,7 +2,7 @@ import {
   signInWithGoogle, signOutUser, onAuthChange, currentUser,
   getRoster, getMyPlayerId, getMyAdminStatus, isVotingOpen,
   getAttendance, setAttendance, getVotes, submitVote,
-  getRankingForMatch, getRankingValoraciones,
+  getRankingForMatch, getRankingValoraciones, getPlayerSeasonStats,
   getActaById, getScorers, updateActa,
   getUpcomingCustomMatches, getAllCustomMatches, addCustomMatch, updateCustomMatch, deleteCustomMatch,
   setCustomMatchResult,
@@ -780,9 +780,50 @@ function applySectionVisibility() {
   const showGoleadores = viewingLiga; // público, ya no depende de sesión
 
   toggleSection('goleadores', 'divider-goleadores', showGoleadores);
+  toggleSection('estadisticas', 'divider-estadisticas', showGoleadores);
   toggleSection('valoraciones', 'divider-valoraciones', true); // público, votar sigue pidiendo sesión
-  if (showGoleadores) renderScorers();
+  if (showGoleadores) {
+    renderScorers();
+    renderPlayerStats();
+  }
   renderRanking();
+}
+
+async function renderPlayerStats() {
+  const body = document.getElementById('stats-table-body');
+  const sub = document.getElementById('estadisticas-sub');
+  if (!body) return;
+
+  const data = window.APP_DATA;
+  if (!data) return;
+
+  const jornadasDisputadas = (data.ownTeamCalendar || []).filter((m) => m.played).length;
+  if (sub) sub.textContent = `Temporada ${data.season || ''} · ${jornadasDisputadas} jornada${jornadasDisputadas === 1 ? '' : 's'} disputada${jornadasDisputadas === 1 ? '' : 's'}`;
+
+  body.innerHTML = '<tr><td colspan="8" class="sb-empty" style="padding:14px;">Cargando…</td></tr>';
+
+  try {
+    const stats = await getPlayerSeasonStats(SEASON, jornadasDisputadas);
+    if (!stats.length) {
+      body.innerHTML = '<tr><td colspan="8" class="sb-empty" style="padding:14px;">Todavía no hay datos esta temporada.</td></tr>';
+      return;
+    }
+    body.innerHTML = stats.map((s) => `
+      <tr>
+        <td class="col-team">${s.name}</td>
+        <td>${s.partidosJugados}</td>
+        <td>${s.porcentajePartidos}%</td>
+        <td><strong>${s.goles}</strong></td>
+        <td>${s.golesPorPartido}</td>
+        <td>${s.asistencias}</td>
+        <td>${s.asistenciasPorPartido}</td>
+        <td>${s.valoracionMedia != null ? s.valoracionMedia : '—'}</td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    console.error('Error cargando estadísticas:', err);
+    body.innerHTML = `<tr><td colspan="8" class="sb-empty" style="padding:14px;">No se pudieron cargar (${err.message || 'error'}).</td></tr>`;
+  }
 }
 
 function shortName(name) {
