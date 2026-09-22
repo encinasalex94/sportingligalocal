@@ -808,16 +808,37 @@ async function renderPlayerStats() {
       body.innerHTML = '<tr><td colspan="8" class="sb-empty" style="padding:14px;">Todavía no hay datos esta temporada.</td></tr>';
       return;
     }
+
+    // Mapa de calor por columna: verde para quien va mejor en ese dato
+    // concreto, rojo pálido para quien va peor — igual que en el Excel.
+    const columns = ['partidosJugados', 'porcentajePartidos', 'goles', 'golesPorPartido', 'asistencias', 'asistenciasPorPartido', 'valoracionMedia'];
+    const ranges = {};
+    columns.forEach((col) => {
+      const values = stats.map((s) => s[col]).filter((v) => v != null);
+      ranges[col] = { min: Math.min(...values, 0), max: Math.max(...values, 0) };
+    });
+
+    function heatStyle(col, value) {
+      if (value == null) return '';
+      const { min, max } = ranges[col];
+      if (max === min) return '';
+      const ratio = (value - min) / (max - min);
+      const r = Math.round(230 - ratio * 150);
+      const g = Math.round(140 + ratio * 90);
+      const b = Math.round(140 - ratio * 40);
+      return `style="background-color: rgba(${r}, ${g}, ${b}, 0.45);"`;
+    }
+
     body.innerHTML = stats.map((s) => `
       <tr>
-        <td class="col-team">${s.name}</td>
-        <td>${s.partidosJugados}</td>
-        <td>${s.porcentajePartidos}%</td>
-        <td><strong>${s.goles}</strong></td>
-        <td>${s.golesPorPartido}</td>
-        <td>${s.asistencias}</td>
-        <td>${s.asistenciasPorPartido}</td>
-        <td>${s.valoracionMedia != null ? s.valoracionMedia : '—'}</td>
+        <td>${s.name}</td>
+        <td ${heatStyle('partidosJugados', s.partidosJugados)}>${s.partidosJugados}</td>
+        <td ${heatStyle('porcentajePartidos', s.porcentajePartidos)}>${s.porcentajePartidos}%</td>
+        <td ${heatStyle('goles', s.goles)}><strong>${s.goles}</strong></td>
+        <td ${heatStyle('golesPorPartido', s.golesPorPartido)}>${s.golesPorPartido}</td>
+        <td ${heatStyle('asistencias', s.asistencias)}>${s.asistencias}</td>
+        <td ${heatStyle('asistenciasPorPartido', s.asistenciasPorPartido)}>${s.asistenciasPorPartido}</td>
+        <td ${heatStyle('valoracionMedia', s.valoracionMedia)}>${s.valoracionMedia != null ? s.valoracionMedia : '—'}</td>
       </tr>
     `).join('');
   } catch (err) {
