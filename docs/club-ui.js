@@ -2,7 +2,7 @@ import {
   signInWithGoogle, signOutUser, onAuthChange, currentUser,
   getRoster, getMyPlayerId, getMyAdminStatus, isVotingOpen,
   getAttendance, setAttendance, getVotes, submitVote,
-  getRankingForMatch, getRankingValoraciones, getPlayerSeasonStats,
+  getRankingForMatch, getPlayerSeasonStats,
   getActaById, getScorers, updateActa,
   getUpcomingCustomMatches, getAllCustomMatches, addCustomMatch, updateCustomMatch, deleteCustomMatch,
   setCustomMatchResult,
@@ -781,12 +781,10 @@ function applySectionVisibility() {
 
   toggleSection('goleadores', 'divider-goleadores', showGoleadores);
   toggleSection('estadisticas', 'divider-estadisticas', showGoleadores);
-  toggleSection('valoraciones', 'divider-valoraciones', true); // público, votar sigue pidiendo sesión
   if (showGoleadores) {
     renderScorers();
     renderPlayerStats();
   }
-  renderRanking();
 }
 
 async function renderPlayerStats() {
@@ -1361,7 +1359,6 @@ window.openVotar = async function openVotar(round) {
         <h3 class="club-modal-title">¡Gracias! ✓</h3>
         <p class="club-modal-sub" style="margin-bottom:0;">Tu valoración se ha guardado correctamente (${inputs.length} jugador${inputs.length === 1 ? '' : 'es'} puntuado${inputs.length === 1 ? '' : 's'}).</p>
       `);
-      renderRanking();
     } catch (err) {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Enviar valoraciones';
@@ -1456,7 +1453,6 @@ window.openVotarCustom = async function openVotarCustom(match) {
         <h3 class="club-modal-title">¡Gracias! ✓</h3>
         <p class="club-modal-sub" style="margin-bottom:0;">Tu valoración se ha guardado correctamente (${inputs.length} jugador${inputs.length === 1 ? '' : 'es'} puntuado${inputs.length === 1 ? '' : 's'}).</p>
       `);
-      renderRanking();
     } catch (err) {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Enviar valoraciones';
@@ -1538,33 +1534,6 @@ window.openRanking = async function openRanking(round) {
 };
 
 // ---- RANKING GENERAL ---------------------------------------------------
-async function renderRanking() {
-  const list = document.getElementById('valoraciones-list');
-  if (!list) return;
-
-  try {
-    const ranking = await getRankingValoraciones();
-    if (!ranking.length) {
-      list.innerHTML = '<li class="sb-empty" style="padding:14px;">Todavía no hay valoraciones registradas.</li>';
-      return;
-    }
-    list.innerHTML = ranking
-      .map((r) => `
-        <li>
-          <div class="scorer-name">
-            <span class="scorer-player">${r.name}</span>
-            <span class="scorer-team">${r.votes} valoración${r.votes === 1 ? '' : 'es'}</span>
-          </div>
-          <span class="scorer-goals">${r.average.toFixed(2)}</span>
-        </li>
-      `)
-      .join('');
-  } catch (err) {
-    console.error('Error cargando ranking:', err);
-    list.innerHTML = `<li class="sb-empty" style="padding:14px;">No se pudieron cargar las valoraciones (${err.message || err.code || 'error desconocido'}).</li>`;
-  }
-}
-
 // ---- init ---------------------------------------------------
 document.getElementById('club-close')?.addEventListener('click', closeClubModal);
 document.getElementById('club-overlay')?.addEventListener('click', (e) => {
@@ -1573,12 +1542,10 @@ document.getElementById('club-overlay')?.addEventListener('click', (e) => {
 
 onAuthChange(async () => {
   await renderAuthWidget();
-  renderRanking();
 });
 
 async function init() {
   await renderAuthWidget();
-  renderRanking();
 }
 
 if (window.APP_DATA) {
