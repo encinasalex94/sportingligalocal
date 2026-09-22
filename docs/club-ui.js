@@ -800,18 +800,18 @@ async function renderPlayerStats() {
   const jornadasDisputadas = (data.ownTeamCalendar || []).filter((m) => m.played).length;
   if (sub) sub.textContent = `Temporada ${data.season || ''} · ${jornadasDisputadas} jornada${jornadasDisputadas === 1 ? '' : 's'} disputada${jornadasDisputadas === 1 ? '' : 's'}`;
 
-  body.innerHTML = '<tr><td colspan="8" class="sb-empty" style="padding:14px;">Cargando…</td></tr>';
+  body.innerHTML = '<tr><td colspan="9" class="sb-empty" style="padding:14px;">Cargando…</td></tr>';
 
   try {
     const stats = await getPlayerSeasonStats(SEASON, jornadasDisputadas);
     if (!stats.length) {
-      body.innerHTML = '<tr><td colspan="8" class="sb-empty" style="padding:14px;">Todavía no hay datos esta temporada.</td></tr>';
+      body.innerHTML = '<tr><td colspan="9" class="sb-empty" style="padding:14px;">Todavía no hay datos esta temporada.</td></tr>';
       return;
     }
 
     // Mapa de calor por columna: verde para quien va mejor en ese dato
     // concreto, rojo pálido para quien va peor — igual que en el Excel.
-    const columns = ['partidosJugados', 'porcentajePartidos', 'goles', 'golesPorPartido', 'asistencias', 'asistenciasPorPartido', 'valoracionMedia'];
+    const columns = ['partidosJugados', 'porcentajePartidos', 'goles', 'golesPorPartido', 'asistencias', 'asistenciasPorPartido', 'valoracionMedia', 'puntosPorPartido'];
     const ranges = {};
     columns.forEach((col) => {
       const values = stats.map((s) => s[col]).filter((v) => v != null);
@@ -839,11 +839,12 @@ async function renderPlayerStats() {
         <td ${heatStyle('asistencias', s.asistencias)}>${s.asistencias}</td>
         <td ${heatStyle('asistenciasPorPartido', s.asistenciasPorPartido)}>${s.asistenciasPorPartido}</td>
         <td ${heatStyle('valoracionMedia', s.valoracionMedia)}>${s.valoracionMedia != null ? s.valoracionMedia : '—'}</td>
+        <td ${heatStyle('puntosPorPartido', s.puntosPorPartido)}>${s.puntosPorPartido}</td>
       </tr>
     `).join('');
   } catch (err) {
     console.error('Error cargando estadísticas:', err);
-    body.innerHTML = `<tr><td colspan="8" class="sb-empty" style="padding:14px;">No se pudieron cargar (${err.message || 'error'}).</td></tr>`;
+    body.innerHTML = `<tr><td colspan="9" class="sb-empty" style="padding:14px;">No se pudieron cargar (${err.message || 'error'}).</td></tr>`;
   }
 }
 
