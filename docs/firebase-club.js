@@ -199,19 +199,26 @@ export async function getRankingValoraciones() {
 // ---- estadísticas de la plantilla (asistencia + goles + asistencias de
 // gol + valoración media), calculadas a partir de lo que ya se recoge en
 // el resto de la web — nada de mantener un Excel aparte. ---------------------
-export async function getPlayerSeasonStats(season, jornadasDisputadas) {
+export async function getPlayerSeasonStats(season, jornadasDisputadas, teamPointsByRound) {
   const roster = await getRoster();
   const stats = new Map(roster.map((p) => [p.id, {
     id: p.id, name: p.name, partidosJugados: 0, goles: 0, asistencias: 0,
-    sumaValoracion: 0, numVotosRecibidos: 0, puntosMVP: 0,
+    sumaValoracion: 0, numVotosRecibidos: 0, puntosEquipoAcumulados: 0,
   }]));
 
-  // Asistencia (quién fue de verdad), de todos los partidos de esta temporada.
+  // Asistencia (quién fue de verdad), de todos los partidos de esta
+  // temporada — de paso sumamos los puntos que sacó el EQUIPO en cada
+  // partido que jugó cada jugador (3 si ganamos, 1 si empatamos, 0 si
+  // perdimos), para el "Puntos por Jornada" de más abajo.
   const attendanceSnap = await getDocs(collection(db, 'attendance'));
   attendanceSnap.forEach((docSnap) => {
     if (!docSnap.id.startsWith(`${season}_J`)) return;
+    const round = Number(docSnap.id.slice(`${season}_J`.length));
+    const teamPoints = (teamPointsByRound && teamPointsByRound[round] != null) ? teamPointsByRound[round] : null;
     (docSnap.data().playerIds || []).forEach((pid) => {
-      if (stats.has(pid)) stats.get(pid).partidosJugados += 1;
+      if (!stats.has(pid)) return;
+      stats.get(pid).partidosJugados += 1;
+      if (teamPoints != null) stats.get(pid).puntosEquipoAcumulados += teamPoints;
     });
   });
 
@@ -232,38 +239,16 @@ export async function getPlayerSeasonStats(season, jornadasDisputadas) {
     });
   });
 
-  // Valoraciones recibidas, agrupadas por partido — necesitamos saber quién
-  // quedó 1º/2º/3º EN CADA jornada para el sistema de puntos tipo MVP
-  // (3/2/1/0), no solo la nota media general.
+  // Valoraciones recibidas (nota media 0-10), de todos los partidos de
+  // esta temporada.
   const votesSnap = await getDocs(query(collectionGroup(db, 'votes')));
-  const votesByMatch = new Map(); // matchId -> Map(playerId -> {total, count})
   votesSnap.forEach((docSnap) => {
     const matchId = docSnap.ref.parent.parent.id;
     if (!matchId.startsWith(`${season}_J`)) return;
     const { ratedId, rating } = docSnap.data();
     if (!stats.has(ratedId) || typeof rating !== 'number') return;
-
     stats.get(ratedId).sumaValoracion += rating;
     stats.get(ratedId).numVotosRecibidos += 1;
-
-    if (!votesByMatch.has(matchId)) votesByMatch.set(matchId, new Map());
-    const perMatch = votesByMatch.get(matchId);
-    if (!perMatch.has(ratedId)) perMatch.set(ratedId, { total: 0, count: 0 });
-    const entry = perMatch.get(ratedId);
-    entry.total += rating;
-    entry.count += 1;
-  });
-
-  // El mejor valorado de cada jornada se lleva 3 puntos, el segundo 2, el
-  // tercero 1 — el resto (o si hay empate en el corte), 0.
-  const MVP_POINTS = [3, 2, 1];
-  votesByMatch.forEach((perMatch) => {
-    const ranked = Array.from(perMatch.entries())
-      .map(([playerId, { total, count }]) => ({ playerId, average: total / count }))
-      .sort((a, b) => b.average - a.average);
-    ranked.slice(0, 3).forEach((r, i) => {
-      stats.get(r.playerId).puntosMVP += MVP_POINTS[i];
-    });
   });
 
   return Array.from(stats.values()).map((s) => ({
@@ -273,7 +258,7 @@ export async function getPlayerSeasonStats(season, jornadasDisputadas) {
     golesPorPartido: s.partidosJugados ? Math.round((s.goles / s.partidosJugados) * 100) / 100 : 0,
     asistenciasPorPartido: s.partidosJugados ? Math.round((s.asistencias / s.partidosJugados) * 100) / 100 : 0,
     valoracionMedia: s.numVotosRecibidos ? Math.round((s.sumaValoracion / s.numVotosRecibidos) * 100) / 100 : null,
-    puntosPorPartido: s.partidosJugados ? Math.round((s.puntosMVP / s.partidosJugados) * 100) / 100 : 0,
+    puntosPorPartido: s.partidosJugados ? Math.round((s.puntosEquipoAcumulados / s.partidosJugados) * 100) / 100 : 0,
   })).sort((a, b) => b.goles - a.goles || b.partidosJugados - a.partidosJugados);
 }
 
