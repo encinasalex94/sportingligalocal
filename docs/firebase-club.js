@@ -252,6 +252,7 @@ export async function getPlayerSeasonStats(season, jornadasDisputadas) {
     golesPorPartido: s.partidosJugados ? Math.round((s.goles / s.partidosJugados) * 100) / 100 : 0,
     asistenciasPorPartido: s.partidosJugados ? Math.round((s.asistencias / s.partidosJugados) * 100) / 100 : 0,
     valoracionMedia: s.numVotosRecibidos ? Math.round((s.sumaValoracion / s.numVotosRecibidos) * 100) / 100 : null,
+    puntosPorPartido: s.partidosJugados ? Math.round((s.sumaValoracion / s.partidosJugados) * 100) / 100 : 0,
   })).sort((a, b) => b.goles - a.goles || b.partidosJugados - a.partidosJugados);
 }
 
