@@ -151,6 +151,48 @@ async function writeScorersToFirestore(topScorers, ownTeamScorers) {
   });
 }
 
+// Los goleadores se recalculan SIEMPRE desde las actas ya guardadas en
+// Firestore (no desde los datos recién descargados de la federación), para
+// que una corrección manual hecha desde la web (goleador equivocado,
+// asistencia añadida...) no se pierda la próxima vez que el scraper corra.
+function isPlayerInActaSide(teamSide, playerName) {
+  if (!teamSide) return false;
+  const all = [...(teamSide.titulares || []), ...(teamSide.suplentes || [])];
+  return all.some((p) => p.name === playerName);
+}
+
+async function recomputeScorersFromFirestoreActas() {
+  const db = initFirebase();
+  if (!db) return { written: false };
+
+  const snap = await db.collection('actas').get();
+  const tally = new Map();
+
+  snap.forEach((docSnap) => {
+    const acta = docSnap.data();
+    if (acta.season !== CONFIG.temporadaTexto || acta.competition !== 'liga') return;
+
+    (acta.goals || []).forEach((g) => {
+      if (g.ownGoal || !g.scorer) return;
+      const scoredForHome = isPlayerInActaSide(acta.home, g.scorer);
+      const teamName = scoredForHome ? acta.homeTeam : acta.awayTeam;
+      if (!tally.has(g.scorer)) {
+        tally.set(g.scorer, { player: g.scorer, team: teamName, goals: 0, penalties: 0, isOwnTeam: isOwnTeamName(teamName) });
+      }
+      const entry = tally.get(g.scorer);
+      entry.goals += 1;
+      if (g.penalty) entry.penalties += 1;
+    });
+  });
+
+  const all = Array.from(tally.values()).sort((a, b) => b.goals - a.goals);
+  const topScorers = all.slice(0, 20);
+  const ownTeamScorers = all.filter((s) => s.isOwnTeam).sort((a, b) => b.goals - a.goals);
+
+  await writeScorersToFirestore(topScorers, ownTeamScorers);
+  return { written: true, topScorers: topScorers.length, ownTeamScorers: ownTeamScorers.length };
+}
+
 const jar = new CookieJar();
 const client = wrapper(
   axios.create({
@@ -952,8 +994,9 @@ async function main() {
   const { written: actasWritten } = await writeActasToFirestore(ligaRounds);
   log(`  -> ${actasWritten} actas escritas/actualizadas en Firestore`);
 
-  log('Escribiendo goleadores en Firestore (fuera del data.json público)...');
-  await writeScorersToFirestore(scorers.slice(0, 20), scorers.filter((s) => s.isOwnTeam));
+  log('Recalculando goleadores desde las actas de Firestore (respeta correcciones manuales)...');
+  const scorersResult = await recomputeScorersFromFirestoreActas();
+  log(`  -> ${scorersResult.topScorers || 0} goleadores del grupo, ${scorersResult.ownTeamScorers || 0} del Sporting`);
 
   log('Escribiendo hora de inicio de cada partido del Sporting en Firestore...');
   const { written: metaWritten } = await writeMatchMetaToFirestore(ownTeamCalendar, CONFIG.temporadaTexto);
