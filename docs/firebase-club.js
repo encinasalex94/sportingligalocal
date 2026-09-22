@@ -196,6 +196,65 @@ export async function getRankingValoraciones() {
   return ranking;
 }
 
+// ---- estadísticas de la plantilla (asistencia + goles + asistencias de
+// gol + valoración media), calculadas a partir de lo que ya se recoge en
+// el resto de la web — nada de mantener un Excel aparte. ---------------------
+export async function getPlayerSeasonStats(season, jornadasDisputadas) {
+  const roster = await getRoster();
+  const stats = new Map(roster.map((p) => [p.id, {
+    id: p.id, name: p.name, partidosJugados: 0, goles: 0, asistencias: 0,
+    sumaValoracion: 0, numVotosRecibidos: 0,
+  }]));
+
+  // Asistencia (quién fue de verdad), de todos los partidos de esta temporada.
+  const attendanceSnap = await getDocs(collection(db, 'attendance'));
+  attendanceSnap.forEach((docSnap) => {
+    if (!docSnap.id.startsWith(`${season}_J`)) return;
+    (docSnap.data().playerIds || []).forEach((pid) => {
+      if (stats.has(pid)) stats.get(pid).partidosJugados += 1;
+    });
+  });
+
+  // Goles y asistencias de gol, desde las actas de Liga de esta temporada.
+  const actasSnap = await getDocs(collection(db, 'actas'));
+  const byName = new Map(roster.map((p) => [p.name, p.id]));
+  actasSnap.forEach((docSnap) => {
+    const acta = docSnap.data();
+    if (acta.season !== season || acta.competition !== 'liga') return;
+    (acta.goals || []).forEach((g) => {
+      if (g.ownGoal) return;
+      const scorerId = byName.get(g.scorer);
+      if (scorerId) stats.get(scorerId).goles += 1;
+      if (g.assist) {
+        const assistId = byName.get(g.assist);
+        if (assistId) stats.get(assistId).asistencias += 1;
+      }
+    });
+  });
+
+  // Valoraciones recibidas, de todos los partidos de esta temporada.
+  const votesSnap = await getDocs(query(collectionGroup(db, 'votes')));
+  votesSnap.forEach((docSnap) => {
+    const matchId = docSnap.ref.parent.parent.id;
+    if (!matchId.startsWith(`${season}_J`)) return;
+    const { ratedId, rating } = docSnap.data();
+    if (stats.has(ratedId) && typeof rating === 'number') {
+      const s = stats.get(ratedId);
+      s.sumaValoracion += rating;
+      s.numVotosRecibidos += 1;
+    }
+  });
+
+  return Array.from(stats.values()).map((s) => ({
+    ...s,
+    jornadasDisputadas,
+    porcentajePartidos: jornadasDisputadas ? Math.round((s.partidosJugados / jornadasDisputadas) * 1000) / 10 : 0,
+    golesPorPartido: s.partidosJugados ? Math.round((s.goles / s.partidosJugados) * 100) / 100 : 0,
+    asistenciasPorPartido: s.partidosJugados ? Math.round((s.asistencias / s.partidosJugados) * 100) / 100 : 0,
+    valoracionMedia: s.numVotosRecibidos ? Math.round((s.sumaValoracion / s.numVotosRecibidos) * 100) / 100 : null,
+  })).sort((a, b) => b.goles - a.goles || b.partidosJugados - a.partidosJugados);
+}
+
 // ---- actas de partido (requieren sesión iniciada, lo comprueban las reglas) --
 export async function getActaById(codActa) {
   const snap = await getDoc(doc(db, 'actas', String(codActa)));
