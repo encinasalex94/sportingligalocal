@@ -798,6 +798,78 @@ function shortPlayerName(fullName) {
   return firstGivenName ? `${firstSurname}, ${firstGivenName}` : firstSurname;
 }
 
+let html2canvasLoadPromise = null;
+function loadHtml2Canvas() {
+  if (window.html2canvas) return Promise.resolve();
+  if (html2canvasLoadPromise) return html2canvasLoadPromise;
+  html2canvasLoadPromise = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    script.onload = resolve;
+    script.onerror = () => reject(new Error('No se pudo cargar la librería de captura'));
+    document.head.appendChild(script);
+  });
+  return html2canvasLoadPromise;
+}
+
+async function shareStatsTableAsImage() {
+  const btn = document.getElementById('share-stats-btn');
+  const original = btn ? btn.textContent : '';
+  if (btn) { btn.disabled = true; btn.textContent = 'Preparando imagen…'; }
+
+  try {
+    await loadHtml2Canvas();
+    const source = document.getElementById('estadisticas-capture');
+
+    // Clonamos el contenido en un contenedor aparte, fuera de pantalla, con
+    // ancho automático (sin scroll horizontal ni columna fija) para que la
+    // imagen salga con la tabla entera visible de una vez.
+    const clone = source.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+    clone.querySelector('.table-scroll').style.overflow = 'visible';
+    clone.querySelectorAll('table').forEach((t) => { t.style.minWidth = '0'; });
+    clone.querySelectorAll('td:first-child, th:first-child').forEach((el) => {
+      el.style.position = 'static';
+      el.style.width = 'auto';
+      el.style.maxWidth = 'none';
+      el.style.boxShadow = 'none';
+    });
+
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'position:fixed; left:-9999px; top:0; background:#fff; padding:20px; width:max-content;';
+    wrapper.appendChild(clone);
+    document.body.appendChild(wrapper);
+
+    const canvas = await window.html2canvas(wrapper, { backgroundColor: '#ffffff', scale: 2 });
+    document.body.removeChild(wrapper);
+
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+    const fileName = `estadisticas-sporting-${(window.APP_DATA && window.APP_DATA.season) || ''}.png`;
+    const file = new File([blob], fileName, { type: 'image/png' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: 'Estadísticas de la plantilla' });
+    } else {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  } catch (err) {
+    if (err.name !== 'AbortError') { // el usuario cerró el panel de compartir, no es un error real
+      console.error('Error compartiendo la tabla:', err);
+      alert('No se pudo generar la imagen.');
+    }
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = original; }
+  }
+}
+
 async function renderPlayerStats() {
   const body = document.getElementById('stats-table-body');
   const sub = document.getElementById('estadisticas-sub');
@@ -805,6 +877,15 @@ async function renderPlayerStats() {
 
   const data = window.APP_DATA;
   if (!data) return;
+
+  const shareActionsEl = document.getElementById('stats-share-actions');
+  if (shareActionsEl) {
+    shareActionsEl.innerHTML = window.CLUB_IS_ADMIN
+      ? `<div class="acta-btn-wrap" style="margin-top:14px;"><button class="acta-btn" id="share-stats-btn">📤 Compartir tabla como imagen</button></div>`
+      : '';
+    const shareBtn = document.getElementById('share-stats-btn');
+    if (shareBtn) shareBtn.addEventListener('click', shareStatsTableAsImage);
+  }
 
   const jornadasDisputadas = (data.ownTeamCalendar || []).filter((m) => m.played).length;
   if (sub) sub.textContent = `Temporada ${data.season || ''} · ${jornadasDisputadas} jornada${jornadasDisputadas === 1 ? '' : 's'} disputada${jornadasDisputadas === 1 ? '' : 's'}`;
