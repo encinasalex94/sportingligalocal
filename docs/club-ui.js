@@ -787,6 +787,17 @@ function applySectionVisibility() {
   }
 }
 
+// Los nombres de la plantilla vienen como "APELLIDO1 APELLIDO2, NOMBRE1
+// NOMBRE2" — en esta tabla, para que quepa mejor, solo el primer apellido
+// y el primer nombre.
+function shortPlayerName(fullName) {
+  if (!fullName) return '';
+  const [surnames, givenNames] = fullName.split(',').map((s) => (s || '').trim());
+  const firstSurname = (surnames || '').split(' ')[0] || '';
+  const firstGivenName = (givenNames || '').split(' ')[0] || '';
+  return firstGivenName ? `${firstSurname}, ${firstGivenName}` : firstSurname;
+}
+
 async function renderPlayerStats() {
   const body = document.getElementById('stats-table-body');
   const sub = document.getElementById('estadisticas-sub');
@@ -838,15 +849,15 @@ async function renderPlayerStats() {
 
     body.innerHTML = stats.map((s) => `
       <tr>
-        <td>${s.name}</td>
+        <td>${shortPlayerName(s.name)}</td>
         <td ${heatStyle('partidosJugados', s.partidosJugados)}>${s.partidosJugados}</td>
         <td ${heatStyle('porcentajePartidos', s.porcentajePartidos)}>${s.porcentajePartidos}%</td>
         <td ${heatStyle('goles', s.goles)}><strong>${s.goles}</strong></td>
         <td ${heatStyle('golesPorPartido', s.golesPorPartido)}>${s.golesPorPartido}</td>
         <td ${heatStyle('asistencias', s.asistencias)}>${s.asistencias}</td>
         <td ${heatStyle('asistenciasPorPartido', s.asistenciasPorPartido)}>${s.asistenciasPorPartido}</td>
-        <td ${heatStyle('valoracionMedia', s.valoracionMedia)}>${s.valoracionMedia != null ? s.valoracionMedia : '—'}</td>
         <td ${heatStyle('puntosPorPartido', s.puntosPorPartido)}>${s.puntosPorPartido}</td>
+        <td ${heatStyle('valoracionMedia', s.valoracionMedia)}>${s.valoracionMedia != null ? s.valoracionMedia : '—'}</td>
       </tr>
     `).join('');
   } catch (err) {
