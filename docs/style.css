@@ -442,7 +442,7 @@ table.standings tbody tr.own-row td.cell-team::before {
    lógica de columnas fijas de Clasificación (esa tiene posición + equipo;
    esta solo tiene el nombre del jugador). Usamos el ID para tener más
    peso que las reglas de table.standings y que no se cuelen encima. */
-#stats-table { min-width: 640px; }
+#stats-table { min-width: 560px; }
 #stats-table td:first-child,
 #stats-table th:first-child {
   position: static;
@@ -458,15 +458,15 @@ table.standings tbody tr.own-row td.cell-team::before {
 }
 
 @media (max-width: 700px) {
-  #stats-table { min-width: 700px; }
+  #stats-table { min-width: 600px; }
 
   #stats-table td:first-child,
   #stats-table th:first-child {
     position: sticky;
     left: 0;
     z-index: 2;
-    width: 150px;
-    max-width: 150px;
+    width: 105px;
+    max-width: 105px;
     overflow: hidden;
     text-overflow: ellipsis;
     background: var(--white);
