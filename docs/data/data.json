@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T18:02:54.404Z",
+  "generatedAt": "2026-09-23T12:23:55.262Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -418,48 +418,8 @@
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "CHESTERFIELD UNITED",
-          "awayTeam": "NEWTEAM- SMT",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "RUMANIA CF",
-          "awayTeam": "J.C.R. - ATLETICO JERINGA",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
-          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "NEWCASTLE PUB F.C.",
-          "awayTeam": "FYSOL-POSTAS",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
+          "time": "09:00",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
           "codActa": null
         },
         {
@@ -468,8 +428,48 @@
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
+          "time": "09:00",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": null
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "10:30",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": null
+        },
+        {
+          "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "10:30",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": null
+        },
+        {
+          "homeTeam": "CHESTERFIELD UNITED",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "12:00",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": null
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "12:00",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
           "codActa": null
         }
       ]
@@ -1783,8 +1783,8 @@
       "round": 3,
       "roundLabel": null,
       "date": "04-10-2026",
-      "time": null,
-      "venue": "Campo Pendiente de asignar",
+      "time": "10:30",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
       "isHome": false,
       "opponent": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
       "goalsFor": null,
