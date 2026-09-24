@@ -1,6 +1,8 @@
 name: Verificar actas (uso único)
 on:
   workflow_dispatch: {}
+permissions:
+  contents: write
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -16,7 +18,6 @@ jobs:
       - run: |
           git config user.name "sporting-maderasa-bot"
           git config user.email "actions@users.noreply.github.com"
-          git pull --rebase origin main
           git add scraper/verify-result.json
           git commit -m "Resultado de verificacion temporal"
           git push origin main
