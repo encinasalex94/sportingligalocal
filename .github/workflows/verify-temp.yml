@@ -16,6 +16,7 @@ jobs:
       - run: |
           git config user.name "sporting-maderasa-bot"
           git config user.email "actions@users.noreply.github.com"
+          git pull --rebase origin main
           git add scraper/verify-result.json
-          git commit -m "Resultado de verificacion temporal" || echo "nada que commitear"
-          git push || echo "nada que subir"
+          git commit -m "Resultado de verificacion temporal"
+          git push origin main
