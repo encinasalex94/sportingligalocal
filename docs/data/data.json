@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T19:47:32.546Z",
+  "generatedAt": "2026-09-26T22:36:42.260Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -104,15 +104,16 @@
       "position": 6,
       "teamId": "1000012",
       "teamName": "RIMATEC-PUB TENESSE",
-      "points": 1,
-      "played": 1,
+      "points": 2,
+      "played": 2,
       "won": 0,
-      "drawn": 1,
+      "drawn": 2,
       "lost": 0,
-      "goalsFor": 1,
-      "goalsAgainst": 1,
+      "goalsFor": 3,
+      "goalsAgainst": 3,
       "goalDifference": 0,
       "form": [
+        "E",
         "E"
       ],
       "isOwnTeam": false
@@ -153,6 +154,24 @@
     },
     {
       "position": 9,
+      "teamId": "1007397",
+      "teamName": "CHESTERFIELD UNITED",
+      "points": 1,
+      "played": 2,
+      "won": 0,
+      "drawn": 1,
+      "lost": 1,
+      "goalsFor": 3,
+      "goalsAgainst": 5,
+      "goalDifference": -2,
+      "form": [
+        "P",
+        "E"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 10,
       "teamId": "1000034",
       "teamName": "J.C.R. - ATLETICO JERINGA",
       "points": 1,
@@ -166,23 +185,6 @@
       "form": [
         "P",
         "E"
-      ],
-      "isOwnTeam": false
-    },
-    {
-      "position": 10,
-      "teamId": "1007397",
-      "teamName": "CHESTERFIELD UNITED",
-      "points": 0,
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 1,
-      "goalsAgainst": 3,
-      "goalDifference": -2,
-      "form": [
-        "P"
       ],
       "isOwnTeam": false
     },
@@ -262,11 +264,11 @@
     {
       "homeTeam": "RIMATEC-PUB TENESSE",
       "awayTeam": "CHESTERFIELD UNITED",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 2,
+      "awayGoals": 2,
       "time": "18:30",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "13708"
     },
     {
       "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -394,12 +396,12 @@
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
           "awayTeam": "CHESTERFIELD UNITED",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 2,
+          "awayGoals": 2,
+          "played": true,
           "time": "18:30",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "13708"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
