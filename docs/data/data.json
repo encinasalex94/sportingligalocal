@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T13:31:08.841Z",
+  "generatedAt": "2026-09-30T13:07:39.501Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -173,7 +173,7 @@
     {
       "position": 10,
       "teamId": "1000034",
-      "teamName": "J.C.R. - ATLETICO JERINGA",
+      "teamName": "J.C.R. - LA ESQUINITA DE SIMBA",
       "points": 1,
       "played": 2,
       "won": 0,
@@ -235,7 +235,7 @@
       "codActa": null
     },
     {
-      "homeTeam": "J.C.R. - ATLETICO JERINGA",
+      "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
       "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
       "homeGoals": 0,
       "awayGoals": 0,
@@ -298,7 +298,7 @@
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
-          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "homeGoals": 3,
           "awayGoals": 1,
           "played": true,
@@ -364,7 +364,7 @@
           "codActa": null
         },
         {
-          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
           "homeGoals": 0,
           "awayGoals": 0,
@@ -442,7 +442,7 @@
         },
         {
           "homeTeam": "RUMANIA CF",
-          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -508,7 +508,7 @@
           "codActa": null
         },
         {
-          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "awayTeam": "CHESTERFIELD UNITED",
           "homeGoals": null,
           "awayGoals": null,
@@ -566,7 +566,7 @@
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
-          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -632,7 +632,7 @@
           "codActa": null
         },
         {
-          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "awayTeam": "RIMATEC-PUB TENESSE",
           "homeGoals": null,
           "awayGoals": null,
@@ -690,7 +690,7 @@
       "matches": [
         {
           "homeTeam": "NEWTEAM- SMT",
-          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -756,7 +756,7 @@
       "date": "14-11-2026",
       "matches": [
         {
-          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "awayTeam": "UNION CAFETERA",
           "homeGoals": null,
           "awayGoals": null,
@@ -823,7 +823,7 @@
       "date": "29-11-2026",
       "matches": [
         {
-          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
           "homeGoals": null,
           "awayGoals": null,
@@ -901,7 +901,7 @@
         },
         {
           "homeTeam": "FYSOL-POSTAS",
-          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -967,7 +967,7 @@
           "codActa": null
         },
         {
-          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
           "homeGoals": null,
           "awayGoals": null,
@@ -1054,7 +1054,7 @@
           "codActa": null
         },
         {
-          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "awayTeam": "NEWCASTLE PUB F.C.",
           "homeGoals": null,
           "awayGoals": null,
@@ -1122,7 +1122,7 @@
         },
         {
           "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
-          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -1178,7 +1178,7 @@
           "codActa": null
         },
         {
-          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "awayTeam": "RUMANIA CF",
           "homeGoals": null,
           "awayGoals": null,
@@ -1246,7 +1246,7 @@
         },
         {
           "homeTeam": "CHESTERFIELD UNITED",
-          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -1302,7 +1302,7 @@
           "codActa": null
         },
         {
-          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "awayTeam": "DELAPIO-40 BAR DE VINOS",
           "homeGoals": null,
           "awayGoals": null,
@@ -1370,7 +1370,7 @@
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
-          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -1426,7 +1426,7 @@
       "date": "13-03-2027",
       "matches": [
         {
-          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "awayTeam": "NEWTEAM- SMT",
           "homeGoals": null,
           "awayGoals": null,
@@ -1494,7 +1494,7 @@
       "matches": [
         {
           "homeTeam": "UNION CAFETERA",
-          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -1561,7 +1561,7 @@
       "matches": [
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
-          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -1637,7 +1637,7 @@
           "codActa": null
         },
         {
-          "homeTeam": "J.C.R. - ATLETICO JERINGA",
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "awayTeam": "FYSOL-POSTAS",
           "homeGoals": null,
           "awayGoals": null,
@@ -1705,7 +1705,7 @@
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-          "awayTeam": "J.C.R. - ATLETICO JERINGA",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -1884,7 +1884,7 @@
       "time": null,
       "venue": "Campo Pendiente de asignar",
       "isHome": false,
-      "opponent": "J.C.R. - ATLETICO JERINGA",
+      "opponent": "J.C.R. - LA ESQUINITA DE SIMBA",
       "goalsFor": null,
       "goalsAgainst": null,
       "played": false,
@@ -2049,7 +2049,7 @@
       "time": null,
       "venue": "Campo Pendiente de asignar",
       "isHome": true,
-      "opponent": "J.C.R. - ATLETICO JERINGA",
+      "opponent": "J.C.R. - LA ESQUINITA DE SIMBA",
       "goalsFor": null,
       "goalsAgainst": null,
       "played": false,
