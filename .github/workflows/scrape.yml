@@ -4,12 +4,13 @@ on:
   schedule:
     # Los partidos de la Liga Local se juegan el fin de semana y las actas se
     # suelen cerrar hasta el lunes, así que actualizamos muy a menudo esos
-    # días y solo una vez al día el resto de la semana (para no abusar del
-    # servidor de FFMadrid sin necesidad). Todas las horas en UTC.
+    # días; el resto de la semana, cada 2 horas durante el día (resultados
+    # que se publican o corrigen tarde no tienen que esperar hasta el día
+    # siguiente). Todas las horas en UTC.
     - cron: '*/15 13-22 * * 6'   # Sábado tarde (aprox. 15:00-00:00 hora de Madrid)
     - cron: '*/15 * * * 0'       # Domingo, todo el día
     - cron: '*/15 * * * 1'       # Lunes, todo el día
-    - cron: '0 7 * * 2-5'        # Resto de la semana, una vez al día por la mañana
+    - cron: '0 6-21/2 * * 2-5'   # Resto de la semana, cada 2 horas durante el día
   workflow_dispatch: {} # permite lanzarlo a mano desde la pestaña "Actions"
 
 permissions:
