@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T04:29:43.998Z",
+  "generatedAt": "2026-10-04T10:52:13.073Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -35,8 +35,7 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "CELTIC C.F.",
@@ -95,8 +94,7 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
+          "venue": null
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -129,48 +127,8 @@
           "codActa": null
         },
         {
-          "homeTeam": "FC. RAYO ARANJUEZ",
-          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "CHESTERFIELD UNITED",
-          "awayTeam": "REAL TAJO",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
           "homeTeam": "DORTMUND ARANJUEZ",
           "awayTeam": "RAIMON",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "FYSOL-POSTAS",
-          "awayTeam": "SPORTING ARANJUEZ",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
-          "awayTeam": "RUMANIA CF",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
