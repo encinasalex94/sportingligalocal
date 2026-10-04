@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T10:47:26.278Z",
+  "generatedAt": "2026-10-04T15:32:06.902Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -8,22 +8,23 @@
   "competition": {
     "title": "AFICIONADOS F-11, 1ª AFICIONADOS F-11",
     "season": "Temporada 2026-2027",
-    "round": "Jornada 2 (26-09-2026)"
+    "round": "Jornada 3 (04-10-2026)"
   },
   "standings": [
     {
       "position": 1,
-      "teamId": "1005397",
-      "teamName": "NEWCASTLE PUB F.C.",
-      "points": 6,
-      "played": 2,
+      "teamId": "1000033",
+      "teamName": "FYSOL-POSTAS",
+      "points": 7,
+      "played": 3,
       "won": 2,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 0,
       "goalsFor": 6,
       "goalsAgainst": 1,
       "goalDifference": 5,
       "form": [
+        "E",
         "G",
         "G"
       ],
@@ -31,19 +32,20 @@
     },
     {
       "position": 2,
-      "teamId": "1000033",
-      "teamName": "FYSOL-POSTAS",
-      "points": 4,
-      "played": 2,
-      "won": 1,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 4,
-      "goalsAgainst": 1,
+      "teamId": "1005397",
+      "teamName": "NEWCASTLE PUB F.C.",
+      "points": 6,
+      "played": 3,
+      "won": 2,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 6,
+      "goalsAgainst": 3,
       "goalDifference": 3,
       "form": [
-        "E",
-        "G"
+        "G",
+        "G",
+        "P"
       ],
       "isOwnTeam": false
     },
@@ -87,17 +89,18 @@
       "position": 5,
       "teamId": "1000026",
       "teamName": "NEWTEAM- SMT",
-      "points": 3,
-      "played": 2,
+      "points": 4,
+      "played": 3,
       "won": 1,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 1,
-      "goalsFor": 5,
-      "goalsAgainst": 5,
+      "goalsFor": 7,
+      "goalsAgainst": 7,
       "goalDifference": 0,
       "form": [
         "P",
-        "G"
+        "G",
+        "E"
       ],
       "isOwnTeam": false
     },
@@ -159,16 +162,17 @@
       "position": 9,
       "teamId": "1007397",
       "teamName": "CHESTERFIELD UNITED",
-      "points": 1,
-      "played": 2,
+      "points": 2,
+      "played": 3,
       "won": 0,
-      "drawn": 1,
+      "drawn": 2,
       "lost": 1,
-      "goalsFor": 3,
-      "goalsAgainst": 5,
+      "goalsFor": 5,
+      "goalsAgainst": 7,
       "goalDifference": -2,
       "form": [
         "P",
+        "E",
         "E"
       ],
       "isOwnTeam": false
@@ -230,58 +234,58 @@
   ],
   "lastRoundResults": [
     {
-      "homeTeam": "NEWTEAM- SMT",
-      "awayTeam": "RUMANIA CF",
-      "homeGoals": 4,
-      "awayGoals": 2,
-      "time": "15:30",
-      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": "13709"
-    },
-    {
-      "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-      "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
-      "homeGoals": 0,
-      "awayGoals": 0,
-      "time": "15:30",
-      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-      "codActa": "13710"
-    },
-    {
       "homeTeam": "DELAPIO-40 BAR DE VINOS",
-      "awayTeam": "UNION CAFETERA",
-      "homeGoals": 1,
-      "awayGoals": 1,
-      "time": "17:00",
+      "awayTeam": "RIMATEC-PUB TENESSE",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "09:00",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": "13707"
+      "codActa": null
     },
     {
-      "homeTeam": "FYSOL-POSTAS",
+      "homeTeam": "UNION CAFETERA",
       "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-      "homeGoals": 3,
-      "awayGoals": 0,
-      "time": "17:00",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "09:00",
       "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-      "codActa": "13712"
+      "codActa": null
     },
     {
-      "homeTeam": "RIMATEC-PUB TENESSE",
-      "awayTeam": "CHESTERFIELD UNITED",
+      "homeTeam": "RUMANIA CF",
+      "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "10:30",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
+      "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "10:30",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "CHESTERFIELD UNITED",
+      "awayTeam": "NEWTEAM- SMT",
       "homeGoals": 2,
       "awayGoals": 2,
-      "time": "18:30",
+      "time": "12:00",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": "13708"
+      "codActa": "13714"
     },
     {
-      "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
-      "awayTeam": "NEWCASTLE PUB F.C.",
+      "homeTeam": "NEWCASTLE PUB F.C.",
+      "awayTeam": "FYSOL-POSTAS",
       "homeGoals": 0,
-      "awayGoals": 3,
-      "time": "18:30",
+      "awayGoals": 2,
+      "time": "12:00",
       "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-      "codActa": "13711"
+      "codActa": "13717"
     }
   ],
   "rounds": [
@@ -467,22 +471,22 @@
         {
           "homeTeam": "CHESTERFIELD UNITED",
           "awayTeam": "NEWTEAM- SMT",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 2,
+          "awayGoals": 2,
+          "played": true,
           "time": "12:00",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "13714"
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
           "awayTeam": "FYSOL-POSTAS",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 0,
+          "awayGoals": 2,
+          "played": true,
           "time": "12:00",
           "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-          "codActa": null
+          "codActa": "13717"
         }
       ]
     },
@@ -632,7 +636,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
@@ -641,7 +646,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -650,7 +656,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -659,7 +666,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
@@ -668,7 +676,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -677,7 +686,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         }
       ]
     },
@@ -1028,7 +1038,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
@@ -1037,7 +1048,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -1046,7 +1058,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
@@ -1055,7 +1068,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -1064,7 +1078,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -1073,7 +1088,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         }
       ]
     },
@@ -1089,7 +1105,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "CHESTERFIELD UNITED",
@@ -1098,7 +1115,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -1107,7 +1125,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
@@ -1116,7 +1135,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -1125,7 +1145,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
@@ -1134,7 +1155,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         }
       ]
     },
@@ -1150,7 +1172,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -1159,7 +1182,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
@@ -1168,7 +1192,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -1177,7 +1202,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -1186,7 +1212,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
@@ -1195,7 +1222,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         }
       ]
     },
@@ -1211,7 +1239,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1220,7 +1249,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "CHESTERFIELD UNITED",
@@ -1229,7 +1259,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "RUMANIA CF",
@@ -1238,7 +1269,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
@@ -1247,7 +1279,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -1256,7 +1289,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         }
       ]
     },
@@ -1607,7 +1641,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
@@ -1616,7 +1651,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "NEWTEAM- SMT",
@@ -1625,7 +1661,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
@@ -1634,7 +1671,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -1643,7 +1681,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         },
         {
           "homeTeam": "CHESTERFIELD UNITED",
@@ -1652,7 +1691,8 @@
           "awayGoals": null,
           "played": false,
           "time": null,
-          "venue": null
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
         }
       ]
     },
@@ -1805,7 +1845,7 @@
       "roundLabel": null,
       "date": "24-10-2026",
       "time": null,
-      "venue": null,
+      "venue": "Campo Pendiente de asignar",
       "isHome": true,
       "opponent": "DELAPIO-40 BAR DE VINOS",
       "goalsFor": null,
@@ -1895,7 +1935,7 @@
       "roundLabel": null,
       "date": "16-01-2027",
       "time": null,
-      "venue": null,
+      "venue": "Campo Pendiente de asignar",
       "isHome": true,
       "opponent": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
       "goalsFor": null,
@@ -1910,7 +1950,7 @@
       "roundLabel": null,
       "date": "31-01-2027",
       "time": null,
-      "venue": null,
+      "venue": "Campo Pendiente de asignar",
       "isHome": false,
       "opponent": "NEWCASTLE PUB F.C.",
       "goalsFor": null,
@@ -1925,7 +1965,7 @@
       "roundLabel": null,
       "date": "06-02-2027",
       "time": null,
-      "venue": null,
+      "venue": "Campo Pendiente de asignar",
       "isHome": true,
       "opponent": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
       "goalsFor": null,
@@ -1940,7 +1980,7 @@
       "roundLabel": null,
       "date": "14-02-2027",
       "time": null,
-      "venue": null,
+      "venue": "Campo Pendiente de asignar",
       "isHome": false,
       "opponent": "RUMANIA CF",
       "goalsFor": null,
@@ -2030,7 +2070,7 @@
       "roundLabel": null,
       "date": "25-04-2027",
       "time": null,
-      "venue": null,
+      "venue": "Campo Pendiente de asignar",
       "isHome": true,
       "opponent": "UNION CAFETERA",
       "goalsFor": null,
