@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T03:58:11.685Z",
+  "generatedAt": "2026-10-05T11:16:48.383Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -509,48 +509,8 @@
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "NEWTEAM- SMT",
-          "awayTeam": "DELAPIO-40 BAR DE VINOS",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-          "awayTeam": "CHESTERFIELD UNITED",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
-          "awayTeam": "RUMANIA CF",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "FYSOL-POSTAS",
-          "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
+          "time": "15:30",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
           "codActa": null
         },
         {
@@ -559,8 +519,48 @@
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
+          "time": "15:30",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": null
+        },
+        {
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+          "awayTeam": "CHESTERFIELD UNITED",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "17:00",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": null
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "17:00",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": null
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "18:30",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": null
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "20:00",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
           "codActa": null
         }
       ]
@@ -571,33 +571,13 @@
       "date": "18-10-2026",
       "matches": [
         {
-          "homeTeam": "RIMATEC-PUB TENESSE",
-          "awayTeam": "NEWTEAM- SMT",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "DELAPIO-40 BAR DE VINOS",
-          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
           "homeTeam": "CHESTERFIELD UNITED",
           "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
+          "time": "09:00",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
           "codActa": null
         },
         {
@@ -606,8 +586,28 @@
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
+          "time": "09:00",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": null
+        },
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "10:30",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": null
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "12:00",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
           "codActa": null
         },
         {
@@ -616,8 +616,8 @@
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
+          "time": "13:30",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
           "codActa": null
         },
         {
@@ -626,8 +626,8 @@
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
+          "time": "13:30",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
           "codActa": null
         }
       ]
@@ -1822,8 +1822,8 @@
       "round": 4,
       "roundLabel": null,
       "date": "10-10-2026",
-      "time": null,
-      "venue": "Campo Pendiente de asignar",
+      "time": "17:00",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
       "isHome": true,
       "opponent": "RUMANIA CF",
       "goalsFor": null,
@@ -1837,8 +1837,8 @@
       "round": 5,
       "roundLabel": null,
       "date": "18-10-2026",
-      "time": null,
-      "venue": "Campo Pendiente de asignar",
+      "time": "09:00",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
       "isHome": false,
       "opponent": "CHESTERFIELD UNITED",
       "goalsFor": null,
