@@ -1605,7 +1605,6 @@ window.openRanking = async function openRanking(round) {
       openClubModal(`
         <h3 class="club-modal-title">Jornada ${round}</h3>
         <p class="acta-empty" style="text-align:center;padding:10px 0;">Todavía no hay valoraciones para este partido.</p>
-        <p style="text-align:center;"><a href="#valoraciones" class="acta-btn acta-btn-ghost" onclick="window.closeClubModalGlobal && window.closeClubModalGlobal()">Ver ranking general de la temporada</a></p>
       `);
       return;
     }
@@ -1625,7 +1624,6 @@ window.openRanking = async function openRanking(round) {
           </li>
         `).join('')}
       </ul>
-      <p style="text-align:center;margin-top:16px;"><a href="#valoraciones" class="acta-btn acta-btn-ghost" onclick="window.closeClubModalGlobal && window.closeClubModalGlobal()">Ver ranking general de la temporada</a></p>
     `);
   } catch (err) {
     console.error('Error cargando ranking del partido:', err);
