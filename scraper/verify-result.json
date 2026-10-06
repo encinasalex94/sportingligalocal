@@ -1,0 +1,110 @@
+{
+  "matchMeta": {
+    "round": 3,
+    "date": "04-10-2026",
+    "time": "10:30",
+    "kickoffAt": {
+      "_seconds": 1791109800,
+      "_nanoseconds": 0
+    }
+  },
+  "votesCount": 13,
+  "votes": [
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "bellot-valenzuela-daniel",
+      "rating": 5,
+      "updatedAt": 1791114980562
+    },
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "briones-hernando-andres",
+      "rating": 6.5,
+      "updatedAt": 1791114981266
+    },
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "calvo-ortega-daniel",
+      "rating": 7,
+      "updatedAt": 1791114981782
+    },
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "de-la-fuente-garcia-samuel",
+      "rating": 3,
+      "updatedAt": 1791114982283
+    },
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "encinas-humanes-alejandro",
+      "rating": 6,
+      "updatedAt": 1791114982769
+    },
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "estefania-padilla-daniel",
+      "rating": 7,
+      "updatedAt": 1791114983275
+    },
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "guzman-salceda-adrian",
+      "rating": 7,
+      "updatedAt": 1791114983752
+    },
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "lana-cadenas-alvaro",
+      "rating": 7,
+      "updatedAt": 1791114984247
+    },
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "perez-izquierdo-guillermo",
+      "rating": 6.5,
+      "updatedAt": 1791114984721
+    },
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "perez-jimenez-alejandro",
+      "rating": 4.5,
+      "updatedAt": 1791114985219
+    },
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "sanchez-alfonso-juan-manuel",
+      "rating": 7,
+      "updatedAt": 1791114985681
+    },
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "silos-villanueva-joshua",
+      "rating": 7,
+      "updatedAt": 1791114986153
+    },
+    {
+      "voterId": "encinas-humanes-alejandro",
+      "ratedId": "valencia-soto-daniel",
+      "rating": 6.5,
+      "updatedAt": 1791114986610
+    }
+  ],
+  "attendance": {
+    "playerIds": [
+      "bellot-valenzuela-daniel",
+      "briones-hernando-andres",
+      "calvo-ortega-daniel",
+      "de-la-fuente-garcia-samuel",
+      "encinas-humanes-alejandro",
+      "estefania-padilla-daniel",
+      "guzman-salceda-adrian",
+      "lana-cadenas-alvaro",
+      "perez-izquierdo-guillermo",
+      "perez-jimenez-alejandro",
+      "sanchez-alfonso-juan-manuel",
+      "silos-villanueva-joshua",
+      "valencia-soto-daniel"
+    ],
+    "updatedAt": 1791113628596
+  }
+}
