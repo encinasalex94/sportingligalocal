@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-06T00:59:04.072Z",
+  "generatedAt": "2026-10-07T12:45:53.807Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -19,8 +19,569 @@
       "date": "21-11-2026",
       "matches": [
         {
+          "homeTeam": "CELTIC C.F.",
+          "awayTeam": "INTER DE SÉK-SHOTS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
+          "awayTeam": "REAL SPORT",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "DORTMUND ARANJUEZ",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "CLUB ATLETICO DE ARANJUEZ",
+          "awayTeam": "GOLDEN F.C.",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "SASA LEGENDS",
+          "awayTeam": "COSTA VERDE",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "AMG-ASESORIA JURIDICA- EXCAVACIONES TAJO",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
           "homeTeam": "MAGREB UNITED",
+          "awayTeam": "REAL TAJO",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "IRT ARANJUEZ",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "EUROGALLO FC",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "TORRENTE F.C",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "UNION CAFETERA",
+          "awayTeam": "ALBIRROJA",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "ATLETICO PERU",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "NEW COTTON MEKASO MCS",
+          "awayTeam": "RAIMON",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "CHESTERFIELD UNITED",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "roundLabel": null,
+      "date": "20-12-2026",
+      "matches": [
+        {
+          "homeTeam": "INTER DE SÉK-SHOTS",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "REAL SPORT",
+          "awayTeam": "CELTIC C.F.",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "DORTMUND ARANJUEZ",
+          "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "GOLDEN F.C.",
+          "awayTeam": "SASA LEGENDS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "CLUB ATLETICO DE ARANJUEZ",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "COSTA VERDE",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "REAL TAJO",
+          "awayTeam": "AMG-ASESORIA JURIDICA- EXCAVACIONES TAJO",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "IRT ARANJUEZ",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "EUROGALLO FC",
           "awayTeam": "UNION CAFETERA",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "TORRENTE F.C",
+          "awayTeam": "FYSOL-POSTAS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "ALBIRROJA",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "RUMANIA CF",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "RAIMON",
+          "awayTeam": "ATLETICO PERU",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "CHESTERFIELD UNITED",
+          "awayTeam": "NEW COTTON MEKASO MCS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "roundLabel": null,
+      "date": "23-01-2027",
+      "matches": [
+        {
+          "homeTeam": "INTER DE SÉK-SHOTS",
+          "awayTeam": "REAL SPORT",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "CELTIC C.F.",
+          "awayTeam": "DORTMUND ARANJUEZ",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "GOLDEN F.C.",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "CLUB ATLETICO DE ARANJUEZ",
+          "awayTeam": "COSTA VERDE",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "SASA LEGENDS",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+          "awayTeam": "REAL TAJO",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "AMG-ASESORIA JURIDICA- EXCAVACIONES TAJO",
+          "awayTeam": "IRT ARANJUEZ",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "EUROGALLO FC",
+          "awayTeam": "TORRENTE F.C",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "ALBIRROJA",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "UNION CAFETERA",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "RAIMON",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "ATLETICO PERU",
+          "awayTeam": "CHESTERFIELD UNITED",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "NEW COTTON MEKASO MCS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "roundLabel": null,
+      "date": "21-02-2027",
+      "matches": [
+        {
+          "homeTeam": "RIMATEC-PUB TENESSE",
+          "awayTeam": "REAL SPORT",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "DORTMUND ARANJUEZ",
+          "awayTeam": "INTER DE SÉK-SHOTS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
+          "awayTeam": "CELTIC C.F.",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "SASA LEGENDS",
+          "awayTeam": "NEWTEAM- SMT",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "COSTA VERDE",
+          "awayTeam": "GOLDEN F.C.",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "CLUB ATLETICO DE ARANJUEZ",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "awayTeam": "REAL TAJO",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "IRT ARANJUEZ",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "MAGREB UNITED",
+          "awayTeam": "AMG-ASESORIA JURIDICA- EXCAVACIONES TAJO",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "UNION CAFETERA",
+          "awayTeam": "TORRENTE F.C",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -39,18 +600,8 @@
           "codActa": null
         },
         {
-          "homeTeam": "CELTIC C.F.",
-          "awayTeam": "NEWCASTLE PUB F.C.",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-          "awayTeam": "GOLDEN F.C.",
+          "awayTeam": "FYSOL-POSTAS",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -59,97 +610,7 @@
           "codActa": null
         },
         {
-          "homeTeam": "COSTA VERDE",
-          "awayTeam": "IRT ARANJUEZ",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "LA VESPA TAPAS-CLUB ATLETICO DE ARANJUEZ",
-          "awayTeam": "RIMATEC-PUB TENESSE",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "NEW COTTON MEKASO MCS",
-          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "AMG-ASESORIA JURIDICA- EXCAVACIONES TAJO",
-          "awayTeam": "ATLETICO PERU",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "NEWTEAM- SMT",
-          "awayTeam": "SASA LEGENDS",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "DELAPIO-40 BAR DE VINOS",
-          "awayTeam": "REAL SPORT",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "INTER DE SÉK-SHOTS",
-          "awayTeam": "TORRENTE F.C",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "FC. RAYO ARANJUEZ",
-          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "CHESTERFIELD UNITED",
-          "awayTeam": "REAL TAJO",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "DORTMUND ARANJUEZ",
+          "homeTeam": "RUMANIA CF",
           "awayTeam": "RAIMON",
           "homeGoals": null,
           "awayGoals": null,
@@ -159,8 +620,8 @@
           "codActa": null
         },
         {
-          "homeTeam": "FYSOL-POSTAS",
-          "awayTeam": "SPORTING ARANJUEZ",
+          "homeTeam": "CHESTERFIELD UNITED",
+          "awayTeam": "DELAPIO-40 BAR DE VINOS",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -169,7 +630,164 @@
           "codActa": null
         },
         {
-          "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
+          "homeTeam": "NEW COTTON MEKASO MCS",
+          "awayTeam": "ATLETICO PERU",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        }
+      ]
+    },
+    {
+      "round": 5,
+      "roundLabel": null,
+      "date": "20-03-2027",
+      "matches": [
+        {
+          "homeTeam": "REAL SPORT",
+          "awayTeam": "DORTMUND ARANJUEZ",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "INTER DE SÉK-SHOTS",
+          "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "CELTIC C.F.",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "COSTA VERDE",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "GOLDEN F.C.",
+          "awayTeam": "NEWCASTLE PUB F.C.",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "CLUB ATLETICO DE ARANJUEZ",
+          "awayTeam": "SASA LEGENDS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "REAL TAJO",
+          "awayTeam": "IRT ARANJUEZ",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+          "awayTeam": "MAGREB UNITED",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "AMG-ASESORIA JURIDICA- EXCAVACIONES TAJO",
+          "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "TORRENTE F.C",
+          "awayTeam": "ALBIRROJA",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "EUROGALLO FC",
+          "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "UNION CAFETERA",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "RAIMON",
+          "awayTeam": "CHESTERFIELD UNITED",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "DELAPIO-40 BAR DE VINOS",
+          "awayTeam": "NEW COTTON MEKASO MCS",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": null,
+          "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "ATLETICO PERU",
           "awayTeam": "RUMANIA CF",
           "homeGoals": null,
           "awayGoals": null,
@@ -188,8 +806,68 @@
       "date": "21-11-2026",
       "time": null,
       "venue": "Campo Pendiente de asignar",
+      "isHome": true,
+      "opponent": "IRT ARANJUEZ",
+      "goalsFor": null,
+      "goalsAgainst": null,
+      "played": false,
+      "result": null,
+      "penalties": null,
+      "codActa": null
+    },
+    {
+      "round": 2,
+      "roundLabel": null,
+      "date": "20-12-2026",
+      "time": null,
+      "venue": "Campo Pendiente de asignar",
       "isHome": false,
-      "opponent": "NEW COTTON MEKASO MCS",
+      "opponent": "J.C.R. - LA ESQUINITA DE SIMBA",
+      "goalsFor": null,
+      "goalsAgainst": null,
+      "played": false,
+      "result": null,
+      "penalties": null,
+      "codActa": null
+    },
+    {
+      "round": 3,
+      "roundLabel": null,
+      "date": "23-01-2027",
+      "time": null,
+      "venue": "Campo Pendiente de asignar",
+      "isHome": true,
+      "opponent": "MAGREB UNITED",
+      "goalsFor": null,
+      "goalsAgainst": null,
+      "played": false,
+      "result": null,
+      "penalties": null,
+      "codActa": null
+    },
+    {
+      "round": 4,
+      "roundLabel": null,
+      "date": "21-02-2027",
+      "time": null,
+      "venue": "Campo Pendiente de asignar",
+      "isHome": true,
+      "opponent": "REAL TAJO",
+      "goalsFor": null,
+      "goalsAgainst": null,
+      "played": false,
+      "result": null,
+      "penalties": null,
+      "codActa": null
+    },
+    {
+      "round": 5,
+      "roundLabel": null,
+      "date": "20-03-2027",
+      "time": null,
+      "venue": "Campo Pendiente de asignar",
+      "isHome": false,
+      "opponent": "AMG-ASESORIA JURIDICA- EXCAVACIONES TAJO",
       "goalsFor": null,
       "goalsAgainst": null,
       "played": false,
