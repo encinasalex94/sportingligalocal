@@ -214,6 +214,9 @@ export async function getPlayerSeasonStats(season, jornadasDisputadas, teamPoint
   attendanceSnap.forEach((docSnap) => {
     if (!docSnap.id.startsWith(`${season}_J`)) return;
     const round = Number(docSnap.id.slice(`${season}_J`.length));
+    // Solo cuentan las jornadas ya disputadas (si no, marcar la asistencia
+    // de un partido futuro daría %PJ por encima del 100%).
+    if (teamPointsByRound && teamPointsByRound[round] == null) return;
     const teamPoints = (teamPointsByRound && teamPointsByRound[round] != null) ? teamPointsByRound[round] : null;
     (docSnap.data().playerIds || []).forEach((pid) => {
       if (!stats.has(pid)) return;
