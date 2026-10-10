@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-10T20:44:15.250Z",
+  "generatedAt": "2026-10-10T23:55:07.728Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -13,6 +13,26 @@
   "standings": [
     {
       "position": 1,
+      "teamId": "1000033",
+      "teamName": "FYSOL-POSTAS",
+      "points": 10,
+      "played": 4,
+      "won": 3,
+      "drawn": 1,
+      "lost": 0,
+      "goalsFor": 10,
+      "goalsAgainst": 1,
+      "goalDifference": 9,
+      "form": [
+        "E",
+        "G",
+        "G",
+        "G"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 2,
       "teamId": "1000030",
       "teamName": "SPORTING DE MADERASA - BAR JUANJO",
       "points": 9,
@@ -32,45 +52,47 @@
       "isOwnTeam": true
     },
     {
-      "position": 2,
-      "teamId": "1000049",
-      "teamName": "DELAPIO-40 BAR DE VINOS",
-      "points": 7,
-      "played": 3,
-      "won": 2,
-      "drawn": 1,
-      "lost": 0,
-      "goalsFor": 7,
-      "goalsAgainst": 2,
-      "goalDifference": 5,
-      "form": [
-        "G",
-        "E",
-        "G"
-      ],
-      "isOwnTeam": false
-    },
-    {
       "position": 3,
-      "teamId": "1000033",
-      "teamName": "FYSOL-POSTAS",
+      "teamId": "1000026",
+      "teamName": "NEWTEAM- SMT",
       "points": 7,
-      "played": 3,
+      "played": 4,
       "won": 2,
       "drawn": 1,
-      "lost": 0,
-      "goalsFor": 6,
-      "goalsAgainst": 1,
-      "goalDifference": 5,
+      "lost": 1,
+      "goalsFor": 9,
+      "goalsAgainst": 7,
+      "goalDifference": 2,
       "form": [
-        "E",
+        "P",
         "G",
+        "E",
         "G"
       ],
       "isOwnTeam": false
     },
     {
       "position": 4,
+      "teamId": "1000049",
+      "teamName": "DELAPIO-40 BAR DE VINOS",
+      "points": 7,
+      "played": 4,
+      "won": 2,
+      "drawn": 1,
+      "lost": 1,
+      "goalsFor": 7,
+      "goalsAgainst": 4,
+      "goalDifference": 3,
+      "form": [
+        "G",
+        "E",
+        "G",
+        "P"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 5,
       "teamId": "1005397",
       "teamName": "NEWCASTLE PUB F.C.",
       "points": 6,
@@ -89,7 +111,7 @@
       "isOwnTeam": false
     },
     {
-      "position": 5,
+      "position": 6,
       "teamId": "1007402",
       "teamName": "RUMANIA CF",
       "points": 4,
@@ -109,45 +131,47 @@
       "isOwnTeam": false
     },
     {
-      "position": 6,
-      "teamId": "1000026",
-      "teamName": "NEWTEAM- SMT",
-      "points": 4,
-      "played": 3,
-      "won": 1,
-      "drawn": 1,
-      "lost": 1,
-      "goalsFor": 7,
-      "goalsAgainst": 7,
-      "goalDifference": 0,
-      "form": [
-        "P",
-        "G",
-        "E"
-      ],
-      "isOwnTeam": false
-    },
-    {
       "position": 7,
       "teamId": "1000025",
       "teamName": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
       "points": 4,
-      "played": 3,
+      "played": 4,
       "won": 1,
       "drawn": 1,
-      "lost": 1,
+      "lost": 2,
       "goalsFor": 3,
-      "goalsAgainst": 4,
-      "goalDifference": -1,
+      "goalsAgainst": 8,
+      "goalDifference": -5,
       "form": [
         "G",
         "E",
+        "P",
         "P"
       ],
       "isOwnTeam": false
     },
     {
       "position": 8,
+      "teamId": "1007397",
+      "teamName": "CHESTERFIELD UNITED",
+      "points": 3,
+      "played": 4,
+      "won": 0,
+      "drawn": 3,
+      "lost": 1,
+      "goalsFor": 5,
+      "goalsAgainst": 7,
+      "goalDifference": -2,
+      "form": [
+        "P",
+        "E",
+        "E",
+        "E"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 9,
       "teamId": "1000027",
       "teamName": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
       "points": 3,
@@ -166,7 +190,7 @@
       "isOwnTeam": false
     },
     {
-      "position": 9,
+      "position": 10,
       "teamId": "1000012",
       "teamName": "RIMATEC-PUB TENESSE",
       "points": 3,
@@ -186,7 +210,7 @@
       "isOwnTeam": false
     },
     {
-      "position": 10,
+      "position": 11,
       "teamId": "1004150",
       "teamName": "UNION CAFETERA",
       "points": 3,
@@ -206,32 +230,13 @@
       "isOwnTeam": false
     },
     {
-      "position": 11,
-      "teamId": "1007397",
-      "teamName": "CHESTERFIELD UNITED",
-      "points": 2,
-      "played": 3,
-      "won": 0,
-      "drawn": 2,
-      "lost": 1,
-      "goalsFor": 5,
-      "goalsAgainst": 7,
-      "goalDifference": -2,
-      "form": [
-        "P",
-        "E",
-        "E"
-      ],
-      "isOwnTeam": false
-    },
-    {
       "position": 12,
       "teamId": "1000034",
       "teamName": "J.C.R. - LA ESQUINITA DE SIMBA",
-      "points": 1,
-      "played": 3,
+      "points": 2,
+      "played": 4,
       "won": 0,
-      "drawn": 1,
+      "drawn": 2,
       "lost": 2,
       "goalsFor": 4,
       "goalsAgainst": 11,
@@ -239,7 +244,8 @@
       "form": [
         "P",
         "E",
-        "P"
+        "P",
+        "E"
       ],
       "isOwnTeam": false
     }
@@ -264,15 +270,6 @@
       "codActa": null
     },
     {
-      "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-      "awayTeam": "CHESTERFIELD UNITED",
-      "homeGoals": null,
-      "awayGoals": null,
-      "time": "17:00",
-      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
-    },
-    {
       "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
       "awayTeam": "RUMANIA CF",
       "homeGoals": 1,
@@ -282,22 +279,31 @@
       "codActa": "13722"
     },
     {
+      "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+      "awayTeam": "CHESTERFIELD UNITED",
+      "homeGoals": 0,
+      "awayGoals": 0,
+      "time": "17:15",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": "13721"
+    },
+    {
       "homeTeam": "FYSOL-POSTAS",
       "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 4,
+      "awayGoals": 0,
       "time": "18:30",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "13723"
     },
     {
       "homeTeam": "NEWTEAM- SMT",
       "awayTeam": "DELAPIO-40 BAR DE VINOS",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 2,
+      "awayGoals": 0,
       "time": "20:00",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "13720"
     }
   ],
   "rounds": [
@@ -528,16 +534,6 @@
           "codActa": null
         },
         {
-          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-          "awayTeam": "CHESTERFIELD UNITED",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": "17:00",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
-        },
-        {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
           "awayTeam": "RUMANIA CF",
           "homeGoals": 1,
@@ -548,24 +544,34 @@
           "codActa": "13722"
         },
         {
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+          "awayTeam": "CHESTERFIELD UNITED",
+          "homeGoals": 0,
+          "awayGoals": 0,
+          "played": true,
+          "time": "17:15",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "13721"
+        },
+        {
           "homeTeam": "FYSOL-POSTAS",
           "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 4,
+          "awayGoals": 0,
+          "played": true,
           "time": "18:30",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "13723"
         },
         {
           "homeTeam": "NEWTEAM- SMT",
           "awayTeam": "DELAPIO-40 BAR DE VINOS",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 2,
+          "awayGoals": 0,
+          "played": true,
           "time": "20:00",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "13720"
         }
       ]
     },
