@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T23:50:38.318Z",
+  "generatedAt": "2026-10-10T17:44:20.353Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -539,7 +539,7 @@
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
-          "time": "17:00",
+          "time": "17:08",
           "venue": "ENRIQUE MORENO - F - Hierba Artificial",
           "codActa": null
         },
@@ -1822,7 +1822,7 @@
       "round": 4,
       "roundLabel": null,
       "date": "10-10-2026",
-      "time": "17:00",
+      "time": "17:08",
       "venue": "ENRIQUE MORENO - F - Hierba Artificial",
       "isHome": true,
       "opponent": "RUMANIA CF",
