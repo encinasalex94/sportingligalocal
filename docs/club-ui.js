@@ -779,6 +779,7 @@ function applySectionVisibility() {
   const viewingLiga = window.CURRENT_COMPETITION_TYPE === 'liga';
   const showGoleadores = viewingLiga; // público, ya no depende de sesión
 
+  renderStandingsShareButton();
   toggleSection('goleadores', 'divider-goleadores', showGoleadores);
   toggleSection('estadisticas', 'divider-estadisticas', showGoleadores);
   if (showGoleadores) {
@@ -812,14 +813,15 @@ function loadHtml2Canvas() {
   return html2canvasLoadPromise;
 }
 
-async function shareStatsTableAsImage() {
-  const btn = document.getElementById('share-stats-btn');
+// Compartir una sección como imagen APAISADA con todo el contenido.
+async function shareSectionAsImage({ captureId, btnId, fileBase, title }) {
+  const btn = document.getElementById(btnId);
   const original = btn ? btn.textContent : '';
   if (btn) { btn.disabled = true; btn.textContent = 'Preparando imagen…'; }
 
   try {
     await loadHtml2Canvas();
-    const source = document.getElementById('estadisticas-capture');
+    const source = document.getElementById(captureId);
 
     // Clonamos el contenido en un contenedor aparte, fuera de pantalla, con
     // ancho automático (sin scroll horizontal ni columna fija) para que la
@@ -827,7 +829,7 @@ async function shareStatsTableAsImage() {
     const clone = source.cloneNode(true);
     clone.removeAttribute('id');
     clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
-    clone.querySelector('.table-scroll').style.overflow = 'visible';
+    clone.querySelectorAll('.table-scroll').forEach((el) => { el.style.overflow = 'visible'; });
     clone.querySelectorAll('table').forEach((t) => { t.style.minWidth = '0'; });
     clone.querySelectorAll('td:first-child, th:first-child').forEach((el) => {
       el.style.position = 'static';
@@ -837,19 +839,33 @@ async function shareStatsTableAsImage() {
     });
 
     const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'position:fixed; left:-9999px; top:0; background:#fff; padding:20px; width:max-content;';
+    wrapper.style.cssText = 'position:fixed; left:-9999px; top:0; background:#fff; padding:24px; width:max-content; min-width:760px;';
     wrapper.appendChild(clone);
     document.body.appendChild(wrapper);
 
-    const canvas = await window.html2canvas(wrapper, { backgroundColor: '#ffffff', scale: 2 });
+    const content = await window.html2canvas(wrapper, { backgroundColor: '#ffffff', scale: 2 });
     document.body.removeChild(wrapper);
 
+    // Lienzo apaisado (16:10): si el contenido es más alto que ancho, se
+    // amplía el lienzo por los lados (centrando el contenido) para que no
+    // se recorte nada.
+    const ratio = 1.6;
+    const outW = Math.max(content.width, Math.ceil(content.height * ratio));
+    const outH = Math.max(content.height, Math.ceil(content.width / ratio));
+    const canvas = document.createElement('canvas');
+    canvas.width = outW;
+    canvas.height = outH;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, outW, outH);
+    ctx.drawImage(content, Math.round((outW - content.width) / 2), Math.round((outH - content.height) / 2));
+
     const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
-    const fileName = `estadisticas-sporting-${(window.APP_DATA && window.APP_DATA.season) || ''}.png`;
+    const fileName = `${fileBase}-sporting-${(window.APP_DATA && window.APP_DATA.season) || ''}.png`;
     const file = new File([blob], fileName, { type: 'image/png' });
 
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ files: [file], title: 'Estadísticas de la plantilla' });
+      await navigator.share({ files: [file], title });
     } else {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -862,12 +878,30 @@ async function shareStatsTableAsImage() {
     }
   } catch (err) {
     if (err.name !== 'AbortError') { // el usuario cerró el panel de compartir, no es un error real
-      console.error('Error compartiendo la tabla:', err);
+      console.error('Error compartiendo la imagen:', err);
       alert('No se pudo generar la imagen.');
     }
   } finally {
     if (btn) { btn.disabled = false; btn.textContent = original; }
   }
+}
+
+function shareStatsTableAsImage() {
+  return shareSectionAsImage({ captureId: 'estadisticas-capture', btnId: 'share-stats-btn', fileBase: 'estadisticas', title: 'Estadísticas de la plantilla' });
+}
+
+function shareStandingsAsImage() {
+  return shareSectionAsImage({ captureId: 'clasificacion-capture', btnId: 'share-standings-btn', fileBase: 'clasificacion', title: 'Clasificación' });
+}
+
+function renderStandingsShareButton() {
+  const el = document.getElementById('standings-share-actions');
+  if (!el) return;
+  el.innerHTML = window.CLUB_IS_ADMIN
+    ? `<div class="acta-btn-wrap" style="margin-top:14px;"><button class="acta-btn" id="share-standings-btn">📤 Compartir clasificación como imagen</button></div>`
+    : '';
+  const b = document.getElementById('share-standings-btn');
+  if (b) b.addEventListener('click', shareStandingsAsImage);
 }
 
 async function renderPlayerStats() {
