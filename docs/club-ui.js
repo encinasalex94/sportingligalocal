@@ -814,7 +814,7 @@ function loadHtml2Canvas() {
 }
 
 // Compartir una sección como imagen APAISADA con todo el contenido.
-async function shareSectionAsImage({ captureId, btnId, fileBase, title }) {
+async function shareSectionAsImage({ captureId, btnId, fileBase, title, splitRows = false }) {
   const btn = document.getElementById(btnId);
   const original = btn ? btn.textContent : '';
   if (btn) { btn.disabled = true; btn.textContent = 'Preparando imagen…'; }
@@ -830,16 +830,26 @@ async function shareSectionAsImage({ captureId, btnId, fileBase, title }) {
     clone.removeAttribute('id');
     clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
     clone.querySelectorAll('.table-scroll').forEach((el) => { el.style.overflow = 'visible'; });
-    clone.querySelectorAll('table').forEach((t) => { t.style.minWidth = '0'; });
-    clone.querySelectorAll('td:first-child, th:first-child').forEach((el) => {
-      el.style.position = 'static';
-      el.style.width = 'auto';
-      el.style.maxWidth = 'none';
-      el.style.boxShadow = 'none';
-    });
+
+    // Tabla larga → se parte en dos bloques de filas, uno al lado del otro,
+    // para que la imagen apaisada quede aprovechada y no muy "lejana".
+    if (splitRows) {
+      const scrollEl = clone.querySelector('.table-scroll');
+      const scrollEl2 = scrollEl.cloneNode(true);
+      const rows1 = Array.from(scrollEl.querySelectorAll('tbody tr'));
+      const half = Math.ceil(rows1.length / 2);
+      rows1.slice(half).forEach((r) => r.remove());
+      Array.from(scrollEl2.querySelectorAll('tbody tr')).slice(0, half).forEach((r) => r.remove());
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex; gap:20px; align-items:flex-start;';
+      scrollEl.parentNode.insertBefore(row, scrollEl);
+      row.appendChild(scrollEl);
+      row.appendChild(scrollEl2);
+    }
 
     const wrapper = document.createElement('div');
-    wrapper.style.cssText = 'position:fixed; left:-9999px; top:0; background:#fff; padding:24px; width:max-content; min-width:760px;';
+    wrapper.className = 'capture-mode';
+    wrapper.style.cssText = 'position:fixed; left:-9999px; top:0; background:#fff; padding:24px; width:max-content;';
     wrapper.appendChild(clone);
     document.body.appendChild(wrapper);
 
@@ -887,7 +897,7 @@ async function shareSectionAsImage({ captureId, btnId, fileBase, title }) {
 }
 
 function shareStatsTableAsImage() {
-  return shareSectionAsImage({ captureId: 'estadisticas-capture', btnId: 'share-stats-btn', fileBase: 'estadisticas', title: 'Estadísticas de la plantilla' });
+  return shareSectionAsImage({ captureId: 'estadisticas-capture', btnId: 'share-stats-btn', fileBase: 'estadisticas', title: 'Estadísticas de la plantilla', splitRows: true });
 }
 
 function shareStandingsAsImage() {

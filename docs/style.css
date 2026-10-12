@@ -1764,3 +1764,24 @@ details.admin-panel[open] summary.admin-panel-title {
   font-size: 22px;
   color: var(--navy);
 }
+
+
+/* Contenedor fuera de pantalla usado al exportar tablas como imagen: anula
+   columnas fijas (sticky), anchos máximos y recortes del modo móvil para
+   que se vea la tabla entera, con todas las columnas en su orden. */
+.capture-mode table,
+.capture-mode table.standings,
+.capture-mode #stats-table { min-width: 0 !important; width: auto !important; }
+.capture-mode th,
+.capture-mode td {
+  position: static !important;
+  width: auto !important;
+  max-width: none !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+}
+.capture-mode td.cell-team,
+.capture-mode th.col-team { text-align: left !important; padding-left: 16px !important; padding-right: 16px !important; }
+.capture-mode table.standings tbody tr.own-row td { background: #eef3fb; }
