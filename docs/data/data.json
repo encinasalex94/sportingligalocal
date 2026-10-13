@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13T13:40:28.487Z",
+  "generatedAt": "2026-10-13T20:06:41.418Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -93,25 +93,46 @@
     },
     {
       "position": 5,
-      "teamId": "1005397",
-      "teamName": "NEWCASTLE PUB F.C.",
+      "teamId": "1000027",
+      "teamName": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
       "points": 6,
-      "played": 3,
+      "played": 4,
       "won": 2,
       "drawn": 0,
-      "lost": 1,
-      "goalsFor": 6,
-      "goalsAgainst": 3,
-      "goalDifference": 3,
+      "lost": 2,
+      "goalsFor": 5,
+      "goalsAgainst": 6,
+      "goalDifference": -1,
       "form": [
+        "P",
+        "P",
         "G",
-        "G",
-        "P"
+        "G"
       ],
       "isOwnTeam": false
     },
     {
       "position": 6,
+      "teamId": "1005397",
+      "teamName": "NEWCASTLE PUB F.C.",
+      "points": 6,
+      "played": 4,
+      "won": 2,
+      "drawn": 0,
+      "lost": 2,
+      "goalsFor": 7,
+      "goalsAgainst": 5,
+      "goalDifference": 2,
+      "form": [
+        "G",
+        "G",
+        "P",
+        "P"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 7,
       "teamId": "1007402",
       "teamName": "RUMANIA CF",
       "points": 4,
@@ -131,7 +152,7 @@
       "isOwnTeam": false
     },
     {
-      "position": 7,
+      "position": 8,
       "teamId": "1000025",
       "teamName": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
       "points": 4,
@@ -151,7 +172,7 @@
       "isOwnTeam": false
     },
     {
-      "position": 8,
+      "position": 9,
       "teamId": "1007397",
       "teamName": "CHESTERFIELD UNITED",
       "points": 3,
@@ -167,25 +188,6 @@
         "E",
         "E",
         "E"
-      ],
-      "isOwnTeam": false
-    },
-    {
-      "position": 9,
-      "teamId": "1000027",
-      "teamName": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-      "points": 3,
-      "played": 3,
-      "won": 1,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 3,
-      "goalsAgainst": 5,
-      "goalDifference": -2,
-      "form": [
-        "P",
-        "P",
-        "G"
       ],
       "isOwnTeam": false
     },
@@ -263,11 +265,11 @@
     {
       "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
       "awayTeam": "NEWCASTLE PUB F.C.",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 2,
+      "awayGoals": 1,
       "time": "15:30",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "13724"
     },
     {
       "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
@@ -526,12 +528,12 @@
         {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
           "awayTeam": "NEWCASTLE PUB F.C.",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 2,
+          "awayGoals": 1,
+          "played": true,
           "time": "15:30",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "13724"
         },
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
