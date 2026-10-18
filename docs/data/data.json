@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T12:37:26.672Z",
+  "generatedAt": "2026-10-18T16:09:03.326Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -55,6 +55,27 @@
     },
     {
       "position": 3,
+      "teamId": "1000027",
+      "teamName": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+      "points": 9,
+      "played": 5,
+      "won": 3,
+      "drawn": 0,
+      "lost": 2,
+      "goalsFor": 7,
+      "goalsAgainst": 6,
+      "goalDifference": 1,
+      "form": [
+        "P",
+        "P",
+        "G",
+        "G",
+        "G"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 4,
       "teamId": "1000026",
       "teamName": "NEWTEAM- SMT",
       "points": 7,
@@ -74,7 +95,7 @@
       "isOwnTeam": false
     },
     {
-      "position": 4,
+      "position": 5,
       "teamId": "1000049",
       "teamName": "DELAPIO-40 BAR DE VINOS",
       "points": 7,
@@ -90,26 +111,6 @@
         "E",
         "G",
         "P"
-      ],
-      "isOwnTeam": false
-    },
-    {
-      "position": 5,
-      "teamId": "1000027",
-      "teamName": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-      "points": 6,
-      "played": 4,
-      "won": 2,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 5,
-      "goalsAgainst": 6,
-      "goalDifference": -1,
-      "form": [
-        "P",
-        "P",
-        "G",
-        "G"
       ],
       "isOwnTeam": false
     },
@@ -159,16 +160,17 @@
       "teamId": "1000025",
       "teamName": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
       "points": 4,
-      "played": 4,
+      "played": 5,
       "won": 1,
       "drawn": 1,
-      "lost": 2,
+      "lost": 3,
       "goalsFor": 3,
-      "goalsAgainst": 8,
-      "goalDifference": -5,
+      "goalsAgainst": 10,
+      "goalDifference": -7,
       "form": [
         "G",
         "E",
+        "P",
         "P",
         "P"
       ],
@@ -296,11 +298,11 @@
     {
       "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
       "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 0,
+      "awayGoals": 2,
       "time": "13:30",
       "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-      "codActa": null
+      "codActa": "13729"
     },
     {
       "homeTeam": "UNION CAFETERA",
@@ -629,12 +631,12 @@
         {
           "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
           "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 0,
+          "awayGoals": 2,
+          "played": true,
           "time": "13:30",
           "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-          "codActa": null
+          "codActa": "13729"
         },
         {
           "homeTeam": "UNION CAFETERA",
