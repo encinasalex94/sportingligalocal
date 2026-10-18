@@ -323,7 +323,7 @@ function openEditMatchModal(match) {
       <label class="field-label">Campo</label>
       <input type="text" id="edit-venue" class="club-select" value="${match.venue || ''}" />
     </div>
-    <label style="display:flex; align-items:center; gap:8px; font-size:13px; margin-top:6px;">
+    <label style="display:flex; align-items:center; gap:8px; font-size:var(--fs-sm); margin-top:6px;">
       <input type="checkbox" id="edit-ishome" ${match.isHome ? 'checked' : ''} />
       Jugamos en casa
     </label>
@@ -1174,7 +1174,7 @@ function teamActaHtml(team) {
     <div class="acta-lineup-label">Titulares</div>
     ${playerListHtml(team.titulares)}
     ${team.suplentes && team.suplentes.length ? `<div class="acta-lineup-label">Suplentes</div>${playerListHtml(team.suplentes)}` : ''}
-    ${team.entrenador && !/no presenta/i.test(team.entrenador) ? `<div class="acta-lineup-label">Entrenador</div><p style="font-size:12.5px;margin:0;">${team.entrenador}</p>` : ''}
+    ${team.entrenador && !/no presenta/i.test(team.entrenador) ? `<div class="acta-lineup-label">Entrenador</div><p style="font-size:var(--fs-sm);margin:0;">${team.entrenador}</p>` : ''}
   `;
 }
 
@@ -1376,7 +1376,7 @@ function openAddMatchModal() {
       <label class="field-label">Campo</label>
       <input type="text" id="custom-venue" placeholder="Nombre del campo" class="club-select" />
     </div>
-    <label style="display:flex; align-items:center; gap:8px; font-size:13px; margin-top:6px;">
+    <label style="display:flex; align-items:center; gap:8px; font-size:var(--fs-sm); margin-top:6px;">
       <input type="checkbox" id="custom-ishome" />
       Jugamos en casa
     </label>
@@ -1629,7 +1629,7 @@ window.openRankingCustom = async function openRankingCustom(match) {
         ${ranking.map((r, i) => `
           <li class="vote-item">
             <span>${i + 1}. ${r.name}</span>
-            <span class="scorer-goals" style="font-size:14px;">${r.average.toFixed(2)}</span>
+            <span class="scorer-goals" style="font-size:var(--fs-md);">${r.average.toFixed(2)}</span>
           </li>
         `).join('')}
       </ul>
@@ -1664,7 +1664,7 @@ window.openRanking = async function openRanking(round) {
         ${ranking.map((r, i) => `
           <li class="vote-item">
             <span>${i + 1}. ${r.name}</span>
-            <span class="scorer-goals" style="font-size:14px;">${r.average.toFixed(2)}</span>
+            <span class="scorer-goals" style="font-size:var(--fs-md);">${r.average.toFixed(2)}</span>
           </li>
         `).join('')}
       </ul>
