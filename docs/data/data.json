@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T18:58:31.331Z",
+  "generatedAt": "2026-10-24T21:30:51.940Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -57,18 +57,18 @@
       "position": 3,
       "teamId": "1000026",
       "teamName": "NEWTEAM- SMT",
-      "points": 10,
-      "played": 5,
-      "won": 3,
+      "points": 13,
+      "played": 6,
+      "won": 4,
       "drawn": 1,
       "lost": 1,
-      "goalsFor": 11,
-      "goalsAgainst": 8,
-      "goalDifference": 3,
+      "goalsFor": 16,
+      "goalsAgainst": 10,
+      "goalDifference": 6,
       "form": [
-        "P",
         "G",
         "E",
+        "G",
         "G",
         "G"
       ],
@@ -139,27 +139,48 @@
     },
     {
       "position": 7,
-      "teamId": "1004150",
-      "teamName": "UNION CAFETERA",
+      "teamId": "1000012",
+      "teamName": "RIMATEC-PUB TENESSE",
       "points": 6,
-      "played": 5,
+      "played": 6,
       "won": 1,
       "drawn": 3,
-      "lost": 1,
-      "goalsFor": 6,
-      "goalsAgainst": 8,
-      "goalDifference": -2,
+      "lost": 2,
+      "goalsFor": 8,
+      "goalsAgainst": 9,
+      "goalDifference": -1,
       "form": [
-        "E",
         "E",
         "P",
         "E",
+        "P",
         "G"
       ],
       "isOwnTeam": false
     },
     {
       "position": 8,
+      "teamId": "1004150",
+      "teamName": "UNION CAFETERA",
+      "points": 6,
+      "played": 6,
+      "won": 1,
+      "drawn": 3,
+      "lost": 2,
+      "goalsFor": 8,
+      "goalsAgainst": 13,
+      "goalDifference": -5,
+      "form": [
+        "E",
+        "P",
+        "E",
+        "G",
+        "P"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 9,
       "teamId": "1007402",
       "teamName": "RUMANIA CF",
       "points": 4,
@@ -180,7 +201,7 @@
       "isOwnTeam": false
     },
     {
-      "position": 9,
+      "position": 10,
       "teamId": "1000025",
       "teamName": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
       "points": 4,
@@ -201,7 +222,7 @@
       "isOwnTeam": false
     },
     {
-      "position": 10,
+      "position": 11,
       "teamId": "1007397",
       "teamName": "CHESTERFIELD UNITED",
       "points": 3,
@@ -222,44 +243,23 @@
       "isOwnTeam": false
     },
     {
-      "position": 11,
-      "teamId": "1000012",
-      "teamName": "RIMATEC-PUB TENESSE",
-      "points": 3,
-      "played": 5,
-      "won": 0,
-      "drawn": 3,
-      "lost": 2,
-      "goalsFor": 5,
-      "goalsAgainst": 9,
-      "goalDifference": -4,
-      "form": [
-        "E",
-        "E",
-        "P",
-        "E",
-        "P"
-      ],
-      "isOwnTeam": false
-    },
-    {
       "position": 12,
       "teamId": "1000034",
       "teamName": "J.C.R. - LA ESQUINITA DE SIMBA",
       "points": 3,
-      "played": 5,
+      "played": 6,
       "won": 0,
       "drawn": 3,
-      "lost": 2,
+      "lost": 3,
       "goalsFor": 6,
-      "goalsAgainst": 13,
-      "goalDifference": -7,
+      "goalsAgainst": 16,
+      "goalDifference": -10,
       "form": [
-        "P",
         "E",
         "P",
         "E",
-        "E"
+        "E",
+        "P"
       ],
       "isOwnTeam": false
     }
@@ -284,15 +284,6 @@
       "codActa": "13736"
     },
     {
-      "homeTeam": "NEWTEAM- SMT",
-      "awayTeam": "UNION CAFETERA",
-      "homeGoals": null,
-      "awayGoals": null,
-      "time": "18:30",
-      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
-    },
-    {
       "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
       "awayTeam": "RUMANIA CF",
       "homeGoals": null,
@@ -302,13 +293,13 @@
       "codActa": null
     },
     {
-      "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-      "awayTeam": "RIMATEC-PUB TENESSE",
-      "homeGoals": null,
-      "awayGoals": null,
-      "time": "20:00",
+      "homeTeam": "NEWTEAM- SMT",
+      "awayTeam": "UNION CAFETERA",
+      "homeGoals": 5,
+      "awayGoals": 2,
+      "time": "18:45",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "13731"
     },
     {
       "homeTeam": "FYSOL-POSTAS",
@@ -318,6 +309,15 @@
       "time": "20:00",
       "venue": "ENRIQUE MORENO - F - Hierba Artificial",
       "codActa": null
+    },
+    {
+      "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+      "awayTeam": "RIMATEC-PUB TENESSE",
+      "homeGoals": 0,
+      "awayGoals": 3,
+      "time": "20:23",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": "13732"
     }
   ],
   "rounds": [
@@ -682,16 +682,6 @@
           "codActa": "13736"
         },
         {
-          "homeTeam": "NEWTEAM- SMT",
-          "awayTeam": "UNION CAFETERA",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": "18:30",
-          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
-        },
-        {
           "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
           "awayTeam": "RUMANIA CF",
           "homeGoals": null,
@@ -702,14 +692,14 @@
           "codActa": null
         },
         {
-          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-          "awayTeam": "RIMATEC-PUB TENESSE",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": "20:00",
+          "homeTeam": "NEWTEAM- SMT",
+          "awayTeam": "UNION CAFETERA",
+          "homeGoals": 5,
+          "awayGoals": 2,
+          "played": true,
+          "time": "18:45",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "13731"
         },
         {
           "homeTeam": "FYSOL-POSTAS",
@@ -720,6 +710,16 @@
           "time": "20:00",
           "venue": "ENRIQUE MORENO - F - Hierba Artificial",
           "codActa": null
+        },
+        {
+          "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true,
+          "time": "20:23",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+          "codActa": "13732"
         }
       ]
     },
