@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T16:30:34.264Z",
+  "generatedAt": "2026-10-24T18:58:31.331Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -97,6 +97,27 @@
     },
     {
       "position": 5,
+      "teamId": "1005397",
+      "teamName": "NEWCASTLE PUB F.C.",
+      "points": 9,
+      "played": 6,
+      "won": 3,
+      "drawn": 0,
+      "lost": 3,
+      "goalsFor": 13,
+      "goalsAgainst": 10,
+      "goalDifference": 3,
+      "form": [
+        "G",
+        "P",
+        "P",
+        "P",
+        "G"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 6,
       "teamId": "1000049",
       "teamName": "DELAPIO-40 BAR DE VINOS",
       "points": 8,
@@ -117,7 +138,7 @@
       "isOwnTeam": false
     },
     {
-      "position": 6,
+      "position": 7,
       "teamId": "1004150",
       "teamName": "UNION CAFETERA",
       "points": 6,
@@ -134,27 +155,6 @@
         "P",
         "E",
         "G"
-      ],
-      "isOwnTeam": false
-    },
-    {
-      "position": 7,
-      "teamId": "1005397",
-      "teamName": "NEWCASTLE PUB F.C.",
-      "points": 6,
-      "played": 5,
-      "won": 2,
-      "drawn": 0,
-      "lost": 3,
-      "goalsFor": 9,
-      "goalsAgainst": 8,
-      "goalDifference": 1,
-      "form": [
-        "G",
-        "G",
-        "P",
-        "P",
-        "P"
       ],
       "isOwnTeam": false
     },
@@ -184,16 +184,16 @@
       "teamId": "1000025",
       "teamName": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
       "points": 4,
-      "played": 5,
+      "played": 6,
       "won": 1,
       "drawn": 1,
-      "lost": 3,
-      "goalsFor": 3,
-      "goalsAgainst": 10,
-      "goalDifference": -7,
+      "lost": 4,
+      "goalsFor": 5,
+      "goalsAgainst": 14,
+      "goalDifference": -9,
       "form": [
-        "G",
         "E",
+        "P",
         "P",
         "P",
         "P"
@@ -277,11 +277,11 @@
     {
       "homeTeam": "NEWCASTLE PUB F.C.",
       "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 4,
+      "awayGoals": 2,
       "time": "17:00",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "13736"
     },
     {
       "homeTeam": "NEWTEAM- SMT",
@@ -674,12 +674,12 @@
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
           "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 4,
+          "awayGoals": 2,
+          "played": true,
           "time": "17:00",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "13736"
         },
         {
           "homeTeam": "NEWTEAM- SMT",
