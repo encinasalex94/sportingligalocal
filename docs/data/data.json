@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T21:03:42.850Z",
+  "generatedAt": "2026-10-24T16:30:34.264Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -8,11 +8,32 @@
   "competition": {
     "title": "AFICIONADOS F-11, 1ª AFICIONADOS F-11",
     "season": "Temporada 2026-2027",
-    "round": "Jornada 5 (18-10-2026)"
+    "round": "Jornada 6 (24-10-2026)"
   },
   "standings": [
     {
       "position": 1,
+      "teamId": "1000030",
+      "teamName": "SPORTING DE MADERASA - BAR JUANJO",
+      "points": 15,
+      "played": 6,
+      "won": 5,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 10,
+      "goalsAgainst": 5,
+      "goalDifference": 5,
+      "form": [
+        "P",
+        "G",
+        "G",
+        "G",
+        "G"
+      ],
+      "isOwnTeam": true
+    },
+    {
+      "position": 2,
       "teamId": "1000033",
       "teamName": "FYSOL-POSTAS",
       "points": 13,
@@ -31,27 +52,6 @@
         "G"
       ],
       "isOwnTeam": false
-    },
-    {
-      "position": 2,
-      "teamId": "1000030",
-      "teamName": "SPORTING DE MADERASA - BAR JUANJO",
-      "points": 12,
-      "played": 5,
-      "won": 4,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 8,
-      "goalsAgainst": 4,
-      "goalDifference": 4,
-      "form": [
-        "G",
-        "P",
-        "G",
-        "G",
-        "G"
-      ],
-      "isOwnTeam": true
     },
     {
       "position": 3,
@@ -100,19 +100,19 @@
       "teamId": "1000049",
       "teamName": "DELAPIO-40 BAR DE VINOS",
       "points": 8,
-      "played": 5,
+      "played": 6,
       "won": 2,
       "drawn": 2,
-      "lost": 1,
-      "goalsFor": 9,
-      "goalsAgainst": 6,
-      "goalDifference": 3,
+      "lost": 2,
+      "goalsFor": 10,
+      "goalsAgainst": 8,
+      "goalDifference": 2,
       "form": [
-        "G",
         "E",
         "G",
         "P",
-        "E"
+        "E",
+        "P"
       ],
       "isOwnTeam": false
     },
@@ -266,58 +266,58 @@
   ],
   "lastRoundResults": [
     {
-      "homeTeam": "CHESTERFIELD UNITED",
-      "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
-      "homeGoals": 1,
-      "awayGoals": 2,
-      "time": "09:00",
-      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-      "codActa": "13727"
-    },
-    {
-      "homeTeam": "RUMANIA CF",
-      "awayTeam": "FYSOL-POSTAS",
-      "homeGoals": 0,
-      "awayGoals": 4,
-      "time": "09:05",
-      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": "13728"
-    },
-    {
-      "homeTeam": "RIMATEC-PUB TENESSE",
-      "awayTeam": "NEWTEAM- SMT",
-      "homeGoals": 1,
-      "awayGoals": 2,
-      "time": "10:30",
-      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": "13725"
-    },
-    {
-      "homeTeam": "DELAPIO-40 BAR DE VINOS",
-      "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+      "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
+      "awayTeam": "DELAPIO-40 BAR DE VINOS",
       "homeGoals": 2,
-      "awayGoals": 2,
-      "time": "12:00",
+      "awayGoals": 1,
+      "time": "15:30",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": "13726"
+      "codActa": "13733"
     },
     {
-      "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
-      "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-      "homeGoals": 0,
-      "awayGoals": 2,
-      "time": "13:30",
+      "homeTeam": "NEWCASTLE PUB F.C.",
+      "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "17:00",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "NEWTEAM- SMT",
+      "awayTeam": "UNION CAFETERA",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "18:30",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+      "awayTeam": "RUMANIA CF",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "18:30",
       "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-      "codActa": "13729"
+      "codActa": null
     },
     {
-      "homeTeam": "UNION CAFETERA",
-      "awayTeam": "NEWCASTLE PUB F.C.",
-      "homeGoals": 3,
-      "awayGoals": 2,
-      "time": "13:30",
+      "homeTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+      "awayTeam": "RIMATEC-PUB TENESSE",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "20:00",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": "13730"
+      "codActa": null
+    },
+    {
+      "homeTeam": "FYSOL-POSTAS",
+      "awayTeam": "CHESTERFIELD UNITED",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "20:00",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+      "codActa": null
     }
   ],
   "rounds": [
@@ -664,12 +664,12 @@
         {
           "homeTeam": "SPORTING DE MADERASA - BAR JUANJO",
           "awayTeam": "DELAPIO-40 BAR DE VINOS",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 2,
+          "awayGoals": 1,
+          "played": true,
           "time": "15:30",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "13733"
         },
         {
           "homeTeam": "NEWCASTLE PUB F.C.",
@@ -1880,12 +1880,12 @@
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
       "isHome": true,
       "opponent": "DELAPIO-40 BAR DE VINOS",
-      "goalsFor": null,
-      "goalsAgainst": null,
-      "played": false,
-      "result": null,
+      "goalsFor": 2,
+      "goalsAgainst": 1,
+      "played": true,
+      "result": "G",
       "penalties": null,
-      "codActa": null
+      "codActa": "13733"
     },
     {
       "round": 7,
