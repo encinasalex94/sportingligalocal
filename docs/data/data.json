@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T13:23:40.258Z",
+  "generatedAt": "2026-11-09T23:05:40.929Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -34,6 +34,27 @@
     },
     {
       "position": 2,
+      "teamId": "1000026",
+      "teamName": "NEWTEAM- SMT",
+      "points": 16,
+      "played": 7,
+      "won": 5,
+      "drawn": 1,
+      "lost": 1,
+      "goalsFor": 19,
+      "goalsAgainst": 10,
+      "goalDifference": 9,
+      "form": [
+        "E",
+        "G",
+        "G",
+        "G",
+        "G"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 3,
       "teamId": "1000030",
       "teamName": "SPORTING DE MADERASA - BAR JUANJO",
       "points": 15,
@@ -54,7 +75,7 @@
       "isOwnTeam": true
     },
     {
-      "position": 3,
+      "position": 4,
       "teamId": "1000027",
       "teamName": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
       "points": 15,
@@ -68,27 +89,6 @@
       "form": [
         "G",
         "G",
-        "G",
-        "G",
-        "G"
-      ],
-      "isOwnTeam": false
-    },
-    {
-      "position": 4,
-      "teamId": "1000026",
-      "teamName": "NEWTEAM- SMT",
-      "points": 13,
-      "played": 6,
-      "won": 4,
-      "drawn": 1,
-      "lost": 1,
-      "goalsFor": 16,
-      "goalsAgainst": 10,
-      "goalDifference": 6,
-      "form": [
-        "G",
-        "E",
         "G",
         "G",
         "G"
@@ -247,18 +247,18 @@
       "teamId": "1000034",
       "teamName": "J.C.R. - LA ESQUINITA DE SIMBA",
       "points": 3,
-      "played": 6,
+      "played": 7,
       "won": 0,
       "drawn": 3,
-      "lost": 3,
+      "lost": 4,
       "goalsFor": 6,
-      "goalsAgainst": 16,
-      "goalDifference": -10,
+      "goalsAgainst": 19,
+      "goalDifference": -13,
       "form": [
-        "E",
         "P",
         "E",
         "E",
+        "P",
         "P"
       ],
       "isOwnTeam": false
@@ -304,11 +304,11 @@
     {
       "homeTeam": "NEWTEAM- SMT",
       "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 3,
+      "awayGoals": 0,
       "time": "13:30",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "13737"
     },
     {
       "homeTeam": "RIMATEC-PUB TENESSE",
@@ -771,12 +771,12 @@
         {
           "homeTeam": "NEWTEAM- SMT",
           "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 3,
+          "awayGoals": 0,
+          "played": true,
           "time": "13:30",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "13737"
         },
         {
           "homeTeam": "RIMATEC-PUB TENESSE",
