@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-08T21:14:15.412Z",
+  "generatedAt": "2026-11-09T00:57:22.735Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -15,20 +15,20 @@
       "position": 1,
       "teamId": "1000033",
       "teamName": "FYSOL-POSTAS",
-      "points": 16,
-      "played": 6,
+      "points": 17,
+      "played": 7,
       "won": 5,
-      "drawn": 1,
+      "drawn": 2,
       "lost": 0,
-      "goalsFor": 18,
-      "goalsAgainst": 3,
+      "goalsFor": 19,
+      "goalsAgainst": 4,
       "goalDifference": 15,
       "form": [
         "G",
         "G",
         "G",
         "G",
-        "G"
+        "E"
       ],
       "isOwnTeam": false
     },
@@ -118,6 +118,27 @@
     },
     {
       "position": 6,
+      "teamId": "1000049",
+      "teamName": "DELAPIO-40 BAR DE VINOS",
+      "points": 9,
+      "played": 7,
+      "won": 2,
+      "drawn": 3,
+      "lost": 2,
+      "goalsFor": 11,
+      "goalsAgainst": 9,
+      "goalDifference": 2,
+      "form": [
+        "G",
+        "P",
+        "E",
+        "P",
+        "E"
+      ],
+      "isOwnTeam": false
+    },
+    {
+      "position": 7,
       "teamId": "1000012",
       "teamName": "RIMATEC-PUB TENESSE",
       "points": 9,
@@ -138,7 +159,7 @@
       "isOwnTeam": false
     },
     {
-      "position": 7,
+      "position": 8,
       "teamId": "1004150",
       "teamName": "UNION CAFETERA",
       "points": 9,
@@ -155,27 +176,6 @@
         "G",
         "P",
         "G"
-      ],
-      "isOwnTeam": false
-    },
-    {
-      "position": 8,
-      "teamId": "1000049",
-      "teamName": "DELAPIO-40 BAR DE VINOS",
-      "points": 8,
-      "played": 6,
-      "won": 2,
-      "drawn": 2,
-      "lost": 2,
-      "goalsFor": 10,
-      "goalsAgainst": 8,
-      "goalDifference": 2,
-      "form": [
-        "E",
-        "G",
-        "P",
-        "E",
-        "P"
       ],
       "isOwnTeam": false
     },
@@ -268,11 +268,11 @@
     {
       "homeTeam": "DELAPIO-40 BAR DE VINOS",
       "awayTeam": "FYSOL-POSTAS",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 1,
+      "awayGoals": 1,
       "time": "10:30",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "13739"
     },
     {
       "homeTeam": "CHESTERFIELD UNITED",
@@ -731,12 +731,12 @@
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
           "awayTeam": "FYSOL-POSTAS",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 1,
+          "awayGoals": 1,
+          "played": true,
           "time": "10:30",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "13739"
         },
         {
           "homeTeam": "CHESTERFIELD UNITED",
