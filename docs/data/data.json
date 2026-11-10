@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T14:26:02.640Z",
+  "generatedAt": "2026-11-10T21:40:28.093Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -960,16 +960,6 @@
           "codActa": null
         },
         {
-          "homeTeam": "NEWCASTLE PUB F.C.",
-          "awayTeam": "RIMATEC-PUB TENESSE",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
           "homeTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
           "awayTeam": "DELAPIO-40 BAR DE VINOS",
           "homeGoals": null,
@@ -987,6 +977,16 @@
           "played": false,
           "time": null,
           "venue": "Campo Pendiente de asignar",
+          "codActa": null
+        },
+        {
+          "homeTeam": "NEWCASTLE PUB F.C.",
+          "awayTeam": "RIMATEC-PUB TENESSE",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "20:00",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
           "codActa": null
         }
       ]
