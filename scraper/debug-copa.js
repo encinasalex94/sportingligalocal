@@ -1042,11 +1042,11 @@ async function main() {
 (async () => {
   await login();
   const fs2 = require('fs');
-  for (const [name, p] of [['jornada1', { CodJornada: 1 }], ['jornada2', { CodJornada: 2 }]]) {
+  for (const comp of ['1025478', '1025521', '1025555', '1025572']) {
     const resp = await httpGet(`${CONFIG.baseUrl}/nfg/NPcd/NFG_CmpJornada`, { params: {
-      cod_primaria: CONFIG.codPrimaria, CodCompeticion: CONFIG.copa.codCompeticion, CodGrupo: CONFIG.copa.codGrupo,
-      CodTemporada: CONFIG.codTemporada, ...p, cod_agrupacion: 1, Sch_Tipo_Juego: 1 } });
-    fs2.writeFileSync(`scraper/debug-copa-now-${name}.html`, resp.data);
-    log(name, resp.status, resp.data.length);
+      cod_primaria: CONFIG.codPrimaria, CodCompeticion: comp,
+      CodTemporada: CONFIG.codTemporada, cod_agrupacion: 1, Sch_Tipo_Juego: 1 } });
+    fs2.writeFileSync(`scraper/debug-copa-now-${comp}.html`, resp.data);
+    log(comp, resp.status, resp.data.length);
   }
 })().catch((e) => { console.error(e); process.exit(1); });
