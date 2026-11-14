@@ -735,15 +735,31 @@ function computeStandingsFromRounds(roundsList) {
 // La Copa está organizada en "grupos" de 2 equipos cada uno (cada cruce es
 // su propio grupo). Para tener todos los partidos de una jornada hay que
 // recorrerlos todos, no solo el nuestro.
-async function fetchCopaGroupCodes() {
+// La federación publica cada ronda de la Copa como una COMPETICIÓN distinta
+// ("1ªJ COPA AFICIONADOS F-11", "2ªJ ...") y, dentro de cada una, un grupo
+// por cruce. Descubrimos las competiciones de Copa y, de cada una, sus grupos.
+async function fetchCopaCompetitions() {
+  const resp = await httpGet(`${CONFIG.baseUrl}/nfg/NPcd/NFG_CmpJornada`, {
+    params: { cod_primaria: CONFIG.codPrimaria, CodTemporada: CONFIG.codTemporada, cod_agrupacion: 1, Sch_Tipo_Juego: 1 },
+  });
+  const $ = cheerio.load(resp.data);
+  const comps = [];
+  $('select#competicion option').each((_, opt) => {
+    const val = $(opt).attr('value');
+    const text = $(opt).text().trim();
+    const m = text.match(/^(\d+)\s*[ªa]?\s*J\.?\s+COPA/i);
+    if (val && val !== '0' && m) comps.push({ code: val, round: Number(m[1]), label: `Jornada ${m[1]}` });
+  });
+  return comps.sort((x, y) => x.round - y.round);
+}
+
+async function fetchCopaGroupCodes(codCompeticion) {
   const url = `${CONFIG.baseUrl}/nfg/NPcd/NFG_CmpJornada`;
   const resp = await httpGet(url, {
     params: {
       cod_primaria: CONFIG.codPrimaria,
-      CodCompeticion: CONFIG.copa.codCompeticion,
-      CodGrupo: CONFIG.copa.codGrupo,
+      CodCompeticion: codCompeticion,
       CodTemporada: CONFIG.codTemporada,
-      CodJornada: 1,
       cod_agrupacion: 1,
       Sch_Tipo_Juego: 1,
     },
@@ -758,41 +774,46 @@ async function fetchCopaGroupCodes() {
 }
 
 async function runCopa(existingActaIds) {
-  log('Descubriendo todos los grupos (cruces) de la Copa...');
-  const groupCodes = await fetchCopaGroupCodes();
-  log(`  -> ${groupCodes.length} grupos encontrados`);
+  log('Descubriendo las rondas y cruces de la Copa...');
+  const comps = await fetchCopaCompetitions();
+  log(`  -> ${comps.length} ronda(s) de Copa: ${comps.map((c) => c.round).join(', ')}`);
   await sleep(REQUEST_DELAY_MS);
 
-  if (!groupCodes.length) {
-    log('  -> no se encontró ningún grupo de Copa, no se genera copa.json');
+  if (!comps.length) {
+    log('  -> no se encontró ninguna ronda de Copa, no se genera copa.json');
     return;
   }
 
-  // Combinamos los partidos de todos los grupos en jornadas conjuntas (cada
-  // grupo aporta su propio cruce a la jornada que le corresponda).
+  // Combinamos los partidos de todos los cruces de cada ronda.
   const roundsByNumber = new Map();
-  for (const groupCode of groupCodes) {
-    try {
-      const groupRounds = await fetchCalendario(CONFIG.copa.codCompeticion, groupCode, { knockout: true });
-      await sleep(REQUEST_DELAY_MS);
+  for (const comp of comps) {
+    const groupCodes = await fetchCopaGroupCodes(comp.code);
+    log(`  -> ronda ${comp.round}: ${groupCodes.length} cruces`);
+    await sleep(REQUEST_DELAY_MS);
 
-      for (const gr of groupRounds) {
-        if (!gr.matches.length) continue;
-        try {
-          const details = await fetchRoundDetail(CONFIG.copa.codCompeticion, groupCode, CONFIG.codTemporada, gr.round);
-          mergeRoundDetail(gr, details);
-          await sleep(REQUEST_DELAY_MS);
-        } catch (err) {
-          log(`  -> grupo ${groupCode} jornada ${gr.round}: no se pudo obtener hora/campo (${err.message})`);
-        }
+    for (const groupCode of groupCodes) {
+      try {
+        const groupRounds = await fetchCalendario(comp.code, groupCode, { knockout: true });
+        await sleep(REQUEST_DELAY_MS);
 
-        if (!roundsByNumber.has(gr.round)) {
-          roundsByNumber.set(gr.round, { round: gr.round, roundLabel: gr.roundLabel, date: gr.date, matches: [] });
+        for (const gr of groupRounds) {
+          if (!gr.matches.length) continue;
+          try {
+            const details = await fetchRoundDetail(comp.code, groupCode, CONFIG.codTemporada, gr.round);
+            mergeRoundDetail(gr, details);
+            await sleep(REQUEST_DELAY_MS);
+          } catch (err) {
+            log(`  -> ronda ${comp.round} grupo ${groupCode}: no se pudo obtener hora/campo (${err.message})`);
+          }
+
+          if (!roundsByNumber.has(comp.round)) {
+            roundsByNumber.set(comp.round, { round: comp.round, roundLabel: comp.label, date: gr.date, matches: [] });
+          }
+          roundsByNumber.get(comp.round).matches.push(...gr.matches);
         }
-        roundsByNumber.get(gr.round).matches.push(...gr.matches);
+      } catch (err) {
+        log(`  -> ronda ${comp.round} grupo ${groupCode}: no se pudo descargar (${err.message})`);
       }
-    } catch (err) {
-      log(`  -> grupo ${groupCode}: no se pudo descargar (${err.message})`);
     }
   }
 
