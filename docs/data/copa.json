@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-19T22:58:04.989Z",
+  "generatedAt": "2026-11-20T11:11:28.346Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -16,6 +16,7 @@
     {
       "round": 1,
       "roundLabel": "Jornada 1",
+      "phase": "liga",
       "date": "21-11-2026",
       "matches": [
         {
@@ -183,6 +184,7 @@
     {
       "round": 2,
       "roundLabel": "Jornada 2",
+      "phase": "liga",
       "date": "20-12-2026",
       "matches": [
         {
@@ -350,6 +352,7 @@
     {
       "round": 3,
       "roundLabel": "Jornada 3",
+      "phase": "liga",
       "date": "23-01-2027",
       "matches": [
         {
@@ -517,6 +520,7 @@
     {
       "round": 4,
       "roundLabel": "Jornada 4",
+      "phase": "liga",
       "date": "20-02-2027",
       "matches": [
         {
