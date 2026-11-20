@@ -87,7 +87,7 @@ async function getExistingActaIds() {
   return new Set(snap.map((d) => d.id));
 }
 
-async function writeMatchMetaToFirestore(ownTeamCalendar, season) {
+async function writeMatchMetaToFirestore(ownTeamCalendar, season, prefix = 'J') {
   const db = initFirebase();
   if (!db) return { written: 0 };
   let written = 0;
@@ -105,7 +105,7 @@ async function writeMatchMetaToFirestore(ownTeamCalendar, season) {
       mm = parts[1] || 0;
     }
     const kickoff = new Date(y, mo - 1, d, hh, mm);
-    const matchId = `${season}_J${m.round}`;
+    const matchId = `${season}_${prefix}${m.round}`;
     await db.collection('matchMeta').doc(matchId).set({
       round: m.round,
       date: m.date,
@@ -744,11 +744,23 @@ async function fetchCopaCompetitions() {
   });
   const $ = cheerio.load(resp.data);
   const comps = [];
+  const KNOCKOUT = [
+    { re: /OCTAVOS/i, round: 5, label: 'Octavos de final' },
+    { re: /CUARTOS/i, round: 6, label: 'Cuartos de final' },
+    { re: /SEMI/i, round: 7, label: 'Semifinales' },
+    { re: /FINAL/i, round: 8, label: 'Final' },
+  ];
   $('select#competicion option').each((_, opt) => {
     const val = $(opt).attr('value');
     const text = $(opt).text().trim();
+    if (!val || val === '0' || !/COPA/i.test(text)) return;
     const m = text.match(/^(\d+)\s*[ªa]?\s*J\.?\s+COPA/i);
-    if (val && val !== '0' && m) comps.push({ code: val, round: Number(m[1]), label: `Jornada ${m[1]}` });
+    if (m) {
+      comps.push({ code: val, round: Number(m[1]), label: `Jornada ${m[1]}`, phase: 'liga' });
+      return;
+    }
+    const ko = KNOCKOUT.find((k) => k.re.test(text));
+    if (ko) comps.push({ code: val, round: ko.round, label: ko.label, phase: 'eliminatoria' });
   });
   return comps.sort((x, y) => x.round - y.round);
 }
@@ -807,7 +819,7 @@ async function runCopa(existingActaIds) {
           }
 
           if (!roundsByNumber.has(comp.round)) {
-            roundsByNumber.set(comp.round, { round: comp.round, roundLabel: comp.label, date: gr.date, matches: [] });
+            roundsByNumber.set(comp.round, { round: comp.round, roundLabel: comp.label, phase: comp.phase, date: gr.date, matches: [] });
           }
           roundsByNumber.get(comp.round).matches.push(...gr.matches);
         }
@@ -853,6 +865,8 @@ async function runCopa(existingActaIds) {
   log(`  -> ${actasWritten} actas de Copa escritas/actualizadas en Firestore`);
 
   const ownTeamCalendar = extractOwnMatches(copaRounds);
+  const { written: copaMetaWritten } = await writeMatchMetaToFirestore(ownTeamCalendar, CONFIG.temporadaTexto, 'C');
+  log(`  -> ${copaMetaWritten} horarios de Copa escritos en Firestore (matchMeta)`);
 
   const playedRounds = copaRounds.filter((r) => r.matches.some((m) => m.played));
   const lastPlayedRound = playedRounds[playedRounds.length - 1] || null;

@@ -50,8 +50,11 @@ export function currentUser() {
   return auth.currentUser;
 }
 
+// Liga: 2026-2027_J3 · Copa: 2026-2027_C3 (si no, la jornada 1 de Copa
+// compartiría votos/asistencia con la jornada 1 de Liga).
 function matchIdFor(season, round) {
-  return `${season}_J${round}`;
+  const prefix = (typeof window !== 'undefined' && window.CURRENT_COMPETITION_TYPE === 'copa') ? 'C' : 'J';
+  return `${season}_${prefix}${round}`;
 }
 
 // ---- roster (lista pública de nombres) ---------------------------------

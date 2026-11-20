@@ -224,6 +224,9 @@ function computeStandingsAsOf(rounds, roundNumber, officialStandings) {
   // hayan jugado ningún partido) — si no, un equipo sin partidos jugados
   // hasta esa jornada simplemente no aparecería en la tabla.
   (officialStandings || []).forEach((t) => ensure(t.teamName));
+  // En la Copa no hay clasificación oficial: sembramos con todos los equipos
+  // que aparecen en el calendario.
+  rounds.forEach((r) => (r.matches || []).forEach((m) => { ensure(m.homeTeam); ensure(m.awayTeam); }));
 
   const relevantRounds = rounds.filter((r) => r.round <= roundNumber).sort((a, b) => a.round - b.round);
 
@@ -254,9 +257,28 @@ function computeStandingsAsOf(rounds, roundNumber, officialStandings) {
     form: t.form.slice(-5),
   }));
 
-  table.sort((a, b) => b.points - a.points || b.goalDifference - a.goalDifference || b.goalsFor - a.goalsFor);
+  table.sort((a, b) => b.points - a.points || b.goalDifference - a.goalDifference || b.goalsFor - a.goalsFor || a.teamName.localeCompare(b.teamName));
   table.forEach((t, i) => { t.position = i + 1; });
   return table;
+}
+
+// Copa: fase regular (todos contra "todos" en 4 jornadas, una única tabla) y
+// después eliminatorias (octavos, cuartos, semifinales y final).
+function isCopa() {
+  return window.CURRENT_COMPETITION_TYPE === 'copa';
+}
+
+function isLeaguePhaseRound(r) {
+  return r.phase ? r.phase === 'liga' : r.round <= 4;
+}
+
+// Rondas con las que se calcula la clasificación (en Copa, solo la fase regular).
+function standingsRounds(rounds) {
+  return isCopa() ? rounds.filter(isLeaguePhaseRound) : rounds;
+}
+
+function roundTitle(r) {
+  return r.roundLabel || `Jornada ${r.round}`;
 }
 
 function renderStandings(standings, options = {}) {
@@ -310,7 +332,7 @@ function renderRound(roundNumber) {
     return;
   }
 
-  label.textContent = `Jornada ${round.round}${round.date ? ` (${round.date})` : ''}`;
+  label.textContent = `${roundTitle(round)}${round.date ? ` (${round.date})` : ''}`;
 
   if (!round.matches || round.matches.length === 0) {
     grid.innerHTML = '<p class="results-empty">Todavía no se ha publicado el calendario de esta jornada.</p>';
@@ -320,13 +342,13 @@ function renderRound(roundNumber) {
 
   // La clasificación acompaña a la jornada elegida: si es la última jugada,
   // mostramos la oficial de la federación; si es otra, la calculamos.
-  const playedRounds = DATA.rounds.filter((r) => r.matches.some((m) => m.played));
+  const playedRounds = standingsRounds(DATA.rounds).filter((r) => r.matches.some((m) => m.played));
   const lastPlayedRound = playedRounds.length ? playedRounds[playedRounds.length - 1].round : null;
 
   if (roundNumber === lastPlayedRound || lastPlayedRound === null) {
     renderStandings(DATA.standings, { computed: false });
   } else {
-    const computed = computeStandingsAsOf(DATA.rounds, roundNumber, DATA.standings);
+    const computed = computeStandingsAsOf(standingsRounds(DATA.rounds), roundNumber, DATA.standings);
     renderStandings(computed, { computed: true, round: roundNumber });
   }
 }
@@ -339,7 +361,7 @@ function renderRoundSelector(data) {
     .map((r) => {
       const hasResults = r.matches && r.matches.some((m) => m.played);
       const statusTag = hasResults ? '' : ' · pendiente';
-      return `<option value="${r.round}">Jornada ${r.round} (${r.date || 's/f'})${statusTag}</option>`;
+      return `<option value="${r.round}">${roundTitle(r)} (${r.date || 's/f'})${statusTag}</option>`;
     })
     .join('');
 
@@ -403,13 +425,17 @@ function applyView(seasonLabel, type, data) {
   // (club-ui.js, el selector de jornada, etc.) dependen de esto.
   DATA = data;
   window.APP_DATA = data;
+  if (type === 'copa') {
+    // La federación no publica tabla de Copa: la calculamos con la fase regular.
+    data.standings = computeStandingsAsOf(standingsRounds(data.rounds || []), 99, []);
+  }
   renderMeta(data);
 
   // Liga y Copa tienen jornadas reales (Resultados, marcador, selector de
   // jornada funcionan igual en ambas); Pretemporada usa amistosos, que
   // rellena club-ui.js aparte. La Clasificación sí es exclusiva de Liga —
   // la Copa es eliminatoria y no tiene tabla.
-  const isLiga = type === 'liga';
+  const isLiga = type === 'liga' || type === 'copa'; // Copa: clasificación de la fase regular
   const usesRealRounds = type === 'liga' || type === 'copa';
   toggleSectionById('clasificacion', 'divider-clasificacion', isLiga);
   toggleSectionById('resultados', 'divider-resultados', true);
@@ -571,11 +597,12 @@ function renderCalendar(data) {
 
 function renderMeta(data) {
   document.getElementById('round-label').textContent = data.competition.round || 'Última jornada';
-  document.getElementById('competition-title').textContent =
-    `${data.competition.title || ''} · ${data.competition.season || ''}`.trim();
+  document.getElementById('competition-title').textContent = isCopa()
+    ? `${data.competition.title || ''} · Fase regular (4 jornadas) · ${data.competition.season || ''}`.trim()
+    : `${data.competition.title || ''} · ${data.competition.season || ''}`.trim();
 
   const ownStanding = data.standings.find((s) => s.isOwnTeam);
-  document.getElementById('position-number').textContent = ownStanding ? `${ownStanding.position}ª` : '—';
+  document.getElementById('position-number').textContent = ownStanding && ownStanding.played > 0 ? `${ownStanding.position}ª` : '—';
 
   if (data.generatedAt) {
     const d = new Date(data.generatedAt);
