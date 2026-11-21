@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T22:32:47.231Z",
+  "generatedAt": "2026-11-21T20:03:03.084Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -8,10 +8,155 @@
   "competition": {
     "title": "Copa Aficionados F-11",
     "season": "Temporada 2026-2027",
-    "round": "Jornada 1"
+    "round": "Jornada 1 (21-11-2026)"
   },
   "standings": [],
-  "lastRoundResults": [],
+  "lastRoundResults": [
+    {
+      "homeTeam": "FYSOL-POSTAS",
+      "awayTeam": "ALBIRROJA",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "15:30",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "AMG-ASESORIA JURIDICA- EXCAVACIONES TAJO",
+      "awayTeam": "ATLETICO PERU",
+      "homeGoals": 1,
+      "awayGoals": 2,
+      "time": "15:30",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+      "codActa": "14201"
+    },
+    {
+      "homeTeam": "CELTIC C.F.",
+      "awayTeam": "CHESTERFIELD UNITED",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "17:00",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "CLUB ATLETICO DE ARANJUEZ",
+      "awayTeam": "COSTA VERDE",
+      "homeGoals": 1,
+      "awayGoals": 5,
+      "time": "17:00",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+      "codActa": "14203"
+    },
+    {
+      "homeTeam": "DELAPIO-40 BAR DE VINOS",
+      "awayTeam": "DORTMUND ARANJUEZ",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "18:30",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "EUROGALLO FC",
+      "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+      "homeGoals": 1,
+      "awayGoals": 5,
+      "time": "18:30",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+      "codActa": "14205"
+    },
+    {
+      "homeTeam": "GOLDEN F.C.",
+      "awayTeam": "INTER DE SÉK-SHOTS",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "20:00",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "IRT ARANJUEZ",
+      "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "20:00",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "MAGREB UNITED",
+      "awayTeam": "NEW COTTON MEKASO MCS",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "13:30",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "NEWCASTLE PUB F.C.",
+      "awayTeam": "NEWTEAM- SMT",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "09:00",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "RAIMON",
+      "awayTeam": "REAL SPORT",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "09:00",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "REAL TAJO",
+      "awayTeam": "RIMATEC-PUB TENESSE",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "10:30",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "RUMANIA CF",
+      "awayTeam": "SASA LEGENDS",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "10:30",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "SPORTING ARANJUEZ",
+      "awayTeam": "SPORTING DE MADERASA - BAR JUANJO",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "12:00",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "TORRENTE F.C",
+      "awayTeam": "UNION CAFETERA",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "12:00",
+      "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+      "codActa": null
+    },
+    {
+      "homeTeam": "ATLAS LEGENDS",
+      "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
+      "homeGoals": null,
+      "awayGoals": null,
+      "time": "13:30",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
+      "codActa": null
+    }
+  ],
   "rounds": [
     {
       "round": 1,
@@ -32,12 +177,12 @@
         {
           "homeTeam": "AMG-ASESORIA JURIDICA- EXCAVACIONES TAJO",
           "awayTeam": "ATLETICO PERU",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 1,
+          "awayGoals": 2,
+          "played": true,
           "time": "15:30",
           "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-          "codActa": null
+          "codActa": "14201"
         },
         {
           "homeTeam": "CELTIC C.F.",
@@ -52,12 +197,12 @@
         {
           "homeTeam": "CLUB ATLETICO DE ARANJUEZ",
           "awayTeam": "COSTA VERDE",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 1,
+          "awayGoals": 5,
+          "played": true,
           "time": "17:00",
           "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-          "codActa": null
+          "codActa": "14203"
         },
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
@@ -72,12 +217,12 @@
         {
           "homeTeam": "EUROGALLO FC",
           "awayTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 1,
+          "awayGoals": 5,
+          "played": true,
           "time": "18:30",
           "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-          "codActa": null
+          "codActa": "14205"
         },
         {
           "homeTeam": "GOLDEN F.C.",
