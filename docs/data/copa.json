@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T05:17:41.507Z",
+  "generatedAt": "2026-11-22T13:29:52.714Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -105,11 +105,11 @@
     {
       "homeTeam": "RAIMON",
       "awayTeam": "REAL SPORT",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 3,
+      "awayGoals": 3,
       "time": "09:00",
       "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-      "codActa": null
+      "codActa": "14210"
     },
     {
       "homeTeam": "REAL TAJO",
@@ -123,11 +123,11 @@
     {
       "homeTeam": "RUMANIA CF",
       "awayTeam": "SASA LEGENDS",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 2,
+      "awayGoals": 2,
       "time": "10:30",
       "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-      "codActa": null
+      "codActa": "14212"
     },
     {
       "homeTeam": "SPORTING ARANJUEZ",
@@ -267,12 +267,12 @@
         {
           "homeTeam": "RAIMON",
           "awayTeam": "REAL SPORT",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 3,
+          "awayGoals": 3,
+          "played": true,
           "time": "09:00",
           "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-          "codActa": null
+          "codActa": "14210"
         },
         {
           "homeTeam": "REAL TAJO",
@@ -287,12 +287,12 @@
         {
           "homeTeam": "RUMANIA CF",
           "awayTeam": "SASA LEGENDS",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 2,
+          "awayGoals": 2,
+          "played": true,
           "time": "10:30",
           "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-          "codActa": null
+          "codActa": "14212"
         },
         {
           "homeTeam": "SPORTING ARANJUEZ",
