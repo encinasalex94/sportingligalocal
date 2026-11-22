@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-21T20:03:03.084Z",
+  "generatedAt": "2026-11-22T00:20:06.443Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -15,11 +15,11 @@
     {
       "homeTeam": "FYSOL-POSTAS",
       "awayTeam": "ALBIRROJA",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 6,
+      "awayGoals": 2,
       "time": "15:30",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "14200"
     },
     {
       "homeTeam": "AMG-ASESORIA JURIDICA- EXCAVACIONES TAJO",
@@ -33,11 +33,11 @@
     {
       "homeTeam": "CELTIC C.F.",
       "awayTeam": "CHESTERFIELD UNITED",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 3,
+      "awayGoals": 5,
       "time": "17:00",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "14202"
     },
     {
       "homeTeam": "CLUB ATLETICO DE ARANJUEZ",
@@ -51,11 +51,11 @@
     {
       "homeTeam": "DELAPIO-40 BAR DE VINOS",
       "awayTeam": "DORTMUND ARANJUEZ",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 3,
+      "awayGoals": 0,
       "time": "18:30",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "14204"
     },
     {
       "homeTeam": "EUROGALLO FC",
@@ -69,20 +69,20 @@
     {
       "homeTeam": "GOLDEN F.C.",
       "awayTeam": "INTER DE SÉK-SHOTS",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 6,
+      "awayGoals": 2,
       "time": "20:00",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "14206"
     },
     {
       "homeTeam": "IRT ARANJUEZ",
       "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 1,
+      "awayGoals": 1,
       "time": "20:00",
       "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-      "codActa": null
+      "codActa": "14207"
     },
     {
       "homeTeam": "MAGREB UNITED",
@@ -167,12 +167,12 @@
         {
           "homeTeam": "FYSOL-POSTAS",
           "awayTeam": "ALBIRROJA",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 6,
+          "awayGoals": 2,
+          "played": true,
           "time": "15:30",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "14200"
         },
         {
           "homeTeam": "AMG-ASESORIA JURIDICA- EXCAVACIONES TAJO",
@@ -187,12 +187,12 @@
         {
           "homeTeam": "CELTIC C.F.",
           "awayTeam": "CHESTERFIELD UNITED",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 3,
+          "awayGoals": 5,
+          "played": true,
           "time": "17:00",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "14202"
         },
         {
           "homeTeam": "CLUB ATLETICO DE ARANJUEZ",
@@ -207,12 +207,12 @@
         {
           "homeTeam": "DELAPIO-40 BAR DE VINOS",
           "awayTeam": "DORTMUND ARANJUEZ",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 3,
+          "awayGoals": 0,
+          "played": true,
           "time": "18:30",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "14204"
         },
         {
           "homeTeam": "EUROGALLO FC",
@@ -227,22 +227,22 @@
         {
           "homeTeam": "GOLDEN F.C.",
           "awayTeam": "INTER DE SÉK-SHOTS",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 6,
+          "awayGoals": 2,
+          "played": true,
           "time": "20:00",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "14206"
         },
         {
           "homeTeam": "IRT ARANJUEZ",
           "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 1,
+          "awayGoals": 1,
+          "played": true,
           "time": "20:00",
           "venue": "ENRIQUE MORENO - F - Hierba Artificial",
-          "codActa": null
+          "codActa": "14207"
         },
         {
           "homeTeam": "MAGREB UNITED",
