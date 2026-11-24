@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T16:33:46.920Z",
+  "generatedAt": "2026-11-24T17:05:00.008Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -150,11 +150,11 @@
     {
       "homeTeam": "ATLAS LEGENDS",
       "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
-      "homeGoals": null,
-      "awayGoals": null,
+      "homeGoals": 0,
+      "awayGoals": 3,
       "time": "13:51",
       "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-      "codActa": null
+      "codActa": "14215"
     }
   ],
   "rounds": [
@@ -317,12 +317,12 @@
         {
           "homeTeam": "ATLAS LEGENDS",
           "awayTeam": "POSTAS TAPERIA / MISTER PIXEL/LIBRERIA ALONSO",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
+          "homeGoals": 0,
+          "awayGoals": 3,
+          "played": true,
           "time": "13:51",
           "venue": "ENRIQUE MORENO - B - Hierba Artificial",
-          "codActa": null
+          "codActa": "14215"
         }
       ]
     },
