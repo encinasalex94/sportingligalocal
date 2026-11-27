@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T16:29:59.557Z",
+  "generatedAt": "2026-11-27T01:32:07.953Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -950,8 +950,8 @@
           "codActa": null
         },
         {
-          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
-          "awayTeam": "NEWTEAM- SMT",
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "CHESTERFIELD UNITED",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
@@ -960,13 +960,13 @@
           "codActa": null
         },
         {
-          "homeTeam": "RUMANIA CF",
-          "awayTeam": "CHESTERFIELD UNITED",
+          "homeTeam": "FURTIVO ARANJUEZ-BAR LAS TORKAS",
+          "awayTeam": "NEWTEAM- SMT",
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
+          "time": "15:30",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
           "codActa": null
         },
         {
