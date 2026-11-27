@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T01:32:07.953Z",
+  "generatedAt": "2026-11-27T16:15:10.322Z",
   "team": {
     "id": "1000030",
     "name": "SPORTING DE MADERASA - BAR JUANJO"
@@ -935,28 +935,8 @@
           "homeGoals": null,
           "awayGoals": null,
           "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "FYSOL-POSTAS",
-          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
-          "codActa": null
-        },
-        {
-          "homeTeam": "RUMANIA CF",
-          "awayTeam": "CHESTERFIELD UNITED",
-          "homeGoals": null,
-          "awayGoals": null,
-          "played": false,
-          "time": null,
-          "venue": "Campo Pendiente de asignar",
+          "time": "15:30",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
           "codActa": null
         },
         {
@@ -967,6 +947,26 @@
           "played": false,
           "time": "15:30",
           "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": null
+        },
+        {
+          "homeTeam": "FYSOL-POSTAS",
+          "awayTeam": "J.C.R. - LA ESQUINITA DE SIMBA",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "17:00",
+          "venue": "ENRIQUE MORENO - F - Hierba Artificial",
+          "codActa": null
+        },
+        {
+          "homeTeam": "RUMANIA CF",
+          "awayTeam": "CHESTERFIELD UNITED",
+          "homeGoals": null,
+          "awayGoals": null,
+          "played": false,
+          "time": "17:00",
+          "venue": "ENRIQUE MORENO - B - Hierba Artificial",
           "codActa": null
         },
         {
@@ -1936,8 +1936,8 @@
       "round": 10,
       "roundLabel": null,
       "date": "12-12-2026",
-      "time": null,
-      "venue": "Campo Pendiente de asignar",
+      "time": "15:30",
+      "venue": "ENRIQUE MORENO - B - Hierba Artificial",
       "isHome": false,
       "opponent": "UNION CAFETERA",
       "goalsFor": null,
